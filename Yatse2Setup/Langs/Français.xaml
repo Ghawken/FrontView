@@ -1,0 +1,36 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Quitter</S:String>
+    <S:String x:Key="Localized_2">Rép installation : </S:String>
+    <S:String x:Key="Localized_3">Parcourir</S:String>
+    <S:String x:Key="Localized_4">Installer x86</S:String>
+    <S:String x:Key="Localized_5">Installer x64</S:String>
+    <S:String x:Key="Localized_6">Installation en cours du build :</S:String>
+    <S:String x:Key="Localized_7">Merci d'attendre la fin du processus</S:String>
+    <S:String x:Key="Localized_8">Erreur lors de l'installation. Le serveur est peut être hors service. Merci d'essayer plus tard.</S:String>
+    <S:String x:Key="Localized_9">Installation terminée. Merci d'utiliser Yatse</S:String>
+    <S:String x:Key="Localized_10">Aucune version disponible pour cette plateforme.</S:String>
+    <S:String x:Key="Localized_11">Mise à jour</S:String>
+    <S:String x:Key="Localized_12">Votre version est déjà à jour.</S:String>
+    <S:String x:Key="Localized_13">Information build :</S:String>
+    <S:String x:Key="Localized_14">Erreur build non présent sur le serveur. Merci d'essayer plus tard.</S:String>
+    <S:String x:Key="Localized_15">Démarrer Yatse</S:String>
+    <S:String x:Key="Localized_16">Créer un raccourci sur le bureau</S:String>
+</ResourceDictionary>

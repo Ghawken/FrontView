@@ -1,0 +1,36 @@
+﻿<!--
+//    YATSE - A touch screen remote controller for Media Centers (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://code.google.com/p/yatse/)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Zatvori</S:String>
+    <S:String x:Key="Localized_2">Instaliraj na: </S:String>
+    <S:String x:Key="Localized_3">Pretraži</S:String>
+    <S:String x:Key="Localized_4">Instaliraj x86</S:String>
+    <S:String x:Key="Localized_5">Instaliraj x64</S:String>
+    <S:String x:Key="Localized_6">Instalira se build:</S:String>
+    <S:String x:Key="Localized_7">Pričekaj dok proces ne završi</S:String>
+    <S:String x:Key="Localized_8">Greška prilikom instalacije. Server ne radi. Pokušaj ponovno kasnije.</S:String>
+    <S:String x:Key="Localized_9">Instalacija završena. Hvala što koristite Yatse</S:String>
+    <S:String x:Key="Localized_10">Nema verzije za ovu platformu.</S:String>
+    <S:String x:Key="Localized_11">Nadogradi</S:String>
+    <S:String x:Key="Localized_12">Već imate najnoviju verziju</S:String>
+    <S:String x:Key="Localized_13">Build info:</S:String>
+    <S:String x:Key="Localized_14">Greška, build nije dostupan sa servera. Pokušaj ponovno kasnije.</S:String>
+    <S:String x:Key="Localized_15">Pokreni Yatse</S:String>
+    <S:String x:Key="Localized_16">Kreiraj prečicu na radnoj površini</S:String>
+</ResourceDictionary>

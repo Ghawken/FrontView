@@ -1,0 +1,38 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//    
+//    Traducción realizada por David MM en Septiembre 2012
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Salir</S:String>
+    <S:String x:Key="Localized_2">Dir. instalación :</S:String>
+    <S:String x:Key="Localized_3">Examinar</S:String>
+    <S:String x:Key="Localized_4">Instalar x86</S:String>
+    <S:String x:Key="Localized_5">Instalar x64</S:String>
+    <S:String x:Key="Localized_6">Instalando versión :</S:String>
+    <S:String x:Key="Localized_7">Por favor espere a que el proceso termine</S:String>
+    <S:String x:Key="Localized_8">Error durante la instalación. El servidor puede estar caido. Inténtelo de nuevo más tarde.</S:String>
+    <S:String x:Key="Localized_9">Instalación terminada. Gracias por utilizar Yatse.</S:String>
+    <S:String x:Key="Localized_10">No hay versión disponible para esta plataforma.</S:String>
+    <S:String x:Key="Localized_11">Actualizar</S:String>
+    <S:String x:Key="Localized_12">Su versión ya está actualizada</S:String>
+    <S:String x:Key="Localized_13">Información de versión :</S:String>
+    <S:String x:Key="Localized_14">Error, versión no disponible en el servidor. Por favor, inténtelo más tarde.</S:String>
+    <S:String x:Key="Localized_15">Ejecutar Yatse</S:String>
+    <S:String x:Key="Localized_16">Crear acceso directo en el escritorio</S:String>
+</ResourceDictionary>

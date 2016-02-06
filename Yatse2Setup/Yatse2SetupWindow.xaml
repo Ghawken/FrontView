@@ -1,0 +1,70 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" mc:Ignorable="d" x:Class="Yatse2Setup.Yatse2SetupWindow"
+        Title="Yatse2 Setup" Height="511" Width="679" Background="#FF393939" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Grid>
+    	<Grid.Background>
+    		<ImageBrush ImageSource="Background.png"/>
+    	</Grid.Background>
+    	<Image Height="186" Margin="87,38,60,0" VerticalAlignment="Top" Source="Logo.png"/>
+    	<Button x:Name="btn_Cancel" Content="{DynamicResource Localized_1}" HorizontalAlignment="Right" Height="28" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="105" Click="btn_Cancel_Click"/>
+    	<Border x:Name="brd_Install" BorderThickness="0" Margin="8,228,8,49" Background="#A5000000" CornerRadius="20">
+    		<Grid Margin="0,0,0,-1">
+    			<Rectangle Fill="#D8000000" Margin="80,75,83,68" Stroke="Black" RadiusX="15" RadiusY="15"/>
+    			<TextBlock Height="21" Margin="90,0,0,110" TextWrapping="Wrap" Text="{DynamicResource Localized_2}" VerticalAlignment="Bottom" Foreground="White" HorizontalAlignment="Left" Width="107" TextAlignment="Right"/>
+    			<TextBox x:Name="txb_TargetDirectory" Margin="201,101,207,111" TextWrapping="Wrap" Text="C:\Yatse2" IsEnabled="False" d:LayoutOverrides="VerticalAlignment"/>
+    			<Button x:Name="btn_Browse" Content="{DynamicResource Localized_3}" HorizontalAlignment="Right" Margin="0,101,111,111" Width="81" d:LayoutOverrides="VerticalAlignment" Click="btn_Browse_Click"/>
+    			<Button x:Name="btn_Installx86" Content="{DynamicResource Localized_4}" Height="28" Margin="201,0,0,25" VerticalAlignment="Bottom" RenderTransformOrigin="0.533,0.607" Click="btn_Installx86_Click" HorizontalAlignment="Left" Width="105"/>
+    			<Button x:Name="btn_Installx64" Content="{DynamicResource Localized_5}" Height="28" Margin="0,0,207,25" VerticalAlignment="Bottom" RenderTransformOrigin="0.533,0.607" Click="btn_Installx64_Click" HorizontalAlignment="Right" Width="105" IsEnabled="False"/>
+    			<CheckBox x:Name="chk_Install_CreateShortcut" Content="{DynamicResource Localized_16}" Height="15" Margin="201,0,207,81" VerticalAlignment="Bottom" Foreground="White" IsChecked="True"/>
+    		</Grid>
+    	</Border>
+    	<Border x:Name="brd_Update" BorderThickness="0" Margin="8,228,8,49" Background="#A5000000" CornerRadius="20" Visibility="Hidden">
+    		<Grid Margin="0,0,0,-1">
+    			<Rectangle Fill="#D8000000" Margin="80,75,83,84" Stroke="Black" RadiusX="15" RadiusY="15"/>
+    			<TextBlock Height="21" Margin="90,0,0,110" TextWrapping="Wrap" Text="{DynamicResource Localized_2}" VerticalAlignment="Bottom" Foreground="White" HorizontalAlignment="Left" Width="107" TextAlignment="Right"/>
+    			<TextBox x:Name="txb_SourceDirectory" Margin="201,101,207,111" TextWrapping="Wrap" Text="C:\Yatse2" IsEnabled="False" d:LayoutOverrides="VerticalAlignment"/>
+    			<Button x:Name="btn_BrowseUpdate" Content="{DynamicResource Localized_3}" HorizontalAlignment="Right" Margin="0,101,111,111" Width="81"  d:LayoutOverrides="VerticalAlignment" Click="btn_Browse_Click"/>
+    			<Button x:Name="btn_Update" Content="{DynamicResource Localized_11}" Height="28" Margin="279,0,279,25" VerticalAlignment="Bottom" Click="btn_Update_Click"/>
+    		</Grid>
+    	</Border>
+    	<Border x:Name="brd_InstallInfos" BorderThickness="0" Margin="8,228,8,49" Background="#A5000000" CornerRadius="20" Visibility="Hidden">
+    		<Grid Margin="0,0,0,-1">
+    			<Rectangle Fill="#D8000000" Margin="80,21,83,90" Stroke="Black" RadiusX="15" RadiusY="15"/>
+    			<TextBlock x:Name="txb_InstallInfos" Height="50" Margin="99,0,99,148" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="White" TextAlignment="Center"/>
+    			<Button x:Name="btn_Launch" Content="{DynamicResource Localized_15}" Height="28" Margin="220,0,220,26" VerticalAlignment="Bottom" Click="btn_Launch_Click"/>
+    			<ProgressBar x:Name="prg_progress" Margin="99,104,99,103" IsIndeterminate="True" Maximum="10"/>
+    		</Grid>
+    	</Border>
+    	<Border x:Name="brd_BuildlInfos" BorderThickness="0" Margin="8,228,8,49" Background="#A5000000" CornerRadius="20" Visibility="Hidden">
+    		<Grid Margin="0,0,0,-1">
+    			<Rectangle Fill="#D8000000" Margin="8,34,8,38" Stroke="Black" RadiusX="15" RadiusY="15"/>
+    			<TextBlock Height="22" Margin="21,8,18,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontSize="14.667" TextAlignment="Center" Text="{DynamicResource Localized_13}"/>
+    			<Button x:Name="btn_GoUpdate" Content="{DynamicResource Localized_11}" Height="28" Margin="279,0,279,6" VerticalAlignment="Bottom" RenderTransformOrigin="0.533,0.607" Click="btn_GoUpdate_Click"/>
+    			<ScrollViewer Margin="15,41,18,50" ScrollViewer.VerticalScrollBarVisibility="Auto">
+    				<TextBlock x:Name="txb_BuildInfos" TextWrapping="Wrap" Foreground="White" TextAlignment="Justify"/>
+    			</ScrollViewer>
+    		</Grid>
+    	</Border>
+    	<ComboBox x:Name="cb_Language" HorizontalAlignment="Left" Height="25" Margin="8,0,0,8" VerticalAlignment="Bottom" Width="174" SelectionChanged="cb_Language_SelectionChanged"/>
+    	<Image HorizontalAlignment="Right" Width="100" Source="Paypal.gif" VerticalAlignment="Bottom" Stretch="UniformToFill" StretchDirection="DownOnly" Height="30" MouseDown="Image_MouseDown" Margin="0,0,293,8" d:LayoutOverrides="VerticalAlignment"/>
+    </Grid>
+</Window>

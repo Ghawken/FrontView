@@ -1,0 +1,77 @@
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse2-1-2.05 - Moving to Socket Support\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.CodeAnalysisLog.xml
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.lastcodeanalysissucceeded
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\Yatse Move 4.5\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb

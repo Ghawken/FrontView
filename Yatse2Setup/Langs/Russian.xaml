@@ -1,0 +1,36 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Выход</S:String>
+    <S:String x:Key="Localized_2">Путь для установки : </S:String>
+    <S:String x:Key="Localized_3">Просмотр</S:String>
+    <S:String x:Key="Localized_4">Установка x86</S:String>
+    <S:String x:Key="Localized_5">Установка x64</S:String>
+    <S:String x:Key="Localized_6">Устанавливаемая версия :</S:String>
+    <S:String x:Key="Localized_7">Пожалуйста, дождитесь окончания процесса</S:String>
+    <S:String x:Key="Localized_8">Возникла ошибка при инсталляции. Возможно сервер недоступен. Попробуйте повторить установку позднее.</S:String>
+    <S:String x:Key="Localized_9">Установка завершена. Спасибо за использование Yatse</S:String>
+    <S:String x:Key="Localized_10">Нет доступной версии для данной платформы .</S:String>
+    <S:String x:Key="Localized_11">Обновление</S:String>
+    <S:String x:Key="Localized_12">У вас последняя версия</S:String>
+    <S:String x:Key="Localized_13">Информация о версии :</S:String>
+    <S:String x:Key="Localized_14">Ошибка версии недоступна на сервере. Попытайтесь ещё раз позднее.</S:String>
+    <S:String x:Key="Localized_15">Запустить Yatse</S:String>
+    <S:String x:Key="Localized_16">Создать ярлык на Рабочем Столе</S:String>
+</ResourceDictionary>

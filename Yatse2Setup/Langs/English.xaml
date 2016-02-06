@@ -1,0 +1,36 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Quit</S:String>
+    <S:String x:Key="Localized_2">Install path : </S:String>
+    <S:String x:Key="Localized_3">Browse</S:String>
+    <S:String x:Key="Localized_4">Install x86</S:String>
+    <S:String x:Key="Localized_5">Install x64</S:String>
+    <S:String x:Key="Localized_6">Currently installing build :</S:String>
+    <S:String x:Key="Localized_7">Please wait for the process to finish</S:String>
+    <S:String x:Key="Localized_8">Error during installation. Server may be down. Please try again later.</S:String>
+    <S:String x:Key="Localized_9">Installation finished. Thanks for using Yatse</S:String>
+    <S:String x:Key="Localized_10">No version available for this plateform.</S:String>
+    <S:String x:Key="Localized_11">Update</S:String>
+    <S:String x:Key="Localized_12">Your version is already up to date</S:String>
+    <S:String x:Key="Localized_13">Build information :</S:String>
+    <S:String x:Key="Localized_14">Error build not available on server. Please try again later.</S:String>
+    <S:String x:Key="Localized_15">Launch Yatse</S:String>
+    <S:String x:Key="Localized_16">Create Desktop Shortcut</S:String>
+</ResourceDictionary>

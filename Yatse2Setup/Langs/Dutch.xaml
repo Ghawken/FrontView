@@ -1,0 +1,36 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Afsluiten</S:String>
+    <S:String x:Key="Localized_2">Installatie pad : </S:String>
+    <S:String x:Key="Localized_3">Blader</S:String>
+    <S:String x:Key="Localized_4">Installeer x86</S:String>
+    <S:String x:Key="Localized_5">Installeer x64</S:String>
+    <S:String x:Key="Localized_6">Huidige installatie build :</S:String>
+    <S:String x:Key="Localized_7">Even wachten tot het proces is beëindigd</S:String>
+    <S:String x:Key="Localized_8">Fout tijdens installatie. Wellicht is de server onbereikbaar. Probeer het later nog eens.</S:String>
+    <S:String x:Key="Localized_9">Installatie klaar. Bedankt dat u voor Yatse heeft gekozen</S:String>
+    <S:String x:Key="Localized_10">Geen versie voor dit platform beschikbaar.</S:String>
+    <S:String x:Key="Localized_11">Update</S:String>
+    <S:String x:Key="Localized_12">Uw versie is reeds bijgewerkt</S:String>
+    <S:String x:Key="Localized_13">Build informatie :</S:String>
+    <S:String x:Key="Localized_14">Fout, build niet beschikbaar op de server. Probeer het later nog eens.</S:String>
+    <S:String x:Key="Localized_15">Start Yatse</S:String>
+    <S:String x:Key="Localized_16">Maak snelkoppeling op Bureaublad</S:String>
+</ResourceDictionary>
