@@ -1,0 +1,8 @@
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Remote.XBMC.Eden.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Remote.XBMC.Eden.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Jayrock.Json.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\bin\Debug Any CPU\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\obj\Debug Any CPU\Remote.XBMC.Eden.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Eden\obj\Debug Any CPU\Remote.XBMC.Eden.pdb

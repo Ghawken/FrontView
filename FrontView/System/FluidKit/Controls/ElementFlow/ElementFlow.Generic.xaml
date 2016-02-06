@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:Controls="clr-namespace:FluidKit.Controls">
+	<Style TargetType="Controls:ElementFlow">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Controls:ElementFlow">
+					<Grid Background="{TemplateBinding Background}">
+						<Canvas x:Name="PART_HiddenPanel"
+								IsItemsHost="True"
+								Visibility="Hidden" />
+						<Viewport3D x:Name="PART_Viewport">
+							<!-- Camera -->
+							<Viewport3D.Camera>
+								<PerspectiveCamera FieldOfView="60"
+												   Position="0,1,4"
+												   LookDirection="0,-1,-4"
+												   UpDirection="0,1,0" />
+							</Viewport3D.Camera>
+
+							<ContainerUIElement3D x:Name="PART_ModelContainer" />
+
+							<ModelVisual3D>
+								<ModelVisual3D.Content>
+									<AmbientLight Color="White" />
+								</ModelVisual3D.Content>
+							</ModelVisual3D>
+						</Viewport3D>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

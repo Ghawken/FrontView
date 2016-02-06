@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:Controls="clr-namespace:FluidKit.Controls" xmlns:Experimental="clr-namespace:FluidKit.Experimental">
+
+	<ControlTemplate x:Key="DefaultResultsListBoxItemTemplate"
+					 TargetType="ListBoxItem">
+		<Border x:Name="Border"
+				CornerRadius="3"
+				Background="Transparent">
+			<ContentPresenter Margin="8,2,2,2" />
+		</Border>
+
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsSelected"
+					 Value="True">
+				<Setter Property="Foreground"
+						Value="White" />
+				<Setter Property="Background"
+						TargetName="Border">
+					<Setter.Value>
+						<LinearGradientBrush StartPoint="0,0"
+											 EndPoint="0,1">
+							<GradientStop Color="LightBlue"
+										  Offset="0" />
+							<GradientStop Color="DarkBlue"
+										  Offset="1" />
+						</LinearGradientBrush>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<Style x:Key="DefaultResultsListBoxStyle"
+		   TargetType="ListBox">
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Template"
+							Value="{StaticResource DefaultResultsListBoxItemTemplate}" />
+				</Style>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<ControlTemplate x:Key="Template_AutoCompleteBox"
+					 TargetType="Experimental:AutoCompleteBox">
+		<Grid>
+			<TextBox x:Name="PART_SearchTextBox"
+					 IsTabStop="True"
+					 Style="{TemplateBinding SearchTextBoxStyle}"
+					 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Popup x:Name="PART_Popup"
+				   IsOpen="{Binding IsResultsOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				   StaysOpen="False"
+				   Placement="Bottom"
+				   PlacementTarget="{Binding ElementName=PART_SearchTextBox}"
+				   AllowsTransparency="True"
+				   MinWidth="{Binding ActualWidth, ElementName=PART_SearchTextBox}"
+				   Focusable="False">
+				<ListBox x:Name="PART_ResultsListBox"
+						 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+						 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+						 HorizontalContentAlignment="Stretch"
+						 ItemsSource="{TemplateBinding ResultsItemsSource}"
+						 Style="{TemplateBinding ResultsListBoxStyle}"
+						 Margin="15"
+						 SelectionMode="Single"
+						 SelectedItem="{Binding SelectedItem, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+
+					<ListBox.Effect>
+						<DropShadowEffect BlurRadius="15"
+										  Opacity="0.75"
+										  Direction="-45"
+										  ShadowDepth="5" />
+					</ListBox.Effect>
+				</ListBox>
+			</Popup>
+			<Border x:Name="NoResults"
+					BorderBrush="Transparent"
+					BorderThickness="2"
+					IsHitTestVisible="False" />
+		</Grid>
+
+		<ControlTemplate.Triggers>
+			<Trigger Property="HasResults"
+					 Value="False">
+				<Setter Property="BorderBrush"
+						Value="Red"
+						TargetName="NoResults" />
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<Style TargetType="{x:Type Experimental:AutoCompleteBox}">
+		<Setter Property="Template"
+				Value="{StaticResource Template_AutoCompleteBox}" />
+		<Setter Property="Height"
+				Value="30" />
+		<Setter Property="ResultsListBoxStyle"
+				Value="{StaticResource DefaultResultsListBoxStyle}" />
+	</Style>
+</ResourceDictionary>

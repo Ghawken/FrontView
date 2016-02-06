@@ -1,0 +1,163 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!--Version:124-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">Films</S:String>
+    <S:String x:Key="Localized_2">Séries TV</S:String>
+    <S:String x:Key="Localized_3">Episodes TV</S:String>
+    <S:String x:Key="Localized_4">Genres</S:String>
+    <S:String x:Key="Localized_5">Albums</S:String>
+    <S:String x:Key="Localized_6">Chansons</S:String>
+    <S:String x:Key="Localized_7">Artistes</S:String>
+    <S:String x:Key="Localized_8">Preparation synchro fichiers</S:String>
+    <S:String x:Key="Localized_9">Démarrer Diaporama</S:String>
+    <S:String x:Key="Localized_10">En cours</S:String>
+    <S:String x:Key="Localized_11">Etes vous sûr ?</S:String>
+    <S:String x:Key="Localized_12">Confirmation</S:String>
+    <S:String x:Key="Localized_13">Sauver</S:String>
+    <S:String x:Key="Localized_14">Ajouter</S:String>
+    <S:String x:Key="Localized_15">Editer</S:String>
+    <S:String x:Key="Localized_16">Mauvais paramètres. Vérifier que la machine est allumée et correctement configurée.</S:String>
+    <S:String x:Key="Localized_17">Quitter</S:String>
+    <S:String x:Key="Localized_18">Mise à jour :</S:String>
+    <S:String x:Key="Localized_19">Attendre : Mise à jour de la médiathèque</S:String>
+    <S:String x:Key="Localized_20">Récupérer depuis IP</S:String>
+    <S:String x:Key="Localized_21">Password:</S:String>
+    <S:String x:Key="Localized_22">Login:</S:String>
+    <S:String x:Key="Localized_23">Adresse Mac:</S:String>
+    <S:String x:Key="Localized_24">Port:</S:String>
+    <S:String x:Key="Localized_25">IP:</S:String>
+    <S:String x:Key="Localized_26">Api:</S:String>
+    <S:String x:Key="Localized_27">Nom :</S:String>
+    <S:String x:Key="Localized_28">Machine</S:String>
+    <S:String x:Key="Localized_29">Verifier</S:String>
+    <S:String x:Key="Localized_30">Annuler</S:String>
+    <S:String x:Key="Localized_31">Accepter</S:String>
+    <S:String x:Key="Localized_32">Min 3 lettres</S:String>
+    <S:String x:Key="Localized_33">Choisir emplacement</S:String>
+    <S:String x:Key="Localized_34">Ville la plus proche</S:String>
+    <S:String x:Key="Localized_35">Ajouter Machine</S:String>
+    <S:String x:Key="Localized_36">Editer</S:String>
+    <S:String x:Key="Localized_37">Effacer</S:String>
+    <S:String x:Key="Localized_38">Par défaut</S:String>
+    <S:String x:Key="Localized_39">Données méteo fournies par </S:String>
+    <S:String x:Key="Localized_40">Prévisions météo</S:String>
+    <S:String x:Key="Localized_41">Matinée</S:String>
+    <S:String x:Key="Localized_42">Soirée</S:String>
+    <S:String x:Key="Localized_43">Paramètres</S:String>
+    <S:String x:Key="Localized_44">Lancer sur l'écran secondaire</S:String>
+    <S:String x:Key="Localized_45">Toujours au dessus</S:String>
+    <S:String x:Key="Localized_46">Resolution :</S:String>
+    <S:String x:Key="Localized_47">Forcer la resolution</S:String>
+    <S:String x:Key="Localized_48">Ne pas garder le focus</S:String>
+    <S:String x:Key="Localized_49">Langue :</S:String>
+    <S:String x:Key="Localized_50">Thème :</S:String>
+    <S:String x:Key="Localized_51">Cacher curseur souris</S:String>
+    <S:String x:Key="Localized_52">Afficher icône déjà vu</S:String>
+    <S:String x:Key="Localized_53">Afficher les genres vides</S:String>
+    <S:String x:Key="Localized_54">Utiliser bannières pour séries TV</S:String>
+    <S:String x:Key="Localized_55">Afficher ScrollBars</S:String>
+    <S:String x:Key="Localized_56">Désactiver les animations</S:String>
+    <S:String x:Key="Localized_57">Utiliser diaporama</S:String>
+    <S:String x:Key="Localized_58">Utiliser fondu</S:String>
+    <S:String x:Key="Localized_59">Utiliser la vue en cours lors de l'écoute de musique</S:String>
+    <S:String x:Key="Localized_60">Utiliser la vue en cours lors du visionage de films / séries</S:String>
+    <S:String x:Key="Localized_61">Choisir Répertoire</S:String>
+    <S:String x:Key="Localized_62">Choisir Emplacement</S:String>
+    <S:String x:Key="Localized_63">Unité de température :</S:String>
+    <S:String x:Key="Localized_64">Répertoires Images :</S:String>
+    <S:String x:Key="Localized_65">Emplacement météo :</S:String>
+    <S:String x:Key="Localized_66">Mode Debug</S:String>
+    <S:String x:Key="Localized_67">Cacher les éléments vus</S:String>
+    <S:String x:Key="Localized_68">Maj. médiathèque lors de la connexion</S:String>
+    <S:String x:Key="Localized_69">Activer CD animé</S:String>
+    <S:String x:Key="Localized_70">N'utiliser le fondu que lors du visionage de films / séries</S:String>
+    <S:String x:Key="Localized_71">- Rebooter</S:String>
+    <S:String x:Key="Localized_72">- Eteindre</S:String>
+    <S:String x:Key="Localized_73">Veille</S:String>
+    <S:String x:Key="Localized_74">Paramètres</S:String>
+    <S:String x:Key="Localized_75">Machines</S:String>
+    <S:String x:Key="Localized_76">Maj. médiathèque</S:String>
+    <S:String x:Key="Localized_77">Saison</S:String>
+    <S:String x:Key="Localized_78">Episode</S:String>
+    <S:String x:Key="Localized_79">Diffusé :</S:String>
+    <S:String x:Key="Localized_80">Piste :</S:String>
+    <S:String x:Key="Localized_81">Réalisé par :</S:String>
+    <S:String x:Key="Localized_82">votes</S:String>
+    <S:String x:Key="Localized_83">Sauver paramètres</S:String>
+    <S:String x:Key="Localized_84">Maj fichier de langues</S:String>
+    <S:String x:Key="Localized_85">Page de démarrage :</S:String>
+    <S:String x:Key="Localized_86">Video</S:String>
+    <S:String x:Key="Localized_87">Audio</S:String>
+    <S:String x:Key="Localized_88">Autres</S:String>
+    <S:String x:Key="Localized_89">Connecter</S:String>
+    <S:String x:Key="Localized_90">- Allumer</S:String>
+    <S:String x:Key="Localized_91">Connecté</S:String>
+    <S:String x:Key="Localized_92">Vide. Actualiser votre médiathèque !</S:String>
+    <S:String x:Key="Localized_93">Pas de favoris. Ajouter des favoris !</S:String>
+    <S:String x:Key="Localized_94">Afficher heure de fin</S:String>
+    <S:String x:Key="Localized_95">album(s)</S:String>
+    <S:String x:Key="Localized_96">Connecté :</S:String>
+    <S:String x:Key="Localized_97">Déconnecté :</S:String>
+    <S:String x:Key="Localized_98">Paramètres sauvés</S:String>
+    <S:String x:Key="Localized_99">Tranductions mises à jour</S:String>
+    <S:String x:Key="Localized_100">Erreur téléchargement fichier de langue</S:String>
+    <S:String x:Key="Localized_101">Téléchargement Thumbs/Fanart</S:String>
+    <S:String x:Key="Localized_102">Fin téléchargement Thumbs/Fanarts</S:String>
+    <S:String x:Key="Localized_103">AUJOURD'HUI</S:String>
+    <S:String x:Key="Localized_104">DEMAIN</S:String>
+    <S:String x:Key="Localized_105">La machine connectée est différente de la machine configurée. Merci de mettre à jour vos paramètres pour confirmer le changement.</S:String>
+    <S:String x:Key="Localized_106">Cacher les artistes des compilations</S:String>
+    <S:String x:Key="Localized_107">Voir artists depuis les genres</S:String>
+    <S:String x:Key="Localized_108">Rotation des fanart musicaux</S:String>
+    <S:String x:Key="Localized_109">Nouvelle version disponible. Mettre à jour ?</S:String>
+    <S:String x:Key="Localized_110">Erreur téléchargement updater. Merci d'essayer plus tard.</S:String>
+    <S:String x:Key="Localized_111">Vérifier mises à jour</S:String>
+    <S:String x:Key="Localized_112">Vérifier au démarrage</S:String>
+    <S:String x:Key="Localized_113">Votre version est à jour.</S:String>
+    <S:String x:Key="Localized_114">Erreur lors de la vérification. Merci d'essayer plus tard.</S:String>
+    <S:String x:Key="Localized_115">Tranductions mises à jour.</S:String>
+    <S:String x:Key="Localized_116">Machine non compatible avec cette API. Merci d'en utiliser une autre.</S:String>
+    <S:String x:Key="Localized_117">Attendre ...</S:String>
+    <S:String x:Key="Localized_118">Maj Médiathèque</S:String>
+    <S:String x:Key="Localized_119">episode(s)</S:String>
+    <S:String x:Key="Localized_120">1ère diffusion :</S:String>
+    <S:String x:Key="Localized_121">Erreur lors de la mise à jour de la base de données. Merci d'uploader le fichier de log sur le site de Yatse.</S:String>
+    <S:String x:Key="Localized_122">Episodes spéciaux</S:String>
+    <S:String x:Key="Localized_123">Toutes saisons</S:String>
+    <S:String x:Key="Localized_124">Utilisation à la souris</S:String>
+    <S:String x:Key="Localized_125">OK</S:String>
+    <S:String x:Key="Localized_126">Oui</S:String>
+    <S:String x:Key="Localized_127">Non</S:String>
+    <S:String x:Key="Localized_128">Affichage</S:String>
+    <S:String x:Key="Localized_129">Médiathèque</S:String>
+    <S:String x:Key="Localized_130">Personnaliser</S:String>
+    <S:String x:Key="Localized_131">Météo</S:String>
+    <S:String x:Key="Localized_132">Autre</S:String>
+    <S:String x:Key="Localized_133">Mises à jours</S:String>
+    <S:String x:Key="Localized_134">Optimiser les images cachées à la résolution de Yatse</S:String>
+    <S:String x:Key="Localized_135">Activer le mode Trace (Ralenti Yatse)</S:String>
+    <S:String x:Key="Localized_136">Ignorer articles lors du tri (Films/Séries Tv)</S:String>
+    <S:String x:Key="Localized_137">Démarrer avec Windows</S:String>
+    <S:String x:Key="Localized_138">Action de lecture par défaut :</S:String>
+    <S:String x:Key="Localized_139">Lecture</S:String>
+    <S:String x:Key="Localized_140">Aléatoire</S:String>
+    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_142">Use Minimise Always</S:String>
+</ResourceDictionary>

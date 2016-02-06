@@ -1,0 +1,156 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!--Version:114-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:S="clr-namespace:System;assembly=mscorlib">
+    <S:String x:Key="Localized_1">סרטים</S:String>
+    <S:String x:Key="Localized_2">טלוויזיה</S:String>
+    <S:String x:Key="Localized_3">פרקי טלוויזיה</S:String>
+    <S:String x:Key="Localized_4">ז'אנרים</S:String>
+    <S:String x:Key="Localized_5">אלבומים</S:String>
+    <S:String x:Key="Localized_6">שירים</S:String>
+    <S:String x:Key="Localized_7">אמנים</S:String>
+    <S:String x:Key="Localized_8">מכין קבצים לסנכרון</S:String>
+    <S:String x:Key="Localized_9">התחל מצגת תמונות</S:String>
+    <S:String x:Key="Localized_10">כעת פועל:</S:String>
+    <S:String x:Key="Localized_11">האם אתה בטוח ?</S:String>
+    <S:String x:Key="Localized_12">אישור</S:String>
+    <S:String x:Key="Localized_13">שמור</S:String>
+    <S:String x:Key="Localized_14">הוסף</S:String>
+    <S:String x:Key="Localized_15">ערוך</S:String>
+    <S:String x:Key="Localized_16">הפרמטרים של הנגן המרוחק שגויים. בדוק שהנגן עובד ומוגדר כראוי</S:String>
+    <S:String x:Key="Localized_17">צא</S:String>
+    <S:String x:Key="Localized_18">מעדכן :</S:String>
+    <S:String x:Key="Localized_19">אנא המתן מעדכן ספריה</S:String>
+    <S:String x:Key="Localized_20">השג מאייפי</S:String>
+    <S:String x:Key="Localized_21">:סיסמא</S:String>
+    <S:String x:Key="Localized_22">:שם משתמש</S:String>
+    <S:String x:Key="Localized_23">מספר מאק:</S:String>
+    <S:String x:Key="Localized_24">פורט :</S:String>
+    <S:String x:Key="Localized_25">כתובת אייפי :</S:String>
+    <S:String x:Key="Localized_26">פרטוקול :</S:String>
+    <S:String x:Key="Localized_27">שם נגן מרוחק :</S:String>
+    <S:String x:Key="Localized_28">נגן מרוחק</S:String>
+    <S:String x:Key="Localized_29">אמת</S:String>
+    <S:String x:Key="Localized_30">ביטול</S:String>
+    <S:String x:Key="Localized_31">אישור</S:String>
+    <S:String x:Key="Localized_32">מינימום שלושה תווים</S:String>
+    <S:String x:Key="Localized_33">בחר קוד מיקום</S:String>
+    <S:String x:Key="Localized_34">חפש עיר קרובה</S:String>
+    <S:String x:Key="Localized_35">הוסף נגן מרוחק</S:String>
+    <S:String x:Key="Localized_36">ערוך</S:String>
+    <S:String x:Key="Localized_37">מחק</S:String>
+    <S:String x:Key="Localized_38">קבע ברירת מחדל</S:String>
+    <S:String x:Key="Localized_39">התחזית באדיבות</S:String>
+    <S:String x:Key="Localized_40">מזג האוויר</S:String>
+    <S:String x:Key="Localized_41">בוקר</S:String>
+    <S:String x:Key="Localized_42">ערב</S:String>
+    <S:String x:Key="Localized_43">הגדרות</S:String>
+    <S:String x:Key="Localized_44">פתח תוכנה במסך משני</S:String>
+    <S:String x:Key="Localized_45">השאר תוכנה מעל הכל</S:String>
+    <S:String x:Key="Localized_46">רזולוציה :</S:String>
+    <S:String x:Key="Localized_47">אלץ רזולוציית מסך</S:String>
+    <S:String x:Key="Localized_48">שמור נגן מרוחק בפוקוס</S:String>
+    <S:String x:Key="Localized_49">שפה :</S:String>
+    <S:String x:Key="Localized_50">סקין :</S:String>
+    <S:String x:Key="Localized_51">הסתר מצביע עכבר</S:String>
+    <S:String x:Key="Localized_52">הצג סימון לפריטים שניצפו</S:String>
+    <S:String x:Key="Localized_53">הצג ז'אנרי מוזיקה ריקים</S:String>
+    <S:String x:Key="Localized_54">השתמש בבאנרים לסדרות טלוויזיה</S:String>
+    <S:String x:Key="Localized_55">הצג פסי גלילה</S:String>
+    <S:String x:Key="Localized_56">נטרל אנימציות פאנלים</S:String>
+    <S:String x:Key="Localized_57">אפשר מצגת תמונות</S:String>
+    <S:String x:Key="Localized_58">אפשר עמעום</S:String>
+    <S:String x:Key="Localized_59">השתמש ב"כעת פועל" בהאזנה למוזיקה</S:String>
+    <S:String x:Key="Localized_60">השתמש ב"כעת פועל" בצפייה בוידאו</S:String>
+    <S:String x:Key="Localized_61">בחר ספריה</S:String>
+    <S:String x:Key="Localized_62">בחר מיקום</S:String>
+    <S:String x:Key="Localized_63">יחידת טמפרטורה :</S:String>
+    <S:String x:Key="Localized_64">ספריית תמונות :</S:String>
+    <S:String x:Key="Localized_65">קוד מיקום מזג האוויר :</S:String>
+    <S:String x:Key="Localized_66">נטרל מצב ניפוי שגיאות</S:String>
+    <S:String x:Key="Localized_67">הסתר פריטים שנצפו</S:String>
+    <S:String x:Key="Localized_68">עדכן ספריה בזמן התחברות</S:String>
+    <S:String x:Key="Localized_69">אפשר אנימציית דיסק</S:String>
+    <S:String x:Key="Localized_70">השתמש בעמעום בצפייה בוידאו בלבד</S:String>
+    <S:String x:Key="Localized_71">- אתחול</S:String>
+    <S:String x:Key="Localized_72">- כיבוי</S:String>
+    <S:String x:Key="Localized_73">מצב שנה</S:String>
+    <S:String x:Key="Localized_74">הגדרות</S:String>
+    <S:String x:Key="Localized_75">נגנים מרוחקים</S:String>
+    <S:String x:Key="Localized_76">עדכן ספריה</S:String>
+    <S:String x:Key="Localized_77">עונה</S:String>
+    <S:String x:Key="Localized_78">פרק</S:String>
+    <S:String x:Key="Localized_79">שודר :</S:String>
+    <S:String x:Key="Localized_80">רצועה :</S:String>
+    <S:String x:Key="Localized_81">במאי :</S:String>
+    <S:String x:Key="Localized_82">הצבעות</S:String>
+    <S:String x:Key="Localized_83">שמור הגדרות</S:String>
+    <S:String x:Key="Localized_84">עדכן קבצי שפה</S:String>
+    <S:String x:Key="Localized_85">דף הבית : </S:String>
+    <S:String x:Key="Localized_86">וידאו</S:String>
+    <S:String x:Key="Localized_87">מוזיקה</S:String>
+    <S:String x:Key="Localized_88">שונות</S:String>
+    <S:String x:Key="Localized_89">התחבר</S:String>
+    <S:String x:Key="Localized_90">- הער משינה</S:String>
+    <S:String x:Key="Localized_91">מחובר</S:String>
+    <S:String x:Key="Localized_92">אין מידע. אנא עדכן קודם את הספריה!</S:String>
+    <S:String x:Key="Localized_93">אין מועדפים. אנא הוסף קודם מועדפים.</S:String>
+    <S:String x:Key="Localized_94">הצג זמן סיום ב"פועל כעת"</S:String>
+    <S:String x:Key="Localized_95">אלבומים</S:String>
+    <S:String x:Key="Localized_96">מחובר:</S:String>
+    <S:String x:Key="Localized_97">מנותק : </S:String>
+    <S:String x:Key="Localized_98">הגדרות נשמרו</S:String>
+    <S:String x:Key="Localized_99">קבצי שפה עודכנו</S:String>
+    <S:String x:Key="Localized_100">תקלה בעדכון קבצי שפה</S:String>
+    <S:String x:Key="Localized_101">מוריד צלמיות ורקעים</S:String>
+    <S:String x:Key="Localized_102">הסתיימה הורדת צלמיות ורקעים</S:String>
+    <S:String x:Key="Localized_103">היום</S:String>
+    <S:String x:Key="Localized_104">מחר</S:String>
+    <S:String x:Key="Localized_105">מחובר לנגן מרוחק השונה מזה שהוגדר. אנא עדכן הגדרות נגן מרוחק ע"מ לאשר את השינוי בהגדרות</S:String>
+    <S:String x:Key="Localized_106">הסתר אמנים המופיעים רק באוספים</S:String>
+    <S:String x:Key="Localized_107">הצג אמנים בבחירת ז'אנר</S:String>
+    <S:String x:Key="Localized_108">הצג ב"כעת פועל" מצגת רקעים</S:String>
+    <S:String x:Key="Localized_109">? קיימת גרסא חדשה. האם לעדכן</S:String>
+    <S:String x:Key="Localized_110">.שגיאה בהורדת קבצי עדכון. אנא נסה שוב מאוחר יותר</S:String>
+    <S:String x:Key="Localized_111">בדוק עדכונים זמינים</S:String>
+    <S:String x:Key="Localized_112">בדוק בהפעלה</S:String>
+    <S:String x:Key="Localized_113">.הגרסא הנוכחית מעודכנת</S:String>
+    <S:String x:Key="Localized_114">.שגיאה במהלך הבדיקה. נסה שוב מאוחר יותר</S:String>
+    <S:String x:Key="Localized_115">קבצי שפה עודכנו</S:String>
+    <S:String x:Key="Localized_116">.גרסא מרוחקת אינה תואמת עם פרוטוקול זה. אנא נסה אחר</S:String>
+    <S:String x:Key="Localized_117">... אנא המתן</S:String>
+    <S:String x:Key="Localized_118">מרענן ספריה</S:String>
+    <S:String x:Key="Localized_119">(פרק(ים</S:String>
+    <S:String x:Key="Localized_120">שודר :</S:String>
+    <S:String x:Key="Localized_121">.שגיאה בעדכון מסד הנתונים, אנא שלח את קובץ הלוג לאתר הבית</S:String>
+    <S:String x:Key="Localized_122">ספשיילים</S:String>
+    <S:String x:Key="Localized_123">כל העונות</S:String>
+    <S:String x:Key="Localized_124">מצב עכבר</S:String>
+    <S:String x:Key="Localized_125">אישור</S:String>
+    <S:String x:Key="Localized_126">כן</S:String>
+    <S:String x:Key="Localized_127">לא</S:String>
+    <S:String x:Key="Localized_128">תצוגה</S:String>
+    <S:String x:Key="Localized_129">ספריה</S:String>
+    <S:String x:Key="Localized_130">התאמה אישית</S:String>
+    <S:String x:Key="Localized_131">מזג האוויר</S:String>
+    <S:String x:Key="Localized_132">אחר</S:String>
+    <S:String x:Key="Localized_133">עדכון</S:String>
+    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_142">Use Minimise Always</S:String>
+</ResourceDictionary>

@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    >
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/FluidKit;component/Themes/GlassWindow.generic.xaml"/>
+		<ResourceDictionary Source="/FluidKit;component/Themes/ImageButton.generic.xaml" />
+		<ResourceDictionary Source="/FluidKit;component/Themes/TransitionPresenter.generic.xaml" />
+		<ResourceDictionary Source="/FluidKit;component/Experimental/AutoCompleteBox.xaml" />
+		<ResourceDictionary Source="/FluidKit;component/Controls/ElementFlow/ElementFlow.Generic.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

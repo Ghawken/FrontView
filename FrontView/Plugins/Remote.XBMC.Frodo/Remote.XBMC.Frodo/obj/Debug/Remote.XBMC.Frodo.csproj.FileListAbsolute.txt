@@ -1,0 +1,7 @@
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.XBMC.Frodo.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\bin\x86\Debug\Plugins\Remote.Kodi.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\bin\x86\Debug\Plugins\Remote.Kodi.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.Kodi.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.Kodi.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\bin\x86\Debug\Plugins\Remote.Kodi.dll.CodeAnalysisLog.xml
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\bin\x86\Debug\Plugins\Remote.Kodi.dll.lastcodeanalysissucceeded

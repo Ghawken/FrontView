@@ -1,0 +1,8 @@
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Remote.XBMC.Dharma.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Remote.XBMC.Dharma.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Jayrock.Json.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Setup.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Setup.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\bin\Debug Any CPU\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\obj\Debug Any CPU\Remote.XBMC.Dharma.dll
+C:\Users\Vwin7\Source\Repos\Yatse Try Again\Yatse2\Plugins\Remote.XBMC.Dharma\obj\Debug Any CPU\Remote.XBMC.Dharma.pdb

@@ -1,0 +1,421 @@
+<!--
+_______________________________________________________________________________
+* Created by: ppodila
+* Date: 10/30/2006
+_______________________________________________________________________________
+-->
+<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Controls="clr-namespace:FluidKit.Controls"
+    >
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="VistaBackground.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+
+	<!--
+_______________________________________________________________________________
+		Blue BorderBrush for Window
+_______________________________________________________________________________
+-->
+	<LinearGradientBrush x:Key="WindowBlueBorder"
+											 StartPoint="0.5,0"
+											 EndPoint="0.5,1">
+		<GradientStop Color="#FFFFFFFF"
+									Offset="0"/>
+		<GradientStop Color="sc#1, 0.08701243, 0.9357051, 0.52502346"
+									Offset="1"/>
+	</LinearGradientBrush>
+
+	<!--
+_______________________________________________________________________________
+		Window icon
+_______________________________________________________________________________
+	-->
+	<Style x:Key="WindowIconStyle"
+				 TargetType="{x:Type Image}">
+		<Setter Property="HorizontalAlignment"
+						Value="Left" />
+		<Setter Property="Width"
+						Value="22" />
+		<Setter Property="Height"
+						Value="22" />
+	</Style>
+
+	<!--
+_______________________________________________________________________________
+		Window title
+_______________________________________________________________________________
+	-->
+	<Style x:Key="WindowTitleStyle"
+				 TargetType="{x:Type TextBlock}">
+		<Setter Property="HorizontalAlignment"
+						Value="Left" />
+		<Setter Property="VerticalAlignment"
+						Value="Center" />
+		<Setter Property="TextWrapping"
+						Value="NoWrap" />
+		<Setter Property="Margin"
+						Value="3,0,0,0" />
+	</Style>
+
+	<!--
+_______________________________________________________________________________
+		Close Button Style 
+_______________________________________________________________________________
+	-->
+	<Style x:Key="CloseButtonStyle"
+				 TargetType="{x:Type Controls:ImageButton}">
+		<Setter Property="NormalImage"
+						Value="images/vista_close.png"/>
+		<Setter Property="HoverImage"
+						Value="images/vista_close_hovered.png"/>
+		<Setter Property="PressedImage"
+						Value="images/vista_close_pressed.png"/>
+	</Style>
+
+	<!--
+_______________________________________________________________________________
+		Minimize Button Style
+_______________________________________________________________________________
+	-->
+	<Style x:Key="MinimizeButtonStyle"
+				 TargetType="{x:Type Controls:ImageButton}">
+		<Setter Property="NormalImage"
+						Value="images/vista_min.png"/>
+		<Setter Property="HoverImage"
+						Value="images/vista_min_hovered.png"/>
+		<Setter Property="PressedImage"
+						Value="images/vista_min_pressed.png"/>
+	</Style>
+
+	<!--
+_______________________________________________________________________________
+		Maximize Button Style 
+_______________________________________________________________________________
+	-->
+	<Style x:Key="MaximizeButtonStyle"
+				 TargetType="{x:Type Controls:ImageButton}">
+		<Setter Property="NormalImage"
+						Value="images/vista_max.png"/>
+		<Setter Property="HoverImage"
+						Value="images/vista_max_hovered.png"/>
+		<Setter Property="PressedImage"
+						Value="images/vista_max_pressed.png"/>
+	</Style>
+
+	<!--
+_______________________________________________________________________________
+		GlassWindow template 
+_______________________________________________________________________________
+	-->
+	<ControlTemplate x:Key="GlassWindow_Template"
+									 TargetType="{x:Type Controls:GlassWindow}">
+		<Border BorderBrush="Gray"
+						BorderThickness="1,1,1,1"
+						CornerRadius="5,5,5,5"
+						Background="{StaticResource Vista_Background_design}">
+			<Border BorderBrush="{StaticResource WindowBlueBorder}"
+							BorderThickness="1,1,1,1"
+							CornerRadius="5,5,5,5">
+
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid Margin="0,0,0,0"
+								x:Name="ContentGrid">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="32"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<Grid Margin="0,0,0,0"
+									x:Name="PART_TitleBar"
+									Background="Transparent">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="32"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+
+							<Image x:Name="Image"
+										 Grid.Column="0"
+										 Source="{TemplateBinding Icon}"
+										 Style="{StaticResource WindowIconStyle}"
+										 HorizontalAlignment="Center"/>
+
+							<TextBlock Grid.Column="1"
+												 x:Name="TextBlock"
+												 Style="{StaticResource WindowTitleStyle}"
+												 Text="{TemplateBinding Title}"
+												 FontSize="{x:Static SystemFonts.CaptionFontSize}"
+												 FontWeight="{x:Static SystemFonts.CaptionFontWeight}"
+												 FontFamily="{x:Static SystemFonts.CaptionFontFamily}"
+												 Foreground="White">
+								<TextBlock.BitmapEffect>
+									<OuterGlowBitmapEffect GlowColor="White"
+																				 Noise="0"
+																				 Opacity="0.5"
+																				 GlowSize="10"/>
+								</TextBlock.BitmapEffect>
+							</TextBlock>
+
+							<!-- Min/Max/Close buttons -->
+							<StackPanel Orientation="Horizontal"
+													Grid.Column="2"
+													Height="18"
+													VerticalAlignment="Top"
+													HorizontalAlignment="Right"
+													Margin="0,0,5,0">
+								<Controls:ImageButton x:Name="PART_MinimizeButton"
+																	 Style="{StaticResource MinimizeButtonStyle}"/>
+
+								<Controls:ImageButton x:Name="PART_MaximizeButton"
+																	 Style="{StaticResource MaximizeButtonStyle}"/>
+
+								<Controls:ImageButton x:Name="PART_CloseButton"
+																	 Style="{StaticResource CloseButtonStyle}"/>
+							</StackPanel>
+						</Grid>
+						<Border Margin="5,0,5,5"
+										Grid.Row="1">
+							<AdornerDecorator ClipToBounds="True">
+								<ContentPresenter x:Name="ContentPresenter"
+																	Content="{TemplateBinding ContentControl.Content}"
+																	ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+																	Width="Auto"
+																	Height="Auto" />
+							</AdornerDecorator>
+						</Border>
+					</Grid>
+
+					<Grid VerticalAlignment="Stretch"
+								Margin="0,0,0,0"
+								Height="Auto"
+								x:Name="ResizerGrid">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
+						<Path StrokeThickness="2"
+									Stroke="Transparent"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Stretch"
+									x:Name="PART_WResizer"
+									Cursor="SizeWE"
+									Stretch="Fill"
+									Data="M20,87 L20,327.05208" />
+						<Path StrokeThickness="2"
+									Stroke="Transparent"
+									HorizontalAlignment="Right"
+									VerticalAlignment="Stretch"
+									x:Name="PART_EResizer"
+									Cursor="SizeWE"
+									Stretch="Fill"
+									Data="M20,87 L20,327.05208" />
+						<Path StrokeThickness="2"
+									Stroke="Transparent"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Bottom"
+									x:Name="PART_SResizer"
+									Cursor="SizeNS"
+									Stretch="Fill"
+									Data="M86,180 L343.01751,180" />
+						<Path StrokeThickness="2"
+									Stroke="Transparent"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Top"
+									x:Name="PART_NResizer"
+									Cursor="SizeNS"
+									Stretch="Fill"
+									Data="M86,180 L343.01751,180" />
+						<Rectangle Fill="Transparent"
+											 HorizontalAlignment="Left"
+											 VerticalAlignment="Top"
+											 Width="5"
+											 Height="5"
+											 x:Name="PART_NWResizer"
+											 Cursor="SizeNWSE"/>
+						<Rectangle Fill="Transparent"
+											 HorizontalAlignment="Right"
+											 VerticalAlignment="Top"
+											 Width="5"
+											 Height="5"
+											 x:Name="PART_NEResizer"
+											 Cursor="SizeNESW"/>
+						<Rectangle Fill="Transparent"
+											 HorizontalAlignment="Right"
+											 VerticalAlignment="Bottom"
+											 Width="5"
+											 Height="5"
+											 x:Name="PART_SEResizer"
+											 Cursor="SizeNWSE"/>
+						<Rectangle Fill="Transparent"
+											 HorizontalAlignment="Left"
+											 VerticalAlignment="Bottom"
+											 Width="5"
+											 Height="5"
+											 x:Name="PART_SWResizer"
+											 Cursor="SizeNESW"/>
+					</Grid>
+				</Grid>
+
+			</Border>
+		</Border>
+
+		<ControlTemplate.Triggers>
+			<!-- Maximized Window state -->
+			<Trigger Property="WindowState"
+							 Value="Maximized">
+				<Setter Property="NormalImage"
+								Value="images/vista_restore.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="HoverImage"
+								Value="images/vista_restore_hovered.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="PressedImage"
+								Value="images/vista_restore_pressed.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_EResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_WResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NEResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NWResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SEResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SWResizer"/>
+			</Trigger>
+
+			<!-- ResizeMode = NoResize -->
+			<Trigger Property="ResizeMode"
+							 Value="NoResize">
+				<Setter Property="Visibility"
+								Value="Collapsed"
+								TargetName="PART_MinimizeButton"/>
+				<Setter Property="Visibility"
+								Value="Collapsed"
+								TargetName="PART_MaximizeButton"/>
+				
+				<Setter Property="NormalImage"
+								Value="images/vista_close_only.png"
+								TargetName="PART_CloseButton"/>
+				<Setter Property="HoverImage"
+								Value="images/vista_close_only_hovered.png"
+								TargetName="PART_CloseButton"/>
+				<Setter Property="PressedImage"
+								Value="images/vista_close_only_pressed.png"
+								TargetName="PART_CloseButton"/>
+				
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_EResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_WResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NEResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_NWResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SEResizer"/>
+				<Setter Property="Visibility"
+								Value="Hidden"
+								TargetName="PART_SWResizer"/>
+			</Trigger>
+
+			<!-- Normal Window state -->
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="WindowState"
+										 Value="Normal"/>
+					<Condition Property="ResizeMode"
+										 Value="CanResize"/>
+				</MultiTrigger.Conditions>
+
+				<Setter Property="NormalImage"
+								Value="images/vista_max.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="HoverImage"
+								Value="images/vista_max_hovered.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="PressedImage"
+								Value="images/vista_max_pressed.png"
+								TargetName="PART_MaximizeButton"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_NResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_SResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_EResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_WResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_NEResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_NWResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_SEResizer"/>
+				<Setter Property="Visibility"
+								Value="Visible"
+								TargetName="PART_SWResizer"/>
+			</MultiTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!--
+_______________________________________________________________________________
+	GlassWindow generic style. This is the entry point 
+_______________________________________________________________________________
+	-->
+	<Style TargetType="{x:Type Controls:GlassWindow}">
+		<Setter Property="AllowsTransparency"
+						Value="True"/>
+		<Setter Property="WindowStyle"
+						Value="None"/>
+		<Setter Property="ResizeMode"
+						Value="CanResize"/>
+		<Setter Property="Template"
+						Value="{StaticResource GlassWindow_Template}"/>
+	</Style>
+</ResourceDictionary>

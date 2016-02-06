@@ -1,0 +1,24 @@
+<!--
+_______________________________________________________________________________
+* Created by: ppodila
+* Date: 05/30/2007
+_______________________________________________________________________________
+-->
+<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    >
+	<ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Cube.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+	
+	<Storyboard x:Key="SlideAnim">
+		<DoubleAnimation Duration="0:0:0.5"
+										 Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+										 DecelerationRatio="1.0"/>
+		<DoubleAnimation Duration="0:0:0.5"
+										 Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+										 DecelerationRatio="1.0"/>
+	</Storyboard>
+
+</ResourceDictionary>

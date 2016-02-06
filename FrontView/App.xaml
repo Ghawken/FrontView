@@ -1,0 +1,43 @@
+﻿<!--
+//    YATSE 2 - A touch screen remote controller for (.NET 3.5)
+//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+    <Application x:Class="FrontView.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:Yatse2="clr-namespace:FrontView"
+    xmlns:Classes="clr-namespace:FrontView.Classes" 
+    StartupUri="Yatse2Window.xaml"
+    Exit="Application_Exit">             
+    <Application.Resources>
+        <ResourceDictionary>
+            <Yatse2:MoviesCollection x:Key="MoviesDataSource" />
+            <Yatse2:TvShowsCollection x:Key="TvShowsDataSource" />
+            <Yatse2:TvSeasonsCollection x:Key="TvSeasonsDataSource" />
+            <Yatse2:TvEpisodesCollection x:Key="TvEpisodesDataSource" />
+            <Yatse2:AudioAlbumsCollection x:Key="AudioAlbumsDataSource" />
+            <Yatse2:AudioArtistsCollection x:Key="AudioArtistsDataSource" />
+            <Yatse2:AudioGenresCollection x:Key="AudioGenresDataSource" />
+            <Yatse2:AudioSongsCollection x:Key="AudioSongsDataSource" />
+			<Classes:Yatse2Properties x:Key="Yatse2Properties" />
+			
+            <ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="Skin/Internal/English.xaml"/>
+                <ResourceDictionary Source="Skin/Internal/Skin.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+    	</ResourceDictionary>
+    </Application.Resources>
+</Application>

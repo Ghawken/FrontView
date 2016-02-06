@@ -1,0 +1,4 @@
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\Setup.dll
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\Setup.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Setup\obj\Debug\Setup.dll
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Setup\obj\Debug\Setup.pdb
