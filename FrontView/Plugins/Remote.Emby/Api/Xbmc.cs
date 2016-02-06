@@ -810,7 +810,7 @@ namespace Remote.Emby.Api
 
                 Log("Emby: Using Parent IP equals: " + IP);
                 string NPurl = "http://" + IP + ":" + Port;
-                var request = WebRequest.CreateHttp(NPurl + "/Yatse");
+                var request = WebRequest.CreateHttp(NPurl + "/FrontView");
 
                 request.Method = "get";
                 //request.Timeout = 5000;

@@ -303,7 +303,7 @@ namespace Remote.Emby.Api
 
                     _parent.Trace("Emby: Using Parent IP equals: " + _parent.IP);
                     string NPurl = "http://" + _parent.IP + ":" + _parent.Port;
-                    var request = WebRequest.CreateHttp(NPurl + "/Yatse");
+                    var request = WebRequest.CreateHttp(NPurl + "/FrontView");
 
                     request.Method = "get";
                     //request.Timeout = 5000;
