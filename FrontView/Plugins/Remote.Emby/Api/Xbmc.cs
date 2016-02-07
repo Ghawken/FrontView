@@ -362,7 +362,7 @@ namespace Remote.Emby.Api
             string clientname = "FrontView";
             string devicename = "Windows Application";
             string deviceID = Globals.DeviceID; // "9DA94EFB-EFF0-4144-9A18-46B046C450C6";
-            string appVersion = "1.0.0.0";
+            string appVersion = "1.100";
 
             if (String.IsNullOrEmpty(Globals.CurrentUserID))
             {
@@ -841,11 +841,11 @@ namespace Remote.Emby.Api
                     using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                     {
                         string json = sr.ReadToEnd();
-                        Trace("--------------Using Yatse Info Emby Plugin Data   ------" + json);
+                        Trace("--------------Using FrontView Info Emby Plugin Data   ------" + json);
                         var deserializer = new JavaScriptSerializer();
 
                         var server = deserializer.Deserialize<EmbyServerPlugin.ApiInfo>(json);
-                        Trace("------------- Yatse Emby Plugin: Now Checking Results :results.Count:" + server.Filename);
+                        Trace("------------- FrontView Emby Plugin: Now Checking Results :results.Count:" + server.Filename);
                         Globals.SessionIDClient = server.PlayingClientID;
                         Log("-------------------------------PLAYING CLIENT ID GOT AND SET TO :" + Globals.SessionIDClient);
                         return server.PlayingClientID;
@@ -945,9 +945,12 @@ namespace Remote.Emby.Api
             var connect = _isConnected;
             _isConnected = CheckConnection();
             if (!_isConnected || connect == _isConnected) return;
+            return;
 
+           /*
             _eventClient.Connect(IP, Convert.ToInt32("0" + XbmcEventServerPort, CultureInfo.InvariantCulture));
-            _eventClient.SendHelo("Yatse - Remote Control");//, IconType.IconPng, Helper.SkinPath + Helper.Instance.CurrentSkin + @"\Interface\RemoteControl.png");
+            _eventClient.SendHelo("FrontView+ - Remote Control");//, IconType.IconPng, Helper.SkinPath + Helper.Instance.CurrentSkin + @"\Interface\RemoteControl.png");
+            */
         }
 
         /*public string GetApiPath()

@@ -601,12 +601,12 @@ namespace FrontView
                 Logger.Instance().Log("OSInfo", "Version = " + OSInfo.VersionString, true);
                 Logger.Instance().Log("OSInfo", "Bits = " + OSInfo.RealBits, true);
                 Logger.Instance().Log("OSInfo", "Culture = " + Thread.CurrentThread.CurrentCulture.Name, true);
-                Logger.Instance().Log("Yatse 2 Debug :", "Checking for another instance", true);
+                Logger.Instance().Log("FrontView+ Debug :", "Checking for another instance", true);
               
                 if (Yatse2Window.RunningInstance() != null)
                 {
-                    Logger.Instance().Log("NEW Yastse Debug:", "Duplicate Yatse2 Running Closing... ");
-                    System.Windows.MessageBox.Show("Duplicate Instance of Yatse, Closing....");
+                    Logger.Instance().Log("NEW FrontView Debug:", "Duplicate FrontView+ Running Closing... ");
+                    System.Windows.MessageBox.Show("Duplicate Instance of FrontView+, Closing....");
                     System.Windows.Application.Current.Shutdown();
 
                     //TODO:
