@@ -29,7 +29,7 @@ namespace Remote.XBMC.Frodo
     {
         public XbmcFrodo()
         {
-            Name = "Kodi 15.2";
+            Name = "Kodi 15.2/16";
         }
 
         public int Version

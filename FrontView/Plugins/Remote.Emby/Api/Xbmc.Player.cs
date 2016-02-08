@@ -350,11 +350,11 @@ namespace Remote.Emby.Api
                         using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                         {
                             string json = sr.ReadToEnd();
-                            _parent.Trace("--------------Using Yatse Emby Plugin Data   ------" + json);
+                            _parent.Trace("--------------Using FrontView Emby Plugin Data   ------" + json);
                             var deserializer = new JavaScriptSerializer();
 
                             var server = deserializer.Deserialize<EmbyServerPlugin.ApiInfo>(json);
-                            _parent.Trace("------------- Yatse Emby Plugin: Now Checking Results :results.Count:" + server.Filename);
+                            _parent.Trace("------------- FrontView Emby Plugin: Now Checking Results :results.Count:" + server.Filename);
                             
 
 
@@ -362,7 +362,7 @@ namespace Remote.Emby.Api
 
                                 //Check Something is Playing and Return
                                 //If Doesnt return - something must be playing.
-                                _parent.Trace("------------- Yatse Emby Plugin:  server.Filename equals:" + server.Filename);
+                                _parent.Trace("------------- FrontView Emby Plugin:  server.Filename equals:" + server.Filename);
                                 if (String.IsNullOrEmpty(server.Filename))
                                 {
                                     _nowPlaying.FileName = "";

@@ -1042,9 +1042,9 @@ namespace Remote.Emby.Api
 
                 var request = WebRequest.Create(url);
                 request.Headers.Add("X-Plex-Token", Globals.EmbyAuthToken);
-                request.Headers.Add("X-Plex-Client-Identifier", "Yatse3Socket");
-                request.Headers.Add("X-Plex-Product","Yatse 3 Socket");
-                request.Headers.Add("X-Plex-Version","0.1.0");
+                request.Headers.Add("X-Plex-Client-Identifier", "FrontView");
+                request.Headers.Add("X-Plex-Product","FontView");
+                request.Headers.Add("X-Plex-Version","1.101");
                 var response = request.GetResponse();
 
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
