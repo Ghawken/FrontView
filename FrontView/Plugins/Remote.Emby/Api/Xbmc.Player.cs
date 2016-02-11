@@ -304,7 +304,7 @@ namespace Remote.Emby.Api
                         _nowPlaying.IsPlaying = false;
                         _nowPlaying.IsPaused = false;
                         _parent.Log("Emby PLAYER REMOTE:   Returning as no !Player Connected");
-
+                        
                         return;
                }
 

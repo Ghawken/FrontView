@@ -478,9 +478,11 @@ namespace Remote.Emby.Api
             
             string authString = GetAuthString();
 
-            
+            Log("EMBY -- TEST CONNECTION: RUNINNG CHECK FOR YATSE Information");
             Globals.SessionIDClient = GetYatseInfoPlayingClient();
+            
             Globals.ClientSupportsRemoteControl = GetPlaybackClientSupportsRemote();
+            Log("EMBY -- TEST CONNECTION: Has run PlayBack Remote Check");
 
             try
             {
@@ -945,10 +947,32 @@ namespace Remote.Emby.Api
 
         private void CheckTimerTick(object sender, EventArgs e)
         {
+            
             _checkTimer.Interval = (_isConnected) ? ConnectedInterval : DisconnectedInterval;
             var connect = _isConnected;
             _isConnected = CheckConnection();
-            if (!_isConnected || connect == _isConnected) return;
+
+            Log("EMBY -- CheckTimerTick: IsConnected:" + _isConnected + " connect:" + connect);
+
+
+            if (_isConnected == true && connect == false)
+            {
+                //if just connected update remote Globals
+            //    Globals.EmbyAuthToken = GetEmbyAuthToken(ip, port, user, password);
+                Log("EMBY -- CheckTimerTick: Isconnected True and Connect False Updating EMBY Remotes");
+                Globals.SessionIDClient = GetYatseInfoPlayingClient();
+                Globals.ClientSupportsRemoteControl = GetPlaybackClientSupportsRemote();
+
+            }
+
+            if (!_isConnected || connect == _isConnected) 
+            {
+
+                return;
+
+
+            }
+
             return;
 
            /*
