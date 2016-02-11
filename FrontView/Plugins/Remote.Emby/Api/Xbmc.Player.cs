@@ -297,9 +297,21 @@ namespace Remote.Emby.Api
                        _nowPlaying.FanartURL = result2["fanart"].ToString();
                    }
                */
+               if (!_parent.IsConnected())
+               {
+                        _nowPlaying.FileName = "";
+                        _nowPlaying.Title = "";
+                        _nowPlaying.IsPlaying = false;
+                        _nowPlaying.IsPaused = false;
+                        _parent.Log("Emby PLAYER REMOTE:   Returning as no !Player Connected");
+
+                        return;
+               }
+
+
 
                 try
-                {
+                {  
 
                     _parent.Trace("Emby: Using Parent IP equals: " + _parent.IP);
                     string NPurl = "http://" + _parent.IP + ":" + _parent.Port;
@@ -325,7 +337,7 @@ namespace Remote.Emby.Api
                     request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
 
 
-
+                    request.KeepAlive = false;
                     request.Headers.Add("Authorization", authString);
                     request.ContentType = "application/json; charset=utf-8";
                     //  request.ContentLength = postArg.Length;
@@ -504,12 +516,26 @@ namespace Remote.Emby.Api
 
                         }
                     }
+                    else   //Hopefully is HTTP Status Not OK
+                    {
+                        _nowPlaying.FileName = "";
+                        _nowPlaying.Title = "";
+                        _nowPlaying.IsPlaying = false;
+                        _nowPlaying.IsPaused = false;
+                        _nowPlaying.IsPlaying = false;
+                        _parent.Trace("--------------EMBY NOW PLAYING Log: Nothing is Playing");
+                        return;
+                    }
+
                 }
                 catch (Exception ex)
                 {
                     _parent.Log("Exception in NowPlaying EMBY System" + ex);
+                    _parent.MpcLoaded = false;
+                    return;
                 }
 
+                
 
             }
         }

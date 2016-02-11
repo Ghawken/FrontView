@@ -83,7 +83,7 @@ namespace Remote.Emby.Api
         private bool _isConnected;
 
         static readonly object Locker = new object();
-        private string EmbyAuthToken;
+        //private string EmbyAuthToken;
 
         public MpcHcRemote MpcHcRemote { get; set; }
 
@@ -267,9 +267,9 @@ namespace Remote.Emby.Api
         public override bool CheckConnection()
         {
 
-            if (!MpcLoaded)
+          /*  if (!MpcLoaded)
             {
-
+            */
                 string url = GetJsonPath() + "/Users/Public";
                 // PMS Server Clients Page - to connect to and see whether local player is in effect.
 
@@ -277,7 +277,7 @@ namespace Remote.Emby.Api
                 {
 
                     var request = WebRequest.Create(url);
-                    request.Headers.Add("X-MediaBrowser-Token", EmbyAuthToken);
+                    request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
                     var response = request.GetResponse();
 
                     if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
@@ -315,8 +315,8 @@ namespace Remote.Emby.Api
                         }
                         */
  
-                        Log("Local Client not found - disconnecting");
-                        return false;
+                        Log("EMBY Server found - Users/Public Checked");
+                        return true;
 
 
                     }
@@ -329,8 +329,8 @@ namespace Remote.Emby.Api
                     Log("Cannot connect is server details right " + ex);
                     return false;
                 }
-            }
-            return true;
+            
+            //return true;
         }
 
         public override bool CheckRemote(string os, string version, string additional, bool force)
@@ -709,6 +709,8 @@ namespace Remote.Emby.Api
                         //Log("------------------- Emby Client Supports Remote:" + deserialized.SessionInfo.SupportsRemoteControl);
                         Globals.EmbyAuthToken = deserialized.AccessToken;
                         Globals.SessionID = deserialized.SessionInfo.Id;
+                        _isConnected = true;
+                        MpcLoaded = true;
                      //   Globals.ClientSupportsRemoteControl = deserialized.SessionInfo.SupportsRemoteControl;
                         return deserialized.AccessToken ;
                     }
@@ -800,7 +802,9 @@ namespace Remote.Emby.Api
 
         private void NowPlayingTimerTick(object sender, EventArgs e)
         {
-            Player.RefreshNowPlaying();
+
+                Player.RefreshNowPlaying();
+
         }
 
         public string GetYatseInfoPlayingClient()

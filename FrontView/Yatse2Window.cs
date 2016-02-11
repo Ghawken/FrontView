@@ -1327,7 +1327,9 @@ namespace FrontView
             _timerHeader++;
             _timer++;
             Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
+            
             UpdateRemote();
+            
             Window glennwindow = Window.GetWindow(this);
             
 
