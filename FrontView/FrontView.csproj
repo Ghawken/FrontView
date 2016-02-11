@@ -5013,7 +5013,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Changelog.txt" />
+    <Resource Include="Changelog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
