@@ -2,3 +2,4 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Plugins\Remote
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Plugins\Remote.XBMC.Frodo.pdb
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.XBMC.Frodo.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.XBMC.Frodo.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Remote.XBMC.Frodo\obj\Debug\Remote.XBMC.Frodo.csprojResolveAssemblyReference.cache

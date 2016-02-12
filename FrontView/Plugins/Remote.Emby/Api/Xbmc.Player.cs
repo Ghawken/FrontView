@@ -390,9 +390,9 @@ namespace Remote.Emby.Api
                                 //Something must be playing- at least something with a filename
                                 //We will find out how full proof that is later.
                                 
-                                _nowPlaying.IsNewMedia = true;
+                                //_nowPlaying.IsNewMedia = true;
                                 
-                                _parent.Trace("-------------- Yatse Emby Plugin:  IsNewMedia:" + _nowPlaying.IsNewMedia);
+                                _parent.Trace("-------------- Emby Emby Plugin:  IsNewMedia:" + _nowPlaying.IsNewMedia);
                                 if (server.Filename != null)
                                 {
 
