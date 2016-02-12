@@ -771,6 +771,7 @@ namespace Remote.Emby.Api
             {
                 Globals.SessionIDClient = GetYatseInfoPlayingClient();
             }
+            
             Globals.ClientSupportsRemoteControl = GetPlaybackClientSupportsRemote();
 
 

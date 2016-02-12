@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+Release 1.104
+Remove Remote Buttons if Client Does not support Remote Control
+
 Release 1.103
 Changes to connection/more lightweight checking
 

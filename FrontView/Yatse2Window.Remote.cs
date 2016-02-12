@@ -73,15 +73,8 @@ namespace FrontView
             txb_Home_Albums.Visibility = (_remotePlugin.SupportedFunctions().AudioLibrary) ? Visibility.Visible : Visibility.Hidden;
             txb_Home_Genres.Visibility = (_remotePlugin.SupportedFunctions().AudioLibrary) ? Visibility.Visible : Visibility.Hidden;
 
-//SuportsRemoteControl Changes
-
-//Music
-            txb_SupportsRemoteControlMusic.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
-//Movie
-            txb_SupportsRemoteControlMovie.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
-//TV
-            txb_SupportsRemoteControlTv.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
-
+//SupportsRemoteControl
+            UpdateButtonVisibility();
 
 
 
@@ -107,6 +100,24 @@ namespace FrontView
 
         }
         
+        private void UpdateButtonVisibility()
+        {
+            //SuportsRemoteControl Changes
+            var supportsremote = _remotePlugin.SupportedFunctions().SupportsRemoteControl;
+
+            Logger.Instance().Log("FrontView+:UpdateButton Visibility", "Checking Buttons Visibility: Supports Remote Equals:"+supportsremote);
+
+            if (supportsremote == true)
+            {
+                txb_SupportsRemoteControlMusic.Visibility = Visibility.Visible;
+                txb_SupportsRemoteControlMovie.Visibility = Visibility.Visible;
+                txb_SupportsRemoteControlTv.Visibility = Visibility.Visible;
+            }
+
+
+        }
+        
+
         private void ClearFiltersAndDataSource()
         {
             _filterAudioArtist = "";
@@ -245,6 +256,8 @@ namespace FrontView
         private void UpdateCurrently(Plugin.ApiCurrently nowPlaying )
         {
             _isPlaying = true;
+            //SupportsRemoteControl Changes - Check Below:
+            UpdateButtonVisibility();
             Logger.Instance().LogDump("Yatse PVR", "MediaType equals:" + nowPlaying.MediaType, true);
             switch (nowPlaying.MediaType)
             {
