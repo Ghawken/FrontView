@@ -1,0 +1,11 @@
+﻿Changelog:
+
+Release 1.102
+Bug Fix - EMBY - allow server restart without FrontView Freeze until completed.
+
+Release 1.101
+Bug Fix - for EventClient Emby Remote
+Add Support for Kodi 16 Jarvis (name change only needed)
+
+
+Release 1.100: FrontView+ Inital Release
