@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+Release 1.103
+Changes to connection/more lightweight checking
+
 Release 1.102
 Bug Fix - EMBY - allow server restart without FrontView Freeze until completed.
 

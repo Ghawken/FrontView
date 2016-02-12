@@ -321,6 +321,23 @@ namespace FrontView.Classes
             get { return (bool)GetValue(IsPausedProperty); }
             set { SetValue(IsPausedProperty, value); }
         }
+ 
+       /* 
+        
+        public static readonly DependencyProperty DoesSupportRemoteProperty =
+            DependencyProperty.Register("DoesSupportRemote", typeof(bool), typeof(Yatse2Currently));
+
+        public bool DoesSupportRemote
+        {
+            get { return (bool)GetValue(DoesSupportRemoteProperty); }
+            set
+            {
+                SetValue(DoesSupportRemoteProperty, value);
+
+            }
+        }
+
+        */
 
         public static readonly DependencyProperty IsTvDetailsProperty =
             DependencyProperty.Register("IsTvDetails", typeof(bool), typeof(Yatse2Currently));

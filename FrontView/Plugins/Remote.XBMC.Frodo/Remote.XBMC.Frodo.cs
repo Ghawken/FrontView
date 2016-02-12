@@ -54,7 +54,8 @@ namespace Remote.XBMC.Frodo
                            MovieLibrary = true,
                            AudioLibrary = true,
                            TvShowLibrary = true,
-                           PictureLibrary = true
+                           PictureLibrary = true,
+                           SupportsRemoteControl = true
                        };
         }
 

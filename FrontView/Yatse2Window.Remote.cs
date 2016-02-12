@@ -73,6 +73,18 @@ namespace FrontView
             txb_Home_Albums.Visibility = (_remotePlugin.SupportedFunctions().AudioLibrary) ? Visibility.Visible : Visibility.Hidden;
             txb_Home_Genres.Visibility = (_remotePlugin.SupportedFunctions().AudioLibrary) ? Visibility.Visible : Visibility.Hidden;
 
+//SuportsRemoteControl Changes
+
+//Music
+            txb_SupportsRemoteControlMusic.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
+//Movie
+            txb_SupportsRemoteControlMovie.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
+//TV
+            txb_SupportsRemoteControlTv.Visibility = (_remotePlugin.SupportedFunctions().SupportsRemoteControl) ? Visibility.Visible : Visibility.Hidden;
+
+
+
+
             _failedRemoteCheck = false;
 
             _remote.Configure(remoteInfo.IP, remoteInfo.Port, remoteInfo.Login, remoteInfo.Password);

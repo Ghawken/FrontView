@@ -1496,3 +1496,4 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\FrontView.appl
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.TrustInfo.xml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.exe.manifest
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.application
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Changelog.txt

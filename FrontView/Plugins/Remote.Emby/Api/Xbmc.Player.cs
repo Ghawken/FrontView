@@ -383,6 +383,7 @@ namespace Remote.Emby.Api
                                     _nowPlaying.IsPaused = false;
                                     _nowPlaying.IsPlaying = false;
                                     _parent.Trace("--------------EMBY NOW PLAYING Log: Nothing is Playing");
+                                    response.Close();
                                     return;
                                 }
 
@@ -501,7 +502,7 @@ namespace Remote.Emby.Api
                                     {
                                         _nowPlaying.FirstAired = server.AirDate.Value;
                                     }
-
+                                    response.Close();
                                     return;
 
 
@@ -524,6 +525,7 @@ namespace Remote.Emby.Api
                         _nowPlaying.IsPaused = false;
                         _nowPlaying.IsPlaying = false;
                         _parent.Trace("--------------EMBY NOW PLAYING Log: Nothing is Playing");
+                        response.Close();
                         return;
                     }
 
@@ -532,6 +534,7 @@ namespace Remote.Emby.Api
                 {
                     _parent.Log("Exception in NowPlaying EMBY System" + ex);
                     _parent.MpcLoaded = false;
+                   
                     return;
                 }
 

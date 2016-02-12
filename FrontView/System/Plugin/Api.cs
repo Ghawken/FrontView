@@ -290,6 +290,7 @@ namespace Plugin
         public bool TvShowLibrary { get; set; }
         public bool AudioLibrary { get; set; }
         public bool PictureLibrary { get; set; }
+        public bool SupportsRemoteControl { get; set; }
     }
 
     public class ApiCurrently

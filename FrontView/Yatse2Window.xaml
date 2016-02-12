@@ -398,7 +398,8 @@
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp"/>
         					<Slider x:Name="sld_Current_Music_Volume" Margin="0,8,13,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp"/>
-        					<Grid Margin="512,0,58,8" VerticalAlignment="Bottom" Width="230" Height="65">
+        					
+                            <Grid x:Name="txb_SupportsRemoteControlMusic" Margin="512,0,58,8" VerticalAlignment="Bottom" Width="230" Height="65">
         						<Button HorizontalAlignment="Center" Margin="-150,0,0,0" VerticalAlignment="Center" Width="48" Height="48" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Previous, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Previous_Click"/>
         						<Button HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="48" Height="48" Content="Button" Style="{DynamicResource Remote_Button}"
@@ -519,7 +520,9 @@
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" />
         					<Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_Mute, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Mute_Click"/>
-        					<Grid Margin="235,0,44,8" VerticalAlignment="Bottom" Height="65">
+                            
+                            
+                            <Grid x:Name="txb_SupportsRemoteControlMovie" Margin="235,0,44,8" VerticalAlignment="Bottom" Height="65">
         						<Button  Margin="-150,0,0,0" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Previous, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Previous_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48"/>
         						<Button Margin="0" Content="Button" Style="{DynamicResource Remote_Button}"
@@ -633,7 +636,9 @@
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" />
         					<Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_Mute, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Mute_Click"/>
-        					<Grid Margin="235,0,44,8" VerticalAlignment="Bottom" Height="65">
+
+
+                                <Grid x:Name="txb_SupportsRemoteControlTv" Margin="235,0,44,8" VerticalAlignment="Bottom" Height="65">
         						<Button Margin="-150,0,0,0" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Previous, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Previous_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48"/>
         						<Button Margin="0" Content="Button" Style="{DynamicResource Remote_Button}"

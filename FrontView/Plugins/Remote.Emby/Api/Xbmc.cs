@@ -270,7 +270,9 @@ namespace Remote.Emby.Api
           /*  if (!MpcLoaded)
             {
             */
-                string url = GetJsonPath() + "/Users/Public";
+            
+
+            string url = @"http://"+GetJsonPath() + "/FrontView";
                 // PMS Server Clients Page - to connect to and see whether local player is in effect.
 
                 try
@@ -283,39 +285,8 @@ namespace Remote.Emby.Api
                     if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                     {
 
-                        // Get the stream containing content returned by the server.
-                        //REMOVETHIS                           System.IO.Stream dataStream = response.GetResponseStream();
-                        // Open the stream using a StreamReader.
-//REMOVETHIS                        System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
-
-                 //       XmlSerializer serializer = new XmlSerializer(typeof(ClientsMediaContainer));
-                   //    ClientsMediaContainer deserialized = (ClientsMediaContainer)serializer.Deserialize(reader);
-
-
-/*
-                        if (deserialized.Server.Count == 0)
-                        {
-                            Log("No connected Plex. Clients Found");
-                            return false;
-                        }
-
-                        foreach (var server in deserialized.Server)
-                        {
-                            Log("Clients FOUND: " + server.Value);
-                            Log("name is " + server.name + " and host is " + server.host);
-
-                            if (server.host == GetLocalIPAddress())
-                            {
-                                Log("Client Machine Found - Yah!    " + server.host + ":" + server.name);
-                                ClientIPAddress = server.host;
-                                return true;
-
-                            }
-
-                        }
-                        */
- 
-                        Log("EMBY Server found - Users/Public Checked");
+                        Log("EMBY Server found - FrontView Checked");
+                        response.Close();
                         return true;
 
 
@@ -324,15 +295,33 @@ namespace Remote.Emby.Api
                     return false;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Log("Cannot connect is server details right " + ex);
+                    Log("Cannot connect to Server: In CheckConnection are server details right? ");
                     return false;
                 }
             
             //return true;
         }
+        public bool CheckPing()
+        {
+            try
+            {
+                Log("CheckPing Running:--------------------------%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
+            string url = GetJsonPath() + "/Users/Public";
+            
+            TcpClient client = new TcpClient(IP,Convert.ToInt32(Port));
+            return true;
+            }
+            catch (Exception ex)
+            {
+                Log("CheckPing ERROR is server details right " + ex);
+                return false;
+            }
+
+            //return true;
+        }
         public override bool CheckRemote(string os, string version, string additional, bool force)
         {
             var cOs = GetOS();
@@ -992,7 +981,7 @@ namespace Remote.Emby.Api
         {
             if (!_configured) 
                 return null;
-            return @"http://" + IP + ":" + Port ;
+            return IP + ":" + Port ;
             //Changed Path for Emby -
         }
 
