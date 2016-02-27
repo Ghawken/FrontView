@@ -1,5 +1,9 @@
 ﻿Changelog:
 
+Release 1.105
+Bugfix for HTTP App exit related to name change
+
+
 Release 1.104
 Remove Remote Buttons if Client Does not support Remote Control
 

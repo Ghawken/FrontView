@@ -39,9 +39,13 @@ namespace Remote.Emby.Api.EmbyServerPlugin
         public string NowViewingName { get; set; }
         public string NowViewingSeriesName { get; set; }
         public string NowViewingArtists { get; set; }
-
         public string NowViewingAlbum { get; set; }
         public string NowViewingMediaType { get; set; }
+        public string AudioCodec { get; set; }
+        public string AudioProfile { get; set; }
+        public string AudioChannels { get; set; }
+        public string VideoCodec { get; set; }
+        public string VideoHeight { get; set; }
 
     }
 }

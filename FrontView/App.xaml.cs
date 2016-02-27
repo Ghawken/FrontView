@@ -93,7 +93,7 @@ namespace FrontView
 
 
 
-           string configFile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\FrontView+\Yatse.xml");
+           string configFile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\FrontView+\settings.xml");
            try
            {
                var deserializer = new XmlSerializer(typeof(FrontView.Classes.FrontViewConfig));
