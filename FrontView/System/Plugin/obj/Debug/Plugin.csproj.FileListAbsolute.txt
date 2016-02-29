@@ -1,5 +1,5 @@
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\Plugin.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\Plugin.pdb
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Plugin\obj\Debug\Plugin.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Plugin\obj\Debug\Plugin.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Plugin\obj\Debug\Plugin.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\Plugin\obj\Debug\Plugin.csprojResolveAssemblyReference.cache

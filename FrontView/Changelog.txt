@@ -1,8 +1,17 @@
 ﻿Changelog:
 
-Release 1.105
-Bugfix for HTTP App exit related to name change
+Release 1.106
+Automatic screen detection from sleep etc.
+Correctly uses Disable Resolution Detection in settings.xml for this function
 
+Release 1.105
+Bugfix for HTTPSend App exit related to name change
+Update EmbyServer Plugin to 1.0.0.18 Class
+EMBY REMOTE: 
+-	Add ignore theme.mp3 files playback for NowPlaying screen for EMBY Remote (?maybe needs option - can't think why)
+-	And ignore backdrop/theme.mp4 files
+-	Add support for 'Video' Mediatypes in NowPlaying screen
+Fix Longstanding bug Fade In/Fade Out on Mute
 
 Release 1.104
 Remove Remote Buttons if Client Does not support Remote Control

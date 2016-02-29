@@ -90,8 +90,6 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Yatse2Setup.exe.
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Yatse2Setup.exe
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Yatse2Setup.pdb
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Setup.dll
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Setup.pdb
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Langs\Norwegian.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Langs\Dutch.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Langs\Français.baml
@@ -108,3 +106,5 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.csproj.GenerateResource.Cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.exe
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\obj\x86\Debug\Yatse2Setup.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2Setup\bin\Debug\Setup.pdb

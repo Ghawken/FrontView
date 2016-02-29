@@ -386,6 +386,20 @@ namespace Remote.Emby.Api
                                     response.Close();
                                     return;
                                 }
+                            // OK - Ignore these filenames theme.mp3 for one
+                            // ? Video Backgrounds as well will figure out
+                            //
+                                if (server.Filename.EndsWith("theme.mp3") || server.Filename.EndsWith("theme.mp4"))
+                                {
+                                    _nowPlaying.FileName = "";
+                                    _nowPlaying.Title = "";
+                                    _nowPlaying.IsPlaying = false;
+                                    _nowPlaying.IsPaused = false;
+                                    _nowPlaying.IsPlaying = false;
+                                    _parent.Trace("--------------Emby Now Playing Theme Video NowPlaying IGNORE This. Filename:"+server.Filename);
+                                    response.Close();
+                                    return;
+                                }
 
                                 //Something must be playing- at least something with a filename
                                 //We will find out how full proof that is later.
@@ -435,9 +449,9 @@ namespace Remote.Emby.Api
                                         _nowPlaying.MediaType = "TvShow";
                                         _nowPlaying.EpisodeNumber = Convert.ToInt32("0" + server.EpisodeNumber);
                                         _nowPlaying.SeasonNumber = Convert.ToInt32("0" + server.SeasonNumber);
-                                        _nowPlaying.ShowTitle = server.ShowTitle;
-                                        _nowPlaying.Title = server.Title;
-                                        _nowPlaying.Plot = server.Overview;
+                                        _nowPlaying.ShowTitle = String.IsNullOrEmpty(server.ShowTitle) ? "" : server.ShowTitle;
+                                        _nowPlaying.Title = String.IsNullOrEmpty(server.Title) ? "Blank" : server.Title;
+                                        _nowPlaying.Plot = String.IsNullOrEmpty(server.Overview) ? "" : server.Overview ;
                                         _nowPlaying.FileName = server.Filename;  //Filename
                                         _parent.Log("------------- EMBY Trying to get Images");
                                         _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
@@ -467,7 +481,24 @@ namespace Remote.Emby.Api
                                         _nowPlaying.Plot = server.Overview;
                                         _nowPlaying.Director = server.Director;
                                         _nowPlaying.Rating = server.Rating;
-                                        _nowPlaying.FileName = server.Filename; //No Filename as yet try ID
+                                        _nowPlaying.FileName = server.Filename; 
+                                        _parent.Log("------------- EMBY Trying to get Images");
+                                        _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
+                                        _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";
+                                        _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
+                                    }
+
+                                    if (server.MediaType == "Video")
+                                    {
+                                        _nowPlaying.MediaType = "Movie";
+                                        //_nowPlaying.EpisodeNumber = server.NowPlayingItem.IndexNumber;
+                                        // _nowPlaying.SeasonNumber = server.NowPlayingItem.ParentIndexNumber;
+                                        // _nowPlaying.ShowTitle = server.NowPlayingItem.SeriesName;
+                                        _nowPlaying.Title = server.Title;
+                                        _nowPlaying.Plot = server.Overview;
+                                        _nowPlaying.Director = server.Director;
+                                        _nowPlaying.Rating = server.Rating;
+                                        _nowPlaying.FileName = server.Filename; 
                                         _parent.Log("------------- EMBY Trying to get Images");
                                         _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
                                         _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";
@@ -554,10 +585,13 @@ namespace Remote.Emby.Api
                 if (checkNewMedia)
                 {
                     _nowPlaying.IsNewMedia = false;
+                    _parent.Trace("--------------NowPlaying API checkNewMedia: currentMediafile:"+_currentMediaFile+" nowPlaying.Filename"+_nowPlaying.FileName+" currentMediaTitle:"+_currentMediaTitle+" nowPlaying.Title"+_nowPlaying.Title);
+                    
                     if (_currentMediaFile != _nowPlaying.FileName || (_currentMediaTitle != _nowPlaying.Title))
                     {
                         _currentMediaTitle = _nowPlaying.Title;
                         _currentMediaFile = _nowPlaying.FileName;
+                        _parent.Trace("------------------ EMBY NowPlaying API:  Is New Media now true");
                         _nowPlaying.IsNewMedia = true;
                     }
                 }

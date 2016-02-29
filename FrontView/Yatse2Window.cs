@@ -681,12 +681,16 @@ namespace FrontView
                 }
 
                 //disable automatic resolution dection - except at start of
-                //if (!_config.DisableResolutionDetection)
-                //{
-                //    Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Change_Display_Settings;
-                //}
-                Change_Display_Settings(null, null);
-               
+
+
+                if (!_config.DisableResolutionDetection && !_config.MinimiseAlways)
+                {
+                    Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Change_Display_Settings;
+                }
+                
+                    Change_Display_Settings(null, null);
+                
+
                 if (_config.StartFrontViewServer)
                 {
                     StartServer();
@@ -1409,7 +1413,7 @@ namespace FrontView
             //Logger.Instance().Log("FrontView+", "After CALL CheckFanARt");
 
 
-            if ((_timer > _config.DimmingTimer) && _config.Dimming && (nowPlaying.IsPlaying))
+            if ((_timer > _config.DimmingTimer) && _config.Dimming && nowPlaying.IsPlaying && !nowPlaying.IsMuted)
             {
                 if (!(!_yatse2Properties.Currently.IsTv && !_yatse2Properties.Currently.IsMovie && _config.DimmingOnlyVideo))
                 {
@@ -1425,7 +1429,7 @@ namespace FrontView
                 ResetTimer();
             }
 
-            if (!nowPlaying.IsPaused && !nowPlaying.IsPlaying)
+            if (!nowPlaying.IsPaused && !nowPlaying.IsPlaying )
             {
                 if (grd_Dimming.Visibility == Visibility.Visible && glennwindow.WindowState == WindowState.Normal)
                 {
