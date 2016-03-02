@@ -24,8 +24,11 @@ using FrontView.Libs;
 
 namespace FrontView.Classes
 {
+    
     public class FrontViewConfig
     {
+        public string FanartDirectoryFixed { get; set; }
+        
         public bool IsConfigured { get; set; }
         public bool Debug { get; set; }
         public bool SecondScreen { get; set; }
@@ -91,7 +94,9 @@ namespace FrontView.Classes
         public int DiaporamaTimer { get; set; }
         public Devmode Resolution { get; set; }
         public string ImageDirectory { get; set; }
+        
         public string FanartDirectory { get; set; }
+        
         public int FanartNumberDirectories { get; set; }
         public string FanartCurrentPath { get; set; }
         public string FanartDirectoryTV { get; set; }
@@ -253,7 +258,7 @@ namespace FrontView.Classes
                 Skin = config.Skin;
             Resolution = config.Resolution;
             ImageDirectory = config.ImageDirectory;
-            FanartCurrentPath = config.FanartCurrentPath;
+            FanartCurrentPath = "";  // config.FanartCurrentPath;
             FanartDirectory = config.FanartDirectory;
             FanartDirectoryTV = config.FanartDirectoryTV;
             FanartDirectoryMovie = config.FanartDirectoryMovie;
@@ -299,7 +304,8 @@ namespace FrontView.Classes
             LongKeyPress = config.LongKeyPress;
             DiaporamaMode = config.DiaporamaMode;
             DisableResolutionDetection = config.DisableResolutionDetection;
-            
+            FanartDirectoryFixed = config.FanartDirectory;
+
             return true;
         }
 
@@ -311,6 +317,7 @@ namespace FrontView.Classes
                 var res = Resolution;
                 res.DMFormName = "";
                 Resolution = res;
+                FanartDirectory = FanartDirectoryFixed;
                 var serializer = new XmlSerializer(typeof(FrontViewConfig));
                 using (TextWriter textWriter = new StreamWriter(configFile))
                 {
