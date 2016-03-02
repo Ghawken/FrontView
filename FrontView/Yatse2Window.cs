@@ -484,7 +484,17 @@ namespace FrontView
                // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
                 
                 Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
+                
 
+                // Receive data from Kodi thread to deal with theme.mp3
+                // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
+                // occurs on every playback - but when theme started - stops sending ListItem.Path info and sends
+                // playback info for theme.
+                // At Remote End Kodi ignores theme files so no NowPlaying screen for them
+                // BUT - resorts to generic fanart as the Fanart Path info that was sent is no longer sent
+                // This change basically ignores sent info from Kodi via Plugin -- if a onstartplayback event noted
+                // Phew.
+                // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
                
                 if (!dataReceived.Contains(@"<event>onplaybackstarted</event>")) 
                 {
