@@ -156,6 +156,8 @@ namespace FrontView
 
         private void AudioStarting()
         {
+
+            
             if (grd_Dimming.Visibility == Visibility.Visible)
             {
                 grd_Dimming_MouseDown(null, null);
@@ -259,6 +261,8 @@ namespace FrontView
             //SupportsRemoteControl Changes - Check Below:
             UpdateButtonVisibility();
             Logger.Instance().LogDump("Yatse PVR", "MediaType equals:" + nowPlaying.MediaType, true);
+            
+            
             switch (nowPlaying.MediaType)
             {
                 case "Audio":
@@ -489,7 +493,7 @@ namespace FrontView
 
             Logger.Instance().LogDump("FrontView PVR:", "nowPlaying.Filename is : " + nowPlaying.FileName +" nowPlaying.IsPlaying = " +nowPlaying.IsPlaying + " isPlaying " + _isPlaying + " isNewMedia?" +nowPlaying.IsNewMedia , true);
 
-            if (nowPlaying.IsNewMedia && (nowPlaying.IsPlaying || nowPlaying.IsPaused) && !String.IsNullOrEmpty(nowPlaying.FileName))
+            if (nowPlaying.IsNewMedia && (nowPlaying.IsPlaying || nowPlaying.IsPaused) && !String.IsNullOrEmpty(nowPlaying.FileName) && !nowPlaying.FileName.EndsWith("theme.mp3"))
             {
                 //Glenn Added
                 Window glennwindow = Window.GetWindow(this);

@@ -3,6 +3,8 @@
 Release 1.106
 Automatic screen detection from sleep etc.
 Correctly uses Disable Resolution Detection in settings.xml for this function
+KODI: 
+- Ignore theme files both in Nowplaying and sort out Fanart for them.
 
 Release 1.105
 Bugfix for HTTPSend App exit related to name change

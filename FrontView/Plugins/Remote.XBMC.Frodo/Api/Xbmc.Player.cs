@@ -96,6 +96,12 @@ namespace Remote.XBMC.Frodo.Api
 
                         return;
                     }
+                   
+
+                    
+                    
+                    
+                    
                     //_parent.Log("XBMC PLAYER REMOTE:   Check with MPC Doesnt make it here");
                     var GUIproperties = new JsonObject();
                     GUIproperties["properties"] = new[]
@@ -134,6 +140,8 @@ namespace Remote.XBMC.Frodo.Api
                         _nowPlaying.IsPaused = false;
                         return;
                     }
+
+
 
                     var items = new JsonObject();
                     items["playerid"] = current;
@@ -259,6 +267,25 @@ namespace Remote.XBMC.Frodo.Api
                         _nowPlaying.Album = result2["album"].ToString();
                         _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
                         _nowPlaying.FanartURL = result2["fanart"].ToString();
+
+                        // add to remove theme files
+                        
+                        
+                        _parent.Log("---THEME MP3 NOWPLAYING FILENAME EQUALS:" + _nowPlaying.FileName);
+                        if (_nowPlaying.FileName.EndsWith("theme.mp3"))
+                        {
+                            _nowPlaying.FileName = "";
+                            _nowPlaying.Title = "";
+                            _nowPlaying.IsPlaying = false;
+                            _nowPlaying.IsPaused = false;
+
+                            _nowPlaying.IsNewMedia = false;
+                            _parent.Log("Kodi Remote:   Theme.mp3 playing stopping" + _nowPlaying.FileName);
+                            return;
+
+
+                        }
+                       
                     }
                     
                     if (_nowPlaying.MediaType == "video")

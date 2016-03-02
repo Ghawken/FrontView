@@ -472,7 +472,7 @@ namespace FrontView
             TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
             Logger.Instance().Log("SERVER", "Within New Thread running Listener... ", true);
             listener.Start();
-            _config.FanartCurrentPath = null;
+           // _config.FanartCurrentPath = null;
 
             while (true)
             {
@@ -484,7 +484,16 @@ namespace FrontView
                // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
                 
                 Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
-                _config.FanartCurrentPath = dataReceived;
+
+               
+                if (!dataReceived.Contains(@"<event>onplaybackstarted</event>")) 
+                {
+                    Logger.Instance().LogDump("SERVER","NOT Playback Started Event - change Fanart as required", true);
+                    _config.FanartCurrentPath = dataReceived;
+                }
+                
+                
+                
                 //  onfig.FanartCurrentPath = dataReceived;
                 // Console.WriteLine("The resulting messages on the server" + dataReceived);
                 //  nwStream.Write(buffer, 0, bytesRead);
@@ -688,7 +697,7 @@ namespace FrontView
                     Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Change_Display_Settings;
                 }
                 
-                    Change_Display_Settings(null, null);
+                Change_Display_Settings(null, null);
                 
 
                 if (_config.StartFrontViewServer)
@@ -809,7 +818,8 @@ namespace FrontView
                     Logger.Instance().LogDump("SortOUT", "Escapes replaced Final Result:" + path, true);
                     return path;
                 }
-                Logger.Instance().LogDump("SortOUT", "Neither End Result " + path, true);
+                Logger.Instance().LogDump("SortOUT", "Neither End Result :" + path, true);
+
                 return path;
             }
             catch (Exception ex)
@@ -1101,9 +1111,29 @@ namespace FrontView
         private void CheckAudioFanart()
         {
             var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-            
+            Logger.Instance().LogDump("theme.mp3", "NowPlaying Filename equals:" + nowPlaying2.FileName);
+
             var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+            
+            if (nowPlaying2.FileName.EndsWith("theme.mp3"))
+            {
+                string CurrentPath = SortOutPath(nowPlaying2.FileName);
+                CurrentPath = cleanPath(CurrentPath, string.Empty);
+                Logger.Instance().LogDump("theme.mp3 Playing", "Current Path Equals:" + CurrentPath, true);
+                string CurrentPath2 = GetFanartDirectory(CurrentPath);
+                Logger.Instance().LogDump("theme.mp3 Playing", "CurrentPath2 now Equals:" + CurrentPath2, true);
+                _config.FanartDirectory = CurrentPath2 + @"extrafanart\";
+
+                if (GetRandomImagePathNew(_config.FanartDirectory) == null)
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
+                }
+                
+                
+                return;
+            }
+
      
 
             Logger.Instance().LogDump("FrontView Check AudioFanart    : Audio Playing", nowPlaying2.CurrentMenuLabel, true);
@@ -1175,7 +1205,11 @@ namespace FrontView
             if (FanartAlways == true)
             {
                 
-
+                if (nowPlaying2.FileName=="IGNORE")
+                {
+                    Logger.Instance().LogDump("IGNORE", "IGNORE given ignoring Fanart Socket", true);
+                    return;
+                }
                 string CurrentPath = SortOutPath(_config.FanartCurrentPath);
 
                 CurrentPath = cleanPath(CurrentPath, string.Empty);
@@ -1401,7 +1435,7 @@ namespace FrontView
                 {
                     gotoHttp(_config.HttpMediatypeVideo, nowPlaying);
                 }
-                if (nowPlaying.IsNewMedia == true && nowPlaying.MediaType == "Audio")
+                if (nowPlaying.IsNewMedia == true && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
                 {
                     gotoHttp(_config.HttpMediatypeAudio, nowPlaying);
                 }
@@ -1529,8 +1563,8 @@ namespace FrontView
           }
 
 
-
-          if (glennwindow.WindowState == WindowState.Normal && _isfanart && _config.FanartAlways == true && _config.Currently == false && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio")
+//add theme.mp3 aspect
+          if (glennwindow.WindowState == WindowState.Normal && _isfanart && _config.FanartAlways == true && _config.Currently == false && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
           {
               Logger.Instance().LogDump("AUDIO", "nowPlaying Switching Fanart" + nowPlaying.MediaType, true);
               CheckAudioFanart();
