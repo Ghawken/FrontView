@@ -146,7 +146,7 @@ etc.
 Should try to keep url formatting (replace space with %20)  Should escape it out, but won't hurt*
 
 
-*Build 170*:
+*Build 170*
 
 Major Addition HTTP Sending on Playback changed conditions.
 
@@ -162,23 +162,32 @@ Adds Manual to install - Updated Manual to Build 170
 
 
 *Build 150*
+
 * Checks for file in use (slow download or just not finished) before swapping default fanart over.
+
 *Build 151*
+
 * Some changes to support MPC-HC as external player. Need to select and enable web interface in MPC-HC - default port only.
 * Need to change Yatse %appdata%/Yatse 3 Socket/Yatse.xml file setting true
-Build 155
+
+*Build 155*
+
 * Further external player support for MPC-HC (nothing additional required)
 * Multiple Music Databases supported for extrafanart location
 * Checks for existence of MUSIC SOURCE/Artist/extrafanart directory - if true uses this source. (NB limited testing)
-Build 156
+
+*Build 156*
+
 * Some Bug fixes, now Multiple music sources now works for music fanart display AND nowplaying screen.
-Build 160
+*Build 160*
+
 * New Installer.
 * Change Skin location to %appdata% folder.
 * Other locations remain the same. Importantly the Yaste2.xml file remains in %appdata%/Yatse 3 Socket
 
 
 FAQs:
+
 1. Fanart appears and I can’t see the settings – go to Kodi/Settings menu - will disable Fanart display
 2. I have no Fanart
 Need to use addon artwork downloader and artwork organizer – download artwork – which is then stored by these addons in the media folders directory- \extrafanart. This will be the fanart that is displayed as you browse the directory.
