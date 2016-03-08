@@ -25,23 +25,34 @@ USAGE
 
 
 *Use your second LCD Screen for Now Playing Information with fanart/Backdrops and remote control
+
 *Touch Screen Remote control (if player supports)
+
 *Shows Fanart as you browse Media Center – Fanart updates depending on the Browsing option (Kodi only – needs kodi.service installed)
+
 *Shows Default Fanart on other media centers and if no extrafanart for selection
+
 *Supports Fanart and CdART for Music Playback for all media centers
+
 *Supports PVR Channel info 
+
 *Supports sending of HTTP Commands at certain Playback events – enabling FrontView+ to trigger home automation commands
+
 *Supports MPC-HC as external Player for Kodi usage
+
 *Includes its own local SQL Database for browsing and starting playback of files
+
 *Supports Kodi (full support – requires service.addon), Emby (full support – needs Emby Server Plugin), Plex (partial now Playing support only)
+
 ]
 
 Relevant Fanart Example:
 
-![Alt Text](https://youtu.be/Io0AQPlM94E)
+https://youtu.be/Io0AQPlM94E
 
 Install Manual included in Setup file - for install instructions.
 Manual Only:
+
 https://www.mediafire.com/?v8232d1ww2166bb
 
 Update: 
