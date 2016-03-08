@@ -14,7 +14,7 @@ Basically if you have a PC case with a build-in LCD Screen eg. like these two:
 
 
 
-This is the program to be running for your media-center. 
+**This** is the program to be running for your media-center. 
 Nothing else in my experience does the job as well.
 FrontView+ takes this blank screen, or the very old now unsupported iMon software and turns it into this:
 
@@ -55,9 +55,9 @@ Manual Only:
 
 https://www.mediafire.com/?v8232d1ww2166bb
 
-Update: 
+**Update:**
 
-Version 1.107
+**Version 1.107**
 - Reinstate DisableResolutionDetection: -- setting in settings.xml file
 reinstates screen settings on screen change if <MinimiseAlways>false and <DisableResolutionDetection>false
 if <DisableResolutionDetection>true - will resort to current behaviour where screen changes are ignored.
@@ -69,7 +69,7 @@ KODI:
 Further Fixes for config File
 
 Update:
-Version 1.04
+**Version 1.04**
 Support Kodi 16/Jarvis
 Bug Fixes - for Emby server restart
 
