@@ -348,7 +348,7 @@ namespace Remote.Emby.Api
                                               IdArtist = Xbmc.IDtoNumber(genre.AlbumArtists.FirstOrDefault().Id),
                                               Artist = genre.AlbumArtist ?? "",
                                               Genre = AlbumItem.Genres.FirstOrDefault().ToString() ?? "",
-                                              Year = genre.ProductionYear,
+                                              Year = genre.ProductionYear ?? 1999,
                                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                           };
                                 albums.Add(album);
@@ -647,7 +647,7 @@ namespace Remote.Emby.Api
 
                             }
 
-                            var RoundSeconds = genre.RunTimeTicks / 10000000.00;
+                            var RoundSeconds = (genre.RunTimeTicks / 10000000.00) ?? 0;
 
                             try
                             {
@@ -655,9 +655,9 @@ namespace Remote.Emby.Api
                                  {
                                      IdSong = Xbmc.IDtoNumber(genre.Id),
                                      Title = genre.Name ?? "",
-                                     Track = Convert.ToInt64(genre.IndexNumber),
+                                     Track = Convert.ToInt64(genre.IndexNumber ?? 0),
                                      Duration = Convert.ToInt64(RoundSeconds),
-                                     Year = Convert.ToInt64(genre.ProductionYear),
+                                     Year = Convert.ToInt64(genre.ProductionYear ?? 1999),
                                      FileName = Songitem.Path,
                                      IdAlbum = Xbmc.IDtoNumber(genre.AlbumId),
                                      Album = genre.Album ?? "",

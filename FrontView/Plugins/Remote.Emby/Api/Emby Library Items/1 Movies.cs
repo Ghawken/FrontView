@@ -21,9 +21,9 @@ namespace Remote.Emby.Api.Movies
         public bool HasSubtitles { get; set; }
         public string OfficialRating { get; set; }
         public float CommunityRating { get; set; }
-        public long RunTimeTicks { get; set; }
+        public long? RunTimeTicks { get; set; }
         public string PlayAccess { get; set; }
-        public int ProductionYear { get; set; }
+        public int? ProductionYear { get; set; }
         public bool IsPlaceHolder { get; set; }
         public bool IsHD { get; set; }
         public bool IsFolder { get; set; }

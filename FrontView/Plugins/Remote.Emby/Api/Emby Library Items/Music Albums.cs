@@ -19,7 +19,7 @@ namespace Remote.Emby.Api.MusicAlbums
         public string ServerId { get; set; }
         public string Id { get; set; }
         public string PlayAccess { get; set; }
-        public int ProductionYear { get; set; }
+        public int? ProductionYear { get; set; }
         public bool IsFolder { get; set; }
         public string Type { get; set; }
         public string ParentBackdropItemId { get; set; }

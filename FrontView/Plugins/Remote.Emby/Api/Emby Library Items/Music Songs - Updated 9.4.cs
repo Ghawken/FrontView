@@ -19,10 +19,10 @@ namespace Remote.Emby.Api.MusicSongs
         public string Name { get; set; }
         public string ServerId { get; set; }
         public string Id { get; set; }
-        public long RunTimeTicks { get; set; }
+        public long? RunTimeTicks { get; set; }
         public string PlayAccess { get; set; }
-        public int ProductionYear { get; set; }
-        public int IndexNumber { get; set; }
+        public int? ProductionYear { get; set; }
+        public int? IndexNumber { get; set; }
         public bool IsFolder { get; set; }
         public string Type { get; set; }
         public string ParentBackdropItemId { get; set; }
