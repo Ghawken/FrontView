@@ -21,8 +21,9 @@ namespace Remote.Emby.Api.MusicSingleAlbumItem
         public bool HasSyncJob { get; set; }
         public bool IsSynced { get; set; }
         public string SortName { get; set; }
-        public object[] ExternalUrls { get; set; }
+        public Externalurl[] ExternalUrls { get; set; }
         public string Path { get; set; }
+        public string Overview { get; set; }
         public object[] Taglines { get; set; }
         public string[] Genres { get; set; }
         public long CumulativeRunTimeTicks { get; set; }
@@ -34,7 +35,7 @@ namespace Remote.Emby.Api.MusicSingleAlbumItem
         public string ParentId { get; set; }
         public string Type { get; set; }
         public object[] People { get; set; }
-        public object[] Studios { get; set; }
+        public Studio[] Studios { get; set; }
         public string ParentBackdropItemId { get; set; }
         public string[] ParentBackdropImageTags { get; set; }
         public Userdata UserData { get; set; }
@@ -59,11 +60,16 @@ namespace Remote.Emby.Api.MusicSingleAlbumItem
 
     public class Providerids
     {
+        public string MusicBrainzAlbum { get; set; }
+        public string MusicBrainzReleaseGroup { get; set; }
+        public string AudioDbArtist { get; set; }
+        public string AudioDbAlbum { get; set; }
+        public string MusicBrainzAlbumArtist { get; set; }
     }
 
     public class Userdata
     {
-        public int PlayedPercentage { get; set; }
+        public float PlayedPercentage { get; set; }
         public int UnplayedItemCount { get; set; }
         public int PlaybackPositionTicks { get; set; }
         public int PlayCount { get; set; }
@@ -75,6 +81,19 @@ namespace Remote.Emby.Api.MusicSingleAlbumItem
     public class Imagetags
     {
         public string Primary { get; set; }
+        public string Disc { get; set; }
+    }
+
+    public class Externalurl
+    {
+        public string Name { get; set; }
+        public string Url { get; set; }
+    }
+
+    public class Studio
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
     }
 
     public class Artistitem
@@ -88,6 +107,7 @@ namespace Remote.Emby.Api.MusicSingleAlbumItem
         public string Name { get; set; }
         public string Id { get; set; }
     }
+
 
 
 }

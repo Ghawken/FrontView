@@ -326,10 +326,15 @@ namespace Remote.Emby.Api
 
                             foreach (var findingid in MusicGenres.Items)
                             {
-                                if (findingid.Name == AlbumItem.Genres.FirstOrDefault().ToString())
-                                {
-                                    GenreIDSet = Xbmc.IDtoNumber(findingid.Id);
-                                }
+
+                                if (AlbumItem.Genres != null && AlbumItem.Genres.Length != 0)
+                                    {
+                                        if (findingid.Name == AlbumItem.Genres.FirstOrDefault().ToString())
+                                        {
+                                            GenreIDSet = Xbmc.IDtoNumber(findingid.Id);
+                                        }
+                                    }
+
                             }
 
                             try
@@ -632,10 +637,14 @@ namespace Remote.Emby.Api
                             
                             foreach (var findingid in MusicGenres.Items)
                             {
+                                if (Songitem.Genres != null && Songitem.Genres.Length != 0)
+                                {
                                 if ( findingid.Name == Songitem.Genres.FirstOrDefault().ToString() )
                                 {
                                     GenreIDSet = Xbmc.IDtoNumber(findingid.Id);
                                 }
+                                }
+
                             }
 
                             var RoundSeconds = genre.RunTimeTicks / 10000000.00;

@@ -75,7 +75,7 @@ namespace Remote.Emby.Api.TVSingleItemSeries
 
     public class Userdata
     {
-        public int PlayedPercentage { get; set; }
+        public float PlayedPercentage { get; set; }
         public int UnplayedItemCount { get; set; }
         public int PlaybackPositionTicks { get; set; }
         public int PlayCount { get; set; }

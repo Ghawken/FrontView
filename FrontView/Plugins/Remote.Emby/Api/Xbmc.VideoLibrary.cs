@@ -393,7 +393,7 @@ namespace Remote.Emby.Api
                         }
                         catch (Exception ex)
                         {
-                            _parent.Trace("TV Shows Exception Caught " + ex);
+                            _parent.Trace("TV Shows Exception Caught " + ex );
                         }
                     }
 
@@ -654,17 +654,17 @@ namespace Remote.Emby.Api
                               Votes = Movieitem.VoteCount.ToString() ?? "0",
                               Rating = id.CommunityRating.ToString() ?? "0",
                               Year = id.ProductionYear,
-                              Tagline = Movieitem.Taglines.FirstOrDefault() ?? "Might be a good movie",
+                              Tagline = Movieitem.Taglines.FirstOrDefault().ToString() ?? "Might be a good movie",
                               IdScraper = Movieitem.ProviderIds.Imdb ?? "",
                               Length = new TimeSpan(0,0,0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
                               Mpaa = id.OfficialRating ?? "Unknown",
                               Genre = Movieitem.Genres.FirstOrDefault() ?? "Unknown",
                               Director = newDirector ?? "",
                               OriginalTitle = id.Name ?? "",
-                              Studio = Movieitem.Studios.FirstOrDefault().Name ?? "Unknown",
+                              Studio = Movieitem.Studios.FirstOrDefault().Name.ToString() ?? "Unknown",
                               IdFile = 0,
                               IdMovie = Xbmc.IDtoNumber(Movieitem.Id),
-                              FileName = Movieitem.Path ?? "",
+                              FileName = Movieitem.Path.ToString() ?? "",
                               Path = Movieitem.Id ?? "",
                               PlayCount = Movieitem.UserData.PlayCount,
                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
