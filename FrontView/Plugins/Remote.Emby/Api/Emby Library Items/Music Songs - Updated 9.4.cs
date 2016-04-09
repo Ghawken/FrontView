@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Remote.Emby.Api.MusicSongs
 {
 
+
     public class Rootobject
     {
         public Item[] Items { get; set; }
@@ -31,15 +32,15 @@ namespace Remote.Emby.Api.MusicSongs
         public Artistitem[] ArtistItems { get; set; }
         public string Album { get; set; }
         public string AlbumId { get; set; }
+        public string AlbumPrimaryImageTag { get; set; }
         public string AlbumArtist { get; set; }
         public Albumartist[] AlbumArtists { get; set; }
         public Imagetags ImageTags { get; set; }
         public object[] BackdropImageTags { get; set; }
         public string LocationType { get; set; }
         public string MediaType { get; set; }
-        public DateTime PremiereDate { get; set; }
-        public string AlbumPrimaryImageTag { get; set; }
         public int ParentIndexNumber { get; set; }
+        public DateTime PremiereDate { get; set; }
         public string ParentLogoItemId { get; set; }
         public string ParentLogoImageTag { get; set; }
     }

@@ -56,7 +56,7 @@ namespace Remote.Emby.Api
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
                     System.IO.Stream dataStream = response.GetResponseStream();
-//REMOVETHIS        System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
                     using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                     {
                         string json = sr.ReadToEnd();
@@ -70,12 +70,17 @@ namespace Remote.Emby.Api
                             {
                                 _parent.Trace("----------- Get Main Selection Run ---" + param + " ID Result equals:  " + id.Id);
                                 MusicID = id.Id;
+                                return MusicID;
                             }
                         }
 
                     }
                 }
 
+                return "";
+
+
+                /*
                 // Do again to get Album, Genre etc results
                 // these come from param - above is fixed to Music
                 // Options to pass are Latest, Playlists, Albums, Album Artists, Songs, Genres
@@ -118,6 +123,7 @@ namespace Remote.Emby.Api
 
 
                 return null;
+                 */
             }
             catch (Exception ex)
             {
@@ -129,14 +135,16 @@ namespace Remote.Emby.Api
         public Collection<ApiAudioGenre> GetGenres()
         {
 
-            var genreID = GetMainSelection("Genres");
-            
+            var MusicID = GetMainSelection("Genres");  //Genres bit no longer needed
+            // Change away from GetMainSelection which is no longer working
+            // Use Emby Genres to get info.
+
             var genres = new Collection<ApiAudioGenre>();
 
             try
             {
                 _parent.Trace("Getting Music Genres: Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + genreID;
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/MusicGenres?ParentId="+ MusicID;
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
                 request.Timeout = 150000;
@@ -172,7 +180,7 @@ namespace Remote.Emby.Api
                                 {
                                     IdGenre = Xbmc.IDtoNumber(genre.Id),
                                     Name = genre.Name ?? "",
-                                    AlbumCount = genre.ChildCount,
+                                    AlbumCount = 0, //genre.ChildCount,
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? ""
                                 };
                                 genres.Add(gen);
@@ -200,13 +208,13 @@ namespace Remote.Emby.Api
             var artists = new Collection<ApiAudioArtist>();
 
 
-            var AlbumArtistsID = GetMainSelection("Album Artists");
+            //var MusicID = GetMainSelection("Album Artists");
 
 
             try
             {
                 _parent.Trace("Getting Album ARtists: Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + AlbumArtistsID;
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Artists"; // /" + Globals.CurrentUserID + "/Items?ParentId=" + ;
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
                 request.Timeout = 150000;
@@ -253,7 +261,7 @@ namespace Remote.Emby.Api
 
                             catch (Exception ex)
                             {
-                                _parent.Trace("Music Genres Exception Caught " + ex);
+                                _parent.Trace("Another Album Artists Exception Caught " + ex);
                             }
                         }
 
@@ -276,13 +284,13 @@ namespace Remote.Emby.Api
         {
             var albums = new Collection<ApiAudioAlbum>();
 
-            var AlbumID = GetMainSelection("Albums");
+            //var AlbumID = GetMainSelection("Albums");
 
 
             try
             {
-                _parent.Trace("Getting Album ARtists: Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + AlbumID;
+                _parent.Trace("Getting Album : Parent IP: " + _parent.IP);
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=MusicAlbum&EnableImages=true";
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
                 request.Timeout = 150000;
@@ -315,12 +323,13 @@ namespace Remote.Emby.Api
 
                             try
                             {
+                               
                                 var album = new ApiAudioAlbum
                                           {
                                               IdAlbum = Xbmc.IDtoNumber(genre.Id),
                                               Title = genre.Name ?? "",
                                               IdGenre = 0,
-                                              IdArtist = 0,
+                                              IdArtist = Xbmc.IDtoNumber(genre.AlbumArtists.FirstOrDefault().Id),
                                               Artist = genre.AlbumArtist ?? "",
                                               Genre = "",
                                               Year = genre.ProductionYear,
@@ -371,7 +380,7 @@ namespace Remote.Emby.Api
                 {
 
                     System.IO.Stream dataStream = response.GetResponseStream();
-//REMOVETHIS                    System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
 
                     using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                     {
@@ -400,17 +409,72 @@ namespace Remote.Emby.Api
         }
 
 
+        public MusicSongSingleItem.Rootobject GetSingleSong(string itemId)
+        {
+            try
+            {
+
+                _parent.Trace("Getting Single Song From ItemData" + _parent.IP);
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items/" + itemId;
+
+                var request = WebRequest.CreateHttp(NPurl);
+
+                request.Method = "get";
+                request.Timeout = 150000;
+                _parent.Trace("Single Song Selection: " + NPurl);
+
+                var authString = _parent.GetAuthString();
+
+                request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
+                request.Headers.Add("X-Emby-Authorization", authString);
+                request.ContentType = "application/json; charset=utf-8";
+                request.Accept = "application/json; charset=utf-8";
+
+                var response = request.GetResponse();
+
+                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+                {
+
+                    System.IO.Stream dataStream = response.GetResponseStream();
+
+
+                    using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        string json = sr.ReadToEnd();
+                        _parent.Trace("--------------GETTING Single Artist From Series Selection Result ------" + json);
+
+                        var deserializer = new JavaScriptSerializer();
+
+                        var ItemData = deserializer.Deserialize<MusicSongSingleItem.Rootobject>(json);
+                        _parent.Trace("---------------Get Single Artist From ItemData Selection:  Issue: Results.Taglines: " + ItemData.Taglines);
+
+                        return ItemData;
+
+                    }
+                }
+
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _parent.Trace("ERROR in Single Song Selection obtaining: " + ex);
+                return null;
+
+            }
+        }
+
 
         public Collection<ApiAudioSong> GetSongs()
         {
             var songs = new Collection<ApiAudioSong>();
-            var AlbumID = GetMainSelection("Songs");
+           // var MusicID = GetMainSelection("Songs");
 
 
             try
             {
                 _parent.Trace("Getting Songs: Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + AlbumID;
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=Audio&EnableImages=true"; 
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
                 request.Timeout = 150000;
@@ -427,7 +491,7 @@ namespace Remote.Emby.Api
                 {
 
                     System.IO.Stream dataStream = response.GetResponseStream();
- //REMOVETHIS                   System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
 
                     using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                     {
@@ -442,7 +506,7 @@ namespace Remote.Emby.Api
                         {
                            
                             // Do get more data - but takes FOREVER !!
-                            // MusicSongSingleItem.Rootobject Songitem = GetSingleSong(genre.Id);
+                             MusicSongSingleItem.Rootobject Songitem = GetSingleSong(genre.Id);
                             
                             var RoundSeconds = genre.RunTimeTicks / 10000000.00;
 
@@ -455,14 +519,14 @@ namespace Remote.Emby.Api
                                      Track = Convert.ToInt64(genre.IndexNumber),
                                      Duration = Convert.ToInt64(RoundSeconds),
                                      Year = Convert.ToInt64(genre.ProductionYear),
-                                     FileName = "",
+                                     FileName = Songitem.Path,
                                      IdAlbum = Xbmc.IDtoNumber(genre.AlbumId),
                                      Album = genre.Album ?? "",
                                      Path = genre.Id,
-                                     IdArtist = 0,
+                                     IdArtist = Xbmc.IDtoNumber(genre.AlbumArtists.FirstOrDefault().Id),
                                      Artist = genre.Artists.FirstOrDefault() ?? "",
                                      IdGenre = 0,
-                                     Genre = "",
+                                     Genre = Songitem.Genres.FirstOrDefault().ToString(),
                                      Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                  };
                                 songs.Add(song);

@@ -37,6 +37,7 @@ namespace Remote.Emby.Api.MusicAlbums
         public DateTime PremiereDate { get; set; }
         public string ParentLogoItemId { get; set; }
         public string ParentLogoImageTag { get; set; }
+        public DateTime EndDate { get; set; }
     }
 
     public class Userdata
