@@ -75,6 +75,7 @@
     <Compile Include="Api\ClassAuthenicateByUser\AuthenicateByUser.cs" />
     <Compile Include="Api\Emby Library Items\Album Artists.cs" />
     <Compile Include="Api\Emby Library Items\MainSelection Items.cs" />
+    <Compile Include="Api\Emby Library Items\Music SIngle Item Album.cs" />
     <Compile Include="Api\Emby Library Items\Music Songs - Updated 9.4.cs" />
     <Compile Include="Api\Emby Library Items\Music Albums.cs" />
     <Compile Include="Api\Emby Library Items\MusicSelection - Updated 9.4.cs" />
