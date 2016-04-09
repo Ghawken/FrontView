@@ -348,10 +348,10 @@ namespace Remote.Emby.Api
 
         public string GetAuthString()
         {
-            string clientname = "FrontView";
+            string clientname = "FrontView+";
             string devicename = "Windows Application";
             string deviceID = Globals.DeviceID; // "9DA94EFB-EFF0-4144-9A18-46B046C450C6";
-            string appVersion = "1.100";
+            string appVersion = "1.108";
 
             if (String.IsNullOrEmpty(Globals.CurrentUserID))
             {
@@ -406,7 +406,9 @@ namespace Remote.Emby.Api
                         var deserializer = new JavaScriptSerializer();
                       
                         var results = deserializer.Deserialize<List<Public_Users_Folder.Class1>>(json);
-                        Trace("-----------------  " +results[1].ConnectUserId);
+                        
+                        
+                        //Trace("-----------------  " +results[0].ConnectUserId);
                         
                         
                         foreach (var server in results)

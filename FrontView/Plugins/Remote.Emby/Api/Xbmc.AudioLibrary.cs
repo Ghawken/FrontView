@@ -83,7 +83,7 @@ namespace Remote.Emby.Api
                 NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?parentId=" + MusicID;
                 var request2 = WebRequest.CreateHttp(NPurl);
                 request2.Method = "get";
-                request2.Timeout = 10000;
+                request2.Timeout = 100000;
                 _parent.Trace("Main Selection: " + _parent.IP + ":" + _parent.Port);
                 //var authString = _parent.GetAuthString();
                 request2.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
@@ -130,6 +130,7 @@ namespace Remote.Emby.Api
         {
 
             var genreID = GetMainSelection("Genres");
+            
             var genres = new Collection<ApiAudioGenre>();
 
             try

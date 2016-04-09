@@ -481,38 +481,49 @@ namespace FrontView
         {
             if (! _remote.IsConnected())
                 return;
-            _yatse2Properties.ShowRefreshLibrary = true;
-            _remote.File.StopAsync();
-            Application.DoEvents();
-            Logger.Instance().Log("FrontView+", "Starting Library Refresh", true);
-            _database.SetDebug(false);
-            _yatse2Properties.RefreshWhat = GetLocalizedString(1);
-            Application.DoEvents();
-            RefreshMovieLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(2);
-            Application.DoEvents();
-            RefreshTvShowLibrary();
-            RefreshTvSeasonLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(3);
-            Application.DoEvents();
-            RefreshTvEpisodesLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(4);
-            Application.DoEvents();
-            RefreshMusicGenreLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(5);
-            Application.DoEvents();
-            RefreshMusicAlbumsLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(6);
-            Application.DoEvents();
-            RefreshMusicSongsLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(7);
-            Application.DoEvents();
-            RefreshMusicArtistsLibrary();
-            _yatse2Properties.RefreshWhat = GetLocalizedString(8);
-            Application.DoEvents();
-            _database.Compress();
-            RefreshThumbsFanarts();
-            _database.SetDebug(_config.Debug);
+            
+            
+            try
+            {
+                
+                _yatse2Properties.ShowRefreshLibrary = true;
+                _remote.File.StopAsync();
+                Application.DoEvents();
+                Logger.Instance().Log("FrontView+", "Starting Library Refresh", true);
+                _database.SetDebug(false);
+                _yatse2Properties.RefreshWhat = GetLocalizedString(1);
+                Application.DoEvents();
+                RefreshMovieLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(2);
+                Application.DoEvents();
+                RefreshTvShowLibrary();
+                RefreshTvSeasonLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(3);
+                Application.DoEvents();
+                RefreshTvEpisodesLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(4);
+                Application.DoEvents();
+                RefreshMusicGenreLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(5);
+                Application.DoEvents();
+                RefreshMusicAlbumsLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(6);
+                Application.DoEvents();
+                RefreshMusicSongsLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(7);
+                Application.DoEvents();
+                RefreshMusicArtistsLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(8);
+                Application.DoEvents();
+                _database.Compress();
+                RefreshThumbsFanarts();
+                _database.SetDebug(_config.Debug);
+            }
+            catch (Exception Ex)
+            {
+                Logger.Instance().Log("FrontView+", "Library Refresh Error:" +Ex);
+            }
+
             Logger.Instance().Log("FrontView+", "End Library Refresh", true);
             _remoteLibraryRefreshed = true;
             ShowPopup(GetLocalizedString(101));

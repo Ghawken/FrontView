@@ -1809,7 +1809,8 @@ namespace FrontView
             Logger.Instance().Log("FrontView+", "Dispay settings changed");
             Topmost = _config.Topmost;
             WindowStartupLocation = WindowStartupLocation.Manual;
-            Activate();
+            //REMOVE OR CHANGE ACTIVATE()
+            //Activate();
             var dx = 1.0;
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);

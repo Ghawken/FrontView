@@ -27,7 +27,7 @@ namespace FrontView.Classes
     
     public class FrontViewConfig
     {
-        public string FanartDirectoryFixed { get; set; }
+
         
         public bool IsConfigured { get; set; }
         public bool Debug { get; set; }
@@ -94,7 +94,7 @@ namespace FrontView.Classes
         public int DiaporamaTimer { get; set; }
         public Devmode Resolution { get; set; }
         public string ImageDirectory { get; set; }
-        
+        public string FanartDirectoryFixed { get; set; }
         public string FanartDirectory { get; set; }
         
         public int FanartNumberDirectories { get; set; }
