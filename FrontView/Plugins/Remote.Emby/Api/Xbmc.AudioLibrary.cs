@@ -293,7 +293,7 @@ namespace Remote.Emby.Api
                 string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=MusicAlbum&EnableImages=true";
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
-                request.Timeout = 150000;
+                request.Timeout = 500000;
                 _parent.Trace("Genre Music Selection: " + NPurl);
                 var authString = _parent.GetAuthString();
                 request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
@@ -339,15 +339,45 @@ namespace Remote.Emby.Api
 
                             try
                             {
-                               
+
+
+                                string TempAlbumGenreID = "";
+                                if (genre.AlbumArtists != null && genre.AlbumArtists.Length != 0)
+                                {
+                                    if (genre.AlbumArtists.FirstOrDefault() != null) 
+                                    {
+                                        TempAlbumGenreID = genre.AlbumArtists.FirstOrDefault().Id;
+                                    }
+                                }
+                                
+                                string TempAlbumGenre = "";
+                                if (AlbumItem.Genres != null && AlbumItem.Genres.Length != 0)
+                                {
+                                    if (AlbumItem.Genres.FirstOrDefault() != null)
+                                    {
+                                        TempAlbumGenre = AlbumItem.Genres.FirstOrDefault().ToString();
+                                    }
+                                }
+
+
+                                _parent.Trace("AudioLIBRARY Single Album Checks");
+                                _parent.Trace( genre.Id.ToString() );
+                                _parent.Trace(genre.Name ?? "");
+                                _parent.Trace(GenreIDSet.ToString());
+                                _parent.Trace(Xbmc.IDtoNumber(TempAlbumGenreID).ToString());
+                                _parent.Trace(genre.AlbumArtist ?? "");
+                                _parent.Trace(TempAlbumGenre ?? "");
+                                _parent.Trace(genre.ProductionYear.ToString());
+                                _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "");
+
                                 var album = new ApiAudioAlbum
                                           {
                                               IdAlbum = Xbmc.IDtoNumber(genre.Id),
                                               Title = genre.Name ?? "",
                                               IdGenre = GenreIDSet,
-                                              IdArtist = Xbmc.IDtoNumber(genre.AlbumArtists.FirstOrDefault().Id),
+                                              IdArtist = Xbmc.IDtoNumber(TempAlbumGenreID),
                                               Artist = genre.AlbumArtist ?? "",
-                                              Genre = AlbumItem.Genres.FirstOrDefault().ToString() ?? "",
+                                              Genre = TempAlbumGenre ?? "",
                                               Year = genre.ProductionYear ?? 1999,
                                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                           };
@@ -649,6 +679,25 @@ namespace Remote.Emby.Api
 
                             var RoundSeconds = (genre.RunTimeTicks / 10000000.00) ?? 0;
 
+                            string TempSongGenreID = "";
+                            if (genre.AlbumArtists != null && genre.AlbumArtists.Length != 0)
+                            {
+                                if (genre.AlbumArtists.FirstOrDefault() != null)
+                                {
+                                    TempSongGenreID = genre.AlbumArtists.FirstOrDefault().Id;
+                                }
+                            }
+
+                            string TempSongGenre = "";
+                            if (Songitem.Genres != null && Songitem.Genres.Length != 0)
+                            {
+                                if (Songitem.Genres.FirstOrDefault() != null)
+                                {
+                                    TempSongGenre = Songitem.Genres.FirstOrDefault().ToString();
+                                }
+                            }
+
+
                             try
                             {
                                  var song = new ApiAudioSong
@@ -662,10 +711,10 @@ namespace Remote.Emby.Api
                                      IdAlbum = Xbmc.IDtoNumber(genre.AlbumId),
                                      Album = genre.Album ?? "",
                                      Path = genre.Id,
-                                     IdArtist = Xbmc.IDtoNumber(genre.AlbumArtists.FirstOrDefault().Id),
+                                     IdArtist = Xbmc.IDtoNumber(TempSongGenreID),
                                      Artist = genre.Artists.FirstOrDefault() ?? "",
                                      IdGenre = GenreIDSet,
-                                     Genre = Songitem.Genres.FirstOrDefault().ToString() ?? "",
+                                     Genre = TempSongGenre ?? "",
                                      Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                  };
                                 songs.Add(song);

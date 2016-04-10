@@ -369,6 +369,24 @@ namespace Remote.Emby.Api
 
                             var SingleTVData = GetSingleTVFromSeries(genre.Id);
 
+                            string TempTVGenre = "";
+                            if (SingleTVData.Genres != null && SingleTVData.Genres.Length != 0)
+                            {
+                                if (SingleTVData.Genres.FirstOrDefault() != null)
+                                {
+                                    TempTVGenre = SingleTVData.Genres.FirstOrDefault().ToString();
+                                }
+                            }
+                            string TempTVStudios = "";
+                            if (SingleTVData.Studios != null && SingleTVData.Studios.Length != 0)
+                            {
+                                if (SingleTVData.Studios.FirstOrDefault() != null)
+                                {
+                                    TempTVStudios = SingleTVData.Studios.FirstOrDefault().Name.ToString();
+                                }
+                            }
+
+
                             var tvShow = new ApiTvShow
                             {
                                 
@@ -377,8 +395,8 @@ namespace Remote.Emby.Api
                                 Rating = genre.CommunityRating.ToString() ?? "" ,
                                 IdScraper = "",
                                 Mpaa = SingleTVData.OfficialRating ?? "Unknown",
-                                Genre = SingleTVData.Genres.FirstOrDefault().ToString() ?? "",
-                                Studio = SingleTVData.Studios.FirstOrDefault().Name.ToString() ?? "",
+                                Genre = TempTVGenre,
+                                Studio = TempTVStudios,
                                 IdShow = Xbmc.IDtoNumber(genre.Id),
                                 TotalCount = genre.RecursiveItemCount,
                                 Path = SingleTVData.Path ?? "",
@@ -645,7 +663,7 @@ namespace Remote.Emby.Api
                           }
 
                           string Taglines = "";
-                          if (Movieitem.Taglines != null || Movieitem.Taglines.Length != 0 ) 
+                          if (Movieitem.Taglines != null && Movieitem.Taglines.Length != 0 ) 
                           {
                               if (Movieitem.Taglines.FirstOrDefault() != null )
                               {
@@ -653,11 +671,11 @@ namespace Remote.Emby.Api
                               }
                           }
                           string Studios = "";
-                          if (Movieitem.Studios != null || Movieitem.Studios.Length != 0)
+                          if (Movieitem.Studios != null && Movieitem.Studios.Length != 0)
                           {
                               if (Movieitem.Studios.FirstOrDefault() != null)
                               {
-                                  Taglines = Movieitem.Studios.FirstOrDefault().ToString();
+                                  Studios = Movieitem.Studios.FirstOrDefault().Name.ToString();
                               }
                           }
 
@@ -677,7 +695,7 @@ namespace Remote.Emby.Api
                           _parent.Trace(Movieitem.Genres.FirstOrDefault() ?? "Unknown"   );
                           _parent.Trace( newDirector ?? ""  );
                           _parent.Trace( id.Name ?? ""      );
-                          _parent.Trace( Studios        );
+                          _parent.Trace( Studios      );
                           _parent.Trace( Xbmc.IDtoNumber(Movieitem.Id).ToString() );
                            _parent.Trace(Movieitem.Path.ToString() ?? ""            );
                            _parent.Trace(Movieitem.Id ?? ""            );
