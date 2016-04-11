@@ -2043,12 +2043,20 @@ namespace FrontView
 
         private void ResetTimer()
         {
-            /*if (_config.KeepFocus && _remoteInfo != null && !_disableFocus)
+            
+            Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
+            
+            if (_config.KeepFocus && _remoteInfo != null && !_disableFocus)
             {
-                //if (_remote != null)
-                    //No focus until press button
-                    //_remote.GiveFocus();
-            }*/
+                if (_remote != null)
+                // No focus until press button
+                {
+                    _remote.GiveFocus();
+                }
+
+             }
+
+
             Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run", _timer);
             _timer = 0;
         }

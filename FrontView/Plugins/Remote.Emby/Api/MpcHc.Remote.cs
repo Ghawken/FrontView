@@ -67,11 +67,24 @@ namespace Remote.Emby.Api
 
         public bool Command(string cmd,string parameter)
         {
+
+            if (Globals.ClientSupportsRemoteControl == null)
+            {
+                _parent.Log("EMBY COMMAND: ClientSupportsRemote currently null rechecking...");
+                Globals.ClientSupportsRemoteControl = _parent.GetPlaybackClientSupportsRemote();
+                _parent.Log("EMBY COMMAND: ClientSupportsRemote now:" + Globals.ClientSupportsRemoteControl);
+            }
+            
             if (Globals.ClientSupportsRemoteControl == false)
             {
                 _parent.Log("-----EMBY COMMAND:   Current Client DOES NOT SUPPORT REMOTE CONTROL -- No Command Sent");
                 _parent.Log("-----EMBY COMMAND:  GLobals SupportsRemote " + Globals.ClientSupportsRemoteControl + "Global ClientID:" + Globals.SessionIDClient);
                 return false;
+            }
+            
+            if (String.IsNullOrEmpty(Globals.SessionIDClient))
+            {
+                Globals.SessionIDClient = _parent.GetYatseInfoPlayingClient();
             }
 
             HttpWebRequest request;

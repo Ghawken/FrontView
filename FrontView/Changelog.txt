@@ -1,5 +1,15 @@
 ﻿Changelog:
 
+Release 1.111
+Fix to Remote Control Timing Startup issues with Emby
+Additional support for Old EMBY Theater (MediaBrowser.UI)
+
+Release 1.110
+Emby Remote Updated:(1.105)
+Major changes to AudioLibrary Download.  (a bit slower download as more info)
+Far better Null checks from data from Database.
+Correction/Working Music Genres
+
 Release 1.106
 Automatic screen detection from sleep etc.
 Correctly uses Disable Resolution Detection in settings.xml for this function

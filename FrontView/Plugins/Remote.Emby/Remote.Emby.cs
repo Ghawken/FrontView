@@ -55,7 +55,7 @@ namespace Remote.Emby
                            AudioLibrary = true,
                            TvShowLibrary = true,
                            PictureLibrary = true,
-                           SupportsRemoteControl = Globals.ClientSupportsRemoteControl
+                           SupportsRemoteControl = true
                        };
         }
 

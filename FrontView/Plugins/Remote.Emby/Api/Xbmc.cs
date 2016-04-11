@@ -58,7 +58,7 @@ namespace Remote.Emby.Api
         public static String DeviceID = "9DA94EFB-EFF0-4144-9A18-46B046C450C6";
         public static string SessionID = "";
         public static string SessionIDClient = "";
-        public static bool ClientSupportsRemoteControl = false;
+        public static bool? ClientSupportsRemoteControl;
         public static string CurrentUserID ="";
     }
     
@@ -104,14 +104,19 @@ namespace Remote.Emby.Api
 
         public override void GiveFocus()
         {
-            if (!MpcLoaded)
-            {
-                var processes = Process.GetProcessesByName("Kodi");
+
+                var processes = Process.GetProcessesByName("Emby.Theater");
+                
+                if (processes.Length == 0)
+                {
+                    processes = Process.GetProcessesByName("MediaBrowser.UI");
+                }
+
                 foreach (var pFoundWindow in processes.Select(p => p.MainWindowHandle))
                 {
                     NativeMethods.SetForegroundWindow(pFoundWindow);
                 }
-            }
+
         }
 
         public Xbmc()
@@ -469,7 +474,7 @@ namespace Remote.Emby.Api
             
             string authString = GetAuthString();
 
-            Log("EMBY -- TEST CONNECTION: RUNINNG CHECK FOR YATSE Information");
+            Log("EMBY -- TEST CONNECTION: RUNINNG CHECK FOR FrontView Information");
             Globals.SessionIDClient = GetYatseInfoPlayingClient();
             
             Globals.ClientSupportsRemoteControl = GetPlaybackClientSupportsRemote();
@@ -860,7 +865,7 @@ namespace Remote.Emby.Api
 
 
 
-        private bool GetPlaybackClientSupportsRemote()
+        public bool? GetPlaybackClientSupportsRemote()
         {
             
             
@@ -922,18 +927,20 @@ namespace Remote.Emby.Api
                                 Log("Returning Client Supports Remote Control:" + server.SupportsRemoteControl);
                                 //Globals.SessionIDClient = server.Id;
                                 Globals.ClientSupportsRemoteControl = server.SupportsRemoteControl;
-                                return true;
+                                return server.SupportsRemoteControl;   //ie. Its FOUND and returns what its has found
                             }
                         }
                     }
                 }
-                return false;
+                
+                Log("SupportsRemoteControl: FALSE Matching Client ID not found");
+                return null;  //Not found ? to earlier - leave null
             }
             
             catch (Exception ex)
             {
                 Log("ERROR in Client ID obtaining" + ex);
-                return false;
+                return null;
             }
         }
 
