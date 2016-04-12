@@ -122,11 +122,10 @@ namespace FrontView.Libs
         private const double ForecastCacheDuration = 210;
         private const string SearchUrl = "http://autocomplete.wunderground.com/aq?query=";
         //private const string DataUrl = "http://xoap.weather.com/weather/local/{0}?cc=*&link=xoap&prod=xoap&par={1}&key={2}&unit={3}";
-        //private const string DataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
-        private const string DataUrl = "http://api.wunderground.com/api/134031614dc4d6b2/conditions";
+        private const string DataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
         //private const string ForecastDataUrl = "http://xoap.weather.com/weather/local/{0}?cc=*&dayf=5&link=xoap&prod=xoap&par={1}&key={2}&unit={3}";
-        //private const string ForecastDataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
-        private const string ForecastDataUrl = "http://api.wunderground.com/api/134031614dc4d6b2/forecast10day";
+        private const string ForecastDataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
+
         public void Configure(string cacheDir, string unit, string partnerId, string licenseKey)
         {
             _partnerId = partnerId;
@@ -175,7 +174,7 @@ namespace FrontView.Libs
                 _refreshTimer.Interval = 60000;
         }
 
-        private bool LoadWeatherDataOLD(string locId, bool force, bool forecast, bool auto = false)
+        private bool LoadWeatherData(string locId, bool force, bool forecast, bool auto = false)
         {
             string path;
             string url;
@@ -217,77 +216,20 @@ namespace FrontView.Libs
             return false;
         }
 
-        private bool LoadWeatherData(string locId, bool force, bool forecast, bool auto = false)
-        {
-            string path;
-            string url;
-            double cacheDuration;
-
-            string newLocID = locId;
-
-            string invalid = @";/:\";
-            
-            foreach (char c in invalid)
-            {
-                newLocID = newLocID.Replace(c.ToString(), "");
-            }
-
-
-            if (!forecast)
-            {
-                path = _cacheDir + @"\"+ newLocID+".json";
-                url = DataUrl;
-                cacheDuration = CacheDuration;
-            }
-            else
-            {
-                path = _cacheDir + @"\" + newLocID + ".forecast.json";
-                url = ForecastDataUrl;
-                cacheDuration = ForecastCacheDuration;
-            }
-            try
-            {
-                Logger.Instance().Trace("Weather", "Path: " + path);
-                
-                if (File.Exists(path))
-                {
-                    var lastWriteTime = File.GetLastWriteTime(path);
-                    if (((DateTime.Now - lastWriteTime).TotalMinutes <= cacheDuration) && !force)
-                    {
-                        return true;
-                    }
-                }
-                if ((auto && _isAutoRefresh) || (!auto && !_isAutoRefresh))
-                {
-                    using (var client = new WebClient())
-                    {
-                        client.DownloadFile(
-                            new Uri(url + locId + ".json"), path);
-                        Logger.Instance().Trace("Weather", "DownloadFile Path equals " + path);
-                    }
-                }
-                return true;
-            }
-            catch (WebException) { }
-            return false;
-        }
-
-
         public WeatherData GetWeatherData(string locId)
         {
-            return GetWeatherDataNew(locId, false);
+            return GetWeatherData(locId, false);
         }
-/*
-        public WeatherData GetWeatherDataOLDOLD(string locId, bool force)
+
+        public WeatherData GetWeatherData(string locId, bool force)
         {
-                
             var result = new WeatherData();
             if (String.IsNullOrEmpty(locId))
                 return null;
             try
             {
-             //   if (!LoadWeatherData(locId, force, false))
-              //      return null;
+                if (!LoadWeatherData(locId, force, false))
+                    return null;
                 var data = new XmlDocument();
                 data.Load(_cacheDir + "/" + locId + ".xml");
 
@@ -320,90 +262,20 @@ namespace FrontView.Libs
             catch (NullReferenceException) { }
             return null;
         }
-        
- */
-        public WeatherData GetWeatherDataNew(string locId, bool force)
-        {
 
-            var result = new WeatherData();
-            Logger.Instance().Trace("Weather", "GetWeatherDataNew Running..");
-           
-            string str = "";
-            if (String.IsNullOrEmpty(locId))
-            {
-                Logger.Instance().Trace("Weather", "locID Null returning Running..");
-                return null;
-            }
-          //  if (!LoadWeatherData(locId, force, true))
-          //      return null;
-            
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    try
-                    {
-                        str = client.DownloadString(DataUrl + locId + ".json");
-                        Logger.Instance().Trace("Weather", "Trying DataURL " + DataUrl + locId +".json");
-                    }
-                    catch (WebException ex)
-                    {
-                        Logger.Instance().Trace("Weather", "Underground Error" + ex);
-                        return result;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Instance().Trace("Weather", "Underground Error" + ex);
-            }
-
-
-            try
-            {
-                string json = str;
-                var deserializer = new JavaScriptSerializer();
-                var server = deserializer.Deserialize<WeatherAPIWUndergroundConditions.Rootobject>(json);
-
-                result.LocationName = "Unknowm";
-                
-                result.TempUnit = "celsius";
-                result.LocationName = server.current_observation.display_location.full;
-
-                result.Forecast.Clear();
-
-
-                result.Today = new WeatherCurrentDetail
-                {
-                    Temperature = server.current_observation.feelslike_c,
-                    Icon = server.current_observation.icon
-                };
-                return result;
-
-
-            }
-            catch (Exception ex)
-            {
-                Logger.Instance().Trace("Weather", "Underground Error" + ex);
-            }
-            return null;
-           
-            
-
-        }
         public WeatherData GetForecastWeatherData(string locId)
         {
-            return GetForecastWeatherDataNew(locId, false);
+            return GetForecastWeatherData(locId, false);
         }
-/*
-        public WeatherData GetForecastWeatherDataOLD(string locId, bool force)
+
+        public WeatherData GetForecastWeatherData(string locId, bool force)
         {
             var result = new WeatherData();
             if (String.IsNullOrEmpty(locId))
                 return null;
             try
             {
-                 if (!LoadWeatherData(locId, force, true))
+                if (!LoadWeatherData(locId, force, true))
                     return null;
                 var data = new XmlDocument();
                 data.Load(_cacheDir + "/" + locId + ".forecast.xml");
@@ -454,91 +326,6 @@ namespace FrontView.Libs
             catch (NullReferenceException) { }
             return null;
         }
- */
-        public WeatherData GetForecastWeatherDataNew(string locId, bool force)
-        {
-
-            
-            var result = new WeatherData();
-            Logger.Instance().Trace("Weather", "GetForecastWeatherDataNew");
-            string str = "";
-
-            if (String.IsNullOrEmpty(locId))
-            {
-                Logger.Instance().Trace("Weather", "GetForecastWeatherDataNew:  locID Null or Empty");
-                return null;
-            }
-
-            GetWeatherDataNew(locId, false);
-
-     //       if (!LoadWeatherData(locId, force, true))
-     //             return null;
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    try
-                    {
-                        str = client.DownloadString(ForecastDataUrl + locId + ".json");
-                        Logger.Instance().Trace("Weather", "Trying Data URL " + ForecastDataUrl +locId + ".json");
-                        Logger.Instance().Trace("Weather", "Result is :" + str);
-                    }
-                    catch (WebException ex)
-                    {
-                        Logger.Instance().Trace("Weather", "Underground Error" + ex);
-                        return result;
-                    }
-                }
-            } 
-            catch (Exception ex)
-            {
-                Logger.Instance().Trace("Weather", "Underground Error" + ex);
-            }
-
-
-            try
-            {
-                string json = str;
-                var deserializer = new JavaScriptSerializer();
-                var server = deserializer.Deserialize<WeatherAPIWUnderground10day.Rootobject>(json);
-
-                result.LocationName = "Unknowm";
-
-                result.Forecast.Clear();
-
-                var diff = 0;
-
-                if (server != null)
-                {
-                    foreach (var element in server.forecast.simpleforecast.forecastday)
-                    {
-
-                        var temp = new WeatherForecastDetail
-                        {
-                            DayDiff = diff,
-                            DayName = element.date.weekday,
-                            DayDate = element.date.pretty,
-                            DayIcon = element.icon,
-                            NightIcon = "nt_"+element.icon,
-                            MaxTemp = element.high.celsius,
-                            LowTemp = element.low.celsius
-
-                        };
-                        result.Forecast.Add(temp);
-                        diff++;
-                    }
-                }
-                return result;
-
-
-            }
-            catch (Exception ex)
-            {
-                Logger.Instance().Trace("Weather", "Underground Error" + ex);
-                return null;
-            }
-        }
-        
 
         public static Collection<WeatherLocation> SearchCity(string city)
         {

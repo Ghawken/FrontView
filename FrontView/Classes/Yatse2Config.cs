@@ -62,6 +62,7 @@ namespace FrontView.Classes
         public bool ForceResolution { get; set; }
         public bool Diaporama { get; set; }
         public bool Dimming { get; set; }
+        public double DimAmount { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
@@ -138,6 +139,7 @@ namespace FrontView.Classes
             ForceResolution = false;
             Diaporama = false;
             Dimming = false;
+            DimAmount = 0.9;
             Currently = true;
             CurrentlyMovie = true;
             HideCursor = false;
@@ -244,7 +246,11 @@ namespace FrontView.Classes
             KeepFocus = config.KeepFocus;
             ForceResolution = config.ForceResolution;
             Diaporama = config.Diaporama;
+            
             Dimming = config.Dimming;
+            
+            DimAmount = config.DimAmount;
+
             Currently = config.Currently;
             CurrentlyMovie = config.CurrentlyMovie;
             HideCursor = config.HideCursor;

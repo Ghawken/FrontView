@@ -85,6 +85,7 @@ namespace FrontView
             chk_Settings_ForceResolution.IsChecked = _config.ForceResolution;
             chk_Settings_Diaporama.IsChecked = _config.Diaporama;
             chk_Settings_Dimming.IsChecked = _config.Dimming;
+            
             chk_Settings_Currently.IsChecked = _config.Currently;
             chk_Settings_CurrentlyMovie.IsChecked = _config.CurrentlyMovie;
             chk_Settings_HideCursor.IsChecked = _config.HideCursor;
@@ -106,6 +107,7 @@ namespace FrontView
             chk_Settings_GenreToArtists.IsChecked = _config.GenreToArtists;
             chk_Settings_MusicFanartRotation.IsChecked = _config.MusicFanartRotation;
 
+            //txt_Settings_DimAmount = _config.DimAmount;
             txt_Settings_ImagesDirectory.Text = _config.ImageDirectory;
             txt_Settings_WeatherLocId.Text = _config.WeatherLoc;
             txt_Settings_HttpUser.Text = _config.HttpUser;
@@ -236,6 +238,7 @@ namespace FrontView
                 _config.ForceResolution = (bool)chk_Settings_ForceResolution.IsChecked;
                 _config.Diaporama = (bool)chk_Settings_Diaporama.IsChecked;
                 _config.Dimming = (bool)chk_Settings_Dimming.IsChecked;
+                
                 _config.Currently = (bool)chk_Settings_Currently.IsChecked;
                 _config.CurrentlyMovie = (bool)chk_Settings_CurrentlyMovie.IsChecked;
                 _config.HideCursor = (bool)chk_Settings_HideCursor.IsChecked;

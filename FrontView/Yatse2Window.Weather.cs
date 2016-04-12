@@ -34,6 +34,7 @@ namespace FrontView
         {
             Logger.Instance().Log("FrontView+", "Refresh weather");
             var weatherData = _weather.GetForecastWeatherData(_config.WeatherLoc);
+            
             if (weatherData == null)
             {
                 Logger.Instance().Log("FrontView+", "RefreshWeather : No forecast weather data");

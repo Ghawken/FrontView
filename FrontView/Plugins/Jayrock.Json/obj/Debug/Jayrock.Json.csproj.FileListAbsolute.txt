@@ -1,5 +1,5 @@
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\net-2.0\debug\Jayrock.Json.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\net-2.0\debug\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.pdb
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.csprojResolveAssemblyReference.cache

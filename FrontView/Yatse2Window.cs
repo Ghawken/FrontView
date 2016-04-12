@@ -663,6 +663,7 @@ namespace FrontView
                     _yatse2Properties.Skin = _config.Skin;
                     _yatse2Properties.Language = _config.Language;
                     _yatse2Properties.ShowHomeButton = false;
+                    _yatse2Properties.DimAmount = _config.DimAmount;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {
@@ -2068,11 +2069,14 @@ namespace FrontView
             _yatse2Properties.Time = now.ToShortTimeString();
             
             var weatherData = _weather.GetWeatherData(_config.WeatherLoc);
+            
+            
             if (weatherData == null)
             {
                 Logger.Instance().Log("FrontView+", "RefreshHeader : No weather data");
                 return;
             }
+            
             if (String.IsNullOrEmpty(_yatse2Properties.Weather.Day1Name))
                 RefreshWeather();
             _yatse2Properties.Weather.LoadCurrentData(weatherData,_yatse2Properties.Skin);

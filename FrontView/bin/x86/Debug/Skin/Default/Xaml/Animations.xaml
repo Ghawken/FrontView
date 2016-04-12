@@ -159,7 +159,7 @@
     <Storyboard x:Key="stb_ShowDimming">
         <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grd_Dimming" Storyboard.TargetProperty="(UIElement.Opacity)">
             <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-            <SplineDoubleKeyFrame KeyTime="00:00:01" Value="0.9"/>
+            <SplineDoubleKeyFrame KeyTime="00:00:03" Value="{Binding DimAmount, Source={StaticResource Yatse2Properties}}" />
         </DoubleAnimationUsingKeyFrames>
         <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="grd_Dimming" Storyboard.TargetProperty="(UIElement.Visibility)">
             <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>

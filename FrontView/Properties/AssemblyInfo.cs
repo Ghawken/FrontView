@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tolriq/GH")]
 [assembly: AssemblyProduct("FrontView")]
-[assembly: AssemblyCopyright("Copyright © Tolriq 2010/11/12/13 GH 2015")]
+[assembly: AssemblyCopyright("Copyright © Tolriq 2010/11/12/13 GH 2015/16")]
 [assembly: AssemblyTrademark("FrontView")]
 [assembly: AssemblyCulture("")]
 
@@ -51,8 +51,8 @@ using System.Windows;
 //
 // Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut 
 // en utilisant '*', comme indiqué ci-dessous :
-[assembly: AssemblyVersion("1.0.111.111")]
+[assembly: AssemblyVersion("1.0.112.112")]
 //[assembly: AssemblyVersion("2.0.0.101")]
 //[assembly: AssemblyFileVersion("2.0.0.101")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
-[assembly: AssemblyFileVersionAttribute("1.0.111.111")]
+[assembly: AssemblyFileVersionAttribute("1.0.112.112")]

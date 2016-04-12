@@ -36,6 +36,23 @@ namespace FrontView.Classes
             DependencyProperty.Register("Language", typeof(string), typeof(Yatse2Properties));
 
 
+        /// <summary>
+        ///  Change for Opacity Settings
+        /// </summary>
+
+        public static readonly DependencyProperty DimAmountProperty =
+            DependencyProperty.Register("DimAmount", typeof(double), typeof(Yatse2Properties));
+
+        public double DimAmount
+        {
+            get { return (double)GetValue(DimAmountProperty); }
+            set
+            {
+                SetValue(DimAmountProperty, value);
+
+            }
+        }
+
         public string Language
         {
             get { return (string)GetValue(LanguageProperty); }

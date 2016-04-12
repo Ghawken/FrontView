@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+
+Release 1.112
+Add Xml Settings <DimAmount> value from 0 to 1, amount of Dim applied to screen
+(setting also adjustable with Skin Animation.xml file) Depending on skin may override Settings.xml setting.
+
 Release 1.111
 Fix to Remote Control Timing Startup issues with Emby
 Additional support for Old EMBY Theater (MediaBrowser.UI)

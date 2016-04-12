@@ -245,12 +245,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +472,8 @@
     </Compile>
     <Compile Include="Httpsend.cs" />
     <Compile Include="Digest.cs" />
+    <Compile Include="Libs\Weather Classes\conditions.cs" />
+    <Compile Include="Libs\Weather Classes\10dayForcast.cs" />
     <Compile Include="Libs\Weather-WeatherChannel.cs" />
     <Compile Include="Libs\OSVersion.cs" />
     <Compile Include="ModalDialog.xaml.cs">
