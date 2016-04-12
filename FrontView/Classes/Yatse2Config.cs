@@ -111,6 +111,8 @@ namespace FrontView.Classes
         public string IPAddress { get; set; }
         public string Skin { get; set; }
         public string WeatherLoc { get; set; }
+
+        public string WeatherAPI { get; set; }
         public string WeatherUnit { get; set; }
         public string Homepage { get; set; }
         public long DefaultRemote { get; set; }
@@ -162,6 +164,7 @@ namespace FrontView.Classes
             Skin = "Default";
             WeatherLoc = "FRXX0076";
             WeatherUnit = "c";
+            WeatherAPI = "1111";
             DefaultRemote = 0;
             Homepage = "Home";
             ScreensaverTimer = 120;
@@ -277,6 +280,7 @@ namespace FrontView.Classes
             DefaultRemote = config.DefaultRemote;
             WeatherLoc = config.WeatherLoc;
             WeatherUnit = config.WeatherUnit;
+            WeatherAPI = config.WeatherAPI;
             DisableAnimations = config.DisableAnimations;
             ShowEndTime = config.ShowEndTime;
             HideWatched = config.HideWatched;

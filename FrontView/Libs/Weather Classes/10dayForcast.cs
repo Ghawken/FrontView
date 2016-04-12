@@ -119,32 +119,32 @@ namespace FrontView.Libs.WeatherAPIWUnderground10day
 
     public class Qpf_Day
     {
-        public float _in { get; set; }
-        public int mm { get; set; }
+        public float? _in { get; set; }
+        public int? mm { get; set; }
     }
 
     public class Qpf_Night
     {
-        public float _in { get; set; }
-        public int mm { get; set; }
+        public float? _in { get; set; }
+        public int? mm { get; set; }
     }
 
     public class Snow_Allday
     {
-        public float _in { get; set; }
-        public float cm { get; set; }
+        public float? _in { get; set; }
+        public float? cm { get; set; }
     }
 
     public class Snow_Day
     {
-        public float _in { get; set; }
-        public float cm { get; set; }
+        public float? _in { get; set; }
+        public float? cm { get; set; }
     }
 
     public class Snow_Night
     {
-        public float _in { get; set; }
-        public float cm { get; set; }
+        public float? _in { get; set; }
+        public float? cm { get; set; }
     }
 
     public class Maxwind

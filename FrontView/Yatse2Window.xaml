@@ -904,7 +904,12 @@
         							<ComboBox x:Name="lst_Settings_WeatherUnit" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="288,130.414,212,0" VerticalAlignment="Top"/>
         							<TextBlock Width="189" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_65}" HorizontalAlignment="Left" Margin="46,68.723,0,0" VerticalAlignment="Top" />
-        						</Grid>
+                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Weather API Key:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" />
+                                        <TextBox x:Name="txt_Settings_WeatherAPI" Style="{DynamicResource TextBox}" FontSize="16" 
+        								Text="txt_Settings_WeatherAPI" Padding="5,0,0,0" Margin="148,168.723,185,0" VerticalAlignment="Top" />
+
+                                    </Grid>
         					</TabItem>
         					<TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">
         						<Grid>
@@ -1431,7 +1436,9 @@
                             Content="{DynamicResource Localized_30}" />
         			<TextBlock Width="214" Height="27" Canvas.Left="8" Canvas.Top="8" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" FontSize="21.333"
                                Text="{DynamicResource Localized_34}" />
-        		</Canvas>
+
+
+                    </Canvas>
         	</Border>
         </Grid>
         <!-- Binded -->

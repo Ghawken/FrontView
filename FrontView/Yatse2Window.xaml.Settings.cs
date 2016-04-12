@@ -109,7 +109,11 @@ namespace FrontView
 
             //txt_Settings_DimAmount = _config.DimAmount;
             txt_Settings_ImagesDirectory.Text = _config.ImageDirectory;
+
+
             txt_Settings_WeatherLocId.Text = _config.WeatherLoc;
+
+
             txt_Settings_HttpUser.Text = _config.HttpUser;
             txt_Settings_HttpPassword.Text = _config.HttpPassword;
             txt_Settings_HttpPlaystarted.Text = _config.HttpPlaystarted;
@@ -121,6 +125,8 @@ namespace FrontView
             txt_Settings_HttpMediatypeVideo.Text = _config.HttpMediatypeVideo;
             txt_Settings_HttpPoweron.Text = _config.HttpPoweron;
             txt_Settings_HttpPoweroff.Text = _config.HttpPoweroff;
+            txt_Settings_WeatherAPI.Text = _config.WeatherAPI;
+            
             chk_Settings_MouseMode.IsChecked = _config.MouseMode;
 
             chk_Settings_DebugTrace.IsChecked = _config.DebugTrace;
@@ -283,6 +289,7 @@ namespace FrontView
             _config.HttpMediatypeAudio = txt_Settings_HttpMediatypeAudio.Text;
             _config.HttpPoweron = txt_Settings_HttpPoweron.Text;
             _config.HttpPoweroff = txt_Settings_HttpPoweroff.Text;
+            _config.WeatherAPI = txt_Settings_WeatherAPI.Text;
 
             _config.WeatherUnit = lst_Settings_WeatherUnit.SelectedIndex == 0 ? "c" : "f";
             if (lst_Settings_Language.SelectedItem != null)
@@ -381,6 +388,7 @@ namespace FrontView
         {
             if (lst_Settings_Weather_LocationId.SelectedItem != null)
                 txt_Settings_WeatherLocId.Text = ((WeatherLocation)lst_Settings_Weather_LocationId.SelectedItem).LocId;
+                
             grd_Settings_Weather.Visibility = Visibility.Hidden;
             //_yatse2Properties.ShowSettingsWeather = false;
         }
