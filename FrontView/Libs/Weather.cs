@@ -120,7 +120,7 @@ namespace FrontView.Libs
         private Timer _refreshTimer;
         private bool _isAutoRefresh;
         private const double CacheDuration = 30;
-        private const double ForecastCacheDuration = 210;
+        private const double ForecastCacheDuration = 210;  //appears to be in minutes
         private const string SearchUrl = "http://autocomplete.wunderground.com/aq?query=";
         //private const string DataUrl = "http://xoap.weather.com/weather/local/{0}?cc=*&link=xoap&prod=xoap&par={1}&key={2}&unit={3}";
         //private const string DataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
@@ -135,7 +135,7 @@ namespace FrontView.Libs
             _unit = unit;
             _cacheDir = cacheDir;
             _weatherAPI = weatherAPI;
-            _refreshTimer = new Timer { Interval = 1000 };
+            _refreshTimer = new Timer { Interval = 5000 };
             _refreshTimer.Elapsed += RefreshTimerTick;
             Logger.Instance().Log("Weather", "Init Here");
         }
@@ -157,7 +157,7 @@ namespace FrontView.Libs
             _isAutoRefresh = true;
             if (_refreshTimer != null)
             {
-                _refreshTimer.Interval = 1000;
+                _refreshTimer.Interval = 5000;
                 _refreshTimer.Start();
             }
 
@@ -173,7 +173,7 @@ namespace FrontView.Libs
         {
             LoadWeatherData(_currentLocId, false, true, true);
             LoadWeatherData(_currentLocId, false, false, true);
-            if (_refreshTimer.Interval == 1000)
+            if (_refreshTimer.Interval == 5000)
                 _refreshTimer.Interval = 60000;
         }
 /*
@@ -266,7 +266,9 @@ namespace FrontView.Libs
                     using (var client = new WebClient())
                     {
                         str = client.DownloadString(url + locId + ".json");
+
                         Logger.Instance().Trace("Weather:", "Checking before writing file : "+str);
+                        
                         if ( str.Contains("keynotfound"))
                         {
                             Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
@@ -280,6 +282,7 @@ namespace FrontView.Libs
 
 
                         client.DownloadFile(new Uri(url + locId + ".json"), path);
+
                         Logger.Instance().Trace("Weather", "Downloaded File Path equals: " + path);
                     }
                 }
@@ -347,6 +350,15 @@ namespace FrontView.Libs
         {
 
             var result = new WeatherData();
+
+            string newLocID = locId;
+            string invalid = @";/:\";
+            foreach (char c in invalid)
+            {
+                newLocID = newLocID.Replace(c.ToString(), "");
+            }
+            string path = _cacheDir + @"\" + newLocID + ".json";
+
             Logger.Instance().Trace("Weather:", "GetWeatherDataNew Running..");
             Logger.Instance().Trace("Weather:", "Weather API Equals: " + _weatherAPI);
             string str = "";
@@ -356,19 +368,20 @@ namespace FrontView.Libs
                 return null;
             }
 
-            if (!LoadWeatherData(locId, force, true))
+            if (!LoadWeatherData(locId, force, false))
             {
                 Logger.Instance().Trace("Weather:", "!LoadWeatherData Null returning null.");
                 return null;
             }
                 try
                 {
-                    using (var client = new WebClient())
+                    using (StreamReader client = new StreamReader(path))
                     {
                         try
                         {
-                            str = client.DownloadString(DataUrl+_weatherAPI+@"/conditions" + locId + ".json");
-                            Logger.Instance().Trace("Weather:", "GetWeatherData: Trying DataURL " + DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
+                            str = client.ReadToEnd();//DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
+                            Logger.Instance().Trace("Weather:", "GetWeatherData: Trying DATA FILE " + path);
+                            //Logger.Instance().Trace("Weather:", "GetWeatherData: Data " + str);
                         }
                         catch (WebException ex)
                         {
@@ -376,6 +389,22 @@ namespace FrontView.Libs
                             return null;
                         }
                     }
+                    /*
+                    using (var client = new WebClient())
+                    {
+                        try
+                        {
+                            str = client.DownloadString(DataUrl+_weatherAPI+@"/conditions" + locId + ".json");
+                            Logger.Instance().Trace("Weather:", "GetWeatherData: Trying DataURL " + DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
+                            Logger.Instance().Trace("Weather:", "GetWeatherData: Data " +str);
+                        }
+                        catch (WebException ex)
+                        {
+                            Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                            return null;
+                        }
+                    }
+                     */
                 }
                 catch (Exception ex)
                 {
@@ -507,31 +536,112 @@ namespace FrontView.Libs
             Logger.Instance().Trace("Weather:", "Weather API Equals: " + _weatherAPI);
             string str = "";
 
+            string newLocID = locId;
+            string invalid = @";/:\";
+            foreach (char c in invalid)
+            {
+                newLocID = newLocID.Replace(c.ToString(), "");
+            }
+            string path = _cacheDir + @"\" + newLocID + ".forecast.json";
+            string path2 = _cacheDir + @"\" + newLocID + ".json";
+
             if (String.IsNullOrEmpty(locId))
             {
                 Logger.Instance().Trace("Weather:", "GetForecastWeatherDataNew:  locID Null or Empty");
                 return null;
             }
 
-            GetWeatherDataNew(locId, false);
+           // GetWeatherDataNew(locId, false);    //loads conditions --> probably need to move this
 
             if (!LoadWeatherData(locId, force, true))
             {  
                 Logger.Instance().Trace("Weather:", "!LoadWeatherData ForecastWeatherDataNull returning null.");
                 return null;
             }
+            //First check Conditions as need this to get name amongst other things.
 
             try
             {
-                using (var client = new WebClient())
+                using (StreamReader client = new StreamReader(path2))
                 {
                     try
                     {
-                        str = client.DownloadString(DataUrl + _weatherAPI + @"/forecast10day" + locId + ".json");
-                        Logger.Instance().Trace("Weather:", "GetForecastWeather Data Trying Data URL " + DataUrl + _weatherAPI + @"/forecast10day" + locId + ".json");
-                        Logger.Instance().Trace("Weather:", "Result is :" + str);
+                        str = client.ReadToEnd();//DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
+                        Logger.Instance().Trace("Weather:", "GetWeatherForecast COnditions Data: Trying DATA FILE " + path2);
+                        //Logger.Instance().Trace("Weather:", "GetWeatherData: Data " + str);
                     }
                     catch (WebException ex)
+                    {
+                        Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                        return null;
+                    }
+                }
+            
+            }
+            catch (Exception ex)
+            {
+                    Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                    return null;
+            }
+
+
+            try
+            {
+                    string json = str;
+                    
+                    if (str.Contains("keynotfound"))
+                    {
+                        Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
+                        return null;
+                    }
+
+
+                    var deserializer = new JavaScriptSerializer();
+                    var server = deserializer.Deserialize<WeatherAPIWUndergroundConditions.Rootobject>(json);
+                    result.LocationName = server.current_observation.display_location.full;
+                    result.Forecast.Clear();
+
+                    if (_unit == "c")
+                    {
+                        result.TempUnit = "celsius";
+                        result.Today = new WeatherCurrentDetail
+                            {
+                                Temperature = server.current_observation.temp_c.ToString(),
+                                Icon = server.current_observation.icon
+                            };
+                    }
+
+                    else if (_unit == "f")
+                    {
+                        result.TempUnit = @"F";
+                        result.Today = new WeatherCurrentDetail
+                            {
+                                Temperature = server.current_observation.temp_f.ToString(),
+                                Icon = server.current_observation.icon
+                            };
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.Instance().Trace("Weather", "Underground Error" + ex);
+                    return null;
+                }
+            
+            // Now downloading Forecast stuff...
+
+
+            try
+            {
+                using (StreamReader client = new StreamReader(path))
+                {
+                    try
+                    {
+                        str = client.ReadToEnd();
+                        Logger.Instance().Trace("Weather:", "GetForecastWeather Data Trying Data FILE: " + path);
+                        //Logger.Instance().Trace("Weather:", "Result is :" + str);
+                    }
+                    catch (Exception ex)
                     {
                         Logger.Instance().Trace("Weather:", "Underground Error" + ex);
                         return null;
