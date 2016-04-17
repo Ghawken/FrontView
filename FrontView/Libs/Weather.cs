@@ -417,6 +417,8 @@ namespace FrontView.Libs
                 {
                     string json = str;
                     
+                    bool night = false ;
+
                     if (str.Contains("keynotfound"))
                     {
                         Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
@@ -429,13 +431,31 @@ namespace FrontView.Libs
                     result.LocationName = server.current_observation.display_location.full;
                     result.Forecast.Clear();
 
+                    try
+                    {
+                        Uri uri = new Uri(server.current_observation.icon_url);
+                        Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + uri.AbsolutePath);
+                        string filename = Path.GetFileName(uri.AbsolutePath);
+                        Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + filename);
+                        if (filename.StartsWith("nt"))
+                        {
+                            night = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Instance().Trace("Weather*", "Exception Caught in Icon Night or Day test" + ex);
+                    }
+
+
                     if (_unit == "c")
                     {
                         result.TempUnit = "celsius";
+                        
                         result.Today = new WeatherCurrentDetail
                             {
                                 Temperature = server.current_observation.temp_c.ToString(),
-                                Icon = server.current_observation.icon
+                                Icon = night == true ? "nt_" + server.current_observation.icon : server.current_observation.icon 
                             };
                         return result;
                     }
@@ -445,7 +465,8 @@ namespace FrontView.Libs
                         result.Today = new WeatherCurrentDetail
                             {
                                 Temperature = server.current_observation.temp_f.ToString(),
-                                Icon = server.current_observation.icon
+                                // Tricky - use UV to figure out whether day or night, 
+                                Icon = night == true ?  "nt_"+server.current_observation.icon : server.current_observation.icon 
                             };
                         return result;
                     }
@@ -530,7 +551,7 @@ namespace FrontView.Libs
         public WeatherData GetForecastWeatherDataNew(string locId, bool force)
         {
 
-            
+            bool night = false;
             var result = new WeatherData();
             Logger.Instance().Trace("Weather:", "GetForecastWeatherDataNew");
             Logger.Instance().Trace("Weather:", "Weather API Equals: " + _weatherAPI);
@@ -601,13 +622,30 @@ namespace FrontView.Libs
                     result.LocationName = server.current_observation.display_location.full;
                     result.Forecast.Clear();
 
+
+                    try
+                    {
+                        Uri uri = new Uri(server.current_observation.icon_url);
+                        Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + uri.AbsolutePath);
+                        string filename = Path.GetFileName(uri.AbsolutePath);
+                        Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + filename);
+                        if (filename.StartsWith("nt"))
+                        {
+                            night = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Instance().Trace("Weather*", "Exception Caught in Icon Night or Day test" + ex);
+                    }
+
                     if (_unit == "c")
                     {
                         result.TempUnit = "celsius";
                         result.Today = new WeatherCurrentDetail
                             {
                                 Temperature = server.current_observation.temp_c.ToString(),
-                                Icon = server.current_observation.icon
+                                Icon = night == true ? "nt_" + server.current_observation.icon : server.current_observation.icon
                             };
                     }
 
@@ -617,7 +655,7 @@ namespace FrontView.Libs
                         result.Today = new WeatherCurrentDetail
                             {
                                 Temperature = server.current_observation.temp_f.ToString(),
-                                Icon = server.current_observation.icon
+                                Icon = night == true ? "nt_" + server.current_observation.icon : server.current_observation.icon
                             };
                     }
 
@@ -682,7 +720,7 @@ namespace FrontView.Libs
                             DayDiff = diff,
                             DayName = element.date.weekday,
                             DayDate = element.date.pretty,
-                            DayIcon = element.icon,
+                            DayIcon = night == true ? "nt_" + element.icon : element.icon,
                             NightIcon = "nt_"+element.icon,
                             MaxTemp = (_unit == "c") ? element.high.celsius : element.high.fahrenheit,
                             LowTemp = (_unit == "c") ? element.low.celsius : element.low.fahrenheit,

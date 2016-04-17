@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+1.113
+Fixes for Weather (Changes Icons depending on current Sunset or not for both current and Forecast){Rightly or wrongly for Forecast} Happy to have feedback.
+
 
 Release 1.112
 Add Xml Settings <DimAmount> value from 0 to 1, amount of Dim applied to screen

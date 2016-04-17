@@ -253,7 +253,7 @@
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="30" Canvas.Top="180" 
-        				Source="{Binding Weather.Day0IconNight, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.Day0IconDay, Source={StaticResource Yatse2Properties}}"/>
         			<TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
         				Text="{DynamicResource Localized_103}" FontSize="16" />
         			<TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
@@ -267,7 +267,7 @@
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="30" Canvas.Top="180" 
-        				Source="{Binding Weather.Day1IconNight, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.Day1IconDay, Source={StaticResource Yatse2Properties}}"/>
         			<TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
         				Text="{DynamicResource Localized_104}" FontSize="16" />
         			<TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
@@ -281,7 +281,7 @@
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="30" Canvas.Top="180" 
-        				Source="{Binding Weather.Day2IconNight, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.Day2IconDay, Source={StaticResource Yatse2Properties}}"/>
         			<TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
         				Text="{Binding Weather.Day2Name, Source={StaticResource Yatse2Properties}}" FontSize="16" />
         			<TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
@@ -295,7 +295,7 @@
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="30" Canvas.Top="180" 
-        				Source="{Binding Weather.Day3IconNight, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.Day3IconDay, Source={StaticResource Yatse2Properties}}"/>
         			<TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
         				Text="{Binding Weather.Day3Name, Source={StaticResource Yatse2Properties}}" FontSize="16" />
         			<TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
@@ -309,7 +309,7 @@
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
         			<Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="30" Canvas.Top="180" 
-        				Source="{Binding Weather.Day4IconNight, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.Day4IconDay, Source={StaticResource Yatse2Properties}}"/>
         			<TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
         				Text="{Binding Weather.Day4Name, Source={StaticResource Yatse2Properties}}" FontSize="16" />
         			<TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
@@ -855,7 +855,11 @@
         								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" />
         							<CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" />
-        						</Canvas>
+
+                                        <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="216.723" Width="188"/>
+                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="190" Width="188"/>
+                                    </Canvas>
         					</TabItem>
         					<TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">
         						<Grid>
@@ -908,7 +912,11 @@
         								Text="Weather API Key:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" />
                                         <TextBox x:Name="txt_Settings_WeatherAPI" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_WeatherAPI" Padding="5,0,0,0" Margin="148,168.723,185,0" VerticalAlignment="Top" />
-
+                                        <TextBlock Margin="198,208.723,185,0"> 
+                                                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                                 NavigateUri="https://www.wunderground.com/weather/api/?apiref=8d0e3e3f8bf9e135">Get Wunderground API Key</Hyperlink>
+                                                
+                                        </TextBlock>
                                     </Grid>
         					</TabItem>
         					<TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">

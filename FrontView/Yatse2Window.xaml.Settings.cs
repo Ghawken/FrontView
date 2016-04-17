@@ -40,7 +40,7 @@ namespace FrontView
 
         private static void WebSite()
         {
-            const string url = @"https://github.com/Ghawken/Yatse2-1";
+            const string url = @"https://github.com/Ghawken/FrontView";
             Process.Start(new ProcessStartInfo(url));
         }
 
@@ -163,6 +163,24 @@ namespace FrontView
                 if (en.Key.ToString() == _config.Homepage)
                     lst_Settings_HomePage.SelectedIndex = index;
             }
+
+            lst_Settings_DimAmount.Items.Clear();
+            //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;
+            lst_Settings_DimAmount.Items.Add(0.1);
+            lst_Settings_DimAmount.Items.Add(0.2);
+            lst_Settings_DimAmount.Items.Add(0.3);
+            lst_Settings_DimAmount.Items.Add(0.4);
+            lst_Settings_DimAmount.Items.Add(0.5);
+            lst_Settings_DimAmount.Items.Add(0.6);
+            lst_Settings_DimAmount.Items.Add(0.7);
+            lst_Settings_DimAmount.Items.Add(0.8);
+            lst_Settings_DimAmount.Items.Add(0.9);
+            lst_Settings_DimAmount.Items.Add(1.0);
+
+            lst_Settings_DimAmount.SelectedItem = _config.DimAmount;
+
+
+           
 
             lst_Settings_DefaultPlay.Items.Clear();
             en = _yatse2PlayModes.GetEnumerator();
@@ -304,6 +322,10 @@ namespace FrontView
                     _config.Homepage = en.Key.ToString();
             }
 
+            _config.DimAmount = Convert.ToDouble(lst_Settings_DimAmount.SelectedItem);
+
+
+
             en = _yatse2PlayModes.GetEnumerator();
             while (en.MoveNext())
             {
@@ -376,6 +398,11 @@ namespace FrontView
             //Window1 httpWindow = new Window1();
            // httpWindow.Show();
 
+        }
+        private void Hyperlink_RequestNavigate(object sender,
+                                       System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.wunderground.com/weather/api/?apiref=8d0e3e3f8bf9e135");
         }
 
         private void btn_Settings_WeatherLocId_Click(object sender, RoutedEventArgs e)
