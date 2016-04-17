@@ -178,9 +178,19 @@ namespace FrontView
                 {
                     Logger.Instance().Log("FrontView+", "Video starting : start screen saver : Dimming");
                     var stbDimmingShow = (Storyboard)TryFindResource("stb_ShowDimming");
+                    
+                   
                     if (stbDimmingShow != null)
                     {
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting seeing ");
+                        var animation = (DoubleAnimationUsingKeyFrames)stbDimmingShow.Children[0];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting animation:Name ");
+                        var keyframe1 = animation.KeyFrames[1];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
+                        keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
+                    
+
                         _isScreenSaver = true;
                     }
                 }
@@ -216,8 +226,18 @@ namespace FrontView
                 {
                     Logger.Instance().Log("FrontView+", "Video starting : start screen saver : Dimming");
                     var stbDimmingShow = (Storyboard)TryFindResource("stb_ShowDimming");
+
+
+
+
                     if (stbDimmingShow != null)
                     {
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting seeing ");
+                        var animation = (DoubleAnimationUsingKeyFrames)stbDimmingShow.Children[0];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting animation:Name ");
+                        var keyframe1 = animation.KeyFrames[1];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
+                        keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
                         _isScreenSaver = true;
                     }

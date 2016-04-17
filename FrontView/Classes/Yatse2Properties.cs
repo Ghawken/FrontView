@@ -17,6 +17,7 @@
 // ------------------------------------------------------------------------
 
 using System.Windows;
+using System;
 
 namespace FrontView.Classes
 {
@@ -52,7 +53,7 @@ namespace FrontView.Classes
 
             }
         }
-
+    
         public string Language
         {
             get { return (string)GetValue(LanguageProperty); }

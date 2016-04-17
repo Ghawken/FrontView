@@ -63,6 +63,7 @@ namespace FrontView.Classes
         public bool Diaporama { get; set; }
         public bool Dimming { get; set; }
         public double DimAmount { get; set; }
+        public int DimTime { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
@@ -142,6 +143,7 @@ namespace FrontView.Classes
             Diaporama = false;
             Dimming = false;
             DimAmount = 0.9;
+            DimTime = 2;
             Currently = true;
             CurrentlyMovie = true;
             HideCursor = false;
@@ -253,7 +255,7 @@ namespace FrontView.Classes
             Dimming = config.Dimming;
             
             DimAmount = config.DimAmount;
-
+            DimTime = config.DimTime;
             Currently = config.Currently;
             CurrentlyMovie = config.CurrentlyMovie;
             HideCursor = config.HideCursor;

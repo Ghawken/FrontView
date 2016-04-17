@@ -107,7 +107,7 @@ namespace FrontView
             chk_Settings_GenreToArtists.IsChecked = _config.GenreToArtists;
             chk_Settings_MusicFanartRotation.IsChecked = _config.MusicFanartRotation;
 
-            //txt_Settings_DimAmount = _config.DimAmount;
+
             txt_Settings_ImagesDirectory.Text = _config.ImageDirectory;
 
 
@@ -179,8 +179,30 @@ namespace FrontView
 
             lst_Settings_DimAmount.SelectedItem = _config.DimAmount;
 
+            lst_Settings_DimTime.Items.Clear();
+            lst_Settings_DimTime.Items.Add(1);
+            lst_Settings_DimTime.Items.Add(2);
+            lst_Settings_DimTime.Items.Add(3);
+            lst_Settings_DimTime.Items.Add(4);
+            lst_Settings_DimTime.Items.Add(5);
+            lst_Settings_DimTime.Items.Add(6);
+            lst_Settings_DimTime.Items.Add(7);
+            lst_Settings_DimTime.Items.Add(8);
+            lst_Settings_DimTime.Items.Add(9);
+            lst_Settings_DimTime.Items.Add(10);
+            lst_Settings_DimTime.Items.Add(11);
+            lst_Settings_DimTime.Items.Add(12);
+            lst_Settings_DimTime.Items.Add(13);
+            lst_Settings_DimTime.Items.Add(14);
+            lst_Settings_DimTime.Items.Add(15);
+            lst_Settings_DimTime.Items.Add(16);
+            lst_Settings_DimTime.Items.Add(17);
+            lst_Settings_DimTime.Items.Add(18);
+            lst_Settings_DimTime.Items.Add(19);
+            lst_Settings_DimTime.Items.Add(20);
 
-           
+            lst_Settings_DimTime.SelectedItem = _config.DimTime;
+
 
             lst_Settings_DefaultPlay.Items.Clear();
             en = _yatse2PlayModes.GetEnumerator();
@@ -324,6 +346,7 @@ namespace FrontView
 
             _config.DimAmount = Convert.ToDouble(lst_Settings_DimAmount.SelectedItem);
 
+            _config.DimTime = Convert.ToInt32(lst_Settings_DimTime.SelectedItem);
 
 
             en = _yatse2PlayModes.GetEnumerator();

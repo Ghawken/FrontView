@@ -1,6 +1,5 @@
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\FluidKit.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\System\FluidKit.pdb
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\FluidKit.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\Controls\VirtFlow\Viewport.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\Controls\Transition\Cube.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\Controls\Transition\TransitionStoryboards.baml
@@ -23,3 +22,4 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debu
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\FluidKit.csproj.GenerateResource.Cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\FluidKit.dll
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\FluidKit.pdb
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\System\FluidKit\obj\x86\Debug\FluidKit.csprojResolveAssemblyReference.cache

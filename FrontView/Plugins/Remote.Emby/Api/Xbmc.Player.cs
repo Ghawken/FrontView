@@ -459,18 +459,6 @@ namespace Remote.Emby.Api
                                         _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
                                     }
 
-                                    if (server.MediaType == "ChannelVideoItem")
-                                    {
-                                        _nowPlaying.MediaType = "Movie";
-                                        //_nowPlaying.ShowTitle = server.NowPlayingItem.SeriesName;
-                                        _nowPlaying.Title = server.Title;
-                                        _nowPlaying.FileName = server.Filename;  //No Filename as yet try ID
-                                        _parent.Log("------------- EMBY Trying to get Images");
-                                        _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
-                                        _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";
-                                        _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
-                                    }
-
                                     if (server.MediaType == "Movie")
                                     {
                                         _nowPlaying.MediaType = "Movie";
@@ -499,6 +487,18 @@ namespace Remote.Emby.Api
                                         _nowPlaying.Director = server.Director;
                                         _nowPlaying.Rating = server.Rating;
                                         _nowPlaying.FileName = server.Filename; 
+                                        _parent.Log("------------- EMBY Trying to get Images");
+                                        _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
+                                        _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";
+                                        _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
+                                    }
+
+                                    if (server.MediaType == "ChannelVideoItem" || server.MediaType == "Trailer")
+                                    {
+                                        _nowPlaying.MediaType = "Movie";
+                                        //_nowPlaying.ShowTitle = server.NowPlayingItem.SeriesName;
+                                        _nowPlaying.Title = server.Title;
+                                        _nowPlaying.FileName = server.Filename;  //No Filename as yet try ID
                                         _parent.Log("------------- EMBY Trying to get Images");
                                         _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
                                         _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";

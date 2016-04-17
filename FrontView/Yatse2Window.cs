@@ -745,6 +745,8 @@ namespace FrontView
 
         //load Kodi Source xml and populate values to be checked against
         //working
+        
+        
         private void LoadKodiSource()
         {
 
@@ -1467,7 +1469,15 @@ namespace FrontView
                         Logger.Instance().Log("FrontView+", "Start screen saver : Dimming here 2");
                         var stbDimmingShow = (Storyboard)TryFindResource("stb_ShowDimming");
                         if (stbDimmingShow != null)
+                        {
+                            Logger.Instance().Trace("NewDim*", "Within Video Starting seeing ");
+                            var animation = (DoubleAnimationUsingKeyFrames)stbDimmingShow.Children[0];
+                            Logger.Instance().Trace("NewDim*", "Within Video Starting animation:Name ");
+                            var keyframe1 = animation.KeyFrames[1];
+                            Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
+                            keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                             stbDimmingShow.Begin(this);
+                        }
                     }
                 }
                 Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 2", _timer);
@@ -1783,7 +1793,15 @@ namespace FrontView
                     Logger.Instance().Log("FrontView+", "Start screen saver : Dimming Here as well");
                     var stbDimmingShow = (Storyboard)TryFindResource("stb_ShowDimming");
                     if (stbDimmingShow != null)
+                    {
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting seeing ");
+                        var animation = (DoubleAnimationUsingKeyFrames)stbDimmingShow.Children[0];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting animation:Name ");
+                        var keyframe1 = animation.KeyFrames[1];
+                        Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
+                        keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
+                    }
                 }
                 if (_config.Diaporama && (!_config.Dimming || _config.DimmingOnlyVideo))
                 {

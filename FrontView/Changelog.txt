@@ -1,7 +1,9 @@
 ﻿Changelog:
 
-1.113
+1.113/114
 Fixes for Weather (Changes Icons depending on current Sunset or not for both current and Forecast){Rightly or wrongly for Forecast} Happy to have feedback.
+EMBY remote:  Fix for Trailer Change/Server Update/Backwards compatible
+Add DimAmount and Time of Dim /Dim Time to Settings screens.
 
 
 Release 1.112
