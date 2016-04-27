@@ -193,6 +193,7 @@ namespace FrontView.Classes
         public string Thumb { get; set; }
         public string Fanart { get; set; }
         public long IsStack { get; set; }
+        public string DateAdded { get; set; }
 
         public static readonly DependencyProperty PlayCountProperty =
             DependencyProperty.Register("PlayCount", typeof(long), typeof(Yatse2Movie));
@@ -227,7 +228,8 @@ namespace FrontView.Classes
                               Thumb = Thumb,
                               Title = Title,
                               Votes = Votes,
-                              Year = Year
+                              Year = Year,
+                              DateAdded = DateAdded
                           };
             return api;
         }
@@ -260,6 +262,7 @@ namespace FrontView.Classes
             Studio = apiMovie.Studio;
             Votes = apiMovie.Votes;
             Year = apiMovie.Year;
+            DateAdded = apiMovie.DateAdded;
         }
     }
 

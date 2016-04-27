@@ -87,8 +87,8 @@ namespace FrontView
         {
            Logger.Instance().Log("FrontViewApp", "EXIT CALLED", true);
            //Yatse2Window.ni.Icon;
-            
 
+        
             FrontView.Classes.FrontViewConfig config;            
 
 

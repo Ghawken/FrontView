@@ -42,6 +42,10 @@ namespace Remote.Emby.Api
     {
       _parent = parent;
     }
+    public Collection<ApiTvSeason> GetTvSeasonsRefresh()
+    {
+        return null;
+    }
 
     public Collection<ApiTvSeason> GetTvSeasons()
     {
@@ -239,32 +243,42 @@ namespace Remote.Emby.Api
                       {
                           //Use Path to pass data on Item Number to play as API Long can't hold
                           //var SingleTVData = GetSingleTVFromSeries(genre.Id);
-                          var tvShow = new ApiTvEpisode
-                          {
-                              Title = genre.Name ?? "",
-                              Plot = "",
-                              Rating = genre.OfficialRating ?? "",
-                              Mpaa = "",
-                              Date = genre.PremiereDate.ToString(),
-                              Director = "",
-                              PlayCount = genre.UserData.PlayCount,
-                              Studio = "",
-                              IdEpisode = Xbmc.IDtoNumber(genre.Id),
-                              IdShow = Xbmc.IDtoNumber(genre.SeriesId),
-                              Season = genre.ParentIndexNumber,
-                              Episode = genre.IndexNumber,
-                              Path = genre.Id ?? "",
-                              ShowTitle = genre.SeriesName ?? "",
-                              Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
-                              Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
-                              Hash = Xbmc.Hash(genre.Id)
-                          };
-                          episodes.Add(tvShow);
+                          
+                          //Convert Date to sql date to allow sql date sort
 
+                          DateTime myDateTime = genre.PremiereDate;
+                          string sqlFormattedDate = myDateTime.ToString("s");
+
+                          //Remove Embys Virtual Episodes from the Database
+
+                          if (genre.LocationType != "Virtual")
+                          {
+                              var tvShow = new ApiTvEpisode
+                              {
+                                  Title = genre.Name ?? "",
+                                  Plot = "",
+                                  Rating = genre.OfficialRating ?? "",
+                                  Mpaa = "",
+                                  Date = sqlFormattedDate,
+                                  Director = "",
+                                  PlayCount = genre.UserData.PlayCount,
+                                  Studio = "",
+                                  IdEpisode = Xbmc.IDtoNumber(genre.Id),
+                                  IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+                                  Season = genre.ParentIndexNumber,
+                                  Episode = genre.IndexNumber,
+                                  Path = genre.Id ?? "",
+                                  ShowTitle = genre.SeriesName ?? "",
+                                  Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
+                                  Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+                                  Hash = Xbmc.Hash(genre.Id)
+                              };
+                              episodes.Add(tvShow);
+                          }
                       }
                       catch (Exception ex)
                       {
-                          _parent.Trace("TV Shows Exception Caught " + ex);
+                          _parent.Trace("TV Episodes Exception Caught " + ex);
                       }
                   }
 
@@ -604,6 +618,18 @@ namespace Remote.Emby.Api
 
         }
     }
+    public Collection<ApiMovie> GetMoviesRefresh()
+    {
+        return null;
+        //To be done after Kodi one
+    }
+
+
+    public Collection<ApiTvEpisode> GetTvEpisodesRefresh()
+    {
+        return null;
+        //To be done
+    }
 
     public Collection<ApiMovie> GetMovies()
     {
@@ -728,7 +754,8 @@ namespace Remote.Emby.Api
                               PlayCount = Movieitem.UserData.PlayCount ?? 0,
                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
                               Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
-                              Hash = Xbmc.Hash(id.Id)
+                              Hash = Xbmc.Hash(id.Id),
+                              DateAdded = Movieitem.PremiereDate.ToString("s")
                           };
                           movies.Add(movie);
                       }

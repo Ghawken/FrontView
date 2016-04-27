@@ -38,8 +38,11 @@ namespace FrontView.Classes
         private SQLiteTransaction _dbTrans;
         private bool _connected;
         private bool _bulkInsert;
-        private const int DBVersion = 4;
+        private const int DBVersion = 7;
 
+        //7 is addition of sqlDateTime to Remote to indicate time of last check
+        // on second thought might test speed first and then run and ever start if not to long
+        //
         [SQLiteFunction(FuncType = FunctionType.Collation, Name = "IGNORESORTTOKENS")]
         public class SqLiteIgnoreSortTokensCollation : SQLiteFunction
         {
@@ -1124,6 +1127,7 @@ namespace FrontView.Classes
                         IsFavorite = GetLong(sqldReader, "IsFavorite")
                     };
                     tvShows.Add(movie);
+                    Log("SQL DATA::: Title:" + GetString(sqldReader, "Title") + "ID" + GetLong(sqldReader, "IdShow") + "Premiere:"+ GetString(sqldReader, "Premiered") +"Date: "+GetString(sqldReader, "Date"));
                 }
                 sqldReader.Dispose();
                 query.Dispose();
@@ -1132,18 +1136,48 @@ namespace FrontView.Classes
             {
                 Log(e.Message);
             }
+
             return tvShows;
         }
 
         public Collection<Yatse2TvShow> GetTvShow(long idRemote)
         {
+            
+            
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                "SELECT * FROM `TvShows` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS ;";
+                  "SELECT * FROM `TvShows` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS ;";
+
+       //     "SELECT a.*, c.* FROM 'TvShows' a INNER JOIN 'TvEpisodes' c ON a.IdShow = c.IdShow INNER JOIN (SELECT IdShow, MAX(Date) maxDate FROM 'TvEpisodes' GROUP BY IdShow) b ON c.IdShow = b.IdShow AND c.date = b.maxDate WHERE a.package =1";
+         //         "SELECT t.* FROM 'TvShows' AS t INNER JOIN 'TvEpisodes' AS e ON e.IdShow = t.IdShow GROUP BY t.IdShow ORDER BY DATETIME(e.Date) DESC";
+          //      "SELECT * FROM `TvShows` tvs JOIN  WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS ;";
+      //      "SELECT * FROM 'TvShows' AS t JOIN 'TvEpisodes' AS e ON e.IdShow = t.IdShow ORDER BY DATETIME(e.Date) ASC";
             sqlCmd.Parameters.AddWithValue("@idRemote", idRemote);
+
+         //   Log("SQL QUERY BELOW" + QueryTvShow(sqlCmd));
+            
+            return QueryTvShow(sqlCmd);
+        }
+        public Collection<Yatse2TvShow> GetTvShowOrderNewEpisode(long idRemote)
+        {
+
+
+            var sqlCmd = _dbConnection.CreateCommand();
+            sqlCmd.CommandText =
+                //         "SELECT * FROM `TvShows` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS ;";
+
+       //     "SELECT a.*, c.* FROM 'TvShows' a INNER JOIN 'TvEpisodes' c ON a.IdShow = c.IdShow INNER JOIN (SELECT IdShow, MAX(Date) maxDate FROM 'TvEpisodes' GROUP BY IdShow) b ON c.IdShow = b.IdShow AND c.date = b.maxDate WHERE a.package =1";
+                  "SELECT t.* FROM 'TvShows' AS t INNER JOIN 'TvEpisodes' AS e ON e.IdShow = t.IdShow AND t.IdRemote = @idRemote GROUP BY t.IdShow ORDER BY DATETIME(e.Date) DESC";
+            //      "SELECT * FROM `TvShows` tvs JOIN  WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS ;";
+            //      "SELECT * FROM 'TvShows' AS t JOIN 'TvEpisodes' AS e ON e.IdShow = t.IdShow ORDER BY DATETIME(e.Date) ASC";
+            sqlCmd.Parameters.AddWithValue("@idRemote", idRemote);
+
+            //   Log("SQL QUERY BELOW" + QueryTvShow(sqlCmd));
 
             return QueryTvShow(sqlCmd);
         }
+
+
 
         public Collection<Yatse2TvShow> GetTvShowFromName(long idRemote, string show)
         {
@@ -1162,7 +1196,7 @@ namespace FrontView.Classes
             sqlCmd.CommandText =
                 "SELECT * FROM `TvShows` WHERE IdRemote = @idRemote AND IsFavorite > 0 ORDER BY Title COLLATE IGNORESORTTOKENS;";
             sqlCmd.Parameters.AddWithValue("@idRemote", idRemote);
-
+           
             return QueryTvShow(sqlCmd);
         }
 
@@ -1276,7 +1310,8 @@ namespace FrontView.Classes
                         Thumb = GetString(sqldReader, "Thumb"),
                         Fanart = GetString(sqldReader, "Fanart"),
                         IsStack = GetLong(sqldReader, "IsStack"),
-                        IsFavorite = GetLong(sqldReader, "IsFavorite")
+                        IsFavorite = GetLong(sqldReader, "IsFavorite"),
+                        DateAdded = GetString(sqldReader, "DateAdded")
                     };
                     movies.Add(movie);
                 }
@@ -1294,11 +1329,27 @@ namespace FrontView.Classes
         {
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                "SELECT * FROM `Movies` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS;";
+             "SELECT * FROM `Movies` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS;";
+                
+        //              "SELECT * FROM `Movies` WHERE IdRemote = @idRemote ORDER BY DATETIME(DateAdded) DESC;";
             sqlCmd.Parameters.AddWithValue("@idRemote", idRemote);
 
             return QueryMovie(sqlCmd);
         }
+
+        public Collection<Yatse2Movie> GetMovieSortDateAdded(long idRemote)
+        {
+            var sqlCmd = _dbConnection.CreateCommand();
+            sqlCmd.CommandText =
+                //    "SELECT * FROM `Movies` WHERE IdRemote = @idRemote ORDER BY Title COLLATE IGNORESORTTOKENS;";
+
+                      "SELECT * FROM `Movies` WHERE IdRemote = @idRemote ORDER BY DATETIME(DateAdded) DESC;";
+            sqlCmd.Parameters.AddWithValue("@idRemote", idRemote);
+
+            return QueryMovie(sqlCmd);
+        }
+
+
 
         public Collection<Yatse2Movie> GetMovieFromFile(long idRemote, string fileName)
         {
@@ -1327,8 +1378,8 @@ namespace FrontView.Classes
                 return 0;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite ) 
-                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite,DateAdded ) 
+                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1353,7 +1404,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a22", movie.IsStack);
             sqlCmd.Parameters.AddWithValue("a23", movie.IdMovie);
             sqlCmd.Parameters.AddWithValue("a24", movie.IsFavorite);
-
+            sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
             return QueryInsert(sqlCmd);
         }
 
@@ -1363,7 +1414,7 @@ namespace FrontView.Classes
                 return false;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ? WHERE Id = @Id;";
+                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ?, DateAdded = ? WHERE Id = @Id;";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1388,6 +1439,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a22", movie.IsStack);
             sqlCmd.Parameters.AddWithValue("a23", movie.IdMovie);
             sqlCmd.Parameters.AddWithValue("a24", movie.IsFavorite);
+            sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
             sqlCmd.Parameters.AddWithValue("@Id", movie.Id);
 
             return Query(sqlCmd);
@@ -1596,6 +1648,52 @@ namespace FrontView.Classes
                     sqlCmd.ExecuteNonQuery();
                 }
 
+                if (fromBuild <= 5)
+                {
+                    Log("Applying database update 6");
+                    try
+                    {
+
+                  sqlCmd.CommandText = @"CREATE TABLE `Movies`
+                    (
+                       Id INTEGER NOT NULL PRIMARY KEY,
+                       IdRemote INTEGER NOT NULL,
+                       IdMovie INTEGER,
+                       IdFile INTEGER,
+                       IdScraper VARCHAR(50),
+                       Title TEXT,
+                       OriginalTitle TEXT,
+                       Genre TEXT,
+                       Tagline TEXT,
+                       Plot TEXT,
+                       Director TEXT,
+                       Year INTEGER,
+                       Length TEXT,
+                       Mpaa TEXT,
+                       Studio TEXT,
+                       Rating VARCHAR(50),
+                       Votes VARCHAR(50),
+                       FileName TEXT,
+                       Path TEXT,
+                       PlayCount INTEGER,
+                       Hash VARCHAR(50),
+                       Thumb TEXT,
+                       Fanart TEXT,
+                       IsStack INTEGER,
+                       IsFavorite INTEGER,
+                       DateAdded TEXT
+                    )";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+                    }
+                    catch (SQLiteException)
+                    { 
+                    }
+                }
+
+
+
                 sqlCmd.CommandText = "UPDATE Version SET Version = " + DBVersion + ";";
                 LogQuery(sqlCmd);
                 sqlCmd.ExecuteNonQuery();
@@ -1667,7 +1765,8 @@ namespace FrontView.Classes
                        Thumb TEXT,
                        Fanart TEXT,
                        IsStack INTEGER,
-                       IsFavorite INTEGER
+                       IsFavorite INTEGER,
+                       DateAdded TEXT
                     );
                     CREATE TABLE `AudioGenres`
                     (

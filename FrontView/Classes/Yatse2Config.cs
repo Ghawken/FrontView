@@ -63,6 +63,8 @@ namespace FrontView.Classes
         public bool Diaporama { get; set; }
         public bool Dimming { get; set; }
         public double DimAmount { get; set; }
+        public bool ShowInTaskbar { get; set; }
+        public bool TVOrderbyNewEpsiodes { get; set; }
         public int DimTime { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
@@ -143,6 +145,8 @@ namespace FrontView.Classes
             Diaporama = false;
             Dimming = false;
             DimAmount = 0.9;
+            TVOrderbyNewEpsiodes = true;
+            ShowInTaskbar = false;
             DimTime = 2;
             Currently = true;
             CurrentlyMovie = true;
@@ -253,8 +257,9 @@ namespace FrontView.Classes
             Diaporama = config.Diaporama;
             
             Dimming = config.Dimming;
-            
+            ShowInTaskbar = config.ShowInTaskbar;
             DimAmount = config.DimAmount;
+            TVOrderbyNewEpsiodes = config.TVOrderbyNewEpsiodes;
             DimTime = config.DimTime;
             Currently = config.Currently;
             CurrentlyMovie = config.CurrentlyMovie;

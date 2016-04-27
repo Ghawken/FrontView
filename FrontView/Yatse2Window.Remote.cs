@@ -523,6 +523,7 @@ namespace FrontView
                     //glennwindow.Visibility = Visibility.Visible;
                     //Restore with no activation or focus
                     RestoreWindowNoActivateExtension.RestoreNoActivate(glennwindow);
+                    glennwindow.Show();
                     //glennwindow.WindowState = WindowState.Normal;
                     //Show();
                 }
@@ -599,6 +600,10 @@ namespace FrontView
                 ShowPopup(GetLocalizedString(96) + " " + _remoteInfo.Name);
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Connected");
                 _remoteConnected = true;
+
+                //Add Startup Connection QUick Refresh
+
+                QuickRefreshLibrary();
 
                 if (!_remoteLibraryRefreshed)
                 {

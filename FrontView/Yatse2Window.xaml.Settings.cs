@@ -137,7 +137,8 @@ namespace FrontView
             chk_Settings_MinimiseAlways.IsChecked = _config.MinimiseAlways;
             chk_Settings_HttpSend.IsChecked = _config.HttpSend;
             chk_Settings_HttpUseDigest.IsChecked = _config.HttpUseDigest;
-     
+
+            chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
 
             LoadSettingsResolutions();
 
@@ -311,6 +312,7 @@ namespace FrontView
                 _config.HttpSend = (bool)chk_Settings_HttpSend.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
                 // ReSharper restore PossibleInvalidOperationException
+                _config.TVOrderbyNewEpsiodes = (bool)chk_Settings_TVOrderbyNewEpisodes.IsChecked;
             }
             catch (InvalidOperationException) { }
 

@@ -56,7 +56,43 @@ namespace FrontView
             _database.SetBulkInsert(false);
             Logger.Instance().Log("FrontView+", "End Refresh : TvShows");
         }
+        private void QuickRefreshTvSeasonLibrary()
+        {
+            Logger.Instance().Log("FrontView+", "Start Quick Refresh : TvSeasons");
+            var res = _remote.VideoLibrary.GetTvSeasonsRefresh();
+            Logger.Instance().Log("FrontView+", "Remote Quick Refresh TvSeasons : " + res.Count);
 
+            var oldData = _database.GetTvSeason(_remoteInfo.Id);
+
+            _database.SetBulkInsert(true);
+            _database.BeginTransaction();
+            _database.DeleteRemoteTvSeasons(_remoteInfo.Id);
+            var notfound = true;
+            
+            foreach (var apiTvSeason in res)
+            {
+                
+                foreach (var show in oldData)
+                {
+                    if (show.IdShow == apiTvSeason.IdShow)
+                    {
+                        notfound = false;
+                        Logger.Instance().Log("FrontView+", "Seasons Id show.Idshow ID" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow);
+                    }
+
+
+                }
+                if (notfound == true)
+                {
+                    Logger.Instance().Log("FrontView+", "Inserting TV Season");
+                    var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
+                    _database.InsertTvSeason(tvSeason);
+                }
+            }
+            _database.CommitTransaction();
+            _database.SetBulkInsert(false);
+            Logger.Instance().Log("FrontView+", "End QUick Refresh : TvSeasons");
+        }
         private void RefreshTvSeasonLibrary()
         {
             Logger.Instance().Log("FrontView+", "Start Refresh : TvSeasons");
@@ -79,11 +115,51 @@ namespace FrontView
                 var tvSeason = new Yatse2TvSeason(apiTvSeason) {IdRemote = _remoteInfo.Id, IsFavorite = oldFavorite};
                 _database.InsertTvSeason(tvSeason);
             }
+
+
             _database.CommitTransaction();
             _database.SetBulkInsert(false);
             Logger.Instance().Log("FrontView+", "End Refresh : TvSeasons");
         }
 
+        private void QuickRefreshTvEpisodesLibrary()
+        {
+            Logger.Instance().Log("FrontView+", "Start QUICK Refresh : TvEpisodes");
+            var res = _remote.VideoLibrary.GetTvEpisodesRefresh();
+            Logger.Instance().Log("FrontView+", "Remote QUICK REFRESH TvEpisodes : " + res.Count);
+
+            var oldData = _database.GetTvEpisode(_remoteInfo.Id);
+
+            _database.SetBulkInsert(true);
+            _database.BeginTransaction();
+           // _database.DeleteRemoteTvEpisodes(_remoteInfo.Id);
+
+            var notfound = true;
+            foreach (var apiTvEpisode in res)
+            {
+               
+                foreach (var episode in oldData)
+                {
+                    if (episode.IdEpisode == apiTvEpisode.IdEpisode)
+                    {
+                        notfound = false;
+                        Logger.Instance().Log("FrontView+", "Episode IDomovie ID" + episode.IdEpisode + " apiTvEpisode.Id:" + apiTvEpisode.IdEpisode);
+                    }
+                        
+                }
+
+                if (notfound == true)
+                {
+                    Logger.Instance().Log("FrontView+", "Inserting TVEpisode");
+                    var tvEpisode = new Yatse2TvEpisode(apiTvEpisode) { IdRemote = _remoteInfo.Id };
+                    _database.InsertTvEpisode(tvEpisode);
+                }
+            }
+            
+            _database.CommitTransaction();
+            _database.SetBulkInsert(false);
+            Logger.Instance().Log("FrontView+", "End QUICK Refresh : TvEpisodes");
+        }
 
         private void RefreshTvEpisodesLibrary()
         {
@@ -139,6 +215,48 @@ namespace FrontView
             _database.SetBulkInsert(false);
             Logger.Instance().Log("FrontView+", "End Refresh : Movies");
         }
+
+        private void QuickRefreshMovieLibrary()
+        {
+            Logger.Instance().Log("FrontView+", "Start Refresh : Movies");
+            
+            var res = _remote.VideoLibrary.GetMoviesRefresh();
+          
+            Logger.Instance().Log("FrontView+", "Remote Refresh Movies : " + res.Count);
+
+            var currentMovies = _database.GetMovie(_remoteInfo.Id);
+
+            _database.SetBulkInsert(true);
+            _database.BeginTransaction();
+           // _database.DeleteRemoteMovie(_remoteInfo.Id);
+            var notfound = true;
+            foreach (var apiMovie in res)
+            {
+                foreach (var omovie in currentMovies)
+                {
+
+                    if (omovie.IdMovie == apiMovie.IdMovie)
+                    {
+                        notfound = false;
+                        Logger.Instance().Log("FrontView+", "omovie ID" + omovie.IdMovie + "apiMovie.Id:" + apiMovie.IdMovie);
+                    }
+
+                }
+                if (notfound == true)
+                {
+                     Logger.Instance().Log("FrontView+", "Inserting Movie");
+                     var movie = new Yatse2Movie(apiMovie) { IdRemote = _remoteInfo.Id };
+                      _database.InsertMovie(movie);
+                }
+                
+
+            }
+
+            _database.CommitTransaction();
+            _database.SetBulkInsert(false);
+            Logger.Instance().Log("FrontView+", "End QUICK Refresh : Movies");
+        }
+
 
         private void RefreshMusicGenreLibrary()
         {
@@ -477,6 +595,45 @@ namespace FrontView
 
         }
 
+        private void QuickRefreshLibrary()
+        {
+            if (!_remote.IsConnected())
+                return;
+              
+            try
+            {
+                
+                _yatse2Properties.ShowRefreshLibrary = true;
+                _remote.File.StopAsync();
+                Application.DoEvents();
+                Logger.Instance().Log("FrontView+", "Starting Quick Library Refresh", true);
+                _database.SetDebug(false);
+                _yatse2Properties.RefreshWhat = GetLocalizedString(1);
+                Application.DoEvents();
+                QuickRefreshMovieLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(2);
+                Application.DoEvents();
+                QuickRefreshTvSeasonLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(3);
+                Application.DoEvents();
+                QuickRefreshTvEpisodesLibrary();
+                _yatse2Properties.RefreshWhat = GetLocalizedString(4);
+                Application.DoEvents();
+
+            }
+            catch (Exception Ex)
+            {
+                Logger.Instance().Log("FrontView+", "Library Quick Refresh Error:" +Ex);
+            }
+
+            Logger.Instance().Log("FrontView+", "End Library Quick Refresh", true);
+            //_remoteLibraryRefreshed = true;
+            ShowPopup(GetLocalizedString(101));
+            _yatse2Properties.ShowRefreshLibrary = false;
+        }
+        
+
+
         private void RefreshLibrary()
         {
             if (! _remote.IsConnected())
@@ -503,6 +660,7 @@ namespace FrontView
                 RefreshTvEpisodesLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(4);
                 Application.DoEvents();
+                
                 RefreshMusicGenreLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(5);
                 Application.DoEvents();
@@ -518,6 +676,8 @@ namespace FrontView
                 _database.Compress();
                 RefreshThumbsFanarts();
                 _database.SetDebug(_config.Debug);
+            
+                 
             }
             catch (Exception Ex)
             {

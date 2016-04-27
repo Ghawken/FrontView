@@ -1,5 +1,20 @@
 ﻿Changelog:
 
+Major SQL Database Changes addition of Date/Needs DB update
+If issues - delete FrontView+.db file and restart, resetting up Remote
+Movie Sort to Date Added
+Fixes for IDRemote Data
+
+1.116
+Remove Emby Virtual episodes from local database
+Change TV Show sort to order by latest episodes - selection in Library Settings
+(Order TV Shows by Show-  but those with latest episode first)
+Fix for some Trace logging if no remote
+
+1.115
+Add ShowInTaskbar xml settings file
+Few changes for MiniseAlways
+
 1.113/114
 Fixes for Weather (Changes Icons depending on current Sunset or not for both current and Forecast){Rightly or wrongly for Forecast} Happy to have feedback.
 EMBY remote:  Fix for Trailer Change/Server Update/Backwards compatible

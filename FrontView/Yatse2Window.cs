@@ -47,6 +47,9 @@ using System.Windows.Forms;
 
 namespace FrontView
 {
+
+
+
     public static class RestoreWindowNoActivateExtension
     {
         [DllImport("user32.dll")]
@@ -73,7 +76,7 @@ namespace FrontView
     {
         private const string Repository = @"http://yatse.leetzone.org/repository";
         private bool _allowBeta;
-        
+
         //changed below to public
         
         public readonly FrontViewConfig _config = new FrontViewConfig();
@@ -686,9 +689,22 @@ namespace FrontView
                 
                 System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
                 string sPath2Icon = Path.Combine(Helper.AppPath, "Yatse2.ico");
+
+                if (_config.ShowInTaskbar == false)
+                {
+                this.ShowInTaskbar = false;
+                }
+
+                ni.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+                ni.BalloonTipText = "FrontView+ MinimiseAlways is On";
+                ni.BalloonTipTitle = "FrontView+";
+                ni.Text = "FrontView+ Click to Enable/Disable Minimise Always";
                 ni.Icon = new System.Drawing.Icon(sPath2Icon);
                 ni.Visible = true;
+
+
                 ni.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+                
                 Logger.Instance().Log("Taskbar:","Create new Taskbar Icon located: " + sPath2Icon);
 
                 if (!_config.DisableAnimations)
@@ -1926,14 +1942,17 @@ namespace FrontView
             // Set the WindowState to normal if the form is minimized. 
             if (this.WindowState == WindowState.Minimized)
             {
-                RestoreWindowNoActivateExtension.RestoreNoActivate(this);
+                 this.ShowInTaskbar = _config.ShowInTaskbar;
+                 _config.MinimiseAlways = false;
+                _config.FanartAlways = true;
+
                 
+                RestoreWindowNoActivateExtension.RestoreNoActivate(this);
+                this.Show();                
                 //Use No activation or focus change as bove - functioing 
 
                 //this.WindowState = WindowState.Normal;
-                //this.ShowInTaskbar = true;
-                _config.MinimiseAlways = false;
-                _config.FanartAlways = true;
+
                 //this.Activate();
 
                 
@@ -1944,9 +1963,10 @@ namespace FrontView
             if (this.WindowState == WindowState.Normal)
             {
                 this.WindowState = WindowState.Minimized;
-                //this.ShowInTaskbar = false;
+                this.ShowInTaskbar = _config.ShowInTaskbar;
                 _config.MinimiseAlways = true;
                 _config.FanartAlways = false;
+                this.Hide();
                 Logger.Instance().LogDump("NEW Yastse Debug    : DBL click tasbar event/Normal Window, Minimise Window and set MinimiseAlways to true ", _config.MinimiseAlways);
             }
             // Activate the form. 
@@ -2063,7 +2083,7 @@ namespace FrontView
         private void ResetTimer()
         {
             
-            Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
+         //   Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
             
             if (_config.KeepFocus && _remoteInfo != null && !_disableFocus)
             {
@@ -2112,8 +2132,10 @@ namespace FrontView
             {
                 _weather.Dispose();
                 _database.Close();
+                ni.Visible = false;
                 ni.Icon = null;
                 ni.Dispose();
+                ni = null;
              }
         }
 

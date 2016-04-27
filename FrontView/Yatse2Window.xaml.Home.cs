@@ -31,10 +31,16 @@ namespace FrontView
         {
             if (_remoteInfo == null)
                 return;
-            if (_tvShowsDataSource.Count < 1)
+            if (_tvShowsDataSource.Count < 1 && _config.TVOrderbyNewEpsiodes == true)
+            {
+                _tvShowsDataSource.Load(_database.GetTvShowOrderNewEpisode(_remoteInfo.Id));
+                Helper.VirtFlowSelect(lst_TvShows_flow, 0);
+            }
+            else if (_tvShowsDataSource.Count <1 && _config.TVOrderbyNewEpsiodes == false)
             {
                 _tvShowsDataSource.Load(_database.GetTvShow(_remoteInfo.Id));
                 Helper.VirtFlowSelect(lst_TvShows_flow, 0);
+
             }
         }
 
@@ -90,9 +96,14 @@ namespace FrontView
             if (_remoteInfo == null)
                 return;
 
-            if (_moviesDataSource.Count < 1)
+            if (_moviesDataSource.Count < 1 && _config.TVOrderbyNewEpsiodes == false)
             {
                 _moviesDataSource.Load(_database.GetMovie(_remoteInfo.Id));
+                Helper.VirtFlowSelect(lst_Movies_flow, 0);
+            }
+            else if (_moviesDataSource.Count < 1 && _config.TVOrderbyNewEpsiodes == true)
+            {
+                _moviesDataSource.Load(_database.GetMovieSortDateAdded(_remoteInfo.Id));
                 Helper.VirtFlowSelect(lst_Movies_flow, 0);
             }
         }

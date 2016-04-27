@@ -56,9 +56,15 @@ namespace Plugin
     public interface IApiVideoLibrary
     {
         Collection<ApiTvSeason> GetTvSeasons();
+        Collection<ApiTvSeason> GetTvSeasonsRefresh();
+
         Collection<ApiTvEpisode> GetTvEpisodes();
         Collection<ApiTvShow> GetTvShows();
         Collection<ApiMovie> GetMovies();
+
+        Collection<ApiMovie> GetMoviesRefresh();
+
+        Collection<ApiTvEpisode> GetTvEpisodesRefresh();
     }
 
     public interface IApiAudioLibrary
@@ -351,6 +357,7 @@ namespace Plugin
         public string Thumb { get; set; }
         public string Fanart { get; set; }
         public long IsStack { get; set; }
+        public string DateAdded { get; set; }
     }
 
     public class ApiTvShow
