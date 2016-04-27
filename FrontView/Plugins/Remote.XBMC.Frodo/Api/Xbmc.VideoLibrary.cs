@@ -150,7 +150,7 @@ namespace Remote.XBMC.Frodo.Api
         // First 100 Date sorted
       var param2 = new JsonObject();
       param2.Add("start",0);
-        param2.Add("end",50);
+        param2.Add("end",30);
         var param3 = new JsonObject();
           param3.Add("order", "descending");     
         param3.Add("method", "dateadded");
@@ -300,7 +300,7 @@ namespace Remote.XBMC.Frodo.Api
         // First 100 Date sorted
       var param2 = new JsonObject();
       param2.Add("start",0);
-        param2.Add("end",100);
+        param2.Add("end",30);
         var param3 = new JsonObject();
           param3.Add("order", "descending");     
         param3.Add("method", "dateadded");

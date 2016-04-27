@@ -66,7 +66,7 @@ namespace FrontView
 
             _database.SetBulkInsert(true);
             _database.BeginTransaction();
-            _database.DeleteRemoteTvSeasons(_remoteInfo.Id);
+            //_database.DeleteRemoteTvSeasons(_remoteInfo.Id);
             var notfound = true;
             
             foreach (var apiTvSeason in res)
@@ -76,15 +76,19 @@ namespace FrontView
                 {
                     if (show.IdShow == apiTvSeason.IdShow)
                     {
-                        notfound = false;
-                        Logger.Instance().Log("FrontView+", "Seasons Id show.Idshow ID" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow);
+                        if (apiTvSeason.SeasonNumber == show.SeasonNumber)
+                        {
+                            notfound = false;
+
+                            Logger.Instance().Log("FrontView+", "Seasons Id show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow+" SeasonNumber:"+apiTvSeason.SeasonNumber+" show.SeasonNumber:"+show.SeasonNumber);
+                        }
                     }
 
 
                 }
                 if (notfound == true)
                 {
-                    Logger.Instance().Log("FrontView+", "Inserting TV Season");
+                    Logger.Instance().Log("FrontView+", "Inserting TV Season :Show Name:"+apiTvSeason.Show+":ShowID:"+apiTvSeason.IdShow+" Season Number:"+apiTvSeason.SeasonNumber);
                     var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
                     _database.InsertTvSeason(tvSeason);
                 }
@@ -613,6 +617,7 @@ namespace FrontView
                 QuickRefreshMovieLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(2);
                 Application.DoEvents();
+                RefreshTvShowLibrary();
                 QuickRefreshTvSeasonLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(3);
                 Application.DoEvents();
