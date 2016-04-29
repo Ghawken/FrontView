@@ -108,7 +108,10 @@ namespace FrontView
             
             foreach (var apiTvSeason in res)
             {
-                
+            oldData = _database.GetTvSeason(_remoteInfo.Id);  
+            // Somewhat of an not brillant solution - but check SQL Database as to whether Season had already been entered, Show and Episode just get re-entered
+            // But for some reason I can't see at present Season gets duplicated.
+              
                 foreach (var show in oldData)
                 {
                     if (show.IdShow == apiTvSeason.IdShow)

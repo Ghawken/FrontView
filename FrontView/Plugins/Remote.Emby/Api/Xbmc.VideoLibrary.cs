@@ -93,7 +93,7 @@ namespace Remote.Emby.Api
 
                             var tvShow = new ApiTvSeason
                             {
-                                SeasonNumber = genre.ParentIndexNumber,
+                                SeasonNumber = Convert.ToInt32(genre.ParentIndexNumber),
                                 IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                                 Show = genre.SeriesName ?? "",
                                 Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
