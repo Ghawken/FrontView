@@ -333,6 +333,12 @@ namespace Remote.Emby.Api
         */
       return episodes;
     }
+
+    public Collection<ApiTvShow> GetTvShowsRefresh()
+    {
+        return null;
+    }
+
     public Collection<ApiTvShow> GetTvShows()
     {
         //var MovieId = GetMainSelection("TV");

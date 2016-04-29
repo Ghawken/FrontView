@@ -60,6 +60,8 @@ namespace Plugin
 
         Collection<ApiTvEpisode> GetTvEpisodes();
         Collection<ApiTvShow> GetTvShows();
+
+        Collection<ApiTvShow> GetTvShowsRefresh();
         Collection<ApiMovie> GetMovies();
 
         Collection<ApiMovie> GetMoviesRefresh();

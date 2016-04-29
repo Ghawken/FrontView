@@ -56,6 +56,43 @@ namespace FrontView
             _database.SetBulkInsert(false);
             Logger.Instance().Log("FrontView+", "End Refresh : TvShows");
         }
+        private void QuickRefreshTvShowLibrary()
+        {
+            Logger.Instance().Log("FrontView+", "Start Quick Refresh : TvShows");
+            var res = _remote.VideoLibrary.GetTvShowsRefresh();
+            Logger.Instance().Log("FrontView+", "Remote Quick Refresh TvShows : " + res.Count);
+
+            var oldData = _database.GetTvShow(_remoteInfo.Id);
+
+            _database.SetBulkInsert(true);
+            _database.BeginTransaction();
+          //  _database.DeleteRemoteTvShows(_remoteInfo.Id);
+
+            var notfound = true;
+            foreach (var apiTvShow in res)
+            {
+                
+                foreach (var show in oldData)
+                {
+                    if (show.IdShow == apiTvShow.IdShow)
+                    {
+                        notfound = false;
+                        Logger.Instance().Log("FrontView+", "Quick Shows Check Id - Show Exists -  show.Idshow ID:" + show.IdShow + " apiTVShow.IdShow:" + apiTvShow.IdShow);
+                    }
+                }
+                if (notfound == true)
+                {
+                    Logger.Instance().Log("FrontView+", "Inserting TV Show :Show Name:" + apiTvShow.Title + ":ShowID:" + apiTvShow.IdShow);
+                    var tvShow = new Yatse2TvShow(apiTvShow) { IdRemote = _remoteInfo.Id };
+                    _database.InsertTvShow(tvShow);
+                }
+            }
+            _database.CommitTransaction();
+            _database.SetBulkInsert(false);
+            Logger.Instance().Log("FrontView+", "End Quick Refresh : TvShows");
+        }
+
+
         private void QuickRefreshTvSeasonLibrary()
         {
             Logger.Instance().Log("FrontView+", "Start Quick Refresh : TvSeasons");
@@ -617,7 +654,7 @@ namespace FrontView
                 QuickRefreshMovieLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(2);
                 Application.DoEvents();
-                RefreshTvShowLibrary();
+                QuickRefreshTvShowLibrary();
                 QuickRefreshTvSeasonLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(3);
                 Application.DoEvents();

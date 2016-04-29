@@ -228,7 +228,61 @@ namespace Remote.Plex.Api
       }
       return shows;
     }
+    public Collection<ApiTvShow> GetTvShowsRefresh()
+    {
+        var shows = new Collection<ApiTvShow>();
 
+        var properties = new JsonArray(new[] { "title", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode" });
+        var param = new JsonObject();
+        param["properties"] = properties;
+
+        // First 100 Date sorted
+        var param2 = new JsonObject();
+        param2.Add("start", 0);
+        param2.Add("end", 10);
+        var param3 = new JsonObject();
+        param3.Add("order", "descending");
+        param3.Add("method", "dateadded");
+        param.Add("sort", param3);
+        param.Add("limits", param2);
+
+
+        var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetTVShows", param);
+        if (result != null)
+        {
+            if (result.Contains("tvshows"))
+            {
+                foreach (JsonObject genre in (JsonArray)result["tvshows"])
+                {
+                    try
+                    {
+                        var tvShow = new ApiTvShow
+                        {
+                            Title = genre["title"].ToString(),
+                            Plot = genre["plot"].ToString(),
+                            Rating = genre["rating"].ToString(),
+                            IdScraper = "",
+                            Mpaa = genre["mpaa"].ToString(),
+                            Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
+                            Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
+                            IdShow = (long)(JsonNumber)genre["tvshowid"],
+                            TotalCount = (long)(JsonNumber)genre["episode"],
+                            Path = "",
+                            Premiered = genre["premiered"].ToString(),
+                            Thumb = genre["thumbnail"].ToString(),
+                            Fanart = genre["fanart"].ToString(),
+                            Hash = Xbmc.Hash(genre["thumbnail"].ToString())
+                        };
+                        shows.Add(tvShow);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
+        }
+        return shows;
+    }   
 
     public Collection<ApiMovie> GetMoviesRefresh()
     {
