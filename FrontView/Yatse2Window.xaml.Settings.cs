@@ -99,6 +99,9 @@ namespace FrontView
             chk_Settings_Debug.IsChecked = _config.Debug;
             chk_Settings_HideWatched.IsChecked = _config.HideWatched;
             chk_Settings_RefreshOnConnect.IsChecked = _config.RefreshOnConnect;
+
+            chk_Settings_QuickRefreshEnable.IsChecked = _config.QuickRefreshEnable;
+
             //chk_Settings_AnimatedMusicCover.IsChecked = _config.AnimatedMusicCover;
             chk_Settings_DimmingOnlyVideo.IsChecked = _config.DimmingOnlyVideo;
             chk_Settings_CheckUpdate.IsChecked = _config.FanartAlways;
@@ -297,6 +300,9 @@ namespace FrontView
                 _config.Debug = (bool)chk_Settings_Debug.IsChecked;
                 _config.HideWatched = (bool)chk_Settings_HideWatched.IsChecked;
                 _config.RefreshOnConnect = (bool)chk_Settings_RefreshOnConnect.IsChecked;
+
+                _config.QuickRefreshEnable = (bool)chk_Settings_QuickRefreshEnable.IsChecked;
+
                 _config.DimmingOnlyVideo = (bool)chk_Settings_DimmingOnlyVideo.IsChecked;
                 _config.HideCompilationArtists = (bool)chk_Settings_HideCompilationArtists.IsChecked;
                 _config.GenreToArtists = (bool)chk_Settings_GenreToArtists.IsChecked;

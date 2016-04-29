@@ -85,7 +85,7 @@
     <S:String x:Key="Localized_65">Weather location ID :</S:String>
     <S:String x:Key="Localized_66">Debug mode</S:String>
     <S:String x:Key="Localized_67">Hide watched elements</S:String>
-    <S:String x:Key="Localized_68">Refresh library on connect</S:String>
+    <S:String x:Key="Localized_68">FULL (slow) Refresh library on connect</S:String>
     <S:String x:Key="Localized_69">Enable animated CD</S:String>
     <S:String x:Key="Localized_70">Use dimming only when watching Movie / TV</S:String>
     <S:String x:Key="Localized_71">- Reboot</S:String>
@@ -93,7 +93,7 @@
     <S:String x:Key="Localized_73">Hibernate</S:String>
     <S:String x:Key="Localized_74">Settings</S:String>
     <S:String x:Key="Localized_75">Remotes</S:String>
-    <S:String x:Key="Localized_76">Refresh Library</S:String>
+    <S:String x:Key="Localized_76">FULL Refresh Library</S:String>
     <S:String x:Key="Localized_77">Season</S:String>
     <S:String x:Key="Localized_78">Episode</S:String>
     <S:String x:Key="Localized_79">Aired :</S:String>

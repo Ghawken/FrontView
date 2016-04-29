@@ -603,7 +603,10 @@ namespace FrontView
 
                 //Add Startup Connection QUick Refresh
 
-                QuickRefreshLibrary();
+                if (_config.QuickRefreshEnable == true)
+                {
+                    QuickRefreshLibrary();
+                }
 
                 if (!_remoteLibraryRefreshed)
                 {

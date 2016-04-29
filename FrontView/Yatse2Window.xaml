@@ -871,7 +871,12 @@
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" />
         							<CheckBox x:Name="chk_Settings_RefreshOnConnect" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_68}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" />
-        							<CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                    
+                                        <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Quick Refresh on Start" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" />
+
+                                       
+                                        <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_106}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
         							<CheckBox x:Name="chk_Settings_GenreToArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_107}" Padding="5,0,0,0" Margin="8,89.393,185,0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" />

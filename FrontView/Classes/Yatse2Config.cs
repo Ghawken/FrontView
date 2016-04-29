@@ -77,6 +77,7 @@ namespace FrontView.Classes
         public bool ShowEndTime { get; set; } // TODO : Use this
         public bool HideWatched { get; set; } // TODO : Use this
         public bool RefreshOnConnect { get; set; }
+        public bool QuickRefreshEnable { get; set; }
         public bool AnimatedMusicCover { get; set; }
         public bool DimmingOnlyVideo { get; set; }
         public bool Hack480 { get; set; }
@@ -160,6 +161,7 @@ namespace FrontView.Classes
             HideWatched = false;
             RefreshOnConnect = false;
             AnimatedMusicCover = true;
+            QuickRefreshEnable = true;
             DimmingOnlyVideo = true;
             DebugTrace = false;
             ForceOnCheckRemote = true;
@@ -255,7 +257,7 @@ namespace FrontView.Classes
             KeepFocus = config.KeepFocus;
             ForceResolution = config.ForceResolution;
             Diaporama = config.Diaporama;
-            
+            QuickRefreshEnable = config.QuickRefreshEnable;
             Dimming = config.Dimming;
             ShowInTaskbar = config.ShowInTaskbar;
             DimAmount = config.DimAmount;
