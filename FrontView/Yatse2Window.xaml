@@ -831,7 +831,7 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
         	</Grid>
         	<Grid x:Name="grd_Settings" Visibility="Hidden">
-        		<Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="354">
+        		<Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404">
         			<Canvas Margin="-1">
         				<TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
         					<TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
@@ -1125,7 +1125,13 @@
                             </TabControl>
         				<Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
         					Content="{DynamicResource Localized_83}" Canvas.Left="8" Canvas.Top="318.538" Click="btn_Settings_SaveSettings_Click"/>
-                            <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="234" Canvas.Top="321" Width="436"/>
+                         
+                        <Button Width="201" Height="15.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
+        					Content="Check for Updates" Canvas.Left="308" Canvas.Top="368.538" Click="btn_Settings_CheckforUpdates_Click"/>
+
+
+
+                            <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="234" Canvas.Top="321" Width="416"/>
         				<Image HorizontalAlignment="Right" Width="100" Source="Skin/Internal/Images/Paypal.gif" VerticalAlignment="Bottom" Stretch="UniformToFill" StretchDirection="DownOnly" Height="30" MouseDown="Image_MouseDown" Canvas.Left="674" Canvas.Top="314"/>
         				<Rectangle Fill="White" Height="277" StrokeThickness="3" Opacity="0.5" Canvas.Left="156" Canvas.Top="21" Width="1"/>
         			</Canvas>

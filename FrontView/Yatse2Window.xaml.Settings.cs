@@ -371,6 +371,14 @@ namespace FrontView
             }
         }
 
+        private void btn_Settings_CheckforUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(Helper.AppPath + @"\WyUpdate.exe"));
+
+
+
+        }
+
         private void btn_Settings_SaveSettings_Click(object sender, RoutedEventArgs e)
         {
             GetSettingsVars();
