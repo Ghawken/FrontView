@@ -869,13 +869,16 @@
         						<Grid>
         							<CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" />
-        							<CheckBox x:Name="chk_Settings_RefreshOnConnect" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        							
+                                    <CheckBox x:Name="chk_Settings_RefreshOnConnect" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_68}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" />
                                     
                                         <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Quick Refresh on Start        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" />
 
-                                       
+                                        <Button Width="251" Height="25.724" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,58,8,0" VerticalAlignment="Top"
+        					Content="Perform FULL Library UPDATE" Click="btn_Remote_Refresh_Click"/>
+
                                         <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_106}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
         							<CheckBox x:Name="chk_Settings_GenreToArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
@@ -1129,7 +1132,7 @@
                         <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
         					Content="Check for Updates" Canvas.Left="308" Canvas.Top="368.538" Click="btn_Settings_CheckforUpdates_Click"/>
 
-                            <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="txt_Settings_WeatherAPI" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="38" Canvas.Top="368.538" Width="416"/>
+                            <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="txt_Settings_WeatherAPI" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="btn_Settings_CheckforUpdates_Click" Canvas.Left="38" Canvas.Top="368.538" Width="416"/>
 
                             <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="12" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="336" Canvas.Top="375" Width="416"/>
         				
