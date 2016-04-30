@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Reflection;
 using Microsoft.Win32;
 using Setup;
 using FrontView.Libs;
@@ -129,7 +130,14 @@ namespace FrontView
             txt_Settings_HttpPoweron.Text = _config.HttpPoweron;
             txt_Settings_HttpPoweroff.Text = _config.HttpPoweroff;
             txt_Settings_WeatherAPI.Text = _config.WeatherAPI;
-            
+
+            var assem = Assembly.GetEntryAssembly();
+            var assemName = assem.GetName();
+            var ver = assemName.Version;
+
+            txt_Settings_VersionNo.Text =  "Version "+ ver.Major +"." + ver.Minor + " Build:" + ver.Build;
+
+
             chk_Settings_MouseMode.IsChecked = _config.MouseMode;
 
             chk_Settings_DebugTrace.IsChecked = _config.DebugTrace;
