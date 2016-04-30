@@ -326,7 +326,14 @@ namespace FrontView
                 return;
             }
             Logger.Instance().Log("FrontView+", "Database Update");
-            _database.UpdateDatabase();
+            
+            if ( _database.UpdateDatabase() == true)
+            {
+                Logger.Instance().Log("FrontView+", "Database Updated - Running Full Refresh.....");
+               // RefreshLibrary();
+                // Not connected - so can't run this here - could set variable - but will see
+            }
+
         }
 
         private void InitTimer()

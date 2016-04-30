@@ -873,7 +873,7 @@
         								Content="{DynamicResource Localized_68}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" />
                                     
                                         <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="Quick Refresh on Start" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" />
+        								Content="Quick Refresh on Start        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" />
 
                                        
                                         <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"

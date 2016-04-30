@@ -1654,35 +1654,7 @@ namespace FrontView.Classes
                     try
                     {
 
-                  sqlCmd.CommandText = @"CREATE TABLE `Movies`
-                    (
-                       Id INTEGER NOT NULL PRIMARY KEY,
-                       IdRemote INTEGER NOT NULL,
-                       IdMovie INTEGER,
-                       IdFile INTEGER,
-                       IdScraper VARCHAR(50),
-                       Title TEXT,
-                       OriginalTitle TEXT,
-                       Genre TEXT,
-                       Tagline TEXT,
-                       Plot TEXT,
-                       Director TEXT,
-                       Year INTEGER,
-                       Length TEXT,
-                       Mpaa TEXT,
-                       Studio TEXT,
-                       Rating VARCHAR(50),
-                       Votes VARCHAR(50),
-                       FileName TEXT,
-                       Path TEXT,
-                       PlayCount INTEGER,
-                       Hash VARCHAR(50),
-                       Thumb TEXT,
-                       Fanart TEXT,
-                       IsStack INTEGER,
-                       IsFavorite INTEGER,
-                       DateAdded TEXT
-                    )";
+                  sqlCmd.CommandText = @"ALTER TABLE 'Movies' ADD COLUMN 'DateAdded' Text;";
 
                         LogQuery(sqlCmd);
                         sqlCmd.ExecuteNonQuery();
@@ -1699,7 +1671,9 @@ namespace FrontView.Classes
                 sqlCmd.ExecuteNonQuery();
 
                 sqlCmd.Dispose();
+                
                 return true;
+
             }
             catch (SQLiteException e)
             {
