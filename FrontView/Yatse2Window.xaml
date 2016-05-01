@@ -30,18 +30,6 @@
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 	<Window.Resources>
 
-        <Storyboard x:Key="blinkLabel" Duration="0:0:1" RepeatBehavior="Forever">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetName="lblStoryboard" Storyboard.TargetProperty="Background.(SolidColorBrush.Color)">
-                <DiscreteColorKeyFrame KeyTime="0:0:0" Value="Red" />
-                <DiscreteColorKeyFrame KeyTime="0:0:0.5" Value="White" />
-            </ColorAnimationUsingKeyFrames>
-            <ColorAnimationUsingKeyFrames Storyboard.TargetName="lblStoryboard" Storyboard.TargetProperty="Foreground.(SolidColorBrush.Color)">
-                <DiscreteColorKeyFrame KeyTime="0:0:0" Value="White" />
-                <DiscreteColorKeyFrame KeyTime="0:0:0.5" Value="Red" />
-            </ColorAnimationUsingKeyFrames>
-        </Storyboard>
-
-
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
 		<Style x:Key="ListBoxStyle_TvEpisodes" TargetType="{x:Type ListBox}">
 			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
