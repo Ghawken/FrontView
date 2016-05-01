@@ -60,6 +60,7 @@ namespace Remote.Emby.Api
         public static string SessionIDClient = "";
         public static bool? ClientSupportsRemoteControl;
         public static string CurrentUserID ="";
+        
     }
     
     

@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+Version 1.128
+Check silently for available updates at Startup (and set Settings information)
+
 Version 1.127
 Update Emby FrontVersion Version number
 Change Movies sort to DateCreated rather than Premiere Date (Emby)

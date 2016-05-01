@@ -29,7 +29,10 @@
     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ResizeMode="CanMinimize" 
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 	<Window.Resources>
-
+           
+        
+        
+        
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
 		<Style x:Key="ListBoxStyle_TvEpisodes" TargetType="{x:Type ListBox}">
 			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -1132,7 +1135,7 @@
                         <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
         					Content="Check for Updates" Canvas.Left="308" Canvas.Top="368.538" Click="btn_Settings_CheckforUpdates_Click"/>
 
-                            <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="txt_Settings_WeatherAPI" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="btn_Settings_CheckforUpdates_Click" Canvas.Left="38" Canvas.Top="368.538" Width="416"/>
+                            <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="Version: Unknown" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="btn_Settings_CheckforUpdates_Click" Canvas.Left="38" Canvas.Top="368.538" Width="416"/>
 
                             <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="12" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="336" Canvas.Top="375" Width="416"/>
         				

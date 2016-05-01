@@ -163,6 +163,9 @@ namespace FrontView
         private bool _filteredAlbums;
         private bool _setPov;
         public string[] KodiSources;
+
+        private bool UpdateAvailable = false;
+
         public string GetLocalizedString(int id)
         {
             var ret = (string)TryFindResource("Localized_" + id);
@@ -740,6 +743,9 @@ namespace FrontView
                 }
                 HttpisStopped = true;
 
+                CheckSilentUpdate();
+
+
                 if (_config.HttpSend == true && _config.HttpPoweron != "")
                 {
                     Logger.Instance().Log("HttpSend", "PowerON URL " + _config.HttpPoweron + "Sent.");
@@ -755,7 +761,7 @@ namespace FrontView
             catch (Exception e)
             {
                  
-                Logger.Instance().LogException("Yaste2Init",e);
+                Logger.Instance().LogException("FrontView2Init",e);
            
                 //System.Windows.Application.Current.Shutdown();
                 Logger.Instance().Log("FrontViewInit","Forcing close");
@@ -768,8 +774,38 @@ namespace FrontView
 
         //load Kodi Source xml and populate values to be checked against
         //working
-        
-        
+
+        public void CheckSilentUpdate()
+        {
+            try
+            {
+
+                var appPath = Helper.AppPath + @"wyUpdate.exe";
+                Logger.Instance().Trace("FrontView+", "CheckSilent appPath equals" + appPath);
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = appPath;
+                psi.Arguments = "/quickcheck /justcheck /noerr";
+                var proc = Process.Start(psi);
+                               
+                proc.WaitForExit();
+                var ExitCode = proc.ExitCode;
+                Logger.Instance().Trace("FrontView+", "CheckSilent Update Returned:" + ExitCode.ToString());
+                
+                if (ExitCode == 2)
+                {
+                    UpdateAvailable = true;
+                }
+
+            
+            }
+            catch (Exception e)
+            {
+                Logger.Instance().Log("FrontView+", "Exception in Silent Update Check" + e);
+            }
+            
+        }
+
+
         private void LoadKodiSource()
         {
 

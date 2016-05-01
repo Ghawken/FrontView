@@ -137,6 +137,12 @@ namespace FrontView
 
             txt_Settings_VersionNo.Text =  "Version "+ ver.Major +"." + ver.Minor + " Build:" + ver.Build;
 
+            if (UpdateAvailable == true)
+            {
+                txt_Settings_VersionNo.Foreground = System.Windows.Media.Brushes.Maroon;
+                txt_Settings_VersionNo.Text = "Build:" + ver.Build + ":  Update Available";
+            }
+        //    txt_Settings_VersionNo.
 
             chk_Settings_MouseMode.IsChecked = _config.MouseMode;
 
