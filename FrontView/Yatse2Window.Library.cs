@@ -41,6 +41,7 @@ namespace FrontView
             _database.SetBulkInsert(true);
             _database.BeginTransaction();
             _database.DeleteRemoteTvShows(_remoteInfo.Id);
+
             foreach (var apiTvShow in res)
             {
                 long oldFavorite = 0;
@@ -71,7 +72,7 @@ namespace FrontView
             var notfound = true;
             foreach (var apiTvShow in res)
             {
-                
+            notfound = true;   
                 foreach (var show in oldData)
                 {
                     if (show.IdShow == apiTvShow.IdShow)
@@ -104,12 +105,14 @@ namespace FrontView
             _database.SetBulkInsert(true);
             _database.BeginTransaction();
             //_database.DeleteRemoteTvSeasons(_remoteInfo.Id);
+            
             var notfound = true;
             
             foreach (var apiTvSeason in res)
             {
-            oldData = _database.GetTvSeason(_remoteInfo.Id);  
-            // Somewhat of an not brillant solution - but check SQL Database as to whether Season had already been entered, Show and Episode just get re-entered
+            oldData = _database.GetTvSeason(_remoteInfo.Id);
+            notfound = true;
+                // Somewhat of an not brillant solution - but check SQL Database as to whether Season had already been entered, Show and Episode just get re-entered
             // But for some reason I can't see at present Season gets duplicated.
               
                 foreach (var show in oldData)
@@ -119,18 +122,16 @@ namespace FrontView
                         if (apiTvSeason.SeasonNumber == show.SeasonNumber)
                         {
                             notfound = false;
-
-                            Logger.Instance().Log("FrontView+", "Seasons Id show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow+" SeasonNumber:"+apiTvSeason.SeasonNumber+" show.SeasonNumber:"+show.SeasonNumber);
+                            Logger.Instance().Log("FrontView+", "Seasons Id Show.Name: " +show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow+" SeasonNumber:"+apiTvSeason.SeasonNumber+" show.SeasonNumber:"+show.SeasonNumber);
                         }
                     }
-
-
                 }
                 if (notfound == true)
                 {
-                    Logger.Instance().Log("FrontView+", "Inserting TV Season :Show Name:"+apiTvSeason.Show+":ShowID:"+apiTvSeason.IdShow+" Season Number:"+apiTvSeason.SeasonNumber);
+                    Logger.Instance().Log("FrontView+", "Inserting TV Season :Show Name:"+apiTvSeason.Show+": ShowID:"+apiTvSeason.IdShow+" Season Number:" +apiTvSeason.SeasonNumber +" Episode Count"+apiTvSeason.EpisodeCount +" Hash "+apiTvSeason.Hash);
                     var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
                     _database.InsertTvSeason(tvSeason);
+                    
                 }
             }
             _database.CommitTransaction();
@@ -181,7 +182,7 @@ namespace FrontView
             var notfound = true;
             foreach (var apiTvEpisode in res)
             {
-               
+                notfound = true;  
                 foreach (var episode in oldData)
                 {
                     if (episode.IdEpisode == apiTvEpisode.IdEpisode)

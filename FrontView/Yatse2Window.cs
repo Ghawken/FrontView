@@ -540,11 +540,9 @@ namespace FrontView
             _moviesCollectionView =
                 (CollectionView)CollectionViewSource.GetDefaultView(lst_Movies_flow.ItemsSource);
             _tvShowsDataSource = TryFindResource("TvShowsDataSource") as TvShowsCollection;
-            _tvShowsCollectionView =
-                (CollectionView)CollectionViewSource.GetDefaultView(lst_TvShows_flow.ItemsSource);
+            _tvShowsCollectionView = (CollectionView)CollectionViewSource.GetDefaultView(lst_TvShows_flow.ItemsSource);
             _tvSeasonsDataSource = TryFindResource("TvSeasonsDataSource") as TvSeasonsCollection;
-            _tvSeasonsCollectionView =
-                (CollectionView)CollectionViewSource.GetDefaultView(lst_TvSeasons_flow.ItemsSource);
+            _tvSeasonsCollectionView = (CollectionView)CollectionViewSource.GetDefaultView(lst_TvSeasons_flow.ItemsSource);
             _tvEpisodesDataSource = TryFindResource("TvEpisodesDataSource") as TvEpisodesCollection;
             _tvEpisodesCollectionView =
                 (CollectionView)CollectionViewSource.GetDefaultView(lst_TvEpisodes_flow.ItemsSource);

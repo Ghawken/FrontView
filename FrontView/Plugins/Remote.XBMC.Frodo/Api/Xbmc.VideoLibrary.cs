@@ -118,6 +118,15 @@ namespace Remote.XBMC.Frodo.Api
                     {
                         try
                         {
+
+                            _parent.Trace("Kodi QuickRefresh Seasons:  SeasonNumber:" + (long)(JsonNumber)genre["season"]);
+                            _parent.Trace("Kodi QuickRefresh Seasons:  IdShow:" + (long)(JsonNumber)genre["tvshowid"]);
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Show:" + genre["showtitle"].ToString());
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Thumb:" + genre["thumbnail"].ToString());
+                            _parent.Trace("Kodi QuickRefresh Seasons:  EpisodeCount:" + (long)(JsonNumber)genre["episode"]);
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Fanart:" + genre["fanart"].ToString());
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Hash:" + genre["thumbnail"].ToString());
+
                             var tvShow = new ApiTvSeason
                             {
                                 SeasonNumber = (long)(JsonNumber)genre["season"],
