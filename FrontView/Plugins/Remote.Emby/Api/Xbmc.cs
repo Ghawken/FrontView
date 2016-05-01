@@ -356,7 +356,8 @@ namespace Remote.Emby.Api
             string clientname = "FrontView+";
             string devicename = "Windows Application";
             string deviceID = Globals.DeviceID; // "9DA94EFB-EFF0-4144-9A18-46B046C450C6";
-            string appVersion = "1.108";
+            string appVersion = "1.125";
+            
 
             if (String.IsNullOrEmpty(Globals.CurrentUserID))
             {

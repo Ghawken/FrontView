@@ -888,7 +888,7 @@
         							<CheckBox x:Name="chk_Settings_IgnoreSortTokens" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_136}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" />
                                         <CheckBox x:Name="chk_Settings_TVOrderbyNewEpisodes" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="Sort TV Shows by Episode Date" Padding="5,0,0,0" Margin="8,264.8,162,0" VerticalAlignment="Top" />
+        								Content="Sort Movies and TV Shows by Episode Date" Padding="5,0,0,0" Margin="8,264.8,162,0" VerticalAlignment="Top" />
 
 
                                     </Grid>

@@ -1,9 +1,28 @@
 ﻿Changelog:
 
-Major SQL Database Changes addition of Date/Needs DB update
+Version 1.127
+Update Emby FrontVersion Version number
+Change Movies sort to DateCreated rather than Premiere Date (Emby)
+
+Version 1.126
+Test of online update
+Small typo Fix in Settings screen
+
+Purpose of this major update is to enable Quick Refresh of the Library on Start.
+This has been enabled for both Emby and Kodi Remote Connections.  Should run in around 5-10 seconds.
+This is to make useful the date sort - which isn't that much use if have to update whole Library to use.
+
+Changes:
+Version 1.125
+Major SQL Database Changes addition of Date/Needs DB update - which should occur.
+Date data will not be present until a full Library Download is run.
+Settings Buttons Additions.
 If issues - delete FrontView+.db file and restart, resetting up Remote
 Movie Sort to Date Added
 Fixes for IDRemote Data
+Change to using WyUpdate to download small updates (hopefully the last mediafire install package needed)
+
+
 
 1.116
 Remove Emby Virtual episodes from local database

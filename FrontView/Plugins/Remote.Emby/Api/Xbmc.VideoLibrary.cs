@@ -790,7 +790,7 @@ namespace Remote.Emby.Api
                           _parent.Trace( "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop"           );
                           _parent.Trace( Xbmc.Hash(id.Id)           );
 
-
+                          
 
                           var movie = new ApiMovie
                           {
@@ -815,7 +815,7 @@ namespace Remote.Emby.Api
                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
                               Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
                               Hash = Xbmc.Hash(id.Id),
-                              DateAdded = Movieitem.PremiereDate.ToString("s")
+                              DateAdded = Movieitem.DateCreated.ToString("s")
                           };
                           movies.Add(movie);
                       }
@@ -1062,7 +1062,7 @@ namespace Remote.Emby.Api
                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
                               Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
                               Hash = Xbmc.Hash(id.Id),
-                              DateAdded = Movieitem.PremiereDate.ToString("s")
+                              DateAdded = Movieitem.DateCreated.ToString("s")
                           };
                           movies.Add(movie);
                       }
