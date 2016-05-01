@@ -1552,7 +1552,8 @@ namespace FrontView
                         stbDimmingShow.Begin(this);
                     Logger.Instance().LogDump("FrontView NEW DEBUG:", "Playback Paused or Playing - Dim on Undim");
                 }
-
+                
+                
                 if (glennwindow.WindowState == WindowState.Normal)
                 //     if (this.Visibility == Visibility.Visible)
                 {
@@ -1577,6 +1578,7 @@ namespace FrontView
                          //Fanart Routine shoudl go here
                         
                     }
+
                 }
             }
                 
