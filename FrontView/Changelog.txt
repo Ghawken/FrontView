@@ -1,5 +1,9 @@
 ﻿Changelog:
 
+Add HTTP Play Delayed send option
+(enables to send HTTP after certain time of playback configurable in seconds)
+e.g Playback started - dim lights to 50%, 10 seconds into playback Dim to 100%
+
 Version 1.130
 Check silently for available updates at Startup (and set Settings information)
 Emby Remote - Fix lack Season Selection Screen issue

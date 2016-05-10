@@ -153,6 +153,7 @@ namespace FrontView
         private bool HttpisPaused;
         private bool HttpisMuted;
         private bool HttpisStopped;
+        private bool HttpisDelayed;
 
         private string _filterMovie = "";
         private string _filterTvShow = "";
@@ -1468,13 +1469,26 @@ namespace FrontView
             {
                 Logger.Instance().LogDump("HttpSend", "Checking Playback Conditions isNewMedia: "+nowPlaying.IsNewMedia, true);
 
+                if (nowPlaying.IsNewMedia == true)
+                {
+                    HttpisDelayed = false;
+                }
+
                 if (nowPlaying.IsPlaying == true && HttpisPlaying == false)
                 {
                     gotoHttp(_config.HttpPlaystarted, nowPlaying);
                     HttpisPlaying = true;
                     HttpisPaused = false;
                     HttpisStopped = false;
+                    
+
                 }
+                if (nowPlaying.IsPlaying== true && (nowPlaying.Time.Seconds >= _config.HttpPlayStartedDelay) && HttpisDelayed == false )
+                {
+                    gotoHttp(_config.HttpPlayStartedDelayed, nowPlaying);
+                    HttpisDelayed = true;
+                }
+                
                 if (nowPlaying.IsPaused == true && HttpisPaused == false)
                 {
                     gotoHttp(_config.HttpPlaypaused, nowPlaying);
