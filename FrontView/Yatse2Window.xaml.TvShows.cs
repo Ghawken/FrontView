@@ -141,7 +141,12 @@ namespace FrontView
                 var selitem = (Yatse2TvShow)lst_TvShows_flow.SelectedItem;
                 if (selitem == null) return;
 
+                
                 Load_TvSeasons(selitem.Title);
+
+                
+
+
                 if (_tvSeasonsCollectionView.Count > 2)
                 {
                     ShowGrid(grd_TvSeasons);

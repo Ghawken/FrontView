@@ -683,7 +683,9 @@ namespace FrontView
             foreach (var remote in remotes)
             {
                 remote.IsDefault = _config.DefaultRemote == remote.Id ? 1 : 0;
+
                 remote.IsSelected = _currentRemoteId == remote.Id ? 1 : 0;
+                
                 var index = lst_Remotes.Items.Add(remote);
 
                 if (_currentRemoteId == remote.Id)

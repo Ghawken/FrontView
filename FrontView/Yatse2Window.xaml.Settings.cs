@@ -130,6 +130,10 @@ namespace FrontView
             txt_Settings_HttpPoweron.Text = _config.HttpPoweron;
             txt_Settings_HttpPoweroff.Text = _config.HttpPoweroff;
             txt_Settings_WeatherAPI.Text = _config.WeatherAPI;
+            txt_Settings_HttpPlayStartedDelayed.Text = _config.HttpPlayStartedDelayed;
+            txt_Settings_HttpPlayStartedDelay.Text = _config.HttpPlayStartedDelay.ToString();
+            
+
 
             var assem = Assembly.GetEntryAssembly();
             var assemName = assem.GetName();
@@ -350,6 +354,8 @@ namespace FrontView
             _config.HttpMediatypeAudio = txt_Settings_HttpMediatypeAudio.Text;
             _config.HttpPoweron = txt_Settings_HttpPoweron.Text;
             _config.HttpPoweroff = txt_Settings_HttpPoweroff.Text;
+            _config.HttpPlayStartedDelayed = txt_Settings_HttpPlayStartedDelayed.Text;
+            _config.HttpPlayStartedDelay = Convert.ToInt32(txt_Settings_HttpPlayStartedDelay.Text);
             _config.WeatherAPI = txt_Settings_WeatherAPI.Text;
 
             _config.WeatherUnit = lst_Settings_WeatherUnit.SelectedIndex == 0 ? "c" : "f";

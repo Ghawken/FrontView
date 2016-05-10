@@ -1090,6 +1090,17 @@
         								Text="txt_Settings_HttpPoweroff" Padding="5,0,0,0" Margin="148,128,185,0" VerticalAlignment="Top" />
 
                                         <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Play Start Delay:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" />
+                                        <TextBox x:Name="txt_Settings_HttpPlayStartedDelayed" Style="{DynamicResource TextBox}" FontSize="16" 
+        								Text="txt_Settings_HttpPlayStartedDelayed" Padding="5,0,0,0" Margin="148,168.723,285,0" VerticalAlignment="Top" />
+
+                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="secs" Padding="5,0,0,0" Margin="340,168.723,185,0" VerticalAlignment="Top" />
+                                        <TextBox x:Name="txt_Settings_HttpPlayStartedDelay" Style="{DynamicResource TextBox}" FontSize="16" 
+        								Text="txt_Settings_HttpPlayStartedDelay" Padding="5,0,0,0" Margin="388,168.723,185,0" VerticalAlignment="Top" />
+
+
+                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Variables Supported:" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" />
                                         <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPFILENAME%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,38,8,0" VerticalAlignment="Top" />

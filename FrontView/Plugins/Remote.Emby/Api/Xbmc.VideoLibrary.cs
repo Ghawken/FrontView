@@ -90,20 +90,21 @@ namespace Remote.Emby.Api
                         {
 
                            // var SingleTVData = GetSingleTVFromSeries(genre.Id);
-                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Season Number:" + Convert.ToInt64(genre.ParentIndexNumber));
+                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Season Number:" + (long)(int)genre.ParentIndexNumber);
                             _parent.Trace("---Emby QuickRefresh GetTVSeasons--- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
                             _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Series Name:" + genre.SeriesName);
                             _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Thumb:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "");
-                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Child Count:" + Convert.ToInt64(genre.IndexNumber));
+                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Child Count:" + (long)(int)genre.IndexNumber);
                             _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Fanart:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "");
                             _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Hash:" + Xbmc.Hash(genre.SeasonId));
+                            
                             var tvShow = new ApiTvSeason
                             {
-                                SeasonNumber = Convert.ToInt64(genre.ParentIndexNumber),
+                                SeasonNumber = (long)(int)genre.ParentIndexNumber,
                                 IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                                 Show = genre.SeriesName ?? "",
                                 Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
-                                EpisodeCount = Convert.ToInt64(genre.IndexNumber),   //bit of a hack but if date sorted - latest episode should be highest - so for most should be right.
+                                EpisodeCount = (long)(int)genre.IndexNumber,   //bit of a hack but if date sorted - latest episode should be highest - so for most should be right.
                                 Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
                                 Hash = Xbmc.Hash(genre.SeasonId)
                             };
@@ -138,13 +139,13 @@ namespace Remote.Emby.Api
 
 
           _parent.Trace("Getting TV Seasons" + _parent.IP);
-          string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&ExcludeLocationTypes=Virtual&IncludeItemTypes=Season";
+          string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=Season";
 
           var request = WebRequest.CreateHttp(NPurl);
 
           request.Method = "get";
           request.Timeout = 150000;
-          _parent.Trace("Single TV Season Selection: " + _parent.IP + ":" + _parent.Port);
+          _parent.Trace("GetTVSeasons TV Season Selection: " + NPurl);
 
           var authString = _parent.GetAuthString();
 
@@ -177,21 +178,21 @@ namespace Remote.Emby.Api
                       {
 
                           //var SingleTVData = GetSingleTVFromSeries(genre.Id);
-                          _parent.Trace("---Emby GetTVSeasons--- Season Number:" + Convert.ToInt64(genre.IndexNumber));
+                          _parent.Trace("---Emby GetTVSeasons--- Season Number:" + (long)(int)genre.IndexNumber);
                           _parent.Trace("---Emby GetTVSeasons--- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
                           _parent.Trace("---Emby GetTVSeasons--- Series Name:" + genre.SeriesName);
                           _parent.Trace("---Emby GetTVSeasons--- Thumb:" +  "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "");
-                          _parent.Trace("---Emby GetTVSeasons--- Child Count:" + Convert.ToInt64(genre.ChildCount));
+                          _parent.Trace("---Emby GetTVSeasons--- Child Count:" + (long)(int)genre.ChildCount);
                           _parent.Trace("---Emby GetTVSeasons--- Fanart:" +  "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "" );
                           _parent.Trace("---Emby GetTVSeasons--- Hash:" +Xbmc.Hash(genre.Id)  );
 
                           var tvShow = new ApiTvSeason
                           {
-                              SeasonNumber = Convert.ToInt64(genre.IndexNumber),
+                              SeasonNumber = (long)(int)genre.IndexNumber,
                               IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                               Show = genre.SeriesName ?? "",
                               Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
-                              EpisodeCount = Convert.ToInt64(genre.ChildCount),
+                              EpisodeCount = (long)(int)genre.ChildCount,
                               Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
                               Hash = Xbmc.Hash(genre.Id)
                           };
@@ -286,8 +287,8 @@ namespace Remote.Emby.Api
                                   Studio = "",
                                   IdEpisode = Xbmc.IDtoNumber(genre.Id),
                                   IdShow = Xbmc.IDtoNumber(genre.SeriesId),
-                                  Season = Convert.ToInt64(genre.ParentIndexNumber),
-                                  Episode = Convert.ToInt64(genre.IndexNumber),
+                                  Season = (long)(int)genre.ParentIndexNumber,
+                                  Episode =(long)(int)genre.IndexNumber,
                                   Path = genre.Id ?? "",
                                   ShowTitle = genre.SeriesName ?? "",
                                   Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
@@ -389,9 +390,9 @@ namespace Remote.Emby.Api
                                     Genre = TempTVGenre,
                                     Studio = TempTVStudios,
                                     IdShow = Xbmc.IDtoNumber(genre.SeriesId),
-                                    TotalCount = Convert.ToInt64(SingleTVData.RecursiveItemCount),
+                                    TotalCount = (long)(int)SingleTVData.RecursiveItemCount,
                                     Path = SingleTVData.Path ?? "",
-                                    Premiered = SingleTVData.PremiereDate.ToString() ?? "",
+                                    Premiered = SingleTVData.PremiereDate.ToString("s") ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
                                     Hash = Xbmc.Hash(genre.SeriesId)
@@ -497,7 +498,7 @@ namespace Remote.Emby.Api
                                 Genre = TempTVGenre,
                                 Studio = TempTVStudios,
                                 IdShow = Xbmc.IDtoNumber(genre.Id),
-                                TotalCount = Convert.ToInt64(genre.RecursiveItemCount),
+                                TotalCount = (long)(int)genre.RecursiveItemCount,
                                 Path = SingleTVData.Path ?? "",
                                 Premiered = genre.PremiereDate.ToString("s") ?? "",
                                 Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
@@ -713,7 +714,7 @@ namespace Remote.Emby.Api
       {
 
           _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
-          string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&SortBy=DateCreated&SortOrder=Descending&ParentId=" + MovieId;
+          string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&SortBy=DateCreated&SortOrder=Descending&ParentId=" + MovieId;
 
           var request = WebRequest.CreateHttp(NPurl);
 
@@ -811,7 +812,7 @@ namespace Remote.Emby.Api
                               Plot = Movieitem.Overview ?? "Unknown",
                               Votes = Movieitem.VoteCount.ToString() ?? "0",
                               Rating = id.CommunityRating.ToString() ?? "0",
-                              Year = id.ProductionYear ?? 1999,
+                              Year = id.ProductionYear ?? 1901,
                               Tagline = Taglines,
                               IdScraper = Movieitem.ProviderIds.Imdb ?? "",
                               Length = new TimeSpan(0,0,0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
@@ -918,12 +919,12 @@ namespace Remote.Emby.Api
                                         Mpaa = "",
                                         Date = sqlFormattedDate,
                                         Director = "",
-                                        PlayCount = Convert.ToInt64(genre.UserData.PlayCount),
+                                        PlayCount = (long)(int)genre.UserData.PlayCount,
                                         Studio = "",
                                         IdEpisode = Xbmc.IDtoNumber(genre.Id),
                                         IdShow = Xbmc.IDtoNumber(genre.SeriesId),
-                                        Season = Convert.ToInt64(genre.ParentIndexNumber),
-                                        Episode = Convert.ToInt64(genre.IndexNumber),
+                                        Season = (long)(int)genre.ParentIndexNumber,
+                                        Episode = (long)(int)genre.IndexNumber,
                                         Path = genre.Id ?? "",
                                         ShowTitle = genre.SeriesName ?? "",
                                         Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
@@ -1058,7 +1059,7 @@ namespace Remote.Emby.Api
                               Plot = Movieitem.Overview ?? "Unknown",
                               Votes = Movieitem.VoteCount.ToString() ?? "0",
                               Rating = id.CommunityRating.ToString() ?? "0",
-                              Year = id.ProductionYear ?? 1999,
+                              Year = id.ProductionYear ?? 1901,
                               Tagline = Taglines,
                               IdScraper = Movieitem.ProviderIds.Imdb ?? "",
                               Length = new TimeSpan(0,0,0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",

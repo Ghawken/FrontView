@@ -56,6 +56,9 @@ namespace FrontView.Classes
         public string HttpPoweroff { get; set; }
         public bool HttpSend { get; set; }
         public bool HttpUseDigest { get; set; }
+
+        public string HttpPlayStartedDelayed { get; set; }
+        public int HttpPlayStartedDelay { get; set; }
         public bool FanartAlways { get; set; }
         public bool Topmost { get; set; }
         public bool KeepFocus { get; set; }
@@ -249,7 +252,8 @@ namespace FrontView.Classes
             HttpMediatypeAudio = config.HttpMediatypeAudio;
             HttpPoweron = config.HttpPoweron;
             HttpPoweroff = config.HttpPoweroff;
-
+            HttpPlayStartedDelayed = config.HttpPlayStartedDelayed;
+            HttpPlayStartedDelay = config.HttpPlayStartedDelay;
             HttpPlaystopped = config.HttpPlaystopped;
             // Shouldnt need to save others
             FanartAlways = config.FanartAlways;

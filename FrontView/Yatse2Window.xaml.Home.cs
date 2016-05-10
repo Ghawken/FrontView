@@ -77,9 +77,19 @@ namespace FrontView
             if (_remoteInfo == null)
                 return;
 
-            _tvSeasonsDataSource.Load(_database.GetTvSeasonFromTvShow(_remoteInfo.Id, idShow));
-            _tvSeasonsDataSource.Insert(0, new Yatse2TvSeason { IdShow  = 0, Show = idShow, SeasonNumber = -1, EpisodeCount = 0, Fanart = "", Thumb = "" });
 
+
+            _tvSeasonsDataSource.Load(_database.GetTvSeasonFromTvShow(_remoteInfo.Id, idShow));
+
+            Logger.Instance().Trace("FrontView+", "Load TV Seasons:  SHOW:"+ idShow +" tv Episodes: DataSource Count:" + _tvEpisodesDataSource.Count );
+
+            Logger.Instance().Trace("FrontView+", "Load TV Seasons:  SHOW:"+ idShow +" tv Seasons: DataSource Count:" + _tvSeasonsDataSource.Count);
+
+            _tvSeasonsDataSource.Insert(0, new Yatse2TvSeason { IdShow  = 0, Show = idShow, SeasonNumber = -1, EpisodeCount = 0, Fanart = "", Thumb = "" });
+            //above - dont understand the purpose of this?
+
+            Logger.Instance().Trace("FrontView+","Load TV Seasons:  tvSeasons CollectionView Count:"+_tvSeasonsCollectionView.Count);
+            
             if (_tvSeasonsCollectionView.Count > 0)
             {
                 lst_TvSeasons_flow.SelectedIndex = 0;

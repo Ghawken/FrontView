@@ -132,7 +132,7 @@ namespace Remote.Emby.Api
             SystemRunning = new XbmcSystem(this);
             Remote = new XbmcRemote(this);
             MpcHcRemote = new MpcHcRemote(this);
-            ApiName = "XXX";
+            ApiName = "EMBYAPI:";
        }
 
         private JsonObject GetApplicationProperties(string label)
@@ -177,6 +177,7 @@ namespace Remote.Emby.Api
 
         public override bool IsConnected()
         {
+           // return CheckConnection();
             return _isConnected;
         }
 
@@ -234,7 +235,7 @@ namespace Remote.Emby.Api
                 return 0;
             }
 
-            return res;
+            return (long)res;
         }
 
 
@@ -951,6 +952,7 @@ namespace Remote.Emby.Api
             
             _checkTimer.Interval = (_isConnected) ? ConnectedInterval : DisconnectedInterval;
             var connect = _isConnected;
+
             _isConnected = CheckConnection();
 
             Log("EMBY -- CheckTimerTick: IsConnected:" + _isConnected + " connect:" + connect);

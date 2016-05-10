@@ -70,15 +70,33 @@ namespace FrontView
           //  _database.DeleteRemoteTvShows(_remoteInfo.Id);
 
             var notfound = true;
+            /**
             foreach (var apiTvShow in res)
             {
+                Logger.Instance().Log("FrontView+", "res Data:" + apiTvShow.Title);
+            }
+
+            foreach (var show in oldData)
+            {
+                Logger.Instance().Log("FrontView+", "oldData Data:" + show.Title);
+            }
+            */
+            
+
+
+            foreach (var apiTvShow in res)
+            {
+
+      
             notfound = true;   
                 foreach (var show in oldData)
                 {
+                   // Logger.Instance().Log("FrontView+", "In Loop:  oldData ShowName :" + show.Title);
                     if (show.IdShow == apiTvShow.IdShow)
                     {
                         notfound = false;
-                        Logger.Instance().Log("FrontView+", "Quick Shows Check Id - Show Exists -  show.Idshow ID:" + show.IdShow + " apiTVShow.IdShow:" + apiTvShow.IdShow);
+                        Logger.Instance().Log("FrontView+", "Quick Shows Check Id - Show Exists:" +show.Title +"  -  show.Idshow ID:" + show.IdShow + " apiTVShow.IdShow:" + apiTvShow.IdShow);
+                        break;
                     }
                 }
                 if (notfound == true)
@@ -110,33 +128,28 @@ namespace FrontView
             
             foreach (var apiTvSeason in res)
             {
-            oldData = _database.GetTvSeason(_remoteInfo.Id);
+            
             notfound = true;
-                // Somewhat of an not brillant solution - but check SQL Database as to whether Season had already been entered, Show and Episode just get re-entered
-            // But for some reason I can't see at present Season gets duplicated.
-              
+
                 foreach (var show in oldData)
                 {
-                    if (show.IdShow == apiTvSeason.IdShow)
+                    if (show.IdShow == apiTvSeason.IdShow && apiTvSeason.SeasonNumber == show.SeasonNumber)
                     {
-                        if (apiTvSeason.SeasonNumber == show.SeasonNumber)
-                        {
                             notfound = false;
-                            Logger.Instance().Log("FrontView+", "Seasons Id Show.Name: " +show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow+" SeasonNumber:"+apiTvSeason.SeasonNumber+" show.SeasonNumber:"+show.SeasonNumber);
-                        }
+                            Logger.Instance().Log("FrontView+", "Season Already Exisits: Seasons Id Show.Name: " +show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow+" SeasonNumber:"+apiTvSeason.SeasonNumber+" show.SeasonNumber:"+show.SeasonNumber);
                     }
                 }
                 if (notfound == true)
                 {
-                    Logger.Instance().Log("FrontView+", "Inserting TV Season :Show Name:"+apiTvSeason.Show+": ShowID:"+apiTvSeason.IdShow+" Season Number:" +apiTvSeason.SeasonNumber +" Episode Count"+apiTvSeason.EpisodeCount +" Hash "+apiTvSeason.Hash);
+                    Logger.Instance().Log("FrontView+", "Inserting TV Season :Show Name:"+apiTvSeason.Show+": ShowID:"+apiTvSeason.IdShow+" Season Number:" +apiTvSeason.SeasonNumber +" Episode Count:"+apiTvSeason.EpisodeCount +" Hash "+apiTvSeason.Hash);
                     var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
                     _database.InsertTvSeason(tvSeason);
-                    
+                    oldData = _database.GetTvSeason(_remoteInfo.Id);
                 }
             }
             _database.CommitTransaction();
             _database.SetBulkInsert(false);
-            Logger.Instance().Log("FrontView+", "End QUick Refresh : TvSeasons");
+            Logger.Instance().Log("FrontView+", "End Quick Refresh : TvSeasons");
         }
         private void RefreshTvSeasonLibrary()
         {
@@ -195,7 +208,7 @@ namespace FrontView
 
                 if (notfound == true)
                 {
-                    Logger.Instance().Log("FrontView+", "Inserting TVEpisode");
+                    Logger.Instance().Log("FrontView+", "Inserting TVEpisode:"+apiTvEpisode.ShowTitle+": Episode ID"+apiTvEpisode.IdEpisode +" Id Show:"+apiTvEpisode.IdShow);
                     var tvEpisode = new Yatse2TvEpisode(apiTvEpisode) { IdRemote = _remoteInfo.Id };
                     _database.InsertTvEpisode(tvEpisode);
                 }
@@ -277,19 +290,20 @@ namespace FrontView
             var notfound = true;
             foreach (var apiMovie in res)
             {
+                notfound = true;    
                 foreach (var omovie in currentMovies)
                 {
 
                     if (omovie.IdMovie == apiMovie.IdMovie)
                     {
                         notfound = false;
-                        Logger.Instance().Log("FrontView+", "omovie ID" + omovie.IdMovie + "apiMovie.Id:" + apiMovie.IdMovie);
+                        Logger.Instance().Log("FrontView+", "Movie Already In DB omovie ID" + omovie.IdMovie + "apiMovie.Id:" + apiMovie.IdMovie);
                     }
 
                 }
                 if (notfound == true)
                 {
-                     Logger.Instance().Log("FrontView+", "Inserting Movie");
+                     Logger.Instance().Log("FrontView+", "Inserting Movie:" +apiMovie.Title+" apiMovie Id:"+apiMovie.IdMovie);
                      var movie = new Yatse2Movie(apiMovie) { IdRemote = _remoteInfo.Id };
                       _database.InsertMovie(movie);
                 }
@@ -722,7 +736,8 @@ namespace FrontView
                 _database.Compress();
                 RefreshThumbsFanarts();
                 _database.SetDebug(_config.Debug);
-            
+
+
                  
             }
             catch (Exception Ex)
@@ -734,6 +749,13 @@ namespace FrontView
             _remoteLibraryRefreshed = true;
             ShowPopup(GetLocalizedString(101));
             _yatse2Properties.ShowRefreshLibrary = false;
+
+            _audioGenresDataSource.Clear();
+            _audioArtistsDataSource.Clear();
+            _audioArtistsDataSource.Clear();
+            _moviesDataSource.Clear();
+            _tvShowsDataSource.Clear();
+
         }
 
     }
