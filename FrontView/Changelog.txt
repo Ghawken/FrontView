@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+
+EMBY Remote: (ver 170)
+Some Bug Fixes
+Deal with multiple movie Folders (rather than directories within)
+
 Add HTTP Play Delayed send option
 (enables to send HTTP after certain time of playback configurable in seconds)
 e.g Playback started - dim lights to 50%, 10 seconds into playback Dim to 100%
