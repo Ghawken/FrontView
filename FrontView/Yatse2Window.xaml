@@ -325,7 +325,7 @@
         	<Grid x:Name="grd_Home" d:IsHidden="True">
                     
                 
-                <Border x:Name="brd_Home_Video" BorderThickness="1" Height="120" Margin="0,0,100,250" VerticalAlignment="Top" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="600" ClipToBounds="True">
+                <Border x:Name="brd_Home_Video" BorderThickness="1" Height="120" Margin="0,100,450,0"  VerticalAlignment="CEnter" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="600" ClipToBounds="True">
         			<Canvas Margin="-1">
         				<TextBlock Height="26" Canvas.Left="8" TextWrapping="Wrap" Text="{DynamicResource Localized_86}" Canvas.Top="8" Width="159" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5"/>
         				<Rectangle Fill="White" Height="1" Canvas.Left="12" StrokeThickness="3" Canvas.Top="39" Width="577" Opacity="0.5"/>
@@ -337,9 +337,9 @@
         				<TextBlock x:Name="txb_Home_NoVideoFavorites" Height="39" Canvas.Left="12" TextWrapping="Wrap" Text="{DynamicResource Localized_93}" Canvas.Top="160" Width="577" Foreground="{DynamicResource Default_Font_Color}" FontSize="32" TextAlignment="Center" MouseDown="txb_Home_Movies_MouseDown" />
         			</Canvas>
         		</Border>
-                
-                
-                <Border x:Name="brd_Home_Music"  BorderThickness="1" Margin="0,70,100,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" VerticalAlignment="Center" Height="120" Width="600" Visibility="Visible" >
+
+
+                    <Border x:Name="brd_Home_Music"  BorderThickness="1" Margin="0,70,100,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Height="120" Width="600" Visibility="{Binding Currently.HideAudioMenu, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"  >
         			<Canvas Margin="-1" ClipToBounds="True">
         				<TextBlock Height="26" Canvas.Left="8" TextWrapping="Wrap" Text="{DynamicResource Localized_87}" Canvas.Top="8" Width="159" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5"/>
         				<Rectangle Fill="White" Height="1" Canvas.Left="12" StrokeThickness="3" Canvas.Top="39" Width="577" Opacity="0.5"/>
@@ -354,7 +354,7 @@
         		</Border>
                 
                 
-                <Border x:Name="brd_Home_Other"  BorderThickness="1" Margin="0,390,100,0" CornerRadius="10" Background="#66000000" Height="120" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="600">
+                <Border x:Name="brd_Home_Other"  BorderThickness="1" Margin="0,390,100,0" CornerRadius="10" Background="#66000000" Height="120" VerticalAlignment="Center" HorizontalAlignment="Center" Width="600">
         			<Canvas Margin="-1" ClipToBounds="True">
         				<Button x:Name="btn_Home_ShowQuit" Width="60" Content="" Height="60" Style="{DynamicResource Remote_Button}" Cursor="Hand"
         					Background="{Binding Skin, ConverterParameter=Menu_Quit, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="264" Canvas.Top="52" Click="btn_Home_ShowQuit_Click" />
@@ -882,6 +882,11 @@
                                         <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Quick Refresh on Start        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" />
 
+                                        <CheckBox x:Name="chk_Settings_ShowAudioMenu" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Show Audio Menu        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="8,127.523,185,145.277" VerticalAlignment="Top" />                                    
+                                    
+                                    
+                                    
                                         <Button Width="251" Height="25.724" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,58,8,0" VerticalAlignment="Top"
         					Content="Perform FULL Library UPDATE" Click="btn_Remote_Refresh_Click"/>
 

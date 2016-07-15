@@ -84,6 +84,7 @@ namespace FrontView.Classes
         public bool AnimatedMusicCover { get; set; }
         public bool DimmingOnlyVideo { get; set; }
         public bool Hack480 { get; set; }
+        public bool ShowAudioMenu { get; set; }
         public bool DebugTrace { get; set; }
         public bool ForceOnCheckRemote { get; set; }
         public bool HideCompilationArtists { get; set; }
@@ -144,6 +145,7 @@ namespace FrontView.Classes
             //MinimiseAlways = false;
             Topmost = true;
             Hack480 = false;
+            ShowAudioMenu = true;
             KeepFocus = false;
             ForceResolution = false;
             Diaporama = false;
@@ -301,6 +303,7 @@ namespace FrontView.Classes
             AnimatedMusicCover = config.AnimatedMusicCover;
             DimmingOnlyVideo = config.DimmingOnlyVideo;
             Hack480 = config.Hack480;
+            ShowAudioMenu = config.ShowAudioMenu;
             Homepage = config.Homepage;
             DebugTrace = config.DebugTrace;
             ForceOnCheckRemote = config.ForceOnCheckRemote;
@@ -335,6 +338,7 @@ namespace FrontView.Classes
         public void Save(string configFile)
         {
             Logger.Instance().Log("FrontViewConfig", "Saving settings : " + configFile);
+                        
             try
             {
                 var res = Resolution;

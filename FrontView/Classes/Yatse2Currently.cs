@@ -328,6 +328,9 @@ namespace FrontView.Classes
         public static readonly DependencyProperty IsTvDetailsProperty =
             DependencyProperty.Register("IsTvDetails", typeof(bool), typeof(Yatse2Currently));
 
+
+
+
         public bool IsTvDetails
         {
             get { return (bool)GetValue(IsTvDetailsProperty); }
@@ -337,6 +340,18 @@ namespace FrontView.Classes
                 SetValue(IsTvDetails480Property, false);
             }
         }
+
+        
+
+    public static DependencyProperty HideAudioMenuProperty =
+    DependencyProperty.Register("HideAudioMenu", typeof(bool), typeof(Yatse2Currently));
+        public bool HideAudioMenu
+        {
+            get { return (bool)GetValue(HideAudioMenuProperty); }
+            set { SetValue(HideAudioMenuProperty, value); }
+        }
+         
+         
 
         public static readonly DependencyProperty IsTvDetails480Property =
             DependencyProperty.Register("IsTvDetails480", typeof(bool), typeof(Yatse2Currently));

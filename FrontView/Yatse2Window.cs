@@ -676,6 +676,7 @@ namespace FrontView
                     _yatse2Properties.Language = _config.Language;
                     _yatse2Properties.ShowHomeButton = false;
                     _yatse2Properties.DimAmount = _config.DimAmount;
+                    
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {
@@ -684,6 +685,7 @@ namespace FrontView
                                                             IsNotTvDetails = true
                                                         };
                     RefreshDictionaries();
+                    _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
                 }
 
                 InitDatabase();

@@ -102,6 +102,8 @@ namespace FrontView
             chk_Settings_RefreshOnConnect.IsChecked = _config.RefreshOnConnect;
 
             chk_Settings_QuickRefreshEnable.IsChecked = _config.QuickRefreshEnable;
+            chk_Settings_ShowAudioMenu.IsChecked = _config.ShowAudioMenu;
+
 
             //chk_Settings_AnimatedMusicCover.IsChecked = _config.AnimatedMusicCover;
             chk_Settings_DimmingOnlyVideo.IsChecked = _config.DimmingOnlyVideo;
@@ -319,7 +321,7 @@ namespace FrontView
                 _config.RefreshOnConnect = (bool)chk_Settings_RefreshOnConnect.IsChecked;
 
                 _config.QuickRefreshEnable = (bool)chk_Settings_QuickRefreshEnable.IsChecked;
-
+                _config.ShowAudioMenu = (bool)chk_Settings_ShowAudioMenu.IsChecked;
                 _config.DimmingOnlyVideo = (bool)chk_Settings_DimmingOnlyVideo.IsChecked;
                 _config.HideCompilationArtists = (bool)chk_Settings_HideCompilationArtists.IsChecked;
                 _config.GenreToArtists = (bool)chk_Settings_GenreToArtists.IsChecked;
@@ -414,6 +416,8 @@ namespace FrontView
             _yatse2Properties.Skin = _config.Skin;
             _yatse2Properties.Language = _config.Language;
             RefreshDictionaries();
+
+            _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
 
             RefreshHeader();
 
