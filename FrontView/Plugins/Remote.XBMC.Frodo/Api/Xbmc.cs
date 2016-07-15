@@ -313,7 +313,7 @@ namespace Remote.XBMC.Frodo.Api
             if (!_isConnected || connect == _isConnected) return;
 
             _eventClient.Connect(IP, Convert.ToInt32("0" + XbmcEventServerPort, CultureInfo.InvariantCulture));
-            _eventClient.SendHelo("Yatse - Remote Control");//, IconType.IconPng, Helper.SkinPath + Helper.Instance.CurrentSkin + @"\Interface\RemoteControl.png");
+            _eventClient.SendHelo("FrontView+ - Remote Control");//, IconType.IconPng, Helper.SkinPath + Helper.Instance.CurrentSkin + @"\Interface\RemoteControl.png");
         }
 
         /*public string GetApiPath()
