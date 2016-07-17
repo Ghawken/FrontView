@@ -540,6 +540,7 @@ namespace FrontView
                 _yatse2Properties.Currently.Duration = nowPlaying.Duration.ToString();
                 _yatse2Properties.Currently.IsPlaying = nowPlaying.IsPlaying;
                 _yatse2Properties.Currently.IsPaused = nowPlaying.IsPaused;
+                _yatse2Properties.Currently.IsMuted = nowPlaying.IsMuted;
                 if (nowPlaying.IsPlaying)
                 {
                     if (_config.MusicFanartRotation)

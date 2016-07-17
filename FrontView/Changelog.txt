@@ -1,5 +1,12 @@
 ﻿Changelog:
 
+Add Stop Button to NowPlaying Screen
+Mute Button Now reflects Mute status (of Player)
+Emby Remote:
+Functional Seek Bar
+Functional Volume Slider/VolumeUP when ET supports such.
+Correct Focus confirmed - awaiting ET fix.
+
 Version 1.137
 Add Settings Button to Hide Audio Main Menu
 

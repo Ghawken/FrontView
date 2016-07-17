@@ -129,6 +129,11 @@ namespace FrontView
             _remote.Player.PlayPause();
         }
 
+        private void btn_Current_Music_Stop_Click(object sender, RoutedEventArgs e)
+        {
+            _remote.Player.Stop();
+        }
+
         private void btn_Current_Music_Pause_Click(object sender, RoutedEventArgs e)
         {
             _remote.Player.PlayPause();

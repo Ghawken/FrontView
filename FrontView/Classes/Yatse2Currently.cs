@@ -323,6 +323,14 @@ namespace FrontView.Classes
             set { SetValue(IsPausedProperty, value); }
         }
 
+        public static readonly DependencyProperty IsMutedProperty =
+    DependencyProperty.Register("IsMuted", typeof(bool), typeof(Yatse2Currently));
+
+        public bool IsMuted
+        {
+            get { return (bool)GetValue(IsMutedProperty); }
+            set { SetValue(IsMutedProperty, value); }
+        }
        
 
         public static readonly DependencyProperty IsTvDetailsProperty =
