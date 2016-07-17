@@ -1991,6 +1991,15 @@ namespace FrontView
                 brd_Home_Other.Margin = new Thickness(0, 390, 100, 0);
             }
 
+            
+            if (__config.ShowAudioMenu == false)
+            {
+                brd_Home_Video.Margin = new Thickness(0, 0, 100, 100);
+              //  brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
+                brd_Home_Other.Margin = new Thickness(0, 200, 100, 0);
+
+            }
+            
             _setPov = false;
         }
 
