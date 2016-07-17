@@ -2142,7 +2142,7 @@ namespace FrontView
         private void ResetTimer()
         {
             
-         //   Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
+            Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
             
             if (_config.KeepFocus && _remoteInfo != null && !_disableFocus)
             {

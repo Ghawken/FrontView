@@ -18,17 +18,29 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Remote.Emby.Api
 {
     public class MpcHcRemote
     {
         private readonly Xbmc _parent;
+        
+        public class CommandVolume
+        {
+            public string Volume;
+        }
+        public class Volume
+        {
+            public CommandVolume Arguments;
+        }
+        
         private class CommandInfo
         {
             public string Command { get; set; }
@@ -149,9 +161,11 @@ namespace Remote.Emby.Api
 
         public bool CommandGeneral(string cmd, string parameter)
         {
-            HttpWebRequest request;
+            //WebRequest request;
+            
             var returnContent = false;
             var authString = _parent.GetAuthString();
+            string Contents = "";
 
             var uri = @"http://" + _parent.IP + ":" + _parent.Port + "/emby/Sessions/" + Globals.SessionIDClient + "/Command/";
 
@@ -161,27 +175,63 @@ namespace Remote.Emby.Api
             }
 
 
-            _parent.Log(" ---------EMBY GENERAL COMMAND COMMAND: TESTING URL:" + uri + ":::::");
+            _parent.Log(" ---------EMBY GENERAL COMMAND: TESTING URL:" + uri + ":parameter::::"+parameter);
 
             try
             {
-                request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+                var request = WebRequest.CreateHttp(uri);
+                request.Method = "post";
+                
                 request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
                 request.Headers.Add("X-Emby-Authorization", authString);
-                request.ContentType = "application/json";
+                request.ContentType = "application/json; charset=utf-8";
 
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                byte[] data = encoder.GetBytes("");
+              
+                /*
+                if (!String.IsNullOrEmpty(parameter))
+                {
+                    var postData = new Volume
+                    {
+                        Arguments = new CommandVolume
+                        {
+                            Volume = parameter
+                        }
+                    };
+                    
+                    Contents = new JavaScriptSerializer().Serialize(postData);
+                  //  Contents = Jayrock.Json.Conversion.JsonConvert.ExportToString(postData);
+                }
+                */
+                if (!String.IsNullOrEmpty(parameter))
+                {
+                    var cmd2 = cmd;
+                    if (cmd=="SetVolume")
+                    {
+                        cmd2 = "Volume";
+                    }
+                    Contents = @"{Arguments:{""" + cmd2 + @""":"""+ parameter + @"""}}";
 
-
+                }
+                
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                byte[] data = encoding.GetBytes(Contents);
+                
                 request.ContentLength = data.Length;
-                request.Expect = "application/json";
+                request.Accept = "application/json; charset=utf-8";
 
-                request.Method = "POST";
+
                 request.Timeout = 1000;
-                _parent.Log("Emby COMMAND  : " + cmd);
+                _parent.Log("Emby GENERAL COMMAND  : " + cmd +" and Data:"+Contents);
                 _parent.Trace(uri);
 
+                if (data.Length > 0)
+                {
+                    _parent.Log("Emby GENERAL COMMAND : data.Length > 0 : Contents:"+Contents);
+                    var response3 = request.GetRequestStream();
+                    response3.Write(data, 0, data.Length);
+                }
+
+              
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
@@ -257,13 +307,14 @@ namespace Remote.Emby.Api
         public void SetVolume(int volumepercent)
         {
             if (_parent.MpcLoaded)
-                AsyncCommand("-2", "volume=" + Convert.ToString(volumepercent, CultureInfo.InvariantCulture));
+                AsyncGeneralCommand("SetVolume", Convert.ToString(volumepercent, CultureInfo.InvariantCulture));
         }
 
-        public void SeekPercentage(int percent)
+        public void SeekPercentage(long percent)
         {
             if (_parent.MpcLoaded)
-                AsyncCommand("-1", "percent=" + Convert.ToString(percent, CultureInfo.InvariantCulture));
+
+            AsyncCommand("Seek?SeekPositionTicks=" + Convert.ToString(percent, CultureInfo.InvariantCulture),"");
         }
 
         public void SkipPrevious()

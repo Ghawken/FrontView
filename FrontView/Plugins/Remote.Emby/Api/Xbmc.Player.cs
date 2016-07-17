@@ -510,6 +510,7 @@ namespace Remote.Emby.Api
                                     var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
                                     var RoundTime = Math.Round(TimePosition / 10000000.00, 2);
                                     //_parent.Log("--------------TIME CONVERSION BUGGER: RoundSeconds:" + RoundSeconds + " Orginal Time RunTimeTicks:"+server.NowPlayingItem.RunTimeTicks);
+                                    
                                     _nowPlaying.Duration = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds));
 
                                     _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundTime));
@@ -646,7 +647,17 @@ namespace Remote.Emby.Api
         public void SeekPercentage(int progress)
         {
             if (_parent.MpcLoaded)
-                _parent.MpcHcRemote.SeekPercentage(progress);
+            {
+                //     Convert Percentage back to Ticks by multiplication by Duration- should be in ticks.
+                decimal percentage = progress / 100m;
+                //var tempdata = Convert.ToInt64(_nowPlaying.Duration.Ticks);
+
+                var Place = _nowPlaying.Duration.Ticks * percentage;
+
+                var PlaceLong = Convert.ToInt64(Place);
+
+                _parent.MpcHcRemote.SeekPercentage(PlaceLong);
+            }
             else
                 if (_parent.IsConnected())
                 {

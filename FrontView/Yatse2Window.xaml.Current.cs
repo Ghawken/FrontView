@@ -149,6 +149,9 @@ namespace FrontView
             var mousePosition = e.GetPosition(sld_Current_Music_Progress).X;
             var ratio = mousePosition / sld_Current_Music_Progress.ActualWidth;
             var newvalue = ratio * sld_Current_Music_Progress.Maximum;
+
+
+
             _remote.Player.SeekPercentage((int)newvalue);
         }
 

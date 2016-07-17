@@ -148,6 +148,7 @@ namespace Remote.Emby.Api
                 postData["ItemIds"] = param.ToString();
                 postData["StartPositionTicks"] = "0";
                 postData["PlayCommand"] = "PlayNow";
+
                 var postArg = Jayrock.Json.Conversion.JsonConvert.ExportToString(postData);
                 byte[] data = encoding.GetBytes(postArg);
                 var authString = _parent.GetAuthString();

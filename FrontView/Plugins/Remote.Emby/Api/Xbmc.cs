@@ -113,6 +113,7 @@ namespace Remote.Emby.Api
                     processes = Process.GetProcessesByName("MediaBrowser.UI");
                 }
 
+                                
                 foreach (var pFoundWindow in processes.Select(p => p.MainWindowHandle))
                 {
                     NativeMethods.SetForegroundWindow(pFoundWindow);

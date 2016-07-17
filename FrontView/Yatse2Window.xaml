@@ -1476,7 +1476,7 @@
         
         <!-- Binded -->
         <Grid x:Name="grd_Settings_Weather" Margin="0" Background="{DynamicResource Popup_ModalBackground}"
-              Visibility="{Binding ShowSettingsWeather, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" Panel.ZIndex="20" >
+              Visibility="{Binding ShowSettingsWeather, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Panel.ZIndex="20" >
         	<Border BorderBrush="{DynamicResource WeatherLoc_Stroke}" BorderThickness="1" CornerRadius="10" Margin="0" Background="#A5000000" HorizontalAlignment="Center" VerticalAlignment="Center" Width="584" Height="350">
         		<Canvas Margin="-1">
         			<TextBlock Width="156" Height="14" Canvas.Left="8" Canvas.Top="40" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic"

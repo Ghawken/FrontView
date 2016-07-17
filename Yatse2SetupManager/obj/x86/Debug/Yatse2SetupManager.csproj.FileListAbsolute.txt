@@ -73,5 +73,5 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Setup.pdb
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Setup.pdb
