@@ -146,7 +146,16 @@ namespace FrontView
 
         private void btn_Current_Music_Mute_Click(object sender, RoutedEventArgs e)
         {
-            _remote.Player.ToggleMute();
+
+            if (_config.UseReceiverIPforVolume == false)
+            {
+                _remote.Player.ToggleMute();
+            }
+            else
+            {
+                receiver.MuteUnmute();
+            }
+            
         }
 
         private void sld_Current_Music_Progress_PreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -162,10 +171,24 @@ namespace FrontView
 
         private void sld_Current_Music_Volume_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
+            
+            
+            
             var mousePosition = e.GetPosition(sld_Current_Music_Volume).Y;
             var ratio = mousePosition / sld_Current_Music_Volume.ActualHeight;
             var newvalue = 100 - ratio * sld_Current_Music_Volume.Maximum;
-            _remote.Player.SetVolume((int)newvalue);
+
+            if (_config.UseReceiverIPforVolume == false)
+            {
+                _remote.Player.SetVolume((int)newvalue);
+            }
+            else
+            {
+                receiver.VolumeUp();
+            }
+            
+
+
         }
        
     }

@@ -535,12 +535,27 @@ namespace FrontView
             {
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Connected_Playing");
                 _yatse2Properties.Currently.Progress = nowPlaying.Progress;
-                _yatse2Properties.Currently.Volume = nowPlaying.Volume;
+                
                 _yatse2Properties.Currently.Time = nowPlaying.Time.ToString();
                 _yatse2Properties.Currently.Duration = nowPlaying.Duration.ToString();
                 _yatse2Properties.Currently.IsPlaying = nowPlaying.IsPlaying;
                 _yatse2Properties.Currently.IsPaused = nowPlaying.IsPaused;
-                _yatse2Properties.Currently.IsMuted = nowPlaying.IsMuted;
+                
+                
+                if (_config.UseReceiverIPforVolume == false)
+                {
+                  _yatse2Properties.Currently.Volume = nowPlaying.Volume;
+                  _yatse2Properties.Currently.IsMuted = nowPlaying.IsMuted;
+                }
+
+                if (_config.UseReceiverIPforVolume == true)
+                {
+                    _yatse2Properties.Currently.Volume = receiver.WhatisVolume();
+                    
+                    _yatse2Properties.Currently.IsMuted = receiver.WhatisMute();
+                }
+                
+                
                 if (nowPlaying.IsPlaying)
                 {
                     if (_config.MusicFanartRotation)

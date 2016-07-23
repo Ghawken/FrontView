@@ -470,6 +470,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IavReceiverControl Class.cs" />
     <Compile Include="Httpsend.cs" />
     <Compile Include="Digest.cs" />
     <Compile Include="Libs\Weather Classes\conditions.cs" />

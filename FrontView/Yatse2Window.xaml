@@ -25,7 +25,7 @@
     xmlns:Yatse2="clr-namespace:FrontView"
     mc:Ignorable="d"
     x:Class="FrontView.Yatse2Window"
-    Title="FrontView" Height="600" Width="800" WindowStyle="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+    Title="FrontView" Height="480" Width="800" WindowStyle="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ResizeMode="CanMinimize" 
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Window.Resources>
@@ -224,9 +224,12 @@
 
 
     </Window.Resources>
-    <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}">
+    <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
+
         <!-- Binded -->
         <Grid x:Name="grd_Contener">
+
+
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden"/>
             <!-- Binded -->
             <Grid x:Name="grd_Diaporama" MouseDown="grd_Diaporama_MouseDown" Panel.ZIndex="99" Background="Black" Opacity="0" Visibility="Hidden">
@@ -235,7 +238,7 @@
                 <Image x:Name="img_Diaporama2" Opacity="0" Stretch="Uniform"
                    Source="{Binding DiaporamaImage2, Source={StaticResource Yatse2Properties}}"/>
             </Grid>
-            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" >
+            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" >
                 <!-- Binded -->
                 <Grid x:Name="grd_Weather" Visibility="Hidden">
                     <Grid.Background>
@@ -323,7 +326,7 @@
                 <Grid x:Name="grd_Home">
 
 
-                    <Border x:Name="brd_Home_Video" BorderThickness="1" Margin="0,0,100,250" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="600" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" Height="120" VerticalAlignment="Center">
+                    <Border x:Name="brd_Home_Video" BorderThickness="1" Margin="0,0,100,250" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="600" ClipToBounds="True" Height="120" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                         <Canvas x:Name="canvas" Margin="-1">
                             <TextBlock Height="26" Canvas.Left="8" TextWrapping="Wrap" Text="{DynamicResource Localized_86}" Canvas.Top="8" Width="159" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5"/>
                             <Rectangle Fill="White" Height="1" Canvas.Left="12" StrokeThickness="3" Canvas.Top="39" Width="577" Opacity="0.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -861,8 +864,11 @@
                     <Button x:Name="btn_Movies_Filter" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Click="btn_Movies_Filter_Click" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
                 </Grid>
-                <Grid x:Name="grd_Settings" Visibility="Hidden">
-                    <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404">
+
+                <Grid x:Name="grd_Settings" Visibility="Hidden"  >
+
+                    <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5">
+
                         <Canvas Margin="-1">
                             <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
                                 <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
@@ -1188,6 +1194,7 @@
                         </Canvas>
                     </Border>
                     <TextBlock Height="32" TextWrapping="Wrap" Text="{DynamicResource Localized_43}" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5" Margin="8,85,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="772"/>
+
                 </Grid>
                 <!-- Binded -->
                 <Grid x:Name="grd_Remotes" Visibility="Hidden">

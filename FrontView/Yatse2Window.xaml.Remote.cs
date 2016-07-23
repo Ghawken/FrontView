@@ -115,17 +115,47 @@ namespace FrontView
 
         private void btn_Remote_VolDown_Click(object sender, RoutedEventArgs e)
         {
-            _remote.Remote.VolDown();
+          
+           
+            
+            if (_config.UseReceiverIPforVolume == false)
+            {
+                _remote.Remote.VolDown();
+            }
+            else
+            {
+                receiver.VolumeDown();
+            }
+
+
         }
 
         private void btn_Remote_Mute_Click(object sender, RoutedEventArgs e)
         {
-            _remote.Remote.ToggleMute();
+            if (_config.UseReceiverIPforVolume == false)
+            {
+                _remote.Remote.ToggleMute();
+            }
+            else
+            {
+                receiver.MuteUnmute();
+            }
+            
+            
         }
 
         private void btn_Remote_VolUp_Click(object sender, RoutedEventArgs e)
         {
-            _remote.Remote.VolUp();
+            if (_config.UseReceiverIPforVolume == false)
+            {
+                _remote.Remote.VolUp();
+            }
+            else
+            {
+                receiver.VolumeUp();
+            }
+            
+            
         }
 
         private void btn_Remote_Previous_Click(object sender, RoutedEventArgs e)

@@ -807,6 +807,7 @@ namespace Remote.Emby.Api
         {
 
                 Player.RefreshNowPlaying();
+            
 
         }
 

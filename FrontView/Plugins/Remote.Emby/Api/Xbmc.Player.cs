@@ -528,6 +528,8 @@ namespace Remote.Emby.Api
 
                                     _nowPlaying.IsMuted = server.IsMuted;
                                     _nowPlaying.Volume = Convert.ToInt32(server.Volume);
+
+                                    
                                     _nowPlaying.Tagline = server.Tagline;
                                     _nowPlaying.Studio = server.Studio;
                                     if (server.AirDate.HasValue)

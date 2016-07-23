@@ -1,5 +1,7 @@
 ﻿Changelog:
 
+Change Home Screen Layout if Hide Audio Menu Selected
+
 Add Stop Button to NowPlaying Screen
 Mute Button Now reflects Mute status (of Player)
 Emby Remote:

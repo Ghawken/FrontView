@@ -129,6 +129,8 @@ namespace FrontView.Classes
         public string SortTokens { get; set; }
         public bool StartWithWindows { get; set; }
         public bool StartFrontViewServer { get; set; }
+
+        public bool UseReceiverIPforVolume { get; set; }
         public int DefaultPlayMode { get; set; }
         public int LongKeyPress { get; set; }
         public int DiaporamaMode { get; set; }
@@ -326,6 +328,7 @@ namespace FrontView.Classes
             SortTokens = config.SortTokens;
             StartWithWindows = config.StartWithWindows;
             StartFrontViewServer = config.StartFrontViewServer;
+            UseReceiverIPforVolume = config.UseReceiverIPforVolume;
             DefaultPlayMode = config.DefaultPlayMode;
             LongKeyPress = config.LongKeyPress;
             DiaporamaMode = config.DiaporamaMode;

@@ -165,6 +165,8 @@ namespace FrontView
         private bool _setPov;
         public string[] KodiSources;
 
+        IAvReceiverControl receiver = new VSX1123();
+
         private bool UpdateAvailable = false;
 
         public string GetLocalizedString(int id)
@@ -758,6 +760,21 @@ namespace FrontView
                     Logger.Instance().Log("SERVER:", "Start FrontView Server FALSE - SERVER NOT STARTED");
                     _config.FanartCurrentPath = null;
                 }
+
+                if (_config.UseReceiverIPforVolume)
+                {
+                   
+   
+
+                    IPHostEntry ipHostInfo = Dns.Resolve("192.168.1.245");
+                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+
+                    receiver.Connect(ipAddress);
+                    receiver.TurnOn();
+ 
+                    
+                }
+
             }
             catch (Exception e)
             {
@@ -1992,11 +2009,12 @@ namespace FrontView
             }
 
             
-            if (__config.ShowAudioMenu == false)
+            if (_config.ShowAudioMenu == false)
             {
                 brd_Home_Video.Margin = new Thickness(0, 0, 100, 100);
               //  brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 200, 100, 0);
+
 
             }
             
