@@ -158,6 +158,7 @@ namespace FrontView
             chk_Settings_StartFrontViewServer.IsChecked = _config.StartFrontViewServer;
             chk_Settings_MinimiseAlways.IsChecked = _config.MinimiseAlways;
             chk_Settings_HttpSend.IsChecked = _config.HttpSend;
+            chk_Settings_UseReceiver.IsChecked = _config.UseReceiverIPforVolume;
             chk_Settings_HttpUseDigest.IsChecked = _config.HttpUseDigest;
 
             chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
@@ -335,6 +336,7 @@ namespace FrontView
                 _config.StartFrontViewServer = (bool)chk_Settings_StartFrontViewServer.IsChecked;
                 _config.MinimiseAlways = (bool)chk_Settings_MinimiseAlways.IsChecked;
                 _config.HttpSend = (bool)chk_Settings_HttpSend.IsChecked;
+                _config.UseReceiverIPforVolume = (bool)chk_Settings_UseReceiver.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
                 // ReSharper restore PossibleInvalidOperationException
                 _config.TVOrderbyNewEpsiodes = (bool)chk_Settings_TVOrderbyNewEpisodes.IsChecked;

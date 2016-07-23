@@ -163,4 +163,5 @@
     <S:String x:Key="Localized_143">HTTP Send</S:String>
     <S:String x:Key="Localized_144">Username :</S:String>
     <S:String x:Key="Localized_145">HTTP Send 2</S:String>
+    <S:String x:Key="Localized_146">IP Receiver</S:String>
 </ResourceDictionary>

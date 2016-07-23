@@ -28,9 +28,12 @@ namespace FrontView
         void Connect(IPAddress ip);
         void Disconnect();
 
+        bool SocketConnected();
         void QueryOnOff();
         void TurnOn();
         void TurnOff();
+
+        void QueryMute();
 
         int WhatisVolume();
 
@@ -68,33 +71,50 @@ namespace FrontView
 
         public void Connect(IPAddress ip)
         {
+            
             _sck = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint endPoint = new IPEndPoint(ip, _port);
             Connect(endPoint, _sck);
+            
             Receive();
+            
         }
 
         private void Connect(EndPoint remoteEP, Socket client)
         {
-            client.BeginConnect(remoteEP,
-                new AsyncCallback(ConnectCallback), client);
 
-            connectDone.WaitOne();
+
+                client.BeginConnect(remoteEP,new AsyncCallback(ConnectCallback), client);
+
+                connectDone.WaitOne();
+                
+
         }
 
         private void ConnectCallback(IAsyncResult ar)
         {
-            // Retrieve the socket from the state object.
-            Socket client = (Socket)ar.AsyncState;
+            try
+            {
+                // Retrieve the socket from the state object.
+                Socket client = (Socket)ar.AsyncState;
 
-            // Complete the connection.
-            client.EndConnect(ar);
+                // Complete the connection.
+                client.EndConnect(ar);
 
-            Logger.Instance().LogDump("- IAVRECEIVER-", "Socket connected to {0}" +client.RemoteEndPoint.ToString());
-            
 
-            // Signal that the connection has been made.
-            connectDone.Set();
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Socket connected to {0}" + client.RemoteEndPoint.ToString());
+
+
+                // Signal that the connection has been made.
+                connectDone.Set();
+            }
+            catch (SocketException ex)
+            {
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Socket Exception: " + ex);
+               
+                Disconnect();
+
+            }
         }
 
         public void Disconnect()
@@ -105,6 +125,15 @@ namespace FrontView
             }
         }
 
+        public bool SocketConnected()
+        {
+            bool part1 = _sck.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (_sck.Available == 0);
+            if (part1 && part2)
+                return false;
+            else
+                return true;
+        }
 
         private void Receive()
         {
@@ -220,7 +249,10 @@ namespace FrontView
             return true;
         }
 
-
+        public void QueryMute()
+        {
+            SendMessage("?M");
+        }
 
 
         public void QueryOnOff()

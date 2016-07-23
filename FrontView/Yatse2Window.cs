@@ -470,6 +470,36 @@ namespace FrontView
             Directory.CreateDirectory(Helper.CachePath + @"Music\Fanarts");
         }
 
+        private void StartReceiverServer()
+        {
+            Logger.Instance().Log("Receiver", "Start - Starting Server Thread... ", true);
+            Thread receiverthread = new Thread(ReceiverServer) { IsBackground = true };
+            receiverthread.IsBackground = true;
+            receiverthread.Start();
+        }
+
+        private void ReceiverServer()
+        {
+            IPHostEntry ipHostInfo = Dns.Resolve("192.168.1.245");
+            IPAddress ipAddress = ipHostInfo.AddressList[0];
+
+            receiver.Connect(ipAddress);
+
+            if (receiver.SocketConnected() == false)
+            {
+                _config.UseReceiverIPforVolume = false;
+                receiver.Disconnect();
+
+            }
+            else
+            {
+                receiver.TurnOn();
+                receiver.QueryVolume();
+                receiver.QueryMute();
+            }
+        }
+
+        
         private void StartServer()
         { 
             Logger.Instance().Log("SERVER", "STARTSERVER - Starting Server Thread... ", true);
@@ -763,15 +793,17 @@ namespace FrontView
 
                 if (_config.UseReceiverIPforVolume)
                 {
-                   
-   
+                    try
+                    {
 
-                    IPHostEntry ipHostInfo = Dns.Resolve("192.168.1.245");
-                    IPAddress ipAddress = ipHostInfo.AddressList[0];
+                        StartReceiverServer();
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Instance().Log("RECEIVER FAIL", "Exception in attempted connection " + e);
+                    }
 
-                    receiver.Connect(ipAddress);
-                    receiver.TurnOn();
- 
+                 
                     
                 }
 
