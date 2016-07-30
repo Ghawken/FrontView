@@ -131,6 +131,10 @@ namespace FrontView.Classes
         public bool StartFrontViewServer { get; set; }
 
         public bool UseReceiverIPforVolume { get; set; }
+
+        public string ReceiverIP { get; set; }
+
+        public string ReceiverPort { get; set; }
         public int DefaultPlayMode { get; set; }
         public int LongKeyPress { get; set; }
         public int DiaporamaMode { get; set; }
@@ -215,6 +219,8 @@ namespace FrontView.Classes
             HttpUseDigest = false;
             HttpUser = "";
             HttpPassword = "";
+            ReceiverIP = "";
+            ReceiverPort = "23";
         }
 
         public bool Load(string configFile)
@@ -247,6 +253,8 @@ namespace FrontView.Classes
             HttpSend = config.HttpSend;
             HttpUseDigest = config.HttpUseDigest;
             HttpUser = config.HttpUser;
+            ReceiverIP = config.ReceiverIP;
+            ReceiverPort = config.ReceiverPort;
             HttpPassword = config.HttpPassword;
             HttpPlaypaused = config.HttpPlaypaused;
             HttpPlaystarted = config.HttpPlaystarted;

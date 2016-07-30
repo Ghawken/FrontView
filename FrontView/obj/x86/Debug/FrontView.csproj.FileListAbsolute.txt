@@ -1,4 +1,3 @@
-C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.g.resources
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Langs\Français.xaml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Langs\Deutsch.xaml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\bin\x86\Debug\Langs\English.xaml
@@ -1490,6 +1489,7 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\Skin\Internal\
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\Skin\Internal\Xaml\Movies.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\Skin\Internal\Xaml\Remotes.baml
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\Yatse2Window.baml
+C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.g.resources
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.Properties.Resources.resources
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.csproj.GenerateResource.Cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\FrontView\obj\x86\Debug\FrontView.TrustInfo.xml

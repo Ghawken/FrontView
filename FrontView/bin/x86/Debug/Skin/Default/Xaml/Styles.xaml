@@ -92,6 +92,17 @@
         <GradientStop Color="#99848383" Offset="1"/>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Currently_Music_Stroke" Color="Black"/>
+
+    <System:Double x:Key="CurrentlyTVS00E00_TextSize">18.0</System:Double>
+    <System:Double x:Key="CurrentlyTVTitle_TextSize">22.0</System:Double>
+    <System:Double x:Key="CurrentlyTV_TextSize">22.0</System:Double>
+    <System:Double x:Key="CurrentlyTV_BoxHeight">55.0</System:Double>
+
+    <System:Double x:Key="CurrentlyMovieS00E00_TextSize">18.0</System:Double>
+    <System:Double x:Key="CurrentlyMovieTitle_TextSize">22.0</System:Double>
+    <System:Double x:Key="CurrentlyMovie_TextSize">22.0</System:Double>
+    <System:Double x:Key="CurrentlyMovie_BoxHeight">55.0</System:Double>
+
     <!--  END Currently -->
 
     <!--  START Transition -->

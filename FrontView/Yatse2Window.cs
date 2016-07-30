@@ -167,6 +167,7 @@ namespace FrontView
 
         IAvReceiverControl receiver = new VSX1123();
 
+
         private bool UpdateAvailable = false;
 
         public string GetLocalizedString(int id)

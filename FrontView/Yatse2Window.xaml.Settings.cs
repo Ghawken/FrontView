@@ -119,7 +119,8 @@ namespace FrontView
 
             txt_Settings_WeatherLocId.Text = _config.WeatherLoc;
 
-
+            txt_Settings_ReceiverIP.Text = _config.ReceiverIP;
+            txt_Settings_ReceiverPort.Text = _config.ReceiverPort;
             txt_Settings_HttpUser.Text = _config.HttpUser;
             txt_Settings_HttpPassword.Text = _config.HttpPassword;
             txt_Settings_HttpPlaystarted.Text = _config.HttpPlaystarted;
@@ -348,6 +349,9 @@ namespace FrontView
             
             _config.HttpUser = txt_Settings_HttpUser.Text;
             _config.HttpPassword = txt_Settings_HttpPassword.Text;
+
+            _config.ReceiverIP = txt_Settings_ReceiverIP.Text;
+            _config.ReceiverPort = txt_Settings_ReceiverPort.Text;
 
             _config.HttpPlaystarted = txt_Settings_HttpPlaystarted.Text;
             _config.HttpPlaypaused = txt_Settings_HttpPlaypaused.Text;

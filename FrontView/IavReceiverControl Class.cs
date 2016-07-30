@@ -53,6 +53,8 @@ namespace FrontView
         // Received data string.
         public StringBuilder sb = new StringBuilder();
     }
+    
+    
     public class VSX1123 : IAvReceiverControl
     {
 
@@ -252,6 +254,7 @@ namespace FrontView
         public void QueryMute()
         {
             SendMessage("?M");
+            
         }
 
 
