@@ -551,8 +551,10 @@ namespace FrontView
                 if (_config.UseReceiverIPforVolume == true)
                 {
                     _yatse2Properties.Currently.Volume = receiver.WhatisVolume();
-                    
-                    _yatse2Properties.Currently.IsMuted = receiver.WhatisMute();
+
+                    bool isMutedReceiver = receiver.WhatisMute();
+                    _yatse2Properties.Currently.IsMuted = isMutedReceiver;
+                    nowPlaying.IsMuted = isMutedReceiver;
                 }
                 
                 

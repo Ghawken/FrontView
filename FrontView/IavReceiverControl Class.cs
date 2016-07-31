@@ -170,7 +170,12 @@ namespace FrontView
                     Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set:" + code,true);
 
                     RecVolume = Convert.ToInt16(code);
-                    
+                    decimal HighestVolume = 161;
+
+                    RecVolume = Convert.ToInt16(Math.Round(RecVolume / HighestVolume * 100, 0));
+
+                    Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set Percentage:" + RecVolume, true);
+
                     //SetVolumeEvent(this, response);
                 }
                 if (response.StartsWith("MUT"))

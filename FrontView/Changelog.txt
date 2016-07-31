@@ -1,5 +1,19 @@
 ﻿Changelog:
 
+Version 1.155
+Emby Remote Return Button Fix
+Pioneer IP Control : Volume Percentage Fix
+Pioneer IP Control : Mute Undim correctly works.
+
+
+Version 1.154
+Add option to connect to Receiver (with IP control) for all volume commands and to reflect Receiver Volume in FrontView+
+(Currently compatible with most Pioneer models- can consider supporting others)
+Additional Settings screen for above.  Default Off.
+
+Change Skins (NB: may cause issues with older Skins - if so overwrite Skin/SkinName/xaml/*.*  with current contents to resolve)
+Allow NowPlaying Screen Text Size to be edited.
+Change NowPlaying TV Screen to show Title Name above Playbar.
 Change Home Screen Layout if Hide Audio Menu Selected
 
 Add Stop Button to NowPlaying Screen

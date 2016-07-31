@@ -629,7 +629,7 @@
                         <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{DynamicResource CurrentlyTV_BoxHeight}"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0">
                             <Grid Margin="0">
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap"  FontSize="{DynamicResource CurrentlyTVTitle_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
-        						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown"/>
+        						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center"/>
                                 
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
@@ -1189,7 +1189,7 @@
         								Content="Use IP Pioneer Receiver Volume Control" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" />
 
                                         <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Username :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
+        								Text="IP Pioneer Receiver :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
                                         <TextBox x:Name="txt_Settings_ReceiverIP" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_ReceiverIP" Padding="5,0,0,0" Margin="148,48.723,185,0" VerticalAlignment="Top" />
 

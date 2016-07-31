@@ -93,15 +93,21 @@
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Currently_Music_Stroke" Color="Black"/>
    
+        
+        <!-- Below Changes the Text size under NowPlaying TV Thumbnal Season 1 Episode 1 -->
     <System:Double x:Key="CurrentlyTVS00E00_TextSize">18.0</System:Double>
+        <!-- Below Changes the Title of the Episode above the nowplaying Bar -->
     <System:Double x:Key="CurrentlyTVTitle_TextSize">22.0</System:Double>
+        <!-- Below doesnt do anything :)-->
     <System:Double x:Key="CurrentlyTV_TextSize">22.0</System:Double>
-    <System:Double x:Key="CurrentlyTV_BoxHeight">55.0</System:Double>
-
+        <!--Below Changes the Episode Title Space/Box to make it larger for huge fonts -->
+    <System:Double x:Key="CurrentlyTV_BoxHeight">25.0</System:Double>
+         
+    <!-- Below are the same for NowPlaying Movies Screen -->
     <System:Double x:Key="CurrentlyMovieS00E00_TextSize">18.0</System:Double>
     <System:Double x:Key="CurrentlyMovieTitle_TextSize">22.0</System:Double>
     <System:Double x:Key="CurrentlyMovie_TextSize">22.0</System:Double>
-    <System:Double x:Key="CurrentlyMovie_BoxHeight">55.0</System:Double>
+    <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
 
     <!--  END Currently -->
 

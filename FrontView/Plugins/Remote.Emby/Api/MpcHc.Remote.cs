@@ -337,7 +337,7 @@ namespace Remote.Emby.Api
         public void Return()
         {
             if (_parent.MpcLoaded)
-                AsyncGeneralCommand("Select", "");
+                AsyncGeneralCommand("Back", "");
         }
 
         public void Enter()
@@ -399,7 +399,7 @@ namespace Remote.Emby.Api
 
         public void Down()
         {
-
+            AsyncGeneralCommand("MoveDown", "");
         }
 
         public void Up()
@@ -434,7 +434,7 @@ namespace Remote.Emby.Api
 
         public void Subtitles()
         {
-
+        //    AsyncGeneralCommand("MoveUp", "");
         }
 
         public void Previous()
