@@ -1312,8 +1312,31 @@ namespace FrontView
             var FanartAlways = _config.FanartAlways;
             //_config.FanartDirectory = null;
             int numberofdirectoriesdeep = _config.FanartNumberDirectories;
+            var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+
 
             Logger.Instance().LogDump("FrontView FANART    : Check FanART Run & Current Menu prior", nowPlaying2.CurrentMenuLabel, true);
+
+            Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
+
+            if (_remote.GetOS()=="Emby" && FanartAlways == true)
+            {
+                Logger.Instance().LogDump("Frontview FANART", "Emby is Remote Connection - Ignoring Relevant Fanart", true);
+
+                Logger.Instance().LogDump("Frontview FANART", "Emby: Path to Fanart " + _config.FanartDirectory, true);
+
+                // Emby No point currently to do menu checks as will not work
+                // Need to figure out the path however - change path if not correct - enable compatiblity with both
+                if ( GetRandomImagePathNew(_config.FanartDirectory) == null  )
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
+                    Logger.Instance().LogDump("Frontview FANART", "Default Fanart Directory is null - Add Directory", true);
+                    
+                }
+                
+            }
+
 
             if (grd_Diaporama.Visibility == Visibility.Hidden && nowPlaying2.CurrentMenuID != "10004")
             {
@@ -1334,11 +1357,10 @@ namespace FrontView
                     return;
                 }
                 string CurrentPath = SortOutPath(_config.FanartCurrentPath);
-
                 CurrentPath = cleanPath(CurrentPath, string.Empty);
 
-                var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+            //    var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //    var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
 
                Logger.Instance().LogDump("SERVER", "Fanart Directory from Socket =:" + _config.FanartCurrentPath, true);
                Logger.Instance().LogDump("SERVER", "Fanart Directory NORMALISED =:" + CurrentPath, true);
@@ -1430,7 +1452,9 @@ namespace FrontView
                     //If directory empty and fanart show being displayed - change to default - which is Movies
              if (GetRandomImagePathNew(_config.FanartDirectory) == null && grd_Diaporama.Visibility != Visibility.Hidden )
              {
-                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
+                        
+                 
+                 _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
              }
                 
 

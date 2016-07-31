@@ -34,7 +34,7 @@
     <!--  END Header Ellipse -->
 
     <!--  START Default Font -->
-    <FontFamily x:Key="Default_Font">../Fonts/#Helvetica Neue LT Pro</FontFamily>
+    <FontFamily x:Key="Default_Font">../Fonts/#Helvetica Neue LT Pro</FontFamily> 
     <SolidColorBrush x:Key="Default_Font_Color" Color="White"/>
     <SolidColorBrush x:Key="Second_Font_Color" Color="Black"/>
     <!--  END Default Font -->
@@ -97,7 +97,7 @@
     <System:Double x:Key="CurrentlyTVS00E00_TextSize">18.0</System:Double>
     <!-- Below Changes the Title of the Episode above the nowplaying Bar -->
     <System:Double x:Key="CurrentlyTVTitle_TextSize">22.0</System:Double>
-    <!-- Below doesnt do anything :)-->
+    <!-- Below changes Playback time same for Movies-->
     <System:Double x:Key="CurrentlyTV_TextSize">22.0</System:Double>
     <!--Below Changes the Episode Title Space/Box to make it larger for huge fonts -->
     <System:Double x:Key="CurrentlyTV_BoxHeight">25.0</System:Double>

@@ -1,10 +1,18 @@
 ﻿Changelog:
 
-Version 1.155
+Version 1.156
 Emby Remote Return Button Fix
 Pioneer IP Control : Volume Percentage Fix
 Pioneer IP Control : Mute Undim correctly works.
 
+Major Skin Changes - Checks for Default skin if missing component of new skin.
+(just change what ever skin component need for new skin)
+Multiple skins now included as default (as minimal space)
+Added 'BaseSkin' - copy this and replace whatever skin component wish to change.
+Also - my new Favourite Red Curtain and Red Curtain Large (NowPlaying Large)
+
+Some logic Changes to Emby Fanart Always - more compatible with Multiple Remote connections
+(should need any path changes)
 
 Version 1.154
 Add option to connect to Receiver (with IP control) for all volume commands and to reflect Receiver Volume in FrontView+

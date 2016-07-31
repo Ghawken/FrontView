@@ -102,7 +102,7 @@ namespace FrontView
             
             if (!File.Exists(path))
             {
-                Logger.Instance().Log("C_SkinImgPath","Missing skin image : " + path + "Using Default Skin:");
+                Logger.Instance().Trace("C_SkinImgPath","Missing skin image : " + path + " Using Default Skin:");
                 path = Helper.SkinPath + "Default" + @"\Interface\" + (string)parameter + ".png";
                 if (!File.Exists(path))
                 {

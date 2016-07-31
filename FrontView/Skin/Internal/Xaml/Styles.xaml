@@ -35,6 +35,7 @@
 
     <!--  START Default Font -->
     <FontFamily x:Key="Default_Font">../Fonts/#Helvetica Neue LT Pro</FontFamily>
+
     <SolidColorBrush x:Key="Default_Font_Color" Color="White"/>
     <SolidColorBrush x:Key="Second_Font_Color" Color="Black"/>
     <!--  END Default Font -->
