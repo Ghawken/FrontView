@@ -338,7 +338,7 @@ namespace FrontView
                         if (FanartisLocked == true)
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is locked/using Default", true);
-                            _yatse2Properties.Currently.Fanart = Helper.SkinPath + _config.Skin + @"\Interface\Default_Diaporama.png";
+                            _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
                         }
 
                         
@@ -380,9 +380,9 @@ namespace FrontView
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Update to Skin Thumb", true);
                             
-                            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-ThumbGoogle.png"))
+                            if (File.Exists(Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png")))
                             {
-                                _yatse2Properties.Currently.Thumb = Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-ThumbGoogle.png";
+                                _yatse2Properties.Currently.Thumb = Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png");
                                 Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Changing to Google Thumb" + _yatse2Properties.Currently.Thumb, true);
                             }
                         }
@@ -420,7 +420,7 @@ namespace FrontView
                         _yatse2Properties.Currently.TvNote = epinfo[0].Rating;
                         var showinfo = _database.GetTvShowFromName(_remoteInfo.Id, epinfo[0].ShowTitle);
                         _yatse2Properties.Currently.Fanart = GetVideoFanartPath(showinfo.Count > 0 ? showinfo[0].Fanart : nowPlaying.FanartURL); // TODO : Change to Covnerter
-                        _yatse2Properties.Currently.TvStudio = Helper.SkinPath + _yatse2Properties.Skin + @"\Studios\" + epinfo[0].Studio + ".png";
+                        _yatse2Properties.Currently.TvStudio = Helper.SkinorDefault(Helper.SkinPath , _yatse2Properties.Skin , @"\Studios\" + epinfo[0].Studio + ".png");
                         _yatse2Properties.Currently.TvDirector = epinfo[0].Director;
                         _yatse2Properties.Currently.TvYear = epinfo[0].Date.Length > 3 ? epinfo[0].Date.Substring(0, 4) : epinfo[0].Date;
                         _yatse2Properties.Currently.TvVotes = "";
@@ -434,7 +434,7 @@ namespace FrontView
                         _yatse2Properties.Currently.TvEpisode = GetLocalizedString(77) + " " + nowPlaying.SeasonNumber + " " + GetLocalizedString(78) + " " + nowPlaying.EpisodeNumber;
                         _yatse2Properties.Currently.TvNote = nowPlaying.Rating;
                         _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL); // TODO : Change to Converter
-                        _yatse2Properties.Currently.TvStudio = Helper.SkinPath + _yatse2Properties.Skin + @"\Studios\" + nowPlaying.Studio + ".png";
+                        _yatse2Properties.Currently.TvStudio = Helper.SkinorDefault(Helper.SkinPath , _yatse2Properties.Skin , @"\Studios\" + nowPlaying.Studio + ".png");
                         _yatse2Properties.Currently.TvDirector = nowPlaying.Director;
                         _yatse2Properties.Currently.TvYear = nowPlaying.Year.ToString(CultureInfo.InvariantCulture);
                         _yatse2Properties.Currently.TvVotes = "";

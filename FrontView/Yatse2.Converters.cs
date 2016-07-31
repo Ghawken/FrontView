@@ -99,10 +99,18 @@ namespace FrontView
         {
             if (value == DependencyProperty.UnsetValue) return false;
             var path = Helper.SkinPath + (string)value + @"\Interface\" + (string)parameter + ".png";
+            
             if (!File.Exists(path))
             {
-                Logger.Instance().Log("C_SkinImgPath","Missing skin image : " + path);
-                return "";
+                Logger.Instance().Log("C_SkinImgPath","Missing skin image : " + path + "Using Default Skin:");
+                path = Helper.SkinPath + "Default" + @"\Interface\" + (string)parameter + ".png";
+                if (!File.Exists(path))
+                {
+                    Logger.Instance().Log("C_SkinImgPath", "Missing DEFAULT skin image : " + path );
+                    return "";
+                }
+
+                return path;
             }
             return path;
         }
@@ -128,17 +136,29 @@ namespace FrontView
 
             var param = (string) parameter;
             var temp = param.Split('/');
+            
             if (temp.Length > 1)
             {
                 param = temp[0];
             }
 
             var path = Helper.SkinPath + (string)value + @"\Interface\" + param + ".png";
+            
+            
             if (!File.Exists(path))
             {
-                Logger.Instance().Log("C_SkinBrush", "Missing skin image : " + path);
-                return new ImageBrush();
+            // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
+                
+                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                path = Helper.SkinPath + "Default" + @"\Interface\" + param + ".png";
+                if (!File.Exists(path))
+                {
+                    Logger.Instance().Log("C_SkinBrush", "Missing DEFAULT skin image : " + path );
+                    return new ImageBrush();
+                }          
+               
             }
+
 
             if (temp.Length > 1)
             {
@@ -240,24 +260,60 @@ namespace FrontView
             if (String.IsNullOrEmpty(param))
                 return false;
 
+
             var path = Helper.SkinPath + Helper.Instance.CurrentSkin + @"\" + param + @"\" + img + ".png";
+
 
             if (!String.IsNullOrEmpty(img))
             {
                 if (param == @"Interface\Icon_")
+                {
                     path = Helper.SkinPath + Helper.Instance.CurrentSkin + @"\" + param + img + ".png";
+                }
+
+
 
                 if (File.Exists(path))
+                {
                     return new BitmapImage(new Uri(path));
+                }
 
-                Logger.Instance().Log("C_SkinImage", "Missing skin Image : " + path);
+                Logger.Instance().Trace("C_SkinImage", "Missing skin Image : " + path + " trying DEFAULT skin");
+
+
+                path = Helper.SkinPath + "Default" + @"\" + param + @"\" + img + ".png";
+                if (param == @"Interface\Icon_")
+                {
+                    path = Helper.SkinPath + "Default" + @"\" + param + img + ".png";
+                }
+                if (File.Exists(path))
+                {
+                    return new BitmapImage(new Uri(path));
+                }
+
+                Logger.Instance().Log("C_SkinImage", "Missing DEFAULT skin Image : " + path );
+
             }
 
-            path = Helper.SkinPath + Helper.Instance.CurrentSkin + @"\" + param + @"\Default.png";
-            if (File.Exists(path))
-                return new BitmapImage(new Uri(path));
 
-            Logger.Instance().Log("C_SkinImage", "Default not found : " + path);
+
+
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + @"\" + param + @"\Default.png";
+
+            if (File.Exists(path))
+            {
+                return new BitmapImage(new Uri(path));
+            }
+            Logger.Instance().Trace("C_SkinImage", "Default not found : " + path + " trying Default Skin");
+            
+            path = Helper.SkinPath + "Default" + @"\" + param + @"\Default.png";
+            if (File.Exists(path))
+            {
+                return new BitmapImage(new Uri(path));
+            }
+            Logger.Instance().Log("C_SkinImage", "DEFAULT SKIN Default not found : " + path);
+            
+            
             return false;
         }
 

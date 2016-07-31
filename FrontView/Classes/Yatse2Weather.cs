@@ -285,8 +285,11 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
     {
       if (data == null) return;
       Location = data.LocationName;
-      CurrentIcon = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Today.Icon + ".png";
-      CurrentBackground = Helper.SkinPath + skin + @"\Weather\Backgrounds\" + data.Today.Icon + ".jpg";
+      CurrentIcon = Helper.SkinorDefault(Helper.SkinPath, skin,  @"\Weather\Icons\" + data.Today.Icon + ".png");
+      
+
+      CurrentBackground = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Backgrounds\" + data.Today.Icon + ".jpg");
+      
       CurrentTemp = data.GetTemp(data.Today.Temperature);
     }
 
@@ -294,8 +297,8 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
     {
       if (data == null || data.Forecast.Count <= 0) return;
 
-      Day0IconDay = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[0].DayIcon + ".png";
-      Day0IconNight = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[0].NightIcon + ".png";
+      Day0IconDay = Helper.SkinorDefault( Helper.SkinPath, skin,  @"\Weather\Icons\" + data.Forecast[0].DayIcon + ".png");
+      Day0IconNight = Helper.SkinorDefault( Helper.SkinPath , skin , @"\Weather\Icons\" + data.Forecast[0].NightIcon + ".png");
       Day0Name =
         DateTime.Now.AddDays(data.Forecast[0].DayDiff)
                 .ToString("dddd", CultureInfo.CurrentUICulture.DateTimeFormat)
@@ -304,8 +307,8 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
       Day0MinTemp = data.GetTemp(data.Forecast[0].LowTemp);
       if (data.Forecast.Count > 1)
       {
-        Day1IconDay = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[1].DayIcon + ".png";
-        Day1IconNight = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[1].NightIcon + ".png";
+        Day1IconDay = Helper.SkinorDefault( Helper.SkinPath , skin , @"\Weather\Icons\" + data.Forecast[1].DayIcon + ".png");
+        Day1IconNight = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[1].NightIcon + ".png");
         Day1Name =
           DateTime.Now.AddDays(data.Forecast[1].DayDiff)
                   .ToString("dddd", CultureInfo.CurrentUICulture.DateTimeFormat)
@@ -315,8 +318,8 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
       }
       if (data.Forecast.Count > 2)
       {
-        Day2IconDay = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[2].DayIcon + ".png";
-        Day2IconNight = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[2].NightIcon + ".png";
+          Day2IconDay = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[2].DayIcon + ".png");
+        Day2IconNight = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[2].NightIcon + ".png");
         Day2Name =
           DateTime.Now.AddDays(data.Forecast[2].DayDiff)
                   .ToString("dddd", CultureInfo.CurrentUICulture.DateTimeFormat)
@@ -326,8 +329,8 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
       }
       if (data.Forecast.Count > 3)
       {
-        Day3IconDay = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[3].DayIcon + ".png";
-        Day3IconNight = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[3].NightIcon + ".png";
+          Day3IconDay = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[3].DayIcon + ".png");
+        Day3IconNight = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[3].NightIcon + ".png");
         Day3Name =
           DateTime.Now.AddDays(data.Forecast[3].DayDiff)
                   .ToString("dddd", CultureInfo.CurrentUICulture.DateTimeFormat)
@@ -337,8 +340,8 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
       }
       if (data.Forecast.Count > 4)
       {
-        Day4IconDay = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[4].DayIcon + ".png";
-        Day4IconNight = Helper.SkinPath + skin + @"\Weather\Icons\" + data.Forecast[4].NightIcon + ".png";
+          Day4IconDay = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[4].DayIcon + ".png");
+        Day4IconNight = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Icons\" + data.Forecast[4].NightIcon + ".png");
         Day4Name =
           DateTime.Now.AddDays(data.Forecast[4].DayDiff)
                   .ToString("dddd", CultureInfo.CurrentUICulture.DateTimeFormat)

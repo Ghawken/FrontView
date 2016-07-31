@@ -46,9 +46,9 @@ namespace FrontView
                 return destFile;
             }
 
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-Thumbs.png"))
+            if (File.Exists(Helper.SkinorDefault( Helper.SkinPath ,_config.Skin , @"\Interface\Default_Music-Thumbs.png")))
             {
-                return Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-Thumbs.png";
+                return  Helper.SkinorDefault(Helper.SkinPath ,_config.Skin , @"\Interface\Default_Music-Thumbs.png");
             }
 
             Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Music-Thumbs.png", true);
@@ -69,10 +69,10 @@ namespace FrontView
                 return destFile;
             }
 
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-Fanarts.png"))
+            if (File.Exists(Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-Fanarts.png")))
             {
-                Logger.Instance().LogDump("GetMusicFanart", "File Exists " + Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-Fanarts.png", true);
-                return Helper.SkinPath + _config.Skin + @"\Interface\Default_Music-Fanarts.png";
+                Logger.Instance().LogDump("GetMusicFanart", "File Exists " + Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-Fanarts.png"), true);
+                return Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-Fanarts.png");
             }
 
             Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Music-Fanarts.png", true);
@@ -93,9 +93,9 @@ namespace FrontView
                 return destFile;
             }
 
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Video-Thumbs.png"))
+            if (File.Exists( Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Video-Thumbs.png")))
             {
-                return Helper.SkinPath + _config.Skin + @"\Interface\Default_Video-Thumbs.png";
+                return Helper.SkinorDefault( Helper.SkinPath, _config.Skin , @"\Interface\Default_Video-Thumbs.png");
             }
             Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Video-Thumbs.png", true);
             return "";
@@ -115,9 +115,9 @@ namespace FrontView
                 return destFile;
             }
 
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Video-Fanarts.png"))
+            if (File.Exists( Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Video-Fanarts.png")))
             {
-                return Helper.SkinPath + _config.Skin + @"\Interface\Default_Video-Fanarts.png";
+                return Helper.SkinorDefault(Helper.SkinPath ,_config.Skin , @"\Interface\Default_Video-Fanarts.png");
             }
             Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Video-Fanarts.png", true);
             return "";
@@ -206,7 +206,7 @@ namespace FrontView
             Logger.Instance().Log("FrontView+", "Load dictionaries - Skin : " + _yatse2Properties.Skin + ", Lang : " + _yatse2Properties.Language);
             try
             {
-                using (System.Xml.XmlReader xmlskin = System.Xml.XmlReader.Create(Helper.SkinPath + _yatse2Properties.Skin + @"\Skin.xaml"),  xmllang = System.Xml.XmlReader.Create(Helper.LangPath + _yatse2Properties.Language + @".xaml"))
+                using (System.Xml.XmlReader xmlskin = System.Xml.XmlReader.Create( Helper.SkinorDefault( Helper.SkinPath , _yatse2Properties.Skin , @"\Skin.xaml")),  xmllang = System.Xml.XmlReader.Create(Helper.LangPath + _yatse2Properties.Language + @".xaml"))
                 {
                     var skin =
                         (ResourceDictionary)
@@ -229,13 +229,13 @@ namespace FrontView
         private ImageBrush GetSkinImageBrush(string element)
         {
             var img = new ImageBrush();
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\" + element + ".png"))
+            if (File.Exists(Helper.SkinorDefault(  Helper.SkinPath , _config.Skin , @"\Interface\" + element + ".png")))
             {
                 img = new ImageBrush
                           {
                               ImageSource =
                                   new BitmapImage(
-                                  new Uri(Helper.SkinPath + _config.Skin + @"\Interface\" + element + ".png")),
+                                  new Uri(Helper.SkinorDefault( Helper.SkinPath ,_config.Skin , @"\Interface\" + element + ".png"))),
                               Stretch = Stretch.Uniform,
                               AlignmentX = AlignmentX.Center,
                               AlignmentY = AlignmentY.Center
@@ -251,13 +251,13 @@ namespace FrontView
         private ImageBrush GetSkinImageBrushSmall(string element)
         {
             var img = new ImageBrush();
-            if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\" + element + ".png"))
+            if (File.Exists( Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\" + element + ".png")))
             {
                 img = new ImageBrush
                 {
                     ImageSource =
                         new BitmapImage(
-                        new Uri(Helper.SkinPath + _config.Skin + @"\Interface\" + element + ".png")),
+                        new Uri( Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\" + element + ".png"))),
                     Stretch = Stretch.Uniform,
                     TileMode = TileMode.None,
                     AlignmentX = AlignmentX.Center,

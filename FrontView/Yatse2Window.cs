@@ -1669,7 +1669,7 @@ namespace FrontView
                Logger.Instance().LogDump("AUDIO", "nowPlaying playing Audio Starting fanart " + nowPlaying.MediaType, true);
            }
 
-           if (nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && nowPlaying.FileName.Contains("googleusercontent")&& (_yatse2Properties.Currently.Fanart == Helper.SkinPath + _config.Skin + @"\Interface\Default_Diaporama.png") && (_timer % _config.FanartTimer) == 0)
+           if (nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && nowPlaying.FileName.Contains("googleusercontent")&& (_yatse2Properties.Currently.Fanart == Helper.SkinorDefault(Helper.SkinPath,  _config.Skin,  @"\Interface\Default_Diaporama.png")) && (_timer % _config.FanartTimer) == 0)
            {
                Logger.Instance().LogDump("GOOGLEPLAY", "Playing, Media type is AUdio, googlesusercontent filename, Currently Fanart equals" + _yatse2Properties.Currently.Fanart, true);
                UpdateCurrently(nowPlaying);

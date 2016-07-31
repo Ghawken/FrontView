@@ -51,6 +51,7 @@ namespace FrontView.Libs
             public static extern bool SetForegroundWindow(IntPtr hWnd);
         }
 
+
         public static string SkinPath
         {
             get
@@ -138,6 +139,21 @@ namespace FrontView.Libs
             }
         }
 
+        public static string SkinorDefault(string SkinPath, string skinname, string RestofPath)
+        {
+            if (File.Exists(SkinPath+skinname+RestofPath))
+            {
+                return SkinPath + skinname + RestofPath;
+            }
+            if (File.Exists(SkinPath + "Default" + RestofPath))
+            {
+                return SkinPath + "Default" + RestofPath;
+            }
+
+            return "";
+
+        }
+
         public static bool VirtFlowSelect(DependencyObject listbox, int index)
         {
             var theflow = FindChild<VirtElementFlow>(listbox, "ElementFlow");
@@ -150,6 +166,8 @@ namespace FrontView.Libs
 
             return true;
         }
+
+
 
         public static bool VirtFlowChangeCamera(DependencyObject listbox, PerspectiveCamera camera)
         {
