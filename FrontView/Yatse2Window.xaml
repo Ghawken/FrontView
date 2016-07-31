@@ -521,9 +521,9 @@
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp"/>
                                 <Slider x:Name="sld_Current_Movie_Volume" Margin="0,8,13,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyMovie_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" />
-                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource CurrentlyMovie_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" />
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}" 
@@ -649,9 +649,9 @@
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp"/>
                                 <Slider x:Name="sld_Current_Tv_Volume" Margin="0,8,12,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyTV_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" />
-                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource CurrentlyTV_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" />
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}" 

@@ -205,7 +205,7 @@ namespace FrontView.Classes
             DefaultPlayMode = 0;
             LongKeyPress = 500;
             DiaporamaMode = 1;
-            DisableResolutionDetection = true;
+            DisableResolutionDetection = false;
             FanartDirectory = @"addon_data\script.artworkorganizer\MovieFanart\";
             FanartDirectoryTV = @"addon_data\script.artworkorganizer\TVShowFanart\";
             FanartDirectoryWeather = @"addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";

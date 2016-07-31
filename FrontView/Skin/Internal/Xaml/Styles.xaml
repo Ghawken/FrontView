@@ -98,7 +98,7 @@
     <System:Double x:Key="CurrentlyTVS00E00_TextSize">18.0</System:Double>
         <!-- Below Changes the Title of the Episode above the nowplaying Bar -->
     <System:Double x:Key="CurrentlyTVTitle_TextSize">22.0</System:Double>
-        <!-- Below doesnt do anything :)-->
+        <!-- Below changes Playback time same for Movies-->
     <System:Double x:Key="CurrentlyTV_TextSize">22.0</System:Double>
         <!--Below Changes the Episode Title Space/Box to make it larger for huge fonts -->
     <System:Double x:Key="CurrentlyTV_BoxHeight">25.0</System:Double>
@@ -108,6 +108,8 @@
     <System:Double x:Key="CurrentlyMovieTitle_TextSize">22.0</System:Double>
     <System:Double x:Key="CurrentlyMovie_TextSize">22.0</System:Double>
     <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
+
+
 
     <!--  END Currently -->
 

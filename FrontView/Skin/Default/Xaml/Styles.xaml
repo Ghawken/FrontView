@@ -108,6 +108,7 @@
     <System:Double x:Key="CurrentlyMovie_TextSize">22.0</System:Double>
     <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
 
+
     <!--  END Currently -->
 
     <!--  START Transition -->
