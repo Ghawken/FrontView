@@ -976,11 +976,14 @@ namespace FrontView
 
             if (_config.DisableScreenPositioning)
                 return;
+
             if (_config.MouseMode)
                 return;
+
             var dx = 1.0;
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);
+
             if (temp != null)
             {
                 if (temp.CompositionTarget != null)

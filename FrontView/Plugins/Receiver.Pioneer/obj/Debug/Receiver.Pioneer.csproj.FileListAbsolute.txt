@@ -1,0 +1,5 @@
+C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Receiver.Pioneer\bin\Debug\Receiver.Pioneer.dll
+C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Receiver.Pioneer\bin\Debug\Receiver.Pioneer.pdb
+C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.csprojResolveAssemblyReference.cache
+C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.dll
+C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.pdb

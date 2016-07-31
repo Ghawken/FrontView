@@ -118,7 +118,7 @@ namespace FrontView
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-        	if (_config.MouseMode)
+        	if (_config.MouseMode && !_config.DisableScreenPositioning)
 			    DragMove();
         }
 

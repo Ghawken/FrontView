@@ -1,0 +1,134 @@
+﻿Changelog:
+
+Version 1.156
+Emby Remote Return Button Fix
+Pioneer IP Control : Volume Percentage Fix
+Pioneer IP Control : Mute Undim correctly works.
+
+Major Skin Changes - Checks for Default skin if missing component of new skin.
+(just change what ever skin component need for new skin)
+Multiple skins now included as default (as minimal space)
+Added 'BaseSkin' - copy this and replace whatever skin component wish to change.
+Also - my new Favourite Red Curtain and Red Curtain Large (NowPlaying Large)
+
+Some logic Changes to Emby Fanart Always - more compatible with Multiple Remote connections
+(should need any path changes)
+
+Version 1.154
+Add option to connect to Receiver (with IP control) for all volume commands and to reflect Receiver Volume in FrontView+
+(Currently compatible with most Pioneer models- can consider supporting others)
+Additional Settings screen for above.  Default Off.
+
+Change Skins (NB: may cause issues with older Skins - if so overwrite Skin/SkinName/xaml/*.*  with current contents to resolve)
+Allow NowPlaying Screen Text Size to be edited.
+Change NowPlaying TV Screen to show Title Name above Playbar.
+Change Home Screen Layout if Hide Audio Menu Selected
+
+Add Stop Button to NowPlaying Screen
+Mute Button Now reflects Mute status (of Player)
+Emby Remote:
+Functional Seek Bar
+Functional Volume Slider/VolumeUP when ET supports such.
+Correct Focus confirmed - awaiting ET fix.
+
+Version 1.137
+Add Settings Button to Hide Audio Main Menu
+
+EMBY Remote: (ver 170)
+Some Bug Fixes
+Deal with multiple movie Folders (rather than directories within)
+
+
+Add HTTP Play Delayed send option
+(enables to send HTTP after certain time of playback configurable in seconds)
+e.g Playback started - dim lights to 50%, 10 seconds into playback Dim to 100%
+
+Version 1.130
+Check silently for available updates at Startup (and set Settings information)
+Emby Remote - Fix lack Season Selection Screen issue
+Bug Fixes for Quick Refresh
+
+Version 1.127
+Update Emby FrontVersion Version number
+Change Movies sort to DateCreated rather than Premiere Date (Emby)
+
+Version 1.126
+Test of online update
+Small typo Fix in Settings screen
+
+Purpose of this major update is to enable Quick Refresh of the Library on Start.
+This has been enabled for both Emby and Kodi Remote Connections.  Should run in around 5-10 seconds.
+This is to make useful the date sort - which isn't that much use if have to update whole Library to use.
+
+Changes:
+Version 1.125
+Major SQL Database Changes addition of Date/Needs DB update - which should occur.
+Date data will not be present until a full Library Download is run.
+Settings Buttons Additions.
+If issues - delete FrontView+.db file and restart, resetting up Remote
+Movie Sort to Date Added
+Fixes for IDRemote Data
+Change to using WyUpdate to download small updates (hopefully the last mediafire install package needed)
+
+
+
+1.116
+Remove Emby Virtual episodes from local database
+Change TV Show sort to order by latest episodes - selection in Library Settings
+(Order TV Shows by Show-  but those with latest episode first)
+Fix for some Trace logging if no remote
+
+1.115
+Add ShowInTaskbar xml settings file
+Few changes for MiniseAlways
+
+1.113/114
+Fixes for Weather (Changes Icons depending on current Sunset or not for both current and Forecast){Rightly or wrongly for Forecast} Happy to have feedback.
+EMBY remote:  Fix for Trailer Change/Server Update/Backwards compatible
+Add DimAmount and Time of Dim /Dim Time to Settings screens.
+
+
+Release 1.112
+Add Xml Settings <DimAmount> value from 0 to 1, amount of Dim applied to screen
+(setting also adjustable with Skin Animation.xml file) Depending on skin may override Settings.xml setting.
+
+Release 1.111
+Fix to Remote Control Timing Startup issues with Emby
+Additional support for Old EMBY Theater (MediaBrowser.UI)
+
+Release 1.110
+Emby Remote Updated:(1.105)
+Major changes to AudioLibrary Download.  (a bit slower download as more info)
+Far better Null checks from data from Database.
+Correction/Working Music Genres
+
+Release 1.106
+Automatic screen detection from sleep etc.
+Correctly uses Disable Resolution Detection in settings.xml for this function
+KODI: 
+- Ignore theme files both in Nowplaying and sort out Fanart for them.
+
+Release 1.105
+Bugfix for HTTPSend App exit related to name change
+Update EmbyServer Plugin to 1.0.0.18 Class
+EMBY REMOTE: 
+-	Add ignore theme.mp3 files playback for NowPlaying screen for EMBY Remote (?maybe needs option - can't think why)
+-	And ignore backdrop/theme.mp4 files
+-	Add support for 'Video' Mediatypes in NowPlaying screen
+Fix Longstanding bug Fade In/Fade Out on Mute
+
+Release 1.104
+Remove Remote Buttons if Client Does not support Remote Control
+
+Release 1.103
+Changes to connection/more lightweight checking
+
+Release 1.102
+Bug Fix - EMBY - allow server restart without FrontView Freeze until completed.
+
+Release 1.101
+Bug Fix - for EventClient Emby Remote
+Add Support for Kodi 16 Jarvis (name change only needed)
+
+
+Release 1.100: FrontView+ Inital Release

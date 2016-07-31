@@ -25,9 +25,10 @@
     xmlns:Yatse2="clr-namespace:FrontView"
     mc:Ignorable="d"
     x:Class="FrontView.Yatse2Window"
-    Title="FrontView" Height="480" Width="800" WindowStyle="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+    Title="FrontView" Height="600" Width="800" WindowStyle="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ResizeMode="CanMinimize" 
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
     <Window.Resources>
 
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
@@ -630,7 +631,7 @@
                             <Grid Margin="0">
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap"  FontSize="{DynamicResource CurrentlyTVTitle_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center"/>
-                                
+
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
         						Visibility="{Binding Currently.IsNotTvDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_ShowDetails_Click"/>
@@ -688,8 +689,8 @@
 
                                 <TextBlock HorizontalAlignment="Left" Margin="8,0,0,15" VerticalAlignment="Bottom" Width="215" Height="23" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyTVS00E00_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" />
-                                
-                                
+
+
                             </Grid>
                         </Border>
                         <Rectangle x:Name="rct_Current_Tv_Image" Stroke="Black" RadiusX="20" RadiusY="20" Margin="10,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="160" MaxWidth="350" HorizontalAlignment="Left" Width="215" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown">

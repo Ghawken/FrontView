@@ -75,3 +75,18 @@ C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\Repos\FrontView 1.0\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe.config
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.exe
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.pdb
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\bin\Debug\Setup.dll
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\bin\Debug\Setup.pdb
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\App.g.cs
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager_MarkupCompile.cache
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
+C:\Users\ghawken\Source\Repos\FrontView\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
