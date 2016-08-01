@@ -8,3 +8,8 @@ C:\Users\ghawken\Source\Repos\FrontView\FrontView\bin\x86\Debug\Plugins\Remote.E
 C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.csprojResolveAssemblyReference.cache
 C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.dll
 C:\Users\ghawken\Source\Repos\FrontView\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.pdb
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\bin\x86\Debug\Plugins\Remote.Emby.dll
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\bin\x86\Debug\Plugins\Remote.Emby.pdb
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.dll
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Remote.Emby\obj\Debug\Remote.Emby.pdb
