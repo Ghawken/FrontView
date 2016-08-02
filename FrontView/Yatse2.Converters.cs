@@ -64,7 +64,8 @@ namespace FrontView
         }
     }
 
-    public class LongDurationConverter : IValueConverter
+
+        public class LongDurationConverter : IValueConverter
     {
         private static readonly LongDurationConverter TheInstance = new LongDurationConverter();
         private LongDurationConverter() { }

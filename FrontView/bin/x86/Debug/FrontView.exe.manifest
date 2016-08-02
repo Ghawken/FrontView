@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="FrontView.exe" version="3.1.10.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="FrontView" version="1.0.156.156" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="FrontView" version="1.0.158.158" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
     <commandLine file="FrontView.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -76,19 +76,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>dxFuqcJBZd/omF0JXvR359wsWdxqgF4un3MUW21DRLA=</dsig:DigestValue>
+        <dsig:DigestValue>bG2xjAYS39rJDc6mcV9Qmg4CvzLHf8i6DEjFy/Lapb8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="704000">
-      <assemblyIdentity name="FrontView" version="1.0.156.156" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="FrontView" version="1.0.158.158" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Uxf9zqexyLe/8UEqilkoaGabpITIPU0NMYm235Z0zVI=</dsig:DigestValue>
+        <dsig:DigestValue>PjYTsLPIXQpdtsj0IbJ/xDS7JuQh4n7HeSVJfcVV2QE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

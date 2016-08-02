@@ -374,7 +374,9 @@
         					Background="{Binding Skin, ConverterParameter=Menu_Close, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="264" Canvas.Top="180" />
                         </Canvas>
                     </Border>
-                    <Image HorizontalAlignment="Left" Height="90" Margin="8,8,0,0" VerticalAlignment="Top" Width="250" Source="Skin/Internal/Images/Logo.png"/>
+                    <Image HorizontalAlignment="Left" Height="90" Margin="8,8,0,0" VerticalAlignment="Top" Width="250" Source="{Binding ConverterParameter=Logo, Path=Skin, Source={StaticResource Yatse2Properties}, Converter={x:Static Yatse2:SkinImagePathConverter.Instance}}"
+                           />  
+                    
                     <Button Content="Button" HorizontalAlignment="Right" Height="48" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="48" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Pictures, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Home_Diaporama_Click" />
                 </Grid>
