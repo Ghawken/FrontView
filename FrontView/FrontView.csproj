@@ -175,8 +175,7 @@
     <AssemblyOriginatorKeyFile>System\Setup\Yatse2-NP.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Skin\Internal\Images\Yatse2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Any CPU|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>

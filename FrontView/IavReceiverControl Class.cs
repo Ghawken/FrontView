@@ -62,7 +62,7 @@ namespace FrontView
         //   public event EventHandler<bool> SetOnOffEvent;
         //private readonly FrontView.IAvReceiverControl _parent;
         public int RecVolume = 0;
-        public bool Mute = true;
+        public bool Mute = false;
         private readonly ManualResetEvent connectDone = new ManualResetEvent(false);
         private readonly ManualResetEvent sendDone = new ManualResetEvent(false);
         private readonly ManualResetEvent receiveDone = new ManualResetEvent(false);
