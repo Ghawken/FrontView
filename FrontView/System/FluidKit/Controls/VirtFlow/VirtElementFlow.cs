@@ -200,7 +200,7 @@ namespace FluidKit.Controls
 
         public VirtElementFlow()
         {
-            CanVerticallyScroll = false;
+            CanVerticallyScroll = true;
             LoadViewport();
             SetupEventHandlers();
             CurrentView = new VirtCoverFlow();

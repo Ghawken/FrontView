@@ -517,6 +517,7 @@
         						Visibility="{Binding Currently.IsMovieDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Movie_HideDetails_Click"/>
                             </Grid>
                         </Border>
+                       
                         <Border x:Name="brd_Current_Movie" VerticalAlignment="Bottom" 
         				Height="150" BorderBrush="Black" BorderThickness="0" Background="#BF000000">
                             <Grid Margin="0">
@@ -559,11 +560,17 @@
         						Text="{Binding Currently.MovieYear, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" VerticalAlignment="Bottom" Height="52" Visibility="Hidden" />
                             </Grid>
                         </Border>
-                        <Rectangle x:Name="rct_Current_Movie_Image" Stroke="Black" RadiusX="20" RadiusY="20" Margin="40,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
-                            <Rectangle.Fill>
-                                <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
-                            </Rectangle.Fill>
-                        </Rectangle>
+                        <Border Grid.Column="1">
+                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" RadiusY="10" Margin="40,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
+                                <Rectangle.Fill>
+
+
+                                    <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
+
+
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Border>
                         <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="40,0,0,-161" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                             <Border.RenderTransform>
                                 <TransformGroup>

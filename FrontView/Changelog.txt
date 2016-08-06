@@ -1,5 +1,9 @@
 ﻿Changelog:
 
+Version 1.159
+Fix Cropped nowPlaying Screen
+(Raises bigger issue which is uses jpg without transparency for cache)
+
 Version 1.156
 Emby Remote Return Button Fix
 Pioneer IP Control : Volume Percentage Fix
