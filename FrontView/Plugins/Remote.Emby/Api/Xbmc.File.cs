@@ -95,7 +95,8 @@ namespace Remote.Emby.Api
 
                 if (apiImageDownloadInfo.Source.Contains(_parent.IP))
                 {
-                    _parent.Trace("----------DOWNLOAD IMAGES OKAY checking for presence of Server IP Address in source to select DOwnload Method - Server IP Found");
+                    _parent.Trace("----------DOWNLOAD IMAGES: Checking for presence of Server IP Address in source to select Download Method - Server IP Found");
+                    _parent.Trace("----------DOWNLOAD IMAGES: Source:" + apiImageDownloadInfo.Source.ToString() + ":Destination:"+ apiImageDownloadInfo.Destination.ToString());
                     res = DownloadRemoteImageFile(apiImageDownloadInfo.Source, apiImageDownloadInfo.Destination);
                 }
                 else

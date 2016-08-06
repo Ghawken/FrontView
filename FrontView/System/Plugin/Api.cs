@@ -272,7 +272,7 @@ namespace Plugin
 
                 var codecs = ImageCodecInfo.GetImageEncoders();
                 ImageCodecInfo ici = null;
-                foreach (var codec in codecs.Where(codec => codec.MimeType == "image/jpeg"))
+                foreach (var codec in codecs.Where(codec => codec.MimeType == "image/png"))
                 {
                     ici = codec;
                 }
