@@ -7,3 +7,4 @@ C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Receiver.Pio
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Receiver.Pioneer\bin\Debug\Receiver.Pioneer.pdb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.dll
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.pdb
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Receiver.Pioneer\obj\Debug\Receiver.Pioneer.csprojResolveAssemblyReference.cache

@@ -64,8 +64,67 @@ namespace FrontView
         }
     }
 
+    public class ArithmeticConverter : IMultiValueConverter
+    {
+        #region Implementation of IMultiValueConverter
 
-        public class LongDurationConverter : IValueConverter
+        private static readonly ArithmeticConverter TheInstance = new ArithmeticConverter();
+        private ArithmeticConverter() { }
+        public static ArithmeticConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public static char Multiply = '*';
+        public static char Divide = '/';
+        public static char Add = '+';
+        public static char Subtract = '-';
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length != 3) throw new ArgumentException("There should be three values.");
+
+            if (string.IsNullOrEmpty(values[0].ToString()))
+            {
+                values[0] = "0";
+            }
+
+            if (string.IsNullOrEmpty(values[2].ToString()))
+            {
+                values[2] = "0";
+            }
+
+            double x;
+            if (!double.TryParse(values[0].ToString(), out x))
+            {
+                throw new ArgumentException("values[0] must parse to double");
+            }
+
+            double y;
+            if (!double.TryParse(values[2].ToString(), out y))
+            {
+                throw new ArgumentException("values[0] must parse to double");
+            }
+
+            char op = (char)values[1];
+            if (op == Multiply) return (x * y).ToString();
+            if (op == Divide) return (x / y).ToString();
+            if (op == Add) return (x + y).ToString();
+            if (op == Subtract) return (x - y).ToString();
+
+            throw new ArgumentException("Unknown operator.");
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
+
+
+    public class LongDurationConverter : IValueConverter
     {
         private static readonly LongDurationConverter TheInstance = new LongDurationConverter();
         private LongDurationConverter() { }

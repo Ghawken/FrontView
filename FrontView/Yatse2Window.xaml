@@ -30,7 +30,9 @@
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
-
+        
+    
+        
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
         <Style x:Key="ListBoxStyle_TvEpisodes" TargetType="{x:Type ListBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -504,7 +506,7 @@
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                         <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{DynamicResource CurrentlyMovie_BoxHeight}" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0">
                             <Grid Margin="0">
-                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyMovie_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyMovieTitle_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown"/>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
@@ -560,21 +562,33 @@
         						Text="{Binding Currently.MovieYear, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" VerticalAlignment="Bottom" Height="52" Visibility="Hidden" />
                             </Grid>
                         </Border>
-                        <Border Grid.Column="1">
-                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" RadiusY="10" Margin="40,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
+                        <Border >
+                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{DynamicResource CurrentlyMovie_MarginCover}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
+                             
+                                
+                                <!-- Big one old equals Margin="8,0,0,186" -->
+                                <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                        <ScaleTransform ScaleX="{DynamicResource CurrentlyMovie_ScaleX}" ScaleY="{DynamicResource CurrentlyMovie_ScaleY}"/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                
                                 <Rectangle.Fill>
-
-
                                     <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
 
 
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Border>
-                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="40,0,0,-161" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{DynamicResource CurrentlyMovie_MarginCoverReflection}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+
+                            <!-- Big one equals MarginMargin="40,0,0,-162" -->
                             <Border.RenderTransform>
                                 <TransformGroup>
-                                    <ScaleTransform ScaleY="-1"/>
+                                    <ScaleTransform ScaleX="{DynamicResource CurrentlyMovie_ScaleY}" ScaleY="{DynamicResource CurrentlyMovie_ReflectionScaleY}"/>
                                     <SkewTransform/>
                                     <RotateTransform/>
                                     <TranslateTransform/>
@@ -584,7 +598,7 @@
                                 <VisualBrush Visual="{Binding ElementName=rct_Current_Movie_Image}" />
                             </Border.Background>
                             <Border.OpacityMask>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <LinearGradientBrush EndPoint="0,200" MappingMode="Absolute" Opacity="0.75">
                                     <GradientStop Offset="1" Color="Black" />
                                     <GradientStop Offset="0.7" Color="Transparent" />
                                 </LinearGradientBrush>
@@ -605,9 +619,9 @@
         					Text="{Binding Currently.MovieNote, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock HorizontalAlignment="Right" Margin="0,0,23,14.2" VerticalAlignment="Bottom" Width="109" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         					Text="{Binding Currently.MovieVotes, Source={StaticResource Yatse2Properties}}" />
-                            <Rectangle x:Name="rct_Current_Movie_Details_Image" Stroke="Black" RadiusX="20" RadiusY="20" Margin="40,26,0,134" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="160" Height="240"  MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
+                            <Rectangle x:Name="rct_Current_Movie_Details_Image" Stroke="Black" RadiusX="10" RadiusY="10" Margin="40,26,0,134" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="160" Height="240"  MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
                                 <Rectangle.Fill>
-                                    <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
+                                    <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
                                 </Rectangle.Fill>
                             </Rectangle>
                             <Border RenderTransformOrigin="0.5,0.5" Width="160" Margin="40,0,0,-118" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >

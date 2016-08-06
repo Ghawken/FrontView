@@ -1,8 +1,16 @@
 ﻿Changelog:
 
 Version 1.159
-Fix Cropped nowPlaying Screen
-(Raises bigger issue which is uses jpg without transparency for cache)
+Fix Cropped nowPlaying Screen (Best results delete Thumbnail Cache in %appdata%)
+Fix Movie_TextSize incorrectly applying to both title and time (now seperate)
+
+More skin changes - can change size of cover items in NowPlaying Movies (few default options - within Styles.xml)
+
+
+Version 1.158
+Correct functioning of DisableScreenPositioning in settings.xml file  (turn on to stop FrontView+ being draggable)
+Allow Skins to change Logo (add new Skin/skinname/Interface/Logo.png) to Skin folders\
+
 
 Version 1.156
 Emby Remote Return Button Fix

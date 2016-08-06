@@ -109,6 +109,18 @@
     <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
 
 
+    <!-- Scale of the Cover X & Y - ideally the same-->
+    <System:Double x:Key="CurrentlyMovie_ScaleX">1.4</System:Double>
+    <System:Double x:Key="CurrentlyMovie_ScaleY">1.4</System:Double>
+    
+    <!-- Scale of Reflection same as above just a negative-->
+    <System:Double x:Key="CurrentlyMovie_ReflectionScaleY">-1.4</System:Double>
+
+    
+    <!-- Position of the Cover on the Screen and the Reflection - tricky to fiddle with admittedly :( -->
+    <Thickness x:Key="CurrentlyMovie_MarginCover" Left="8" Top="0" Right="0" Bottom="186"/>
+
+    <Thickness x:Key="CurrentlyMovie_MarginCoverReflection" Left="40" Top="0" Right="0" Bottom="-160"/>
     <!--  END Currently -->
 
     <!--  START Transition -->
