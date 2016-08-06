@@ -134,7 +134,7 @@ namespace FrontView.Classes
 
         public string ReceiverIP { get; set; }
 
-        public string ReceiverPort { get; set; }
+        public int ReceiverPort { get; set; }
         public int DefaultPlayMode { get; set; }
         public int LongKeyPress { get; set; }
         public int DiaporamaMode { get; set; }
@@ -220,7 +220,7 @@ namespace FrontView.Classes
             HttpUser = "";
             HttpPassword = "";
             ReceiverIP = "";
-            ReceiverPort = "23";
+            ReceiverPort = 23;
         }
 
         public bool Load(string configFile)

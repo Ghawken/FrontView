@@ -25,7 +25,7 @@ namespace FrontView
         int VolumeDown();
         int QueryVolume();
         bool MuteUnmute();
-        void Connect(IPAddress ip);
+        void Connect(IPAddress ip, int port);
         void Disconnect();
 
         bool SocketConnected();
@@ -71,11 +71,11 @@ namespace FrontView
 
         //  private Utilities _utilities;
 
-        public void Connect(IPAddress ip)
+        public void Connect(IPAddress ip, int port)
         {
             
             _sck = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(ip, _port);
+            IPEndPoint endPoint = new IPEndPoint(ip, port);
             Connect(endPoint, _sck);
             
             Receive();

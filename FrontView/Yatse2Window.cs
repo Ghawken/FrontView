@@ -484,7 +484,7 @@ namespace FrontView
             IPHostEntry ipHostInfo = Dns.Resolve(_config.ReceiverIP);
             IPAddress ipAddress = ipHostInfo.AddressList[0];
 
-            receiver.Connect(ipAddress);
+            receiver.Connect(ipAddress, _config.ReceiverPort);
 
             if (receiver.SocketConnected() == false)
             {
