@@ -1655,7 +1655,7 @@
             <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>
-                        <ImageBrush Stretch="None" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="8,0,0,445" TextWrapping="Wrap" VerticalAlignment="Center" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center"
@@ -1684,7 +1684,7 @@
             <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock Margin="8,0,0,450" VerticalAlignment="Center" Height="20.625" FontSize="18.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"

@@ -32,7 +32,7 @@
 
     <DataTemplate x:Key="MoviesDataTemplate"
 					  DataType="{x:Type Classes:Yatse2Movie}">
-        <Border x:Name="ElementVisual" Width="100" Height="150" ClipToBounds="True" Background="{x:Null}" Grid.Row="0" CornerRadius="0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="True">
+        <Border x:Name="ElementVisual" Width="100" Height="150" ClipToBounds="True" Background="Transparent" Grid.Row="0" CornerRadius="0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="True">
             <Grid>
                 <Border Name="mask" Background="#FF000000" CornerRadius="10"/>
                 <Grid>
