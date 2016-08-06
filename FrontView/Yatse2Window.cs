@@ -481,7 +481,7 @@ namespace FrontView
 
         private void ReceiverServer()
         {
-            IPHostEntry ipHostInfo = Dns.Resolve("192.168.1.245");
+            IPHostEntry ipHostInfo = Dns.Resolve(_config.ReceiverIP);
             IPAddress ipAddress = ipHostInfo.AddressList[0];
 
             receiver.Connect(ipAddress);
