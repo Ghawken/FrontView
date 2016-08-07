@@ -231,7 +231,7 @@
 
         <!-- Binded -->
         <Grid x:Name="grd_Contener">
-
+          <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
 
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden"/>
             <!-- Binded -->
@@ -898,7 +898,7 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
                 </Grid>
 
-                <Grid x:Name="grd_Settings" Visibility="Hidden"  >
+                <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0"  >
 
                     <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5">
 
@@ -1657,20 +1657,40 @@
                     </Canvas>
                 </Border>
             </Grid>
+            
             <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
-
-                <Rectangle HorizontalAlignment="Left" Margin="-22,0,0,111" RadiusY="10" RadiusX="10" Stroke="Black" Height="320.75" Width="280" VerticalAlignment="Bottom" >
+                
+                
+                <!--
+                <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                
-                <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="28,520.25,0,47" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Left"
+
+                -->
+                <Rectangle HorizontalAlignment="Left" Margin="-14,69.771,0,28" RadiusY="10" RadiusX="10"  Grid.RowSpan="2" Grid.ColumnSpan="1" Width="296" Height="382.229" VerticalAlignment="Stretch">
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--
+                <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="8,0,0,445" TextWrapping="Wrap" VerticalAlignment="Center" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center"
+                       Text="{Binding SelectedItem.Director, ElementName=lst_Movies_flow}" />
+                -->
+                <TextBlock HorizontalAlignment="Stretch" Margin="21,0,13,-20.25" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="1" Height="65.5" TextAlignment="Left"
                        Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}" />
                 
-                <TextBlock Height="29.5" Margin="28,30.625,-78.47,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left"  Foreground="{DynamicResource Default_Font_Color}" FontSize="32" TextAlignment="Center" FontWeight="Bold"
-                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}"/>
                 
+                <!-- Trying some annoying changes that do not resize with different windows about to give up: below is default 
+                <TextBlock Height="29.5" Margin="8,450,73,0" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center" FontWeight="Bold"
+                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}"/>
+                -->
+                <TextBlock Margin="144,10,196.5,0" FontSize="32" TextAlignment="Center" FontWeight="Bold"
+                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" VerticalAlignment="Stretch" />
+
+
                 <Grid Margin="362,0,8,0" Height="420" VerticalAlignment="Center">
                     <TextBlock Margin="8,8,8,170" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
                            Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}"/>
@@ -1687,9 +1707,19 @@
                 </Grid>
                 <TextBlock Height="25.5" Margin="362,0,8,445" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
         		Text="{Binding SelectedItem.Length, ElementName=lst_Movies_flow}" />
+            
+                <!--
                 <Button HorizontalAlignment="Right" Margin="0,430,8,0" VerticalAlignment="Center" Width="50" Height="50" Content="3" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
+            -->
+                <Button Margin="0,0,37.5,28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
+        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"  />
+
+
             </Grid>
+            
+            
+            
             <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>

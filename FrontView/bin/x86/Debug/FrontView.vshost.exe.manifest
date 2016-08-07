@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Skin\Internal\Images\Yatse2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="FrontView" version="1.0.126.126" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="FrontView" version="1.0.159.159" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
     <commandLine file="FrontView.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -70,26 +70,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FluidKit.dll" size="205312">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FluidKit.dll" size="201216">
       <assemblyIdentity name="FluidKit" version="1.0.0.0" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>w94fKHwLJVWOQlM3agbuc0Re9J0FHHkjVaHBYDNDguA=</dsig:DigestValue>
+        <dsig:DigestValue>xSwZnAsoetqqk2E0dZaXNGM8ANYF4wxc5YJVHShHP/4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="752640">
-      <assemblyIdentity name="FrontView" version="1.0.126.126" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="755712">
+      <assemblyIdentity name="FrontView" version="1.0.159.159" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>PfSWB3/YZxfiK9at2TiSQx2SUYCGp6tj1KR351k11hA=</dsig:DigestValue>
+        <dsig:DigestValue>B3Y/wyI4/qKs2yLiwpHbASAaYlpTPcngMsjPHvOCfRA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

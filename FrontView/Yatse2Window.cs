@@ -2060,6 +2060,25 @@ namespace FrontView
                 brd_Home_Video.Margin = new Thickness(0, 0, 100, 180);
                 brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 320, 100, 0);
+
+                /**
+                grd_Settings.ClipToBounds = false;
+                ScaleTransform myScaleTransform = new ScaleTransform();
+                myScaleTransform.ScaleX = 0.7;
+                myScaleTransform.ScaleY = 0.7;
+                grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
+                grd_Settings.RenderTransform = myScaleTransform;
+
+                grd_Remote.RenderTransform = myScaleTransform;
+
+                grd_Remote.RenderTransformOrigin = new Point(0.5, 0.5);
+
+                grd_Remotes.RenderTransformOrigin = new Point(0.5, 0.5);
+
+                grd_Remotes.RenderTransform = myScaleTransform;
+    **/
+
+
             }
             else
             {

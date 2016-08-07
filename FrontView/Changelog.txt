@@ -1,9 +1,12 @@
 ﻿Changelog:
 
+Version
+1.161 Skin Changes Very slow work...
+
+
 Version 1.159
 Fix Cropped nowPlaying Screen (Best results delete Thumbnail Cache in %appdata%)
 Fix Movie_TextSize incorrectly applying to both title and time (now seperate)
-
 More skin changes - can change size of cover items in NowPlaying Movies (few default options - within Styles.xml)
 
 
