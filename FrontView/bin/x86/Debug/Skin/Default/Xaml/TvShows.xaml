@@ -35,6 +35,7 @@
             <Grid>
                 <Border Name="mask" Background="#FF000000" CornerRadius="10"/>
                 <Grid>
+
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                     </Grid.OpacityMask>
