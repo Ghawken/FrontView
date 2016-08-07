@@ -383,11 +383,14 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Pictures, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Home_Diaporama_Click" />
                 </Grid>
                 <Grid x:Name="grd_Currently" OpacityMask="Black" Visibility="Hidden">
+
                     <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
+                        
+                        <!-- Fanart For all Now Playing Screens -->
+                        
                     </Grid.Background>
-                    <Grid Margin="0"
-        			Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
+                    <Grid Margin="0" Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                         <Border x:Name="brd_Current_Music_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="25" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0">
                             <Grid Margin="0">
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="18.667" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
@@ -577,7 +580,7 @@
                                     </Rectangle.RenderTransform>
                                 
                                 <Rectangle.Fill>
-                                    <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
+                                    <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}"  />
 
 
                                 </Rectangle.Fill>
@@ -858,6 +861,7 @@
                     </Grid>
                 </Grid>
                 <Grid x:Name="grd_Movies" Visibility="Hidden" Margin="0,-1,0,1">
+
                     <Grid.Background>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" />
                     </Grid.Background>
@@ -872,6 +876,7 @@
                             <!-- Text="{Binding SelectedItem.Title[0], ElementName=lst_Movies_flow}" -->
                         </Border>
                     </Grid>
+
                     <Rectangle Fill="#BF000000" Stroke="Black" Margin="0" Grid.Row="1" Height="110" VerticalAlignment="Bottom"/>
                     <Button x:Name="btn_Movies_AddFavorites" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Click="btn_Movies_AddFavorites_Click" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Filter_FavoritesOn/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
