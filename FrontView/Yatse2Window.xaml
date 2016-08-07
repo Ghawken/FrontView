@@ -1659,8 +1659,16 @@
             </Grid>
             
             <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
-                
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="400*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300*" />
+                    <ColumnDefinition Width="300*" />
+                </Grid.ColumnDefinitions>
+
                 <!--
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>
@@ -1669,7 +1677,7 @@
                 </Rectangle>
 
                 -->
-                <Rectangle HorizontalAlignment="Left" Margin="-14,69.771,0,28" RadiusY="10" RadiusX="10"  Grid.RowSpan="2" Grid.ColumnSpan="1" Width="296" Height="382.229" VerticalAlignment="Stretch">
+                <Rectangle  Margin="34,-10,44,-12.444" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.Row="1" >
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
                     </Rectangle.Fill>
@@ -1679,7 +1687,7 @@
                 <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="8,0,0,445" TextWrapping="Wrap" VerticalAlignment="Center" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center"
                        Text="{Binding SelectedItem.Director, ElementName=lst_Movies_flow}" />
                 -->
-                <TextBlock HorizontalAlignment="Stretch" Margin="21,0,13,-20.25" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="1" Height="65.5" TextAlignment="Left"
+                <TextBlock  Margin="34,37.444,10,10"  TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="4" TextAlignment="Left"
                        Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}" />
                 
                 
@@ -1687,32 +1695,40 @@
                 <TextBlock Height="29.5" Margin="8,450,73,0" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center" FontWeight="Bold"
                        Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}"/>
                 -->
-                <TextBlock Margin="144,10,196.5,0" FontSize="32" TextAlignment="Center" FontWeight="Bold"
-                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" VerticalAlignment="Stretch" />
+                <TextBlock Margin="132,10,140,10" FontSize="38" TextAlignment="Center" FontWeight="Bold"
+                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
 
 
-                <Grid Margin="362,0,8,0" Height="420" VerticalAlignment="Center">
-                    <TextBlock Margin="8,8,8,170" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
-                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}"/>
-                    <TextBlock Margin="8,0,8,8" TextWrapping="Wrap" FontSize="160" Opacity="0.2" Foreground="{DynamicResource Default_Font_Color}" Height="158" VerticalAlignment="Bottom" TextAlignment="Right"
-                           Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}"/>
-                    <TextBlock HorizontalAlignment="Right" Margin="0,0,8,35.6" VerticalAlignment="Bottom" Width="31" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                <TextBlock Margin="10,19.958,18,76.954" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
+                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+
+
+                <TextBlock  Margin="0,-142.657,0,-12.844"   TextWrapping="Wrap" FontSize="160" Opacity="0.2" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Right"
+                           Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="380" Grid.RowSpan="2"  />
+                
+                
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,8,335.6" VerticalAlignment="Bottom" Width="31" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         			Text="/10" />
-                    <TextBlock HorizontalAlignment="Right" Margin="0,0,43,35.6" VerticalAlignment="Bottom" Width="78" Height="49.4" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
+                
+               <TextBlock HorizontalAlignment="Right" Margin="0,0,43,335.6" VerticalAlignment="Bottom" Width="78" Height="49.4" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         			Text="{Binding SelectedItem.Rating, ElementName=lst_Movies_flow}" />
-                    <TextBlock HorizontalAlignment="Right" Margin="0,0,71,8" VerticalAlignment="Bottom" Width="109" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
+                
+               <TextBlock HorizontalAlignment="Right" Margin="0,0,71,308" VerticalAlignment="Bottom" Width="109" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         			Text="{Binding SelectedItem.Votes, ElementName=lst_Movies_flow}" />
-                    <TextBlock HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="58" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                
+               <TextBlock HorizontalAlignment="Right" Margin="0,0,8,308" VerticalAlignment="Bottom" Width="58" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         			Text="{DynamicResource Localized_82}" />
-                </Grid>
-                <TextBlock Height="25.5" Margin="362,0,8,445" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
-        		Text="{Binding SelectedItem.Length, ElementName=lst_Movies_flow}" />
+
+
+
+                <TextBlock Margin="36,0,20,76.954" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{DynamicResource Default_Font_Color}" Height="48" FontSize="24" TextAlignment="Right"
+        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" />
             
                 <!--
                 <Button HorizontalAlignment="Right" Margin="0,430,8,0" VerticalAlignment="Center" Width="50" Height="50" Content="3" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
             -->
-                <Button Margin="0,0,37.5,28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
+                <Button Margin="0,-20,-20,0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Content="3" Grid.Row="2" Grid.RowSpan="2" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"  />
 
 
