@@ -898,357 +898,357 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                 </Grid>
 
-                <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0"  >
-                    <Canvas Margin="10">
-                    <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5">
+                <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0" d:IsHidden="True"  >
+                    <Canvas Margin="10" d:IsHidden="True">
+                        <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
 
-                        <Canvas Margin="-1">
-                            <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
-                                <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Canvas d:IsHidden="True">
-                                        <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                            <Canvas Margin="-1" d:IsHidden="True">
+                                <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Canvas d:IsHidden="True">
+                                            <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_44}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" d:IsHidden="True" />
-                                        <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="76.723" d:IsHidden="True"/>
-                                        <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="76.723" d:IsHidden="True"/>
+                                            <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="76.723" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
+                                            <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
         								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="126" d:IsHidden="True" />
-                                        <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" d:IsHidden="True" />
-                                        <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723" d:IsHidden="True"/>
-                                        <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723" d:IsHidden="True"/>
-                                        <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158" d:IsHidden="True"/>
-                                        <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158" d:IsHidden="True"/>
+                                            <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" d:IsHidden="True" />
 
-                                        <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="164" Width="188" d:IsHidden="True"/>
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="164" Width="188" d:IsHidden="True"/>
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="136" Width="188" d:IsHidden="True"/>
 
-                                        <ComboBox x:Name="lst_Settings_DimTime" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="216.723" Width="188" d:IsHidden="True"/>
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <ComboBox x:Name="lst_Settings_DimTime" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="216.723" Width="188" d:IsHidden="True"/>
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="190" Width="188" d:IsHidden="True"/>
-                                    </Canvas>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
-                                        <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                        </Canvas>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
+                                            <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" d:IsHidden="True" />
 
-                                        <CheckBox x:Name="chk_Settings_RefreshOnConnect" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_RefreshOnConnect" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_68}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_QuickRefreshEnable" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Quick Refresh on Start        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,8,8,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <CheckBox x:Name="chk_Settings_ShowAudioMenu" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_ShowAudioMenu" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Show Audio Menu        " Padding="5,0,0,0" HorizontalAlignment="Right" Margin="8,127.523,185,145.277" VerticalAlignment="Top" d:IsHidden="True" />
 
 
 
-                                        <Button Width="251" Height="25.724" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,58,8,0" VerticalAlignment="Top"
+                                            <Button Width="251" Height="25.724" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,58,8,0" VerticalAlignment="Top"
         					Content="Perform FULL Library UPDATE" Click="btn_Remote_Refresh_Click" d:IsHidden="True"/>
 
-                                        <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_106}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_GenreToArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_GenreToArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_107}" Padding="5,0,0,0" Margin="8,89.393,185,0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_CropCacheImage" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_CropCacheImage" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_134}" Padding="5,0,0,0" Margin="8,0,185,105.277" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_IgnoreSortTokens" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_IgnoreSortTokens" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_136}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_TVOrderbyNewEpisodes" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_TVOrderbyNewEpisodes" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Sort Movies and TV Shows by Episode Date" Padding="5,0,0,0" Margin="8,264.8,162,0" VerticalAlignment="Top" d:IsHidden="True" />
 
 
-                                    </Grid>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
-                                        <CheckBox x:Name="chk_Settings_Diaporama" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
+                                            <CheckBox x:Name="chk_Settings_Diaporama" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_57}" Padding="5,0,0,0" Margin="8,0,162,209" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_Dimming" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_Dimming" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_58}" Padding="5,0,0,0" Margin="8,0,162,167.862" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_Currently" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_Currently" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_59}" Padding="5,0,0,0" Margin="8,0,162,85" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_CurrentlyMovie" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_CurrentlyMovie" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_60}" Padding="5,0,0,0" Margin="8,225.523,162,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_ImagesDirectory" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" IsEnabled="False" Margin="179,8.862,196,256.138" Height="27" d:IsHidden="True"/>
-                                        <Button x:Name="btn_Settings_SelectImagesDirectory" Click="btn_Settings_SelectImagesDirectory_Click" Style="{DynamicResource Button}" FontSize="16" Margin="0,8.862,8,256.138" Width="184"
+                                            <TextBox x:Name="txt_Settings_ImagesDirectory" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" IsEnabled="False" Margin="179,8.862,196,256.138" Height="27" d:IsHidden="True"/>
+                                            <Button x:Name="btn_Settings_SelectImagesDirectory" Click="btn_Settings_SelectImagesDirectory_Click" Style="{DynamicResource Button}" FontSize="16" Margin="0,8.862,8,256.138" Width="184"
         								Content="{DynamicResource Localized_61}" HorizontalAlignment="Right" Height="27" d:IsHidden="True" />
-                                        <TextBlock Width="167" Height="20" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <TextBlock Width="167" Height="20" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_64}" HorizontalAlignment="Left" Margin="8,0,0,260.569" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_MusicFanartRotation" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_MusicFanartRotation" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_108}" Padding="5,0,0,0" Margin="8,264.8,162,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_DimmingOnlyVideo" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_DimmingOnlyVideo" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_70}" Padding="5,0,0,0" Margin="8,0,162,126.2" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                    </Grid>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
-                                        <TextBox x:Name="txt_Settings_WeatherLocId" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" Height="27" IsEnabled="False" Margin="239,68.723,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
-                                        <Button x:Name="btn_Settings_WeatherLocId" Width="200" Height="27" Style="{DynamicResource Button}" FontSize="16" Click="btn_Settings_WeatherLocId_Click"
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
+                                            <TextBox x:Name="txt_Settings_WeatherLocId" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" Height="27" IsEnabled="False" Margin="239,68.723,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
+                                            <Button x:Name="btn_Settings_WeatherLocId" Width="200" Height="27" Style="{DynamicResource Button}" FontSize="16" Click="btn_Settings_WeatherLocId_Click"
         								Content="{DynamicResource Localized_62}" HorizontalAlignment="Right" Margin="0,68.723,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock Width="238" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <TextBlock Width="238" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_63}" HorizontalAlignment="Left" Margin="46,130.414,0,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <ComboBox x:Name="lst_Settings_WeatherUnit" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="288,130.414,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
-                                        <TextBlock Width="189" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <ComboBox x:Name="lst_Settings_WeatherUnit" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="288,130.414,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
+                                            <TextBlock Width="189" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_65}" HorizontalAlignment="Left" Margin="46,68.723,0,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Weather API Key:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_WeatherAPI" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_WeatherAPI" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_WeatherAPI" Padding="5,0,0,0" Margin="148,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock Margin="198,208.723,185,0" d:IsHidden="True"> 
+                                            <TextBlock Margin="198,208.723,185,0" d:IsHidden="True"> 
                                                 <Hyperlink RequestNavigate="Hyperlink_RequestNavigate" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
                                                  NavigateUri="https://www.wunderground.com/weather/api/?apiref=8d0e3e3f8bf9e135">Get Wunderground API Key</Hyperlink>
 
-                                        </TextBlock>
-                                    </Grid>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
-                                        <CheckBox x:Name="chk_Settings_Debug" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            </TextBlock>
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
+                                            <CheckBox x:Name="chk_Settings_Debug" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_66}" Padding="5,0,0,0" Margin="8,0,124,8" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
-                                            <CheckBox.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform Angle="-0.567"/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </CheckBox.RenderTransform>
-                                        </CheckBox>
-                                        <CheckBox x:Name="chk_Settings_UseBanner" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                                <CheckBox.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform Angle="-0.567"/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </CheckBox.RenderTransform>
+                                            </CheckBox>
+                                            <CheckBox x:Name="chk_Settings_UseBanner" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_54}" Padding="5,0,0,0" HorizontalAlignment="Left" Margin="8,96.723,0,0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" Visibility="Hidden" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_HideWatched" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_HideWatched" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_67}" Padding="5,0,0,0" HorizontalAlignment="Left" Margin="8,0,0,103.277" VerticalAlignment="Bottom" Visibility="Hidden" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_ShowOverlay" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_ShowOverlay" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_52}" Padding="5,0,0,0" HorizontalAlignment="Left" Margin="8,0,0,68.077" VerticalAlignment="Bottom" Visibility="Hidden" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_ShowEndTime" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_ShowEndTime" Width="250" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_94}" Padding="5,0,0,0" HorizontalAlignment="Left" Margin="8,133.393,0,0" VerticalAlignment="Top" Visibility="Hidden" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_DisableAnimations" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_DisableAnimations" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_56}" Padding="5,0,0,0" Margin="8,54.253,124,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <ComboBox x:Name="lst_Settings_HomePage" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="226,9,217,0" VerticalAlignment="Top" d:IsHidden="True"/>
-                                        <TextBlock Height="25" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <ComboBox x:Name="lst_Settings_HomePage" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="226,9,217,0" VerticalAlignment="Top" d:IsHidden="True"/>
+                                            <TextBlock Height="25" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_85}" Margin="8,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="214" d:IsHidden="True"/>
-                                        <CheckBox x:Name="chk_Settings_KeepFocus" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_KeepFocus" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_48}" Padding="5,0,0,0" Margin="8,94.723,124,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_DebugTrace" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_DebugTrace" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_135}" Padding="5,0,0,0" Margin="8,0,124,40.877" VerticalAlignment="Bottom" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_StartWithWindows" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_StartWithWindows" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_137}" Padding="5,0,0,0" Margin="8,133.393,124,139.407" d:LayoutOverrides="Height" d:IsHidden="True" />
-                                        <ComboBox x:Name="lst_Settings_DefaultPlay" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="226,0,217,91.277" VerticalAlignment="Bottom" d:IsHidden="True"/>
-                                        <TextBlock Height="25" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                            <ComboBox x:Name="lst_Settings_DefaultPlay" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Margin="226,0,217,91.277" VerticalAlignment="Bottom" d:IsHidden="True"/>
+                                            <TextBlock Height="25" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_138}" Margin="8,0,0,90.277" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="214" d:IsHidden="True"/>
-                                    </Grid>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_133}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_133}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
 
-                                        <CheckBox x:Name="chk_Settings_CheckUpdate" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_CheckUpdate" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_112}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_StartFrontViewServer" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_StartFrontViewServer" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_141}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment" d:IsHidden="True" />
 
 
-                                    </Grid>
-                                </TabItem>
-                                <TabItem Header="{DynamicResource Localized_143}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
+                                        </Grid>
+                                    </TabItem>
+                                    <TabItem Header="{DynamicResource Localized_143}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
 
-                                        <CheckBox x:Name="chk_Settings_HttpSend" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_HttpSend" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_143}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <CheckBox x:Name="chk_Settings_HttpUseDigest" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_HttpUseDigest" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Use Digest Auth (?Working)" Padding="5,0,0,0" Margin="148,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Username :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpUser" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpUser" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpUser" Padding="5,0,0,0" Margin="148,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Password :" Padding="5,0,0,0" Margin="8,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPassword" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPassword" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPassword" Padding="5,0,0,0" Margin="148,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Playback Started:" Padding="5,0,0,0" Margin="8,128.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPlaystarted" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPlaystarted" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPlaystarted" Padding="5,0,0,0" Margin="148,128.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Playback Paused:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPlaypaused" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPlaypaused" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPlaypaused" Padding="5,0,0,0" Margin="148,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Playback Stopped:" Padding="5,0,0,0" Margin="8,208.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPlaystopped" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPlaystopped" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPlaystopped" Padding="5,0,0,0" Margin="148,208.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Playback Muted:" Padding="5,0,0,0" Margin="8,248.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpMute" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpMute" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpMute" Padding="5,0,0,0" Margin="148,248.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Variables Supported:" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPFILENAME%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,38,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTITLE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,58,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPALBUM%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,78,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPFANARTURL%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,98,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPMEDIATYPE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,118,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTITLE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,138,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPPLOT%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,158,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTRACK%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,178,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPSEASONNO%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,198,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPEPISODENO%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,218,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPPROGRESS%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,238,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTIME%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,258,8,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <!--
+                                            <!--
                                         <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,89.393,185,0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" /> 
                                         <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
         					Content="{DynamicResource Localized_83}" Canvas.Left="8" Canvas.Top="318.538" Click="btn_Settings_HttpOpen_Click"/> -->
 
-                                    </Grid>
-                                </TabItem>
+                                        </Grid>
+                                    </TabItem>
 
-                                <TabItem Header="{DynamicResource Localized_145}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_145}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Playback UnMuted:" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpUnmute" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpUnmute" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpUnmute" Padding="5,0,0,0" Margin="148,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="MediaType Audio" Padding="5,0,0,0" Margin="8,38,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpMediatypeAudio" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpMediatypeAudio" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpMediatypeAudio" Padding="5,0,0,0" Margin="148,38,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="MediaType Video" Padding="5,0,0,0" Margin="8,68,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpMediatypeVideo" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpMediatypeVideo" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpMediatypeVideo" Padding="5,0,0,0" Margin="148,68,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Power ON" Padding="5,0,0,0" Margin="8,98,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPoweron" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPoweron" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPoweron" Padding="5,0,0,0" Margin="148,98,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Power Off" Padding="5,0,0,0" Margin="8,128,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPoweroff" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPoweroff" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPoweroff" Padding="5,0,0,0" Margin="148,128,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Play Start Delay:" Padding="5,0,0,0" Margin="8,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPlayStartedDelayed" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPlayStartedDelayed" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPlayStartedDelayed" Padding="5,0,0,0" Margin="148,168.723,285,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="secs" Padding="5,0,0,0" Margin="340,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_HttpPlayStartedDelay" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_HttpPlayStartedDelay" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_HttpPlayStartedDelay" Padding="5,0,0,0" Margin="388,168.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Variables Supported:" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPFILENAME%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,38,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTITLE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,58,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPALBUM%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,78,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPFANARTURL%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,98,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPMEDIATYPE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,118,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTITLE%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,138,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPPLOT%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,158,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTRACK%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,178,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPSEASONNO%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,198,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPEPISODENO%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,218,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPPROGRESS%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,238,8,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="%HTTPTIME%" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,258,8,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <!--
+                                            <!--
                                         <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,89.393,185,0" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" /> 
                                         <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
         					Content="{DynamicResource Localized_83}" Canvas.Left="8" Canvas.Top="318.538" Click="btn_Settings_HttpOpen_Click"/> -->
 
-                                    </Grid>
-                                </TabItem>
+                                        </Grid>
+                                    </TabItem>
 
-                                <TabItem Header="{DynamicResource Localized_146}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                    <Grid d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_146}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                        <Grid d:IsHidden="True">
 
-                                        <CheckBox x:Name="chk_Settings_UseReceiver" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <CheckBox x:Name="chk_Settings_UseReceiver" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Use IP Pioneer Receiver Volume Control" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="IP Pioneer Receiver :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_ReceiverIP" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_ReceiverIP" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_ReceiverIP" Padding="5,0,0,0" Margin="148,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                        <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Port :" Padding="5,0,0,0" Margin="8,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
-                                        <TextBox x:Name="txt_Settings_ReceiverPort" Style="{DynamicResource TextBox}" FontSize="16" 
+                                            <TextBox x:Name="txt_Settings_ReceiverPort" Style="{DynamicResource TextBox}" FontSize="16" 
         								Text="txt_Settings_ReceiverPort" Padding="5,0,0,0" Margin="148,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
 
-                                    </Grid>
-                                </TabItem>
+                                        </Grid>
+                                    </TabItem>
 
 
-                                <!--  Glenn currently Changing -->
-                            </TabControl>
-                            <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
-        					Content="{DynamicResource Localized_83}" Canvas.Left="8" Canvas.Top="318.538" Click="btn_Settings_SaveSettings_Click"/>
+                                    <!--  Glenn currently Changing -->
+                                </TabControl>
+                                <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
+        					Content="{DynamicResource Localized_83}" Canvas.Left="8" Canvas.Top="318.538" Click="btn_Settings_SaveSettings_Click" d:IsHidden="True"/>
 
-                            <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
-        					Content="Check for Updates" Canvas.Left="308" Canvas.Top="368.538" Click="btn_Settings_CheckforUpdates_Click"/>
+                                <Button Width="201" Height="25.724" VerticalAlignment="Top" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5"
+        					Content="Check for Updates" Canvas.Left="308" Canvas.Top="368.538" Click="btn_Settings_CheckforUpdates_Click" d:IsHidden="True"/>
 
-                            <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="Version: Unknown" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="btn_Settings_CheckforUpdates_Click" Canvas.Left="38" Canvas.Top="368.538" Width="416"/>
+                                <TextBlock x:Name="txt_Settings_VersionNo" Height="23" Text="Version: Unknown" TextWrapping="Wrap" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="btn_Settings_CheckforUpdates_Click" Canvas.Left="38" Canvas.Top="368.538" Width="416" d:IsHidden="True"/>
 
-                            <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="12" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="336" Canvas.Top="375" Width="416"/>
+                                <TextBlock Height="23" Text="https://github.com/Ghawken/FrontView" TextWrapping="Wrap" FontSize="12" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" MouseDown="TextBlock_MouseDown" Canvas.Left="336" Canvas.Top="375" Width="416" d:IsHidden="True"/>
 
-                            <Image HorizontalAlignment="Right" Width="100" Source="Skin/Internal/Images/Paypal.gif" VerticalAlignment="Bottom" Stretch="UniformToFill" StretchDirection="DownOnly" Height="30" MouseDown="Image_MouseDown" Canvas.Left="674" Canvas.Top="314"/>
-                            <Rectangle Fill="White" Height="277" StrokeThickness="3" Opacity="0.5" Canvas.Left="156" Canvas.Top="21" Width="1" d:IsHidden="True"/>
-                        </Canvas>
-                    </Border>
-                    <TextBlock Height="32" TextWrapping="Wrap" Text="{DynamicResource Localized_43}" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5" Margin="8,85,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="772"/>
-                </Canvas>
+                                <Image HorizontalAlignment="Right" Width="100" Source="Skin/Internal/Images/Paypal.gif" VerticalAlignment="Bottom" Stretch="UniformToFill" StretchDirection="DownOnly" Height="30" MouseDown="Image_MouseDown" Canvas.Left="674" Canvas.Top="314" d:IsHidden="True"/>
+                                <Rectangle Fill="White" Height="277" StrokeThickness="3" Opacity="0.5" Canvas.Left="156" Canvas.Top="21" Width="1" d:IsHidden="True"/>
+                            </Canvas>
+                        </Border>
+                        <TextBlock Height="32" TextWrapping="Wrap" Text="{DynamicResource Localized_43}" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5" Margin="8,85,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="772" d:IsHidden="True"/>
+                    </Canvas>
                 </Grid>
                 <!-- Binded -->
                 <Grid x:Name="grd_Remotes" Visibility="Hidden" d:IsHidden="True">
@@ -1533,7 +1533,7 @@
                 <!-- Binded -->
             </Controls:TransitionPresenter>
 
-            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True" d:IsHidden="True">
+            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True">
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="580" Height="325" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" Margin="0,-205,-301,0" Stretch="Fill" StrokeThickness="3" d:IsHidden="True"/>
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" Width="580" Height="330" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" HorizontalAlignment="Left" Margin="-405,-255,0,0" VerticalAlignment="Top"
                   Visibility="{Binding ShowHomeButton, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" MouseDown="img_Header_Home_MouseDown" d:IsHidden="True"/>
@@ -1658,8 +1658,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible" d:IsHidden="True">
-                <!-- Change back to Hidden when down Glenn-->
+            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1669,6 +1668,19 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
+
+                <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity="0.5">
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" />
+                        <!-- Fanart For all Now Playing Screens -->
+                    </Rectangle.Fill>
+                </Rectangle>
+              <!--  <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity=".5" Fill="Black">
+                </Rectangle>
+                -->
+                
+                <!-- Change back to Hidden when down Glenn-->
+
 
                 <!--
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">

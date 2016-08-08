@@ -168,6 +168,7 @@ namespace Remote.Emby.Api
                         _parent.Trace("--------------GETTING Single TV Season Selection Result ------" + json);
 
                         var deserializer = new JavaScriptSerializer();
+                        deserializer.MaxJsonLength = Int32.MaxValue;
 
                         var ItemData = deserializer.Deserialize<TVSeasons.Rootobject>(json);
                         _parent.Trace("---------------Get Single TV Season Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
@@ -693,7 +694,7 @@ namespace Remote.Emby.Api
                         var deserializer = new JavaScriptSerializer();
 
                         var ItemData = deserializer.Deserialize<SingleMovieItem.Rootobject>(json);
-                        _parent.Trace("---------------Get Single Movie Selection:  Issue: Results.Taglines: " + ItemData.Taglines);
+                        _parent.Trace("---------------Get Single Movie Selection:  Issue: Results.Taglines: " + ItemData.Taglines.ToString());
 
                         return ItemData;
 
@@ -909,8 +910,11 @@ namespace Remote.Emby.Api
                         {
                             string json = sr.ReadToEnd();
                             _parent.Trace("--------------GETTING TV Episodes Selection Result ------" + json);
+
                             var deserializer = new JavaScriptSerializer();
+
                             deserializer.MaxJsonLength = Int32.MaxValue;
+
                             var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
                             _parent.Trace("---------------Get Single TV Episode Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
                             foreach (var genre in ItemData.Items)

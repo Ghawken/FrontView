@@ -77,19 +77,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fSAuFYV5eD6GIC+HCfAdwANoHRshSHPETUiHW7WQ/BE=</dsig:DigestValue>
+        <dsig:DigestValue>fSCg30D42gIcnKJOqk2zGp4waR/RgHkZf2GGB2CBfFE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="756224">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="756736">
       <assemblyIdentity name="FrontView" version="1.0.162.162" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>dHtP2huxw76pMN2gzAtTnEUBfV82iKGTHVrxPQwB+oo=</dsig:DigestValue>
+        <dsig:DigestValue>gunO5XdDV1GpBOH3G3TcE2VuUn1FO4HxZpAFEmFu/XE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

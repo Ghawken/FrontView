@@ -963,8 +963,14 @@ namespace FrontView
 
             if (!_setPov)
             {
-                _yatse2Properties.TvShowPosterPov = (lst_TvShows_flow.ActualWidth/lst_TvShows_flow.ActualHeight)/10*85;
+
+                
+                              
+
+                 _yatse2Properties.TvShowPosterPov = (lst_TvShows_flow.ActualWidth/lst_TvShows_flow.ActualHeight)/10*85;
+
                 _yatse2Properties.VideoPov = (lst_Movies_flow.ActualWidth/lst_Movies_flow.ActualHeight)/10*85;
+
                 _yatse2Properties.AudioGenresPov = (lst_AudioGenres_flow.ActualWidth/lst_AudioGenres_flow.ActualHeight)/
                                                    10*85;
                 _yatse2Properties.AudioAlbumsPov = (lst_AudioAlbums_flow.ActualWidth/lst_AudioAlbums_flow.ActualHeight)/
