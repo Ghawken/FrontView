@@ -382,14 +382,19 @@
                     <Button Content="Button" HorizontalAlignment="Right" Height="48" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="48" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Pictures, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Home_Diaporama_Click" d:IsHidden="True" />
                 </Grid>
-                <Grid x:Name="grd_Currently" OpacityMask="Black" Visibility="Hidden" d:IsHidden="True">
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden" d:IsHidden="True">
 
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
 
                         <!-- Fanart For all Now Playing Screens -->
 
-                    </Grid.Background>
+
+
+                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    
                     <Grid Margin="0" Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
                         <Border x:Name="brd_Current_Music_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="25" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
                             <Grid Margin="0" d:IsHidden="True">
@@ -860,15 +865,22 @@
                         </Border>
                     </Grid>
                 </Grid>
-                <Grid x:Name="grd_Movies" Visibility="Hidden" Margin="0,-1,0,1" d:IsHidden="True">
+                <Grid x:Name="grd_Movies" Visibility="Hidden" Background="#EE000000" Margin="0,-1,0,1" d:IsHidden="True">
 
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" />
-                    </Grid.Background>
+                    
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
+
+
+                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
                     <Grid x:Name="grd_Movies_CurrentLetter" VerticalAlignment="Bottom" Height="125" Margin="0,0,0,-26" PreviewMouseMove="grd_Movies_CurrentLetter_PreviewMouseMove" PreviewMouseLeftButtonUp="grd_Movies_CurrentLetter_PreviewMouseLeftButtonUp" MouseLeave="grd_Movies_CurrentLetter_MouseLeave" Background="#00000000" d:IsHidden="True">
                         <Border HorizontalAlignment="Center" Margin="0" Width="75" BorderBrush="#FF929191" BorderThickness="2" CornerRadius="15" Background="Black" Height="75" VerticalAlignment="Top" PreviewMouseLeftButtonDown="Border_PreviewMouseLeftButtonDown" d:IsHidden="True">
                             <TextBlock x:Name="txb_Movies_CurrentLetter" Margin="0" FontSize="64" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Center" TextWrapping="Wrap" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75" d:IsHidden="True"
@@ -1293,14 +1305,21 @@
                         </Canvas>
                     </Border>
                 </Grid>
-                <Grid x:Name="grd_AudioGenres" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Name, ConverterParameter=Genre_Fanart, Converter={x:Static Yatse2:SkinImageConverter.Instance}, ElementName=lst_AudioGenres_flow}"/>
-                    </Grid.Background>
+                <Grid x:Name="grd_AudioGenres" Background="#EE000000" Visibility="Hidden" d:IsHidden="True">
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.48*"/>
                         <RowDefinition Height="0.52*"/>
                     </Grid.RowDefinitions>
+
+
+                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Name, ConverterParameter=Genre_Fanart, Converter={x:Static Yatse2:SkinImageConverter.Instance}, ElementName=lst_AudioGenres_flow}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+
                     <Grid x:Name="grd_AudioGenres_CurrentLetter" VerticalAlignment="Bottom" Height="125" Margin="0,0,0,-42" MouseLeave="grd_AudioGenres_CurrentLetter_MouseLeave" PreviewMouseLeftButtonUp="grd_AudioGenres_CurrentLetter_PreviewMouseLeftButtonUp" PreviewMouseMove="grd_AudioGenres_CurrentLetter_PreviewMouseMove" Background="#00000000" d:IsHidden="True">
                         <Border HorizontalAlignment="Center" Margin="0" Width="75" BorderBrush="#FF929191" BorderThickness="2" CornerRadius="15" Background="Black" Height="75" VerticalAlignment="Top" PreviewMouseLeftButtonDown="brd_AudioGenres_PreviewMouseLeftButtonDown" d:IsHidden="True">
                             <TextBlock x:Name="txb_AudioGenres_CurrentLetter" Margin="0" FontSize="64" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Center" TextWrapping="Wrap" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75"
@@ -1333,14 +1352,22 @@
                     <Button x:Name="btn_AudioGenre_Filter" HorizontalAlignment="Left" Margin="68,0,0,3" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Click="btn_Movies_Filter_Click" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                 </Grid>
-                <Grid x:Name="grd_AudioAlbums" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding CurrentAlbumArtistFanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, Source={StaticResource Yatse2Properties}}" />
-                    </Grid.Background>
+                <Grid x:Name="grd_AudioAlbums" Background="#EE000000" Visibility="Hidden" d:IsHidden="True">
+
+
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
+
+
+                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding CurrentAlbumArtistFanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    
                     <Grid x:Name="grd_AudioAlbums_CurrentLetter" VerticalAlignment="Bottom" Height="125" Margin="0,0,0,-26" MouseLeave="grd_AudioAlbums_CurrentLetter_MouseLeave" PreviewMouseLeftButtonUp="grd_AudioAlbums_CurrentLetter_PreviewMouseLeftButtonUp" PreviewMouseMove="grd_AudioAlbums_CurrentLetter_PreviewMouseMove" Background="#00000000" d:IsHidden="True">
                         <Border HorizontalAlignment="Center" Margin="0" Width="75" BorderBrush="#FF929191" BorderThickness="2" CornerRadius="15" Background="Black" Height="75" VerticalAlignment="Top" PreviewMouseLeftButtonDown="brd_AudioAlbums_PreviewMouseLeftButtonDown" d:IsHidden="True">
                             <TextBlock x:Name="txb_AudioAlbums_CurrentLetter" Margin="0" FontSize="64" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Center" TextWrapping="Wrap" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75"
@@ -1373,14 +1400,18 @@
                     <Button x:Name="btn_AudioAlbums_Filter" HorizontalAlignment="Left" Margin="65,0,0,3" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Click="btn_Movies_Filter_Click" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                 </Grid>
-                <Grid x:Name="grd_AudioArtists" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}"/>
-                    </Grid.Background>
+                <Grid x:Name="grd_AudioArtists" Background="#EE000000" Visibility="Hidden" d:IsHidden="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
+
+                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+
                     <Rectangle Fill="#BF000000" Margin="0" Grid.Row="1" Height="110" VerticalAlignment="Bottom" d:IsHidden="True"/>
                     <Button  HorizontalAlignment="Left" Margin="3,0,0,3" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Filter_FavoritesOn/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_AudioArtists_AddFavorites_Click" d:IsHidden="True"/>
@@ -1417,14 +1448,21 @@
                     <Button x:Name="btn_AudioArtists_Filter" HorizontalAlignment="Left" Margin="66,0,0,3" VerticalAlignment="Bottom" Width="60" Height="60" Content="1" Grid.Row="1" Click="btn_Movies_Filter_Click" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                 </Grid>
-                <Grid x:Name="grd_TvShows" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
-                    </Grid.Background>
+                <Grid x:Name="grd_TvShows" Background="#EE000000"  Visibility="Hidden" d:IsHidden="True">
+
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
+
+
+                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    
                     <Grid x:Name="grd_TvShows_CurrentLetter" VerticalAlignment="Bottom" Height="125" Margin="0,0,0,-2" PreviewMouseMove="grd_TvShows_CurrentLetter_PreviewMouseMove" PreviewMouseLeftButtonUp="grd_TvShows_CurrentLetter_PreviewMouseLeftButtonUp" MouseLeave="grd_TvShows_CurrentLetter_MouseLeave" Background="#00000000" d:IsHidden="True">
                         <Border HorizontalAlignment="Center" Margin="0" Width="75" BorderBrush="#FF929191" BorderThickness="2" CornerRadius="15" Background="Black" Height="75" VerticalAlignment="Top" PreviewMouseLeftButtonDown="TvShowBorder_PreviewMouseLeftButtonDown" d:IsHidden="True">
                             <TextBlock x:Name="txb_TvShows_CurrentLetter" Margin="0" FontSize="64" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Center" TextWrapping="Wrap" Height="75" VerticalAlignment="Center" HorizontalAlignment="Center" Width="75" d:IsHidden="True"
@@ -1462,14 +1500,20 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
 
                 </Grid>
-                <Grid x:Name="grd_TvSeasons" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
-                    </Grid.Background>
+                <Grid x:Name="grd_TvSeasons" Visibility="Hidden" Background="#EE000000" d:IsHidden="True">
+
+
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
+
+                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Margin="0,62.046,0,0" Grid.Row="1" d:IsHidden="True"/>
                     <TextBlock Margin="164,0,164,33" FontSize="32" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="44" VerticalAlignment="Bottom" Grid.Row="1"
         			Text="{Binding TvSeasonName, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
@@ -1494,10 +1538,13 @@
         			Source="{Binding SelectedItem.Studio, ConverterParameter=Studios, Converter={x:Static Yatse2:SkinImageConverter.Instance}, ElementName=lst_TvShows_flow}" HorizontalAlignment="Left" Margin="62,0,0,8" Grid.Row="1" d:IsHidden="True" />
 
                 </Grid>
-                <Grid x:Name="grd_TvEpisodes" Visibility="Hidden" d:IsHidden="True">
-                    <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
-                    </Grid.Background>
+                <Grid x:Name="grd_TvEpisodes" Background="#EE000000" Visibility="Hidden" d:IsHidden="True">
+
+                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Grid.Row="1" Height="121" VerticalAlignment="Bottom" d:IsHidden="True"/>
                     <TextBlock Margin="225,0,67,8" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" Height="104" VerticalAlignment="Bottom"
         			Text="{Binding SelectedItem.Plot, ElementName=lst_TvEpisodes_flow}" TextAlignment="Justify" d:LayoutOverrides="GridBox" d:IsHidden="True"/>
@@ -1672,7 +1719,7 @@
                 <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity="0.5">
                     <Rectangle.Fill>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}"/>
-                        <!-- Fanart For all Now Playing Screens -->
+                        
                     </Rectangle.Fill>
                 </Rectangle>
               <!--  <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity=".5" Fill="Black">
