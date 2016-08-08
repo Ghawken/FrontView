@@ -1,5 +1,4 @@
 # FrontView
-New Name - fork of Yatse2
 
 ![Alt text](http://i68.tinypic.com/2jayyc6.png)
 
