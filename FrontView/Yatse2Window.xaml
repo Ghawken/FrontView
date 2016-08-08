@@ -391,7 +391,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
                         </Rectangle.Fill>
                     </Rectangle>
                     
@@ -877,7 +877,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -1408,7 +1408,7 @@
 
                     <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -1459,7 +1459,7 @@
 
                     <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
                     </Rectangle>
                     
@@ -1511,7 +1511,7 @@
 
                     <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
                     </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Margin="0,62.046,0,0" Grid.Row="1" d:IsHidden="True"/>
@@ -1542,7 +1542,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
                     </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Grid.Row="1" Height="121" VerticalAlignment="Bottom" d:IsHidden="True"/>
