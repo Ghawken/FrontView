@@ -125,7 +125,8 @@
 
     <Thickness x:Key="CurrentlyMovie_MarginCoverReflection" Left="40" Top="0" Right="0" Bottom="-125"/>
 
-    <System:Double x:Key="FanartOpacity">20</System:Double>
+        <!-- This changes the brighest of all fanart displays - from 0 to 1  -->
+    <System:Double x:Key="FanartOpacity">1</System:Double>
         
         
 

@@ -1375,7 +1375,7 @@
                 </Grid>
                 <Grid x:Name="grd_AudioArtists" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}"/>
                     </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
@@ -1419,7 +1419,7 @@
                 </Grid>
                 <Grid x:Name="grd_TvShows" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" />
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                     </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
@@ -1464,7 +1464,7 @@
                 </Grid>
                 <Grid x:Name="grd_TvSeasons" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" />
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                     </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.556*"/>
@@ -1496,7 +1496,7 @@
                 </Grid>
                 <Grid x:Name="grd_TvEpisodes" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" />
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                     </Grid.Background>
                     <Rectangle Fill="#BF000000" Stroke="Black" Grid.Row="1" Height="121" VerticalAlignment="Bottom" d:IsHidden="True"/>
                     <TextBlock Margin="225,0,67,8" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" Height="104" VerticalAlignment="Bottom"
@@ -1671,7 +1671,7 @@
 
                 <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity="0.5">
                     <Rectangle.Fill>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" />
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}"/>
                         <!-- Fanart For all Now Playing Screens -->
                     </Rectangle.Fill>
                 </Rectangle>
