@@ -2061,22 +2061,18 @@ namespace FrontView
                 brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 320, 100, 0);
 
-                /**
+
+
+                
                 grd_Settings.ClipToBounds = false;
                 ScaleTransform myScaleTransform = new ScaleTransform();
-                myScaleTransform.ScaleX = 0.7;
-                myScaleTransform.ScaleY = 0.7;
-                grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
+                myScaleTransform.ScaleX = 0.85;
+                myScaleTransform.ScaleY = 0.85;
+            //    grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
                 grd_Settings.RenderTransform = myScaleTransform;
 
-                grd_Remote.RenderTransform = myScaleTransform;
 
-                grd_Remote.RenderTransformOrigin = new Point(0.5, 0.5);
-
-                grd_Remotes.RenderTransformOrigin = new Point(0.5, 0.5);
-
-                grd_Remotes.RenderTransform = myScaleTransform;
-    **/
+    
 
 
             }
@@ -2085,6 +2081,13 @@ namespace FrontView
                 brd_Home_Video.Margin = new Thickness(0, 0, 100, 250);
                 brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 390, 100, 0);
+
+                grd_Settings.ClipToBounds = true;
+                ScaleTransform myScaleTransform = new ScaleTransform();
+                myScaleTransform.ScaleX = 1.0;
+                myScaleTransform.ScaleY = 1.0;
+             //   grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
+                grd_Settings.RenderTransform = myScaleTransform;
             }
 
             
