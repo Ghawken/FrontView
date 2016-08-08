@@ -279,7 +279,7 @@ namespace Remote.Emby.Api
                                     var tvShow = new ApiTvEpisode
                                     {
                                         Title = genre.Name ?? "",
-                                        Plot = "",
+                                        Plot = "", 
                                         Rating = genre.OfficialRating ?? "",
                                         Mpaa = "",
                                         Date = sqlFormattedDate,
