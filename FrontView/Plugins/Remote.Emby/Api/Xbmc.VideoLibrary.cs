@@ -90,7 +90,7 @@ namespace Remote.Emby.Api
                             {
 
                                 // var SingleTVData = GetSingleTVFromSeries(genre.Id);
-                                _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Season Number:" + (long)(int)genre.ParentIndexNumber);
+                                _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Season Number:" + genre.ParentIndexNumber);
                                 _parent.Trace("---Emby QuickRefresh GetTVSeasons--- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
                                 _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Series Name:" + genre.SeriesName);
                                 _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Thumb:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "");
@@ -100,7 +100,7 @@ namespace Remote.Emby.Api
 
                                 var tvShow = new ApiTvSeason
                                 {
-                                    SeasonNumber = (long)(int)genre.ParentIndexNumber,
+                                    SeasonNumber = genre.ParentIndexNumber,
                                     IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                                     Show = genre.SeriesName ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
@@ -138,14 +138,14 @@ namespace Remote.Emby.Api
             {
 
 
-                _parent.Trace("Getting TV Seasons" + _parent.IP);
+                _parent.Trace("Getting TV Seasons:" + _parent.IP);
                 string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=Season";
 
                 var request = WebRequest.CreateHttp(NPurl);
 
                 request.Method = "get";
-                request.Timeout = 150000;
-                _parent.Trace("GetTVSeasons TV Season Selection: " + NPurl);
+                request.Timeout = 700000;
+                _parent.Trace("Get TVSeasons TV Season Selection: " + NPurl);
 
                 var authString = _parent.GetAuthString();
 
@@ -188,7 +188,7 @@ namespace Remote.Emby.Api
 
                                 var tvShow = new ApiTvSeason
                                 {
-                                    SeasonNumber = (long)(int)genre.IndexNumber,
+                                    SeasonNumber = genre.IndexNumber,
                                     IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                                     Show = genre.SeriesName ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
@@ -231,7 +231,7 @@ namespace Remote.Emby.Api
                 var request = WebRequest.CreateHttp(NPurl);
 
                 request.Method = "get";
-                request.Timeout = 150000;
+                request.Timeout = 700000;
                 _parent.Trace("GetTVEpisodes: Single TV Episode Selection: " + _parent.IP + ":" + _parent.Port);
 
                 var authString = _parent.GetAuthString();
@@ -326,7 +326,7 @@ namespace Remote.Emby.Api
                 string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode";
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
-                request.Timeout = 150000;
+                request.Timeout = 700000;
                 _parent.Trace("Single REFRESH TV Episode Selection in TVSHOWS: " + _parent.IP + ":" + _parent.Port);
                 var authString = _parent.GetAuthString();
                 request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);

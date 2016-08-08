@@ -2072,9 +2072,6 @@ namespace FrontView
                 grd_Settings.RenderTransform = myScaleTransform;
 
 
-    
-
-
             }
             else
             {
@@ -2099,8 +2096,13 @@ namespace FrontView
 
 
             }
-            
-            _setPov = false;
+
+            if (_config.Resolution.DMPelsHeight != 480)
+            {
+                _config.Hack480 = false;
+            }
+
+                _setPov = false;
         }
 
         private void notifyIcon1_DoubleClick(object Sender, EventArgs e)

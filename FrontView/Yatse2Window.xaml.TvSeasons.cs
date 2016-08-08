@@ -29,6 +29,9 @@ namespace FrontView
 
         private void lst_TvSeasons_flow_PreviewMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+
+           
+
             var timediff = (DateTime.Now - _mouseDownTime).TotalMilliseconds;
             if (timediff > 75 && timediff < SystemInformation.DoubleClickTime)
             {
