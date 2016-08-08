@@ -30,9 +30,9 @@
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
-        
-    
-        
+
+
+
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
         <Style x:Key="ListBoxStyle_TvEpisodes" TargetType="{x:Type ListBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
@@ -231,17 +231,17 @@
 
         <!-- Binded -->
         <Grid x:Name="grd_Contener">
-          <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
+            <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
 
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden"/>
             <!-- Binded -->
-            <Grid x:Name="grd_Diaporama" MouseDown="grd_Diaporama_MouseDown" Panel.ZIndex="99" Background="Black" Opacity="0" Visibility="Hidden">
+            <Grid x:Name="grd_Diaporama" MouseDown="grd_Diaporama_MouseDown" Panel.ZIndex="99" Background="Black" Opacity="0" Visibility="Hidden" d:IsHidden="True">
                 <Image x:Name="img_Diaporama1" OpacityMask="#FFBD2E2E" Stretch="Uniform" 
                    Source="{Binding DiaporamaImage1, Source={StaticResource Yatse2Properties}}" />
                 <Image x:Name="img_Diaporama2" Opacity="0" Stretch="Uniform"
                    Source="{Binding DiaporamaImage2, Source={StaticResource Yatse2Properties}}"/>
             </Grid>
-            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" >
+            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
                 <!-- Binded -->
                 <Grid x:Name="grd_Weather" Visibility="Hidden">
                     <Grid.Background>
@@ -386,9 +386,9 @@
 
                     <Grid.Background>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
-                        
+
                         <!-- Fanart For all Now Playing Screens -->
-                        
+
                     </Grid.Background>
                     <Grid Margin="0" Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                         <Border x:Name="brd_Current_Music_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="25" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0">
@@ -522,7 +522,7 @@
         						Visibility="{Binding Currently.IsMovieDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Movie_HideDetails_Click"/>
                             </Grid>
                         </Border>
-                       
+
                         <Border x:Name="brd_Current_Movie" VerticalAlignment="Bottom" 
         				Height="150" BorderBrush="Black" BorderThickness="0" Background="#BF000000">
                             <Grid Margin="0">
@@ -567,18 +567,18 @@
                         </Border>
                         <Border >
                             <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{DynamicResource CurrentlyMovie_MarginCover}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
-                             
-                                
+
+
                                 <!-- Big one old equals Margin="8,0,0,186" -->
                                 <Rectangle.RenderTransform>
-                                        <TransformGroup>
+                                    <TransformGroup>
                                         <ScaleTransform ScaleX="{DynamicResource CurrentlyMovie_ScaleX}" ScaleY="{DynamicResource CurrentlyMovie_ScaleY}"/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Rectangle.RenderTransform>
-                                
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Rectangle.RenderTransform>
+
                                 <Rectangle.Fill>
                                     <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}"  />
 
@@ -1533,7 +1533,7 @@
                 <!-- Binded -->
             </Controls:TransitionPresenter>
 
-            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True">
+            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True" d:IsHidden="True">
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="580" Height="325" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" Margin="0,-205,-301,0" Stretch="Fill" StrokeThickness="3"/>
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" Width="580" Height="330" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" HorizontalAlignment="Left" Margin="-405,-255,0,0" VerticalAlignment="Top"
                   Visibility="{Binding ShowHomeButton, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" MouseDown="img_Header_Home_MouseDown"/>
@@ -1657,16 +1657,17 @@
                     </Canvas>
                 </Border>
             </Grid>
-            
-            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
+
+            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
+                <!-- Change back to Hidden when down Glenn-->
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="400*" />
-                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300*" />
-                    <ColumnDefinition Width="300*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
                 <!--
@@ -1677,7 +1678,7 @@
                 </Rectangle>
 
                 -->
-                <Rectangle  Margin="34,-10,44,-12.444" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.Row="1" >
+                <Rectangle  Margin="50,90,51,88" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.RowSpan="3" >
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
                     </Rectangle.Fill>
@@ -1687,55 +1688,55 @@
                 <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="8,0,0,445" TextWrapping="Wrap" VerticalAlignment="Center" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center"
                        Text="{Binding SelectedItem.Director, ElementName=lst_Movies_flow}" />
                 -->
-                <TextBlock  Margin="34,37.444,10,10"  TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="4" TextAlignment="Left"
-                       Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}" />
-                
-                
+                <TextBlock  Margin="21,0,23,30"  TextWrapping="Wrap" VerticalAlignment="Bottom"  Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="2" TextAlignment="Center"
+                       Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}" Height="53" />
+
+
                 <!-- Trying some annoying changes that do not resize with different windows about to give up: below is default 
                 <TextBlock Height="29.5" Margin="8,450,73,0" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center" FontWeight="Bold"
                        Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}"/>
                 -->
-                <TextBlock Margin="132,10,140,10" FontSize="38" TextAlignment="Center" FontWeight="Bold"
-                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+                <TextBlock Margin="137,10,135,0" FontSize="38" TextAlignment="Center" FontWeight="Bold"
+                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top"/>
 
 
-                <TextBlock Margin="10,19.958,18,76.954" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
-                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1"/>
+                <TextBlock Margin="19,21,41,175" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
+                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1"/>
 
 
-                <TextBlock  Margin="0,-142.657,0,-12.844"   TextWrapping="Wrap" FontSize="160" Opacity="0.2" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Right"
-                           Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Width="380" Grid.RowSpan="2"  />
-                
-                
-                <TextBlock HorizontalAlignment="Right" Margin="0,0,8,335.6" VerticalAlignment="Bottom" Width="31" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        			Text="/10" />
-                
-               <TextBlock HorizontalAlignment="Right" Margin="0,0,43,335.6" VerticalAlignment="Bottom" Width="78" Height="49.4" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        			Text="{Binding SelectedItem.Rating, ElementName=lst_Movies_flow}" />
-                
-               <TextBlock HorizontalAlignment="Right" Margin="0,0,71,308" VerticalAlignment="Bottom" Width="109" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        			Text="{Binding SelectedItem.Votes, ElementName=lst_Movies_flow}" />
-                
-               <TextBlock HorizontalAlignment="Right" Margin="0,0,8,308" VerticalAlignment="Bottom" Width="58" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        			Text="{DynamicResource Localized_82}" />
+                <TextBlock  Margin="10,0,13,10"   TextWrapping="Wrap" FontSize="160" Opacity="0.2" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Right"
+                           Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="179" VerticalAlignment="Bottom"  />
+
+
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,83,19" Width="47" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+        			Text="/10" Grid.Row="2"  Grid.Column="1" Height="20" VerticalAlignment="Bottom" />
+
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,135,10" VerticalAlignment="Bottom" Width="78" Height="50" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
+        			Text="{Binding SelectedItem.Rating, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="2"  />
+
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,13,34" VerticalAlignment="Bottom" Width="109" Height="16" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Center"
+        			Text="{Binding SelectedItem.Votes, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="2"  />
+
+                <TextBlock Margin="0,0,41,13" VerticalAlignment="Bottom" Height="16" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Center"
+        			Text="{DynamicResource Localized_82}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="58" />
 
 
 
-                <TextBlock Margin="36,0,20,76.954" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{DynamicResource Default_Font_Color}" Height="48" FontSize="24" TextAlignment="Right"
-        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" />
-            
+                <TextBlock Margin="31,248,25,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
+        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Top" />
+
                 <!--
                 <Button HorizontalAlignment="Right" Margin="0,430,8,0" VerticalAlignment="Center" Width="50" Height="50" Content="3" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
             -->
-                <Button Margin="0,-20,-20,0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Content="3" Grid.Row="2" Grid.RowSpan="2" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
-        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"  />
+                <Button Margin="10,0,0,0" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
+        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Grid.Column="1" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="50"  />
 
 
             </Grid>
-            
-            
-            
+
+
+
             <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Rectangle HorizontalAlignment="Left" Margin="8,0,0,0" RadiusY="10" RadiusX="10" Stroke="Black" Width="265" StrokeThickness="0" Height="400" VerticalAlignment="Center">
                     <Rectangle.Fill>
