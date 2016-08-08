@@ -1540,7 +1540,7 @@
                 </Grid>
 
 
-                <Grid x:Name="grd_TvEpisodes" Background="#EE000000" Visibility="Visible">
+                <Grid x:Name="grd_TvEpisodes" Background="#EE000000" Visibility="Hidden">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="4*" />

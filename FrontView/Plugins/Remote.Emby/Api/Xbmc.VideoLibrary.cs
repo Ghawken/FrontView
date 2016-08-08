@@ -271,7 +271,7 @@ namespace Remote.Emby.Api
 
                                 DateTime myDateTime = genre.PremiereDate;
                                 string sqlFormattedDate = myDateTime.ToString("s");
-
+                                
                                 //Remove Embys Virtual Episodes from the Database
 
                                 if (genre.LocationType != "Virtual")

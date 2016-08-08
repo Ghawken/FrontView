@@ -1,8 +1,12 @@
 ﻿Changelog:
 
 Version
-1.161 Skin Changes Very slow work...
-
+1.162 Skin Changes Very slow work...
+Changed Movies Details Screen, TV episode and TV Info Screen
+Add Opacity to Fanart - in Styles.xaml (select number from 0-1 to dim to black the fanart in all screens)
+Resize Settings screen if 480 pixels deep
+Some other changes
+New skins to support different Emby Coverart Treatments - still no complete covers all possibles solution.
 
 Version 1.159
 Fix Cropped nowPlaying Screen (Best results delete Thumbnail Cache in %appdata%)
