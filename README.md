@@ -3,6 +3,8 @@ New Name - fork of Yatse2
 
 ![Alt text](http://i68.tinypic.com/2jayyc6.png)
 
+![Image of FrontView+](http://emby.media/community/uploads/inline/103208/579db30ce1b09_RedCurtain.png)
+
 FrontView+ is an update and a new name for Yatse2 – Yatse2 was a program written by Tolriq for use on Home Theatre Windows Based PCs for Second LCD Screen information.  (see original thread here http://forum.kodi.tv/showthread.php?tid=68936&page=55 )
 
 FrontView+ is an update on this older code (to .Net 4.5.1) adding further features and additional remote code to support Plex and Emby, with two additions for improved functionality with both Kodi and Emby.  (Kodi service and Emby Plugin)
