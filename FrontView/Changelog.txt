@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+Fix PremeireDate Emby Format
+
+
 Version
 1.162 Skin Changes Very slow work...
 Changed Movies Details Screen, TV episode and TV Info Screen

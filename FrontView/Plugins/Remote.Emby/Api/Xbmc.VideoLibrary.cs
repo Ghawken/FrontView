@@ -393,7 +393,7 @@ namespace Remote.Emby.Api
                                     IdShow = Xbmc.IDtoNumber(genre.SeriesId),
                                     TotalCount = (long)(int)SingleTVData.RecursiveItemCount,
                                     Path = SingleTVData.Path ?? "",
-                                    Premiered = SingleTVData.PremiereDate.ToString("s") ?? "",
+                                    Premiered = SingleTVData.PremiereDate.ToString("D") ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
                                     Hash = Xbmc.Hash(genre.SeriesId)
@@ -501,7 +501,7 @@ namespace Remote.Emby.Api
                                     IdShow = Xbmc.IDtoNumber(genre.Id),
                                     TotalCount = (long)(int)genre.RecursiveItemCount,
                                     Path = SingleTVData.Path ?? "",
-                                    Premiered = genre.PremiereDate.ToString("s") ?? "",
+                                    Premiered = genre.PremiereDate.ToString("D") ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Backdrop" ?? "",
                                     Hash = Xbmc.Hash(genre.Id)
