@@ -1,7 +1,7 @@
 ﻿Changelog:
 
 Fix PremeireDate Emby Format
-
+Enlarge Playback Button Depending on screen Format Movies Details Screen
 
 Version
 1.162 Skin Changes Very slow work...

@@ -389,7 +389,7 @@
 
 
 
-                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
                         </Rectangle.Fill>
@@ -875,7 +875,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1313,7 +1313,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Name, ConverterParameter=Genre_Fanart, Converter={x:Static Yatse2:SkinImageConverter.Instance}, ElementName=lst_AudioGenres_flow}" />
                         </Rectangle.Fill>
@@ -1362,7 +1362,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding CurrentAlbumArtistFanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1406,7 +1406,7 @@
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
 
-                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1457,7 +1457,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1509,7 +1509,7 @@
                         <RowDefinition Height="0.4*"/>
                     </Grid.RowDefinitions>
 
-                    <Rectangle Margin="0"  Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1550,7 +1550,7 @@
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <Rectangle Margin="0" Grid.ColumnSpan="6" Grid.RowSpan="6" Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
                         </Rectangle.Fill>
@@ -1725,7 +1725,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
+            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1808,8 +1808,8 @@
                 <Button HorizontalAlignment="Right" Margin="0,430,8,0" VerticalAlignment="Center" Width="50" Height="50" Content="3" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
             -->
-                <Button Margin="10,350,315,88" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
-        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Grid.Column="1" Grid.RowSpan="2"  />
+                <Button Margin="0,0,315,10" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
+        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="78" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
 
 
             </Grid>

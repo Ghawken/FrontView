@@ -145,6 +145,7 @@ namespace Remote.Emby.Api
 
                 request.Method = "get";
                 request.Timeout = 700000;
+                request.KeepAlive = false;
                 _parent.Trace("Get TVSeasons TV Season Selection: " + NPurl);
 
                 var authString = _parent.GetAuthString();
