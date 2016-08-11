@@ -67,7 +67,7 @@ namespace FrontView
         private readonly ManualResetEvent sendDone = new ManualResetEvent(false);
         private readonly ManualResetEvent receiveDone = new ManualResetEvent(false);
         private Socket _sck;
-        private int _port = 23;
+        //private int _port = 23;
 
         //  private Utilities _utilities;
 
