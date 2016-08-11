@@ -2,6 +2,9 @@
 
 Fix PremeireDate Emby Format
 Enlarge Playback Button Depending on screen Format Movies Details Screen
+Fix fanart zoomed in
+
+
 
 Version
 1.162 Skin Changes Very slow work...

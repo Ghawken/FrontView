@@ -1000,7 +1000,9 @@ namespace FrontView
                 }
             }
             var screens = System.Windows.Forms.Screen.AllScreens;
-            if (screens.Length == 1 || !_config.SecondScreen)
+
+
+            if (screens.Length == 1 )  //|| !_config.SecondScreen)
             {
                 if (Top != 0 || Left != 0)
                 {
@@ -1011,7 +1013,7 @@ namespace FrontView
             else
             {
                 foreach (var scr in
-                    screens.Where(scr => !scr.Primary).Where(scr => Top != (scr.Bounds.Top / dy) || Left != (scr.Bounds.Left / dx)))
+                    screens.Where(scr => Top != (scr.Bounds.Top / dy) || Left != (scr.Bounds.Left / dx)))
                 {
                     Top = scr.Bounds.Top / dy;
                     Left = scr.Bounds.Left / dx;
@@ -2014,7 +2016,7 @@ namespace FrontView
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
 
-            if (screens.Length == 1 || !_config.SecondScreen)
+            if (screens.Length == 1 )
             {
                 if (_config.ForceResolution)
                 {
@@ -2044,18 +2046,39 @@ namespace FrontView
                 }
                 screens = System.Windows.Forms.Screen.AllScreens;
 
-                
+           /**     
                 foreach (var scr in screens.Where(scr => !scr.Primary))
                 {
                                         
                     Top = scr.Bounds.Top / dy;
                     Left = scr.Bounds.Left / dx;
                     Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
-                    Logger.Instance().LogDump("2nd Screen Details", ScreenResolution.GetDevmode(1,-1));
+                    Logger.Instance().LogDump("Another Screen Details", ScreenResolution.GetDevmode(1,-1));
                  //   if _config.DisplayName && _config.DisplayName == scr.DeviceName.ToString())
 
                     break;
                 }
+    */
+
+                foreach (var scr in screens)
+                {
+                    Top = scr.Bounds.Top / dy;
+                    Left = scr.Bounds.Left / dx;
+
+                  //  lst_Settings_Displays.Items.Add(scr.DeviceName);
+
+                    if (_config.SelectedDisplay == scr.DeviceName)
+                    {
+                        Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
+                        Logger.Instance().LogDump("Screen Details", ScreenResolution.GetDevmode(1, -1));
+
+                        break;
+                    }
+                }
+
+
+
+
             }
             if (_config.Resolution.DMPelsWidth > 0)
             {

@@ -78,7 +78,7 @@ namespace FrontView
         private void btn_Home_Settings_Click(object sender, RoutedEventArgs e)
         {
             if (_currentGrid == grd_Settings) return;
-            chk_Settings_SecondScreen.IsChecked = _config.SecondScreen;
+            // chk_Settings_SecondScreen.IsChecked = _config.SecondScreen;
             chk_Settings_Topmost.IsChecked = _config.Topmost;
             chk_Settings_KeepFocus.IsChecked = _config.KeepFocus;
             //chk_Settings_FanartAlways.IsChecked = _config.FanartAlways;
@@ -251,16 +251,27 @@ namespace FrontView
         private void LoadSettingsResolutions()
         {
             var screens = Screen.AllScreens;
+
+            lst_Settings_Displays.Items.Clear();
+
+            foreach (var scr in screens)
+            {
+                lst_Settings_Displays.Items.Add(scr.DeviceName);   
+            }
+
+            lst_Settings_Displays.SelectedItem = _config.SelectedDisplay;
+
             var modes = ScreenResolution.EnumModes(screens.Length == 1 ? 0 : 1);
             if (screens.Length == 1)
                 Logger.Instance().Log("FrontView+", "Detected main screen resolutions : " + modes.Length);
             else
-                Logger.Instance().Log("FrontView+", "Detected secondary screen resolutions : " + modes.Length);
+                Logger.Instance().Log("FrontView+", "Detected screen resolutions : " + modes.Length);
 
             Logger.Instance().TraceDump("Yatse2", modes);
 
             lst_Settings_Resolution.Items.Clear();
-            foreach (var mode in modes.Where(mode => mode.DMBitsPerPel == _config.MinDMBitsPerPel && mode.DMPelsWidth >= _config.MinDMPelsWidth))
+
+            foreach (var mode in modes.Where(mode => mode.DMBitsPerPel >= _config.MinDMBitsPerPel && mode.DMPelsWidth >= _config.MinDMPelsWidth))
             {
                 var index = lst_Settings_Resolution.Items.Add(new ScreenRes(mode));
                 Logger.Instance().Trace("Yatse2", "Detected resolution : " + lst_Settings_Resolution.Items[index]);
@@ -303,7 +314,7 @@ namespace FrontView
             try
             {
                 // ReSharper disable PossibleInvalidOperationException
-                _config.SecondScreen = (bool)chk_Settings_SecondScreen.IsChecked;
+          //      _config.SecondScreen = (bool)chk_Settings_SecondScreen.IsChecked;
                 _config.Topmost = (bool)chk_Settings_Topmost.IsChecked;
                 _config.KeepFocus = (bool)chk_Settings_KeepFocus.IsChecked;
                 _config.ForceResolution = (bool)chk_Settings_ForceResolution.IsChecked;
@@ -395,6 +406,12 @@ namespace FrontView
             if (resolution != null)
             {
                 _config.Resolution = resolution.Mode;
+            }
+
+            var Displayselect = lst_Settings_Displays.SelectedItem;
+            if (Displayselect != null)
+            {
+                _config.SelectedDisplay = Displayselect.ToString();
             }
         }
 

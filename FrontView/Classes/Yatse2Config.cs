@@ -102,6 +102,7 @@ namespace FrontView.Classes
         public int MinDMPelsWidth { get; set; }
         public int DiaporamaTimer { get; set; }
         public Devmode Resolution { get; set; }
+        public string SelectedDisplay { get; set; }
         public string ImageDirectory { get; set; }
         public string FanartDirectoryFixed { get; set; }
         public string FanartDirectory { get; set; }
@@ -190,8 +191,8 @@ namespace FrontView.Classes
             GoHomeOnEndPlayback = true;
             MusicFanartRotation = false;
             DiaporamaSubdirs = true;
-            MinDMBitsPerPel = 32;
-            MinDMPelsWidth = 800;
+            MinDMBitsPerPel = 0;
+            MinDMPelsWidth = 480;
             DiaporamaTimer = 10;
             FanartTimer = 5;
             DimmingTimer = 15;
@@ -202,6 +203,7 @@ namespace FrontView.Classes
             IgnoreSortTokens = false;
             StartWithWindows = false;
             StartFrontViewServer = false;
+            SelectedDisplay = "";
             DefaultPlayMode = 0;
             LongKeyPress = 500;
             DiaporamaMode = 1;
@@ -291,6 +293,7 @@ namespace FrontView.Classes
             if (Directory.Exists(Helper.SkinPath + config.Skin))
                 Skin = config.Skin;
             Resolution = config.Resolution;
+            SelectedDisplay = config.SelectedDisplay;
             ImageDirectory = config.ImageDirectory;
             FanartCurrentPath = "";  // config.FanartCurrentPath;
             FanartDirectory = config.FanartDirectory;
