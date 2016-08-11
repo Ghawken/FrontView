@@ -299,8 +299,96 @@ namespace FrontView
             return Binding.DoNothing;
         }
     }
- 
-  
+    public class CacheImageHeightConverter : IValueConverter
+    {
+        private static readonly CacheImageHeightConverter TheInstance = new CacheImageHeightConverter();
+        private CacheImageHeightConverter() { }
+        public static CacheImageHeightConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var param = (string)parameter;
+            var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    return new BitmapImage(new Uri(path)).PixelHeight/2.5;
+                }
+                catch (Exception)
+                {
+                    return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight/2.5;
+                }
+            }
+
+            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
+            if (File.Exists(path))
+                return new BitmapImage(new Uri(path)).PixelHeight/2.5;
+
+            Logger.Instance().Log("Cache Hight Converter", "Missing default Image : " + path);
+            return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight/2.5;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+    public class CacheImageWidthConverter : IValueConverter
+    {
+        private static readonly CacheImageWidthConverter TheInstance = new CacheImageWidthConverter();
+        private CacheImageWidthConverter() { }
+        public static CacheImageWidthConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var param = (string)parameter;
+            var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    return new BitmapImage(new Uri(path)).PixelWidth/2.5;
+                    
+                }
+                catch (Exception)
+                {
+                    return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth/2.5;
+                }
+            }
+
+            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
+            if (File.Exists(path))
+                return new BitmapImage(new Uri(path)).PixelWidth/2.5;
+
+            Logger.Instance().Log("Cache Hight Converter", "Missing default Image : " + path);
+            return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth/2.5;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+
+
+
     public class SkinImageConverter : IValueConverter
     {
         private static readonly SkinImageConverter TheInstance = new SkinImageConverter();

@@ -32,7 +32,7 @@
 
     <DataTemplate x:Key="MoviesDataTemplate"
 					  DataType="{x:Type Classes:Yatse2Movie}">
-        <Border x:Name="ElementVisual" Width="100" Height="150" ClipToBounds="True" Background="Transparent" Grid.Row="0" CornerRadius="0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="True">
+        <Border x:Name="ElementVisual" Width="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageWidthConverter.Instance}, ConverterParameter='Video\\Thumbs'}"  Height="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageHeightConverter.Instance}, ConverterParameter='Video\\Thumbs' }" ClipToBounds="True" Background="Transparent" Grid.Row="0" CornerRadius="0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="True">
             <Grid>
                 <Border Name="mask" Background="#FF000000" CornerRadius="10"/>
                 <Grid>
@@ -62,8 +62,8 @@
                     PopoutDistance="1.3"
                     HasReflection="False"   
                     Focusable="True"
-                    ElementWidth="100"
-                    ElementHeight="150"
+                    ElementWidth="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageWidthConverter.Instance}, ConverterParameter='Video\\Thumbs' }"
+                    ElementHeight="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageHeightConverter.Instance}, ConverterParameter='Video\\Thumbs' }"
                     NumberVisible="12"
                     IsItemsHost="True">
             <Controls:VirtElementFlow.Camera>
