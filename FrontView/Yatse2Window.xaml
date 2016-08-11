@@ -922,9 +922,12 @@
         								Content="{DynamicResource Localized_44}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" />
                                             <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" d:IsHidden="True" />
+                                           
                                             <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="76.723" d:IsHidden="True"/>
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="76.723" d:IsHidden="True" />
+                                            
+                                            
                                             <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
         								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="126" d:IsHidden="True" />
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"

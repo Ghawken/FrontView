@@ -2013,6 +2013,7 @@ namespace FrontView
         //            this.WindowState = WindowState.Normal;
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
+
             if (screens.Length == 1 || !_config.SecondScreen)
             {
                 if (_config.ForceResolution)
@@ -2042,12 +2043,17 @@ namespace FrontView
                     }
                 }
                 screens = System.Windows.Forms.Screen.AllScreens;
+
+                
                 foreach (var scr in screens.Where(scr => !scr.Primary))
                 {
+                                        
                     Top = scr.Bounds.Top / dy;
                     Left = scr.Bounds.Left / dx;
                     Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
                     Logger.Instance().LogDump("2nd Screen Details", ScreenResolution.GetDevmode(1,-1));
+                 //   if _config.DisplayName && _config.DisplayName == scr.DeviceName.ToString())
+
                     break;
                 }
             }
