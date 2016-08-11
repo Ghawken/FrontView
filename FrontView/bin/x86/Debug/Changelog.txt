@@ -1,9 +1,12 @@
 ﻿Changelog:
 
-Fix PremeireDate Emby Format
-Enlarge Playback Button Depending on screen Format Movies Details Screen
-Fix fanart zoomed in
+Version: 1.164
+Add Display Selection Box - enables as many screen as liked to be selected
+Resolution fixes - should display options for more
+Add FanArtOpacity Slider to settings (xml file no longer used)
 
+Fix PremeireDate Emby Format
+Fix fanart zoomed in
 
 
 Version

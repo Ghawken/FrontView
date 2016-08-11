@@ -2016,15 +2016,26 @@ namespace FrontView
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
 
+
+            //bit of a hack - use dIsplay1/2/3 etc remove the number, subtract by one to get devNum hopefully holds true above 2 screens
+            int screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
+            Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
+            screenDisplayNumber = screenDisplayNumber - 1;
+            Logger.Instance().LogDump("Selected devNum Screen Number from Display Name: Subtract one equals:", screenDisplayNumber);
+
+
+
             if (screens.Length == 1 )
             {
+                              
+               
                 if (_config.ForceResolution)
                 {
-                    var currentRes = ScreenResolution.GetDevmode(0, -1);
+                    var currentRes = ScreenResolution.GetDevmode(screenDisplayNumber, -1);
                     Logger.Instance().LogDump("CurrentResolutionMonoScreen", currentRes);
                     if (currentRes.DMPelsHeight != _config.Resolution.DMPelsHeight || currentRes.DMPelsWidth != _config.Resolution.DMPelsWidth || currentRes.DMBitsPerPel != _config.Resolution.DMBitsPerPel)
                     {
-                        ScreenResolution.ChangeResolutionMode(0, _config.Resolution);
+                        ScreenResolution.ChangeResolutionMode(screenDisplayNumber, _config.Resolution);
                         Logger.Instance().LogDump("ChangeResolutionMonoScreen", _config.Resolution);
                     }
                 }
@@ -2033,28 +2044,30 @@ namespace FrontView
             }
             else
             {
+                               
+                
                 if (_config.ForceResolution)
                 {
-                    var currentRes = ScreenResolution.GetDevmode(1, -1);
+                    var currentRes = ScreenResolution.GetDevmode(screenDisplayNumber, -1);
                     Logger.Instance().LogDump("Screens current Res", currentRes);
                     Logger.Instance().LogDump("CurrentResolutionMultiScreen", currentRes, true);
                     if (currentRes.DMPelsHeight != _config.Resolution.DMPelsHeight || currentRes.DMPelsWidth != _config.Resolution.DMPelsWidth || currentRes.DMBitsPerPel != _config.Resolution.DMBitsPerPel)
                     {
-                        ScreenResolution.ChangeResolutionMode(1, _config.Resolution);
+                        ScreenResolution.ChangeResolutionMode(screenDisplayNumber, _config.Resolution);
                         Logger.Instance().LogDump("ChangeResolutionMultiScreen", _config.Resolution);
                     }
                 }
+               
                 screens = System.Windows.Forms.Screen.AllScreens;
 
-           /**     
-                foreach (var scr in screens.Where(scr => !scr.Primary))
+               /** 
+                foreach (var scr in screens)
                 {
                                         
                     Top = scr.Bounds.Top / dy;
                     Left = scr.Bounds.Left / dx;
                     Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
                     Logger.Instance().LogDump("Another Screen Details", ScreenResolution.GetDevmode(1,-1));
-                 //   if _config.DisplayName && _config.DisplayName == scr.DeviceName.ToString())
 
                     break;
                 }
@@ -2065,9 +2078,7 @@ namespace FrontView
                     Top = scr.Bounds.Top / dy;
                     Left = scr.Bounds.Left / dx;
 
-                  //  lst_Settings_Displays.Items.Add(scr.DeviceName);
-
-                    if (_config.SelectedDisplay == scr.DeviceName)
+                if (_config.SelectedDisplay == scr.DeviceName)
                     {
                         Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
                         Logger.Instance().LogDump("Screen Details", ScreenResolution.GetDevmode(1, -1));
