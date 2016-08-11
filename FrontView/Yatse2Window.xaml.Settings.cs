@@ -254,6 +254,8 @@ namespace FrontView
 
             lst_Settings_Displays.Items.Clear();
 
+            lst_Settings_FanartOpacity.Value = _config.FanArtOpacity;
+
             foreach (var scr in screens)
             {
                 lst_Settings_Displays.Items.Add(scr.DeviceName);   

@@ -391,7 +391,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}"/>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}"/>
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -877,7 +877,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -911,20 +911,21 @@
                 </Grid>
 
                 <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0"  >
-                    <Canvas Margin="10" d:IsHidden="True">
-                        <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+                    <Canvas Margin="10">
+                        <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5">
 
-                            <Canvas Margin="-1" d:IsHidden="True">
-                                <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}" d:IsHidden="True">
-                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                        <Canvas d:IsHidden="True">
-                                  <!-- remove replace with Combobox of options <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                            <Canvas Margin="-1">
+                                <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
+                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
+                                        <Canvas>
+                                            <!-- remove replace with Combobox of options <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_44}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" /> -->
-                                           
+
                                             <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" d:IsHidden="True" />
-                                           
-                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5" d:IsHidden="True"/>                                            <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+
+                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5" d:IsHidden="True"/>
+                                            <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="68.5" d:IsHidden="True" />
 
                                             <ComboBox x:Name="lst_Settings_Displays" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="121.723" d:IsHidden="True"/>
@@ -933,15 +934,15 @@
 
                                             <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
         								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" />
-                                            
+
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" d:IsHidden="True" />
-                                            
+
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723" d:IsHidden="True"/>
-                                            
+
                                             <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723" d:IsHidden="True"/>
-                                            
+
                                             <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158" d:IsHidden="True"/>
                                             <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" d:IsHidden="True" />
@@ -957,7 +958,7 @@
         								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="190" Width="188" d:IsHidden="True"/>
                                         </Canvas>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" d:IsHidden="True" />
@@ -990,7 +991,7 @@
 
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_Diaporama" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_57}" Padding="5,0,0,0" Margin="8,0,162,209" VerticalAlignment="Bottom" d:IsHidden="True" />
@@ -1011,7 +1012,7 @@
         								Content="{DynamicResource Localized_70}" Padding="5,0,0,0" Margin="8,0,162,126.2" VerticalAlignment="Bottom" d:IsHidden="True" />
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
                                             <TextBox x:Name="txt_Settings_WeatherLocId" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" Height="27" IsEnabled="False" Margin="239,68.723,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
                                             <Button x:Name="btn_Settings_WeatherLocId" Width="200" Height="27" Style="{DynamicResource Button}" FontSize="16" Click="btn_Settings_WeatherLocId_Click"
@@ -1032,7 +1033,7 @@
                                             </TextBlock>
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_Debug" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_66}" Padding="5,0,0,0" Margin="8,0,124,8" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
@@ -1069,15 +1070,26 @@
         								Text="{DynamicResource Localized_138}" Margin="8,0,0,90.277" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="214" d:IsHidden="True"/>
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_133}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                        <Grid d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_133}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
+                                        <Grid>
 
                                             <CheckBox x:Name="chk_Settings_CheckUpdate" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_112}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_112}" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" />
+
                                             <CheckBox x:Name="chk_Settings_StartFrontViewServer" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_141}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_141}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
+
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="FanArt Opacity:" Padding="5,0,0,0" Margin="10,104,183,0" VerticalAlignment="Top"  />
+                                            <Slider x:Name="lst_Settings_FanartOpacity" Value="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}"  Margin="8,128,38,0" ValueChanged="FanartOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Dimmer" Padding="5,0,0,0" Margin="10,144,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Brighter" Padding="5,0,0,0" Margin="0,147,38,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
+
                                             <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment"  />
+
 
 
                                         </Grid>
@@ -1374,7 +1386,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding CurrentAlbumArtistFanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, Source={StaticResource Yatse2Properties}}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding CurrentAlbumArtistFanart, ConverterParameter=Music\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, Source={StaticResource Yatse2Properties}}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -1418,7 +1430,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_AudioArtists_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -1469,7 +1481,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
 
@@ -1521,7 +1533,7 @@
 
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Margin="0,62.046,0,0" Grid.Row="1" d:IsHidden="True"/>
@@ -1550,7 +1562,7 @@
                 </Grid>
 
 
-                <Grid x:Name="grd_TvEpisodes" Background="#EE000000" Visibility="Hidden">
+                <Grid x:Name="grd_TvEpisodes" Background="#EE000000" Visibility="Hidden" d:IsHidden="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="4*" />
@@ -1562,7 +1574,7 @@
                     </Grid.ColumnDefinitions>
                     <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
-                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{DynamicResource FanartOpacity}" />
+                            <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
                     </Rectangle>
                     <Rectangle Fill="#BF000000" Stroke="Black" Grid.Row="1" Height="121" VerticalAlignment="Bottom"/>
@@ -1610,7 +1622,7 @@
                 <!-- Binded -->
             </Controls:TransitionPresenter>
 
-            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True">
+            <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True" d:IsHidden="True">
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="580" Height="325" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" Margin="0,-205,-301,0" Stretch="Fill" StrokeThickness="3" d:IsHidden="True"/>
                 <Path Fill="{DynamicResource Header_Ellipse_Fill}" Width="580" Height="330" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" HorizontalAlignment="Left" Margin="-405,-255,0,0" VerticalAlignment="Top"
                   Visibility="{Binding ShowHomeButton, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" MouseDown="img_Header_Home_MouseDown" d:IsHidden="True"/>
@@ -1717,7 +1729,7 @@
             </Grid>
             <!-- Binded -->
             <Grid Margin="0" Background="{DynamicResource Popup_ModalBackground}" Panel.ZIndex="25" 
-              Visibility="{Binding ShowRefreshLibrary, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" >
+              Visibility="{Binding ShowRefreshLibrary, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" >
                 <Border BorderBrush="{DynamicResource WeatherLoc_Stroke}" BorderThickness="1" CornerRadius="10" Margin="0" Background="#CC000000" HorizontalAlignment="Center" VerticalAlignment="Center" Width="584" Height="150" d:IsHidden="True">
                     <Canvas d:IsHidden="True">
                         <TextBlock Width="420" Height="64" Canvas.Left="156" Canvas.Top="14" Foreground="{DynamicResource Default_Font_Color}" 
@@ -1735,7 +1747,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
+            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible" d:IsHidden="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1826,7 +1838,7 @@
 
 
 
-            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
+            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden" d:IsHidden="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />

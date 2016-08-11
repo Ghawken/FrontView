@@ -53,7 +53,20 @@ namespace FrontView.Classes
 
             }
         }
-    
+
+        public static readonly DependencyProperty FanArtOpacityProperty =
+    DependencyProperty.Register("FanArtOpacity", typeof(double), typeof(Yatse2Properties));
+
+        public double FanArtOpacity
+        {
+            get { return (double)GetValue(FanArtOpacityProperty); }
+            set
+            {
+                SetValue(FanArtOpacityProperty, value);
+
+            }
+        }
+
         public string Language
         {
             get { return (string)GetValue(LanguageProperty); }

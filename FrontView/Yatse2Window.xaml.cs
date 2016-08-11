@@ -103,6 +103,22 @@ namespace FrontView
             }
         }
 
+
+        private void FanartOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            {
+                // ... Get Slider reference.
+                var slider = sender as Slider;
+                // ... Get Value.
+                double value = slider.Value;
+                // ... Set Window Title.
+
+                _config.FanArtOpacity = value;
+                _yatse2Properties.FanArtOpacity = value;
+
+            }
+        }
+
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
         	//ResetTimer();

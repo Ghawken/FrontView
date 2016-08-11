@@ -69,6 +69,9 @@ namespace FrontView.Classes
         public bool ShowInTaskbar { get; set; }
         public bool TVOrderbyNewEpsiodes { get; set; }
         public int DimTime { get; set; }
+
+        public double FanArtOpacity { get; set; }
+
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
@@ -219,6 +222,9 @@ namespace FrontView.Classes
             FanartNumberDirectories = 3;
             HttpSend = false;
             HttpUseDigest = false;
+
+            FanArtOpacity = 1.0;
+
             HttpUser = "";
             HttpPassword = "";
             ReceiverIP = "";
@@ -254,6 +260,9 @@ namespace FrontView.Classes
             // Changes for Http Sending
             HttpSend = config.HttpSend;
             HttpUseDigest = config.HttpUseDigest;
+
+            FanArtOpacity = config.FanArtOpacity;
+
             HttpUser = config.HttpUser;
             ReceiverIP = config.ReceiverIP;
             ReceiverPort = config.ReceiverPort;
