@@ -594,6 +594,17 @@ namespace FrontView
             }
         }
 
+        private void updateCacheSizes()
+        {
+            //Set Coverflow size once at beginning based on Random Coverart
+            double cachewidth = 110;
+            _yatse2Properties.MovieCacheHeight = getMovieCacheImageHeight(cachewidth);
+            _yatse2Properties.MovieCacheWidth = cachewidth;
+            _yatse2Properties.TVCacheHeight = getTVCacheImageHeight(cachewidth);
+            _yatse2Properties.TVCacheWidth = cachewidth;
+        }
+
+
         private void UpdateRemote()
         {
             if (_remote == null)
@@ -625,6 +636,8 @@ namespace FrontView
                 {
                     QuickRefreshLibrary();
                 }
+
+                updateCacheSizes();
 
                 if (!_remoteLibraryRefreshed)
                 {
@@ -666,6 +679,7 @@ namespace FrontView
                     _tvShowsDataSource.Clear();
                     _tvSeasonsDataSource.Clear();
                     _tvEpisodesDataSource.Clear();
+                    updateCacheSizes();
                 }
             }
 

@@ -34,6 +34,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Plugin;
 using FrontView.Classes;
@@ -164,6 +165,8 @@ namespace FrontView
         private bool _filteredAlbums;
         private bool _setPov;
         public string[] KodiSources;
+
+        static Random rnd = new Random();
 
         IAvReceiverControl receiver = new VSX1123();
 
@@ -709,7 +712,8 @@ namespace FrontView
                     _yatse2Properties.Language = _config.Language;
                     _yatse2Properties.ShowHomeButton = false;
                     _yatse2Properties.DimAmount = _config.DimAmount;
-                    
+                    _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
+
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {
@@ -804,8 +808,8 @@ namespace FrontView
                         Logger.Instance().Log("RECEIVER FAIL", "Exception in attempted connection " + e);
                     }
 
-                 
-                    
+
+
                 }
 
             }
@@ -957,6 +961,116 @@ namespace FrontView
             return str.Substring(0, Math.Min(str.Length, maxLength));
         }
 
+        private double getTVCacheImageHeight(double setwidth)
+        {
+            double ratio = 1;
+            // double setwidth = 110;
+            int height = 176;
+            int width = 104;
+            try
+            {
+                var lines = _database.GetTvShow(_remoteInfo.Id);
+                int r = rnd.Next(lines.Count);
+                string pathforrandomthumb = lines[r].Thumb;
+                Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details somehow ... " + pathforrandomthumb);
+                var path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName(pathforrandomthumb, Helper.Instance.CurrentApi) + ".jpg";
+                Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details path of Cache Image ... " + path);
+
+
+
+                if (File.Exists(path))
+                {
+                    try
+                    {
+
+                        width = new BitmapImage(new Uri(path)).PixelWidth;
+                        height = new BitmapImage(new Uri(path)).PixelHeight;
+                        ratio = (double)height / width;
+
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning setwidth : " + Math.Ceiling(setwidth));
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning rationew : " + ratio);
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Width : " + width);
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Height : " + height);
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Width times rationew : " + setwidth * ratio);
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        return Math.Ceiling(((double)setwidth * ratio));
+
+                    }
+                    catch (Exception)
+                    {
+                        width = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth;
+                        height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
+                        ratio = (double)height / width;
+
+                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        return Math.Ceiling(((double)setwidth * ratio));
+                    }
+                }
+                return height;
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("Cache TV Hight Converter", "Exception: " + ex + "Returning Height of 176");
+
+                return height;
+            }
+
+        }
+        private double getMovieCacheImageHeight(double setwidth)
+        {
+            double ratio = 1;
+           // double setwidth = 110;
+            int height = 176;
+            int width = 104;
+            try
+            {
+                var lines = _database.GetMovie(_remoteInfo.Id);
+                int r = rnd.Next(lines.Count);
+                string pathforrandomthumb = lines[r].Thumb;
+                Logger.Instance().LogDump("Cache Height Converter", "Checking Cache Details somehow ... " + pathforrandomthumb);
+                var path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName(pathforrandomthumb, Helper.Instance.CurrentApi) + ".jpg";
+                Logger.Instance().LogDump("Cache Height Converter", "Checking Cache Details path of Cache Image ... " + path);
+
+
+
+                if (File.Exists(path))
+                {
+                    try
+                    {
+
+                        width = new BitmapImage(new Uri(path)).PixelWidth;
+                        height = new BitmapImage(new Uri(path)).PixelHeight;
+                        ratio = (double)height / width;
+
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning setwidth : " + Math.Ceiling(setwidth));
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning rationew : " + ratio);
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning Width : " + width);
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning Height : " + height);
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning Width times rationew : " + setwidth * ratio);
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        return Math.Ceiling(((double)setwidth * ratio));
+
+                    }
+                    catch (Exception)
+                    {
+                        width = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth;
+                        height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
+                        ratio = (double)height / width;
+
+                        Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        return Math.Ceiling(((double)setwidth * ratio));
+                    }
+                }
+                return height;
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("Cache Hight Converter", "Exception: " + ex + "Returning Height of 176");
+                
+                return height;
+            }
+
+        }
 
         private void PositionScreen()
         {
@@ -965,7 +1079,7 @@ namespace FrontView
             {
 
                 
-                              
+                 
 
                  _yatse2Properties.TvShowPosterPov = (lst_TvShows_flow.ActualWidth/lst_TvShows_flow.ActualHeight)/10*85;
 
@@ -979,6 +1093,7 @@ namespace FrontView
                                                      lst_AudioArtists_flow.ActualHeight)/10*85;
                 _setPov = true;
             }
+
 
             if (_config.DisableScreenPositioning)
                 return;
@@ -1015,9 +1130,13 @@ namespace FrontView
                 foreach (var scr in
                     screens.Where(scr => Top != (scr.Bounds.Top / dy) || Left != (scr.Bounds.Left / dx)))
                 {
-                    Top = scr.Bounds.Top / dy;
-                    Left = scr.Bounds.Left / dx;
-                    break;
+                    // Probably jumping screens issues found.
+                    if (scr.DeviceName == _config.SelectedDisplay)
+                    {
+                        Top = scr.Bounds.Top / dy;
+                        Left = scr.Bounds.Left / dx;
+                        break;
+                    }
                 }
             }
 

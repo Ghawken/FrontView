@@ -127,6 +127,46 @@ namespace FrontView.Classes
             set { SetValue(VideoPovProperty, value); }
         }
 
+        public static readonly DependencyProperty MovieCacheHeightProperty =
+       DependencyProperty.Register("MovieCacheHeight", typeof(double), typeof(Yatse2Properties));
+
+        public double MovieCacheHeight
+        {
+            get { return (double)GetValue(MovieCacheHeightProperty); }
+            set { SetValue(MovieCacheHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty MovieCacheWidthProperty =
+DependencyProperty.Register("MovieCacheWidth", typeof(double), typeof(Yatse2Properties));
+
+        public double MovieCacheWidth
+        {
+            get { return (double)GetValue(MovieCacheWidthProperty); }
+            set { SetValue(MovieCacheWidthProperty, value); }
+        }
+
+
+
+        public static readonly DependencyProperty TVCacheHeightProperty =
+       DependencyProperty.Register("TVCacheHeight", typeof(double), typeof(Yatse2Properties));
+
+        public double TVCacheHeight
+        {
+            get { return (double)GetValue(TVCacheHeightProperty); }
+            set { SetValue(TVCacheHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty TVCacheWidthProperty =
+DependencyProperty.Register("TVCacheWidth", typeof(double), typeof(Yatse2Properties));
+
+        public double TVCacheWidth
+        {
+            get { return (double)GetValue(TVCacheWidthProperty); }
+            set { SetValue(TVCacheWidthProperty, value); }
+        }
+
+
+
         public static readonly DependencyProperty TvShowPosterPovProperty =
             DependencyProperty.Register("TvShowPosterPov", typeof(double), typeof(Yatse2Properties));
 
