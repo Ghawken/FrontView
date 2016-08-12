@@ -408,6 +408,63 @@ namespace FrontView
 
 
 
+            if (img == "V Large")
+            {
+                if (param == "textsize")
+                {
+                    return 30;
+                }
+                if (param == "titlesize")
+                {
+                    return 50;
+                }
+                if (param == "boxsize")
+                {
+                    return 55;
+                }
+                if (param == "TVS00E00")
+                {
+                    return 18;
+                }
+            }
+            if (img == "Large")
+            {
+                if (param == "textsize")
+                {
+                    return 22;
+                }
+                if (param == "titlesize")
+                {
+                    return 40;
+                }
+                if (param == "boxsize")
+                {
+                    return 45;
+                }
+                if (param == "TVS00E00")
+                {
+                    return 18;
+                }
+            }
+            if (img == "Small")
+            {
+                if (param == "textsize")
+                {
+                    return 18;
+                }
+                if (param == "titlesize")
+                {
+                    return 22;
+                }
+                if (param == "boxsize")
+                {
+                    return 25;
+                }
+                if (param == "TVS00E00")
+                {
+                    return 18;
+                }
+            }
 
             return 1;
 

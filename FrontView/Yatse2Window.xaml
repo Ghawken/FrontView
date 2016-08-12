@@ -512,9 +512,9 @@
                     </Grid>
                     <Grid Margin="0"
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
-                        <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{DynamicResource CurrentlyMovie_BoxHeight}" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
+                        <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
                             <Grid Margin="0" d:IsHidden="True">
-                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyMovieTitle_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" d:IsHidden="True"/>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
@@ -535,9 +535,11 @@
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp" d:IsHidden="True"/>
                                 <Slider x:Name="sld_Current_Movie_Volume" Margin="0,8,13,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp" d:IsHidden="True"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyMovie_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+
+                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=textsize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
-                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource CurrentlyMovie_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+
+                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=textsize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}" 
@@ -660,9 +662,9 @@
                     </Grid>
                     <Grid Margin="0"
         			Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
-                        <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{DynamicResource CurrentlyTV_BoxHeight}"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
+                        <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
                             <Grid Margin="0" d:IsHidden="True">
-                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap"  FontSize="{DynamicResource CurrentlyTVTitle_TextSize}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap"  FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center" d:IsHidden="True"/>
 
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
@@ -683,9 +685,9 @@
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp" d:IsHidden="True"/>
                                 <Slider x:Name="sld_Current_Tv_Volume" Margin="0,8,12,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp" d:IsHidden="True"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyTV_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" Width="125" Height="38" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=textsize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
-                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{DynamicResource CurrentlyTV_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                                <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" Width="125" Height="38" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=textsize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}" 
@@ -720,7 +722,7 @@
         							Background="{Binding Skin, ConverterParameter=Remote_Next, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Next_Click" VerticalAlignment="Center" Height="48" d:IsHidden="True"/>
                                 </Grid>
 
-                                <TextBlock HorizontalAlignment="Left" Margin="8,0,0,15" VerticalAlignment="Bottom" Width="215" Height="23" TextWrapping="Wrap" FontSize="{DynamicResource CurrentlyTVS00E00_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+                                <TextBlock HorizontalAlignment="Left" Margin="8,0,0,15" VerticalAlignment="Bottom" Width="215" Height="23" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=TVS00E00, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" d:IsHidden="True" />
 
 

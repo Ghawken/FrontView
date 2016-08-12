@@ -95,39 +95,7 @@
     <SolidColorBrush x:Key="Currently_Music_Stroke" Color="Black"/>
    
         
-        <!-- Below Changes the Text size under NowPlaying TV Thumbnal Season 1 Episode 1 -->
-    <System:Double x:Key="CurrentlyTVS00E00_TextSize">18.0</System:Double>
-        <!-- Below Changes the Title of the Episode above the nowplaying Bar -->
-    <System:Double x:Key="CurrentlyTVTitle_TextSize">22.0</System:Double>
-        <!-- Below changes Playback time same for Movies-->
-    <System:Double x:Key="CurrentlyTV_TextSize">22.0</System:Double>
-        <!--Below Changes the Episode Title Space/Box to make it larger for huge fonts -->
-    <System:Double x:Key="CurrentlyTV_BoxHeight">25.0</System:Double>
-         
-    <!-- Below are the same for NowPlaying Movies Screen -->
-    <System:Double x:Key="CurrentlyMovieS00E00_TextSize">18.0</System:Double>
-    <System:Double x:Key="CurrentlyMovieTitle_TextSize">22.0</System:Double>
-    <System:Double x:Key="CurrentlyMovie_TextSize">22.0</System:Double>
-    <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
-
-    <!-- Scale of the Cover X & Y - ideally the same-->
-    <System:Double x:Key="CurrentlyMovie_ScaleX">1</System:Double>
-    <System:Double x:Key="CurrentlyMovie_ScaleY">1</System:Double>
-
-    <!-- Scale of Reflection same as above just a negative-->
-    <System:Double x:Key="CurrentlyMovie_ReflectionScaleY">-1</System:Double>
-
-
-    <!-- Position of the Cover on the Screen and the Reflection - tricky to fiddle with admittedly :( -->
-
-
-    <Thickness x:Key="CurrentlyMovie_MarginCover" Left="40" Top="0" Right="0" Bottom="126"/>
-
-    <Thickness x:Key="CurrentlyMovie_MarginCoverReflection" Left="40" Top="0" Right="0" Bottom="-125"/>
-
-        <!-- This changes the brighest of all fanart displays - from 0 to 1  -->
-    <System:Double x:Key="FanartOpacity">1</System:Double>
-        
+      
         
 
     <!--  END Currently -->
