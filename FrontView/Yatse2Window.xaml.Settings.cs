@@ -268,6 +268,7 @@ namespace FrontView
             lst_Settings_Displays.Items.Clear();
 
             lst_Settings_FanartOpacity.Value = _config.FanArtOpacity;
+            lst_Settings_SemiCircleOpacity.Value = _config.SemiCircleOpacity;
 
             foreach (var scr in screens)
             {
@@ -458,6 +459,7 @@ namespace FrontView
             _yatse2Properties.Language = _config.Language;
             _yatse2Properties.DimAmount = _config.DimAmount;
             _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
+            _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
             RefreshDictionaries();

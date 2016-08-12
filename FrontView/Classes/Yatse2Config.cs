@@ -72,7 +72,7 @@ namespace FrontView.Classes
         public string Skin_Extra { get; set; }
         public string Skin_Extra_Text { get; set; }
         public double FanArtOpacity { get; set; }
-
+        public double SemiCircleOpacity { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
@@ -227,7 +227,7 @@ namespace FrontView.Classes
             HttpUseDigest = false;
 
             FanArtOpacity = 1.0;
-
+            SemiCircleOpacity = 0.65;
             HttpUser = "";
             HttpPassword = "";
             ReceiverIP = "";
@@ -265,7 +265,7 @@ namespace FrontView.Classes
             HttpUseDigest = config.HttpUseDigest;
 
             FanArtOpacity = config.FanArtOpacity;
-
+            SemiCircleOpacity = config.SemiCircleOpacity;
             HttpUser = config.HttpUser;
             ReceiverIP = config.ReceiverIP;
             ReceiverPort = config.ReceiverPort;

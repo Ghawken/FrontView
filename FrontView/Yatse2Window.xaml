@@ -1095,16 +1095,23 @@
         								Content="{DynamicResource Localized_141}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
 
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="FanArt Opacity:" Padding="5,0,0,0" Margin="10,104,183,0" VerticalAlignment="Top"  />
-                                            <Slider x:Name="lst_Settings_FanartOpacity" Value="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}"  Margin="8,128,38,0" ValueChanged="FanartOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
+        								Text="FanArt Opacity:" Padding="5,0,0,0" Margin="10,83,183,0" VerticalAlignment="Top"  />
+                                            <Slider x:Name="lst_Settings_FanartOpacity" Value="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}"  Margin="10,107,36,0" ValueChanged="FanartOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dimmer" Padding="5,0,0,0" Margin="10,144,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+        								Text="Dimmer" Padding="5,0,0,0" Margin="8,125,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Brighter" Padding="5,0,0,0" Margin="0,147,38,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
+        								Text="Brighter" Padding="5,0,0,0" Margin="0,125,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
+
+                                            <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="SemiCircle Opacity:" Padding="5,0,0,0" Margin="10,163,183,0" VerticalAlignment="Top"  />
+                                            <Slider x:Name="lst_Settings_SemiCircleOpacity" Value="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}"  Margin="10,182,36,0" ValueChanged="SemiCircleOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
                                             <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="8,0,185,64.277" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment"  />
-
+        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="0,0,-184,273" HorizontalAlignment="Right" Width="427"  />
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Dimmer" Padding="5,0,0,0" Margin="10,205,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Brighter" Padding="5,0,0,0" Margin="0,205,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
 
                                         </Grid>
@@ -1638,8 +1645,10 @@
             </Controls:TransitionPresenter>
 
             <Grid VerticalAlignment="Top" Height="120" Panel.ZIndex="10" ClipToBounds="True" d:IsHidden="True">
-                <Path Fill="{DynamicResource Header_Ellipse_Fill}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="580" Height="325" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" Margin="0,-205,-301,0" Stretch="Fill" StrokeThickness="3" d:IsHidden="True"/>
-                <Path Fill="{DynamicResource Header_Ellipse_Fill}" Width="580" Height="330" Opacity="0.65" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" HorizontalAlignment="Left" Margin="-405,-255,0,0" VerticalAlignment="Top"
+
+                <Path Fill="{DynamicResource Header_Ellipse_Fill}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="580" Height="325" Opacity="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" Margin="0,-205,-301,0" Stretch="Fill" StrokeThickness="3" d:IsHidden="True"/>
+
+                <Path Fill="{DynamicResource Header_Ellipse_Fill}" Width="580" Height="330" Opacity="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}" Data="F1M290.5,1C449.834,1 579,74.425 579,165 579,255.575 449.834,329 290.5,329 131.166,329 2,255.575 2,165 2,74.425 131.166,1 290.5,1z" HorizontalAlignment="Left" Margin="-405,-255,0,0" VerticalAlignment="Top"
                   Visibility="{Binding ShowHomeButton, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" MouseDown="img_Header_Home_MouseDown" d:IsHidden="True"/>
                 <Image Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top"
                    Source="{Binding Skin, ConverterParameter=Remote_Return, Converter={x:Static Yatse2:SkinImagePathConverter.Instance}, Source={StaticResource Yatse2Properties}}" Margin="20,5,0,0"

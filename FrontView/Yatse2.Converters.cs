@@ -325,6 +325,36 @@ namespace FrontView
         }
     }
 
+    public class BrushOpacityConverter : IValueConverter
+    {
+        private static readonly BrushOpacityConverter TheInstance = new BrushOpacityConverter();
+        private BrushOpacityConverter() { }
+        public static BrushOpacityConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var img = (string)value;
+            var param = (int)parameter;
+
+           
+            Logger.Instance().Trace("BrushOpacityConverter:", "img: " + img + ":param:" + param);
+
+            Color mycolour = new Color();
+            mycolour = Color.FromRgb(0, 255, 255);
+            return mycolour;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
 
     public class SkinExtraConverter : IValueConverter
     {

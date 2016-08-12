@@ -96,7 +96,6 @@ C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Deb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.exe
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\bin\Debug\Yatse2SetupManager.pdb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\bin\Debug\Setup.dll
-C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\bin\Debug\Setup.pdb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\MainWindow.baml
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\MainWindow.g.cs
@@ -105,3 +104,4 @@ C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Deb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.g.resources
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.Properties.Resources.resources
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\obj\x86\Debug\Yatse2SetupManager.csproj.GenerateResource.Cache
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\Yatse2SetupManager\bin\Debug\Setup.pdb

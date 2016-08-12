@@ -118,6 +118,22 @@ namespace FrontView
 
             }
         }
+        private void SemiCircleOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            {
+                // ... Get Slider reference.
+                var slider = sender as Slider;
+                // ... Get Value.
+                double value = slider.Value;
+                // ... Set Window Title.
+
+                _config.SemiCircleOpacity = value;
+                _yatse2Properties.SemiCircleOpacity = value;
+
+            }
+        }
+
+
 
         private void Window_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {

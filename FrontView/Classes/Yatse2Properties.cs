@@ -67,6 +67,20 @@ namespace FrontView.Classes
             }
         }
 
+        public static readonly DependencyProperty SemiCircleOpacityProperty =
+    DependencyProperty.Register("SemiCircleOpacity", typeof(double), typeof(Yatse2Properties));
+
+        public double SemiCircleOpacity
+        {
+            get { return (double)GetValue(SemiCircleOpacityProperty); }
+            set
+            {
+                SetValue(SemiCircleOpacityProperty, value);
+
+            }
+        }
+
+
         public string Language
         {
             get { return (string)GetValue(LanguageProperty); }
