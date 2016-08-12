@@ -713,7 +713,7 @@ namespace FrontView
                     _yatse2Properties.ShowHomeButton = false;
                     _yatse2Properties.DimAmount = _config.DimAmount;
                     _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
-
+                    _yatse2Properties.Skin_Extra = _config.Skin_Extra;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {
@@ -2137,6 +2137,7 @@ namespace FrontView
 
 
             //bit of a hack - use dIsplay1/2/3 etc remove the number, subtract by one to get devNum hopefully holds true above 2 screens
+
             int screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
             screenDisplayNumber = screenDisplayNumber - 1;

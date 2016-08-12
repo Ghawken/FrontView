@@ -82,6 +82,15 @@ namespace FrontView.Classes
             set { SetValue(PopupProperty, value); }
         }
 
+        public static readonly DependencyProperty Skin_ExtraProperty =
+    DependencyProperty.Register("Skin_Extra", typeof(string), typeof(Yatse2Properties));
+
+        public string Skin_Extra
+        {
+            get { return (string)GetValue(Skin_ExtraProperty); }
+            set { SetValue(Skin_ExtraProperty, value); }
+        }
+
         public static readonly DependencyProperty SkinProperty =
             DependencyProperty.Register("Skin", typeof(string), typeof(Yatse2Properties));
 

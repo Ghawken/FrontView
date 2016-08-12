@@ -599,9 +599,9 @@ namespace FrontView
             //Set Coverflow size once at beginning based on Random Coverart
             double cachewidth = 110;
             _yatse2Properties.MovieCacheHeight = getMovieCacheImageHeight(cachewidth);
-            _yatse2Properties.MovieCacheWidth = cachewidth;
+            _yatse2Properties.MovieCacheWidth = cachewidth+1;
             _yatse2Properties.TVCacheHeight = getTVCacheImageHeight(cachewidth);
-            _yatse2Properties.TVCacheWidth = cachewidth;
+            _yatse2Properties.TVCacheWidth = cachewidth+1;
         }
 
 

@@ -189,6 +189,12 @@ namespace FrontView
                     lst_Settings_HomePage.SelectedIndex = index;
             }
 
+            lst_Settings_Skin_extra.Items.Clear();
+            lst_Settings_Skin_extra.Items.Add("V Large NowPlaying");
+            lst_Settings_Skin_extra.Items.Add("Large NowPlaying");
+            lst_Settings_Skin_extra.Items.Add("Small NowPlaying");
+            lst_Settings_Skin_extra.SelectedItem = _config.Skin_Extra;
+
             lst_Settings_DimAmount.Items.Clear();
             //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;
             lst_Settings_DimAmount.Items.Add(0.1);
@@ -396,6 +402,7 @@ namespace FrontView
 
             _config.DimTime = Convert.ToInt32(lst_Settings_DimTime.SelectedItem);
 
+            _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
 
             en = _yatse2PlayModes.GetEnumerator();
             while (en.MoveNext())
@@ -440,6 +447,10 @@ namespace FrontView
             Helper.Instance.CurrentSkin = _config.Skin;
             _yatse2Properties.Skin = _config.Skin;
             _yatse2Properties.Language = _config.Language;
+            _yatse2Properties.DimAmount = _config.DimAmount;
+            _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
+            _yatse2Properties.Skin_Extra = _config.Skin_Extra;
+
             RefreshDictionaries();
 
             _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;

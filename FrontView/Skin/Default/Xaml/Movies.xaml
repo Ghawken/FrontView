@@ -34,12 +34,12 @@
 					  DataType="{x:Type Classes:Yatse2Movie}">
         <Border x:Name="ElementVisual"  ClipToBounds="True" Background="Transparent" Grid.Row="0" CornerRadius="0" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="True">
             <Grid>
-                <Border Name="mask" Background="#FF000000" CornerRadius="10"/>
+                <Border Name="mask" Background="#FF000000" CornerRadius="5"/>
                 <Grid>
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                     </Grid.OpacityMask>
-                    <Image Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" SnapsToDevicePixels="True"
+                    <Image Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" SnapsToDevicePixels="True"
                            Source="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageConverter.Instance}, ConverterParameter='Video\\Thumbs' }">
                     </Image> 
 

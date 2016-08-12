@@ -916,49 +916,55 @@
 
                             <Canvas Margin="-1">
                                 <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
-                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
+                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" >
                                         <Canvas>
                                             <!-- remove replace with Combobox of options <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_44}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" /> -->
 
                                             <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" />
 
-                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5"/>
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="68.5" d:IsHidden="True" />
+        								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="68.5" />
 
-                                            <ComboBox x:Name="lst_Settings_Displays" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="121.723" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Displays" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="121.723"/>
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Display :" Canvas.Left="8" Canvas.Top="121.723" d:IsHidden="True" />
+        								Text="Display :" Canvas.Left="8" Canvas.Top="121.723" />
 
                                             <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
-        								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" />
 
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" d:IsHidden="True" />
+        								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" />
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723" d:IsHidden="True"/>
+        								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723"/>
 
-                                            <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723" d:IsHidden="True"/>
+                                            <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+        								Text="Extras:" Canvas.Left="362" Canvas.Top="69"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723"/>
+
+                                            <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158"/>
+
+                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="69" Width="158"/>
+
                                             <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" />
                                             <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" />
 
-                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="164" Width="188" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="262" Canvas.Top="193" Width="188"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="136" Width="188" d:IsHidden="True"/>
+        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="262" Canvas.Top="162" Width="188"/>
 
-                                            <ComboBox x:Name="lst_Settings_DimTime" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="404" Canvas.Top="216.723" Width="188" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_DimTime" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="262" Canvas.Top="251" Width="188"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="404" Canvas.Top="190" Width="188" d:IsHidden="True"/>
+        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="262" Canvas.Top="227" Width="188"/>
                                         </Canvas>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">
+                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" d:IsHidden="True" />
@@ -992,7 +998,7 @@
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}">
-                                        <Grid d:IsHidden="True">
+                                        <Grid>
                                             <CheckBox x:Name="chk_Settings_Diaporama" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_57}" Padding="5,0,0,0" Margin="8,0,162,209" VerticalAlignment="Bottom" d:IsHidden="True" />
                                             <CheckBox x:Name="chk_Settings_Dimming" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
@@ -1281,7 +1287,7 @@
                                 <Rectangle Fill="White" Height="277" StrokeThickness="3" Opacity="0.5" Canvas.Left="156" Canvas.Top="21" Width="1" d:IsHidden="True"/>
                             </Canvas>
                         </Border>
-                        <TextBlock Height="32" TextWrapping="Wrap" Text="{DynamicResource Localized_43}" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5" Margin="8,85,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="772" d:IsHidden="True"/>
+                        <TextBlock Height="32" TextWrapping="Wrap" Text="{DynamicResource Localized_43}" Foreground="{DynamicResource Default_Font_Color}" FontSize="26.667" Opacity="0.5" Margin="8,85,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="772"/>
                     </Canvas>
                 </Grid>
                 <!-- Binded -->
