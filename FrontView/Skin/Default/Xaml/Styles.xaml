@@ -109,6 +109,7 @@
     <System:Double x:Key="CurrentlyMovie_BoxHeight">25.0</System:Double>
 
 
+    
     <!-- Scale of the Cover X & Y - ideally the same-->
     <System:Double x:Key="CurrentlyMovie_ScaleX">1</System:Double>
     <System:Double x:Key="CurrentlyMovie_ScaleY">1</System:Double>

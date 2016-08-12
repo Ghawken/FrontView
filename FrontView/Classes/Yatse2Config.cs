@@ -70,6 +70,7 @@ namespace FrontView.Classes
         public bool TVOrderbyNewEpsiodes { get; set; }
         public int DimTime { get; set; }
         public string Skin_Extra { get; set; }
+        public string Skin_Extra_Text { get; set; }
         public double FanArtOpacity { get; set; }
 
         public bool Currently { get; set; }
@@ -200,6 +201,7 @@ namespace FrontView.Classes
             FanartTimer = 5;
             DimmingTimer = 15;
             Skin_Extra = "";
+            Skin_Extra_Text = "";
             DisableScreenPositioning = false;
             MouseMode = false;
             CropCacheImage = true;
@@ -290,6 +292,7 @@ namespace FrontView.Classes
             ShowInTaskbar = config.ShowInTaskbar;
             DimAmount = config.DimAmount;
             Skin_Extra = config.Skin_Extra;
+            Skin_Extra_Text = config.Skin_Extra_Text;
             TVOrderbyNewEpsiodes = config.TVOrderbyNewEpsiodes;
             DimTime = config.DimTime;
             Currently = config.Currently;

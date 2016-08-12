@@ -91,6 +91,15 @@ namespace FrontView.Classes
             set { SetValue(Skin_ExtraProperty, value); }
         }
 
+        public static readonly DependencyProperty Skin_Extra_TextProperty =
+DependencyProperty.Register("Skin_Extra_Text", typeof(string), typeof(Yatse2Properties));
+
+        public string Skin_Extra_Text
+        {
+            get { return (string)GetValue(Skin_Extra_TextProperty); }
+            set { SetValue(Skin_Extra_TextProperty, value); }
+        }
+
         public static readonly DependencyProperty SkinProperty =
             DependencyProperty.Register("Skin", typeof(string), typeof(Yatse2Properties));
 

@@ -195,6 +195,13 @@ namespace FrontView
             lst_Settings_Skin_extra.Items.Add("Small NowPlaying");
             lst_Settings_Skin_extra.SelectedItem = _config.Skin_Extra;
 
+            lst_Settings_Skin_Extra_Text.Items.Clear();
+            lst_Settings_Skin_Extra_Text.Items.Add("V Large");
+            lst_Settings_Skin_Extra_Text.Items.Add("Large");
+            lst_Settings_Skin_Extra_Text.Items.Add("Small");
+            lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
+
+
             lst_Settings_DimAmount.Items.Clear();
             //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;
             lst_Settings_DimAmount.Items.Add(0.1);
@@ -404,6 +411,8 @@ namespace FrontView
 
             _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
 
+            _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
+
             en = _yatse2PlayModes.GetEnumerator();
             while (en.MoveNext())
             {
@@ -450,7 +459,7 @@ namespace FrontView
             _yatse2Properties.DimAmount = _config.DimAmount;
             _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
-
+            _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
             RefreshDictionaries();
 
             _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;

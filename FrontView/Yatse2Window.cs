@@ -714,6 +714,7 @@ namespace FrontView
                     _yatse2Properties.DimAmount = _config.DimAmount;
                     _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
                     _yatse2Properties.Skin_Extra = _config.Skin_Extra;
+                    _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {

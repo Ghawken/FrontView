@@ -571,13 +571,14 @@
                             </Grid>
                         </Border>
                         <Border d:IsHidden="True" >
-                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{DynamicResource CurrentlyMovie_MarginCover}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" d:IsHidden="True">
+                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincover, Source={StaticResource Yatse2Properties}}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" d:IsHidden="True">
 
 
                                 <!-- Big one old equals Margin="8,0,0,186" -->
                                 <Rectangle.RenderTransform>
                                     <TransformGroup>
-                                        <ScaleTransform ScaleX="{DynamicResource CurrentlyMovie_ScaleX}" ScaleY="{DynamicResource CurrentlyMovie_ScaleY}"/>
+                                        <ScaleTransform ScaleX="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=scale, Source={StaticResource Yatse2Properties}}"
+                                           ScaleY="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=scale, Source={StaticResource Yatse2Properties}}"/>
                                         <SkewTransform/>
                                         <RotateTransform/>
                                         <TranslateTransform/>
@@ -591,12 +592,13 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Border>
-                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{DynamicResource CurrentlyMovie_MarginCoverReflection}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
+                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincoverreflection, Source={StaticResource Yatse2Properties}}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
 
                             <!-- Big one equals MarginMargin="40,0,0,-162" -->
                             <Border.RenderTransform>
                                 <TransformGroup>
-                                    <ScaleTransform ScaleX="{DynamicResource CurrentlyMovie_ScaleY}" ScaleY="{DynamicResource CurrentlyMovie_ReflectionScaleY}"/>
+                                    <ScaleTransform ScaleX="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=scale, Source={StaticResource Yatse2Properties}}"
+                                           ScaleY="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=scaleneg, Source={StaticResource Yatse2Properties}}"/>
                                     <SkewTransform/>
                                     <RotateTransform/>
                                     <TranslateTransform/>
@@ -942,13 +944,18 @@
         								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723"/>
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Extras:" Canvas.Left="362" Canvas.Top="69"/>
+        								Text="Extras:" Canvas.Left="362" Canvas.Top="48"/>
 
                                             <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723"/>
 
                                             <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="69" Width="158"/>
+                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="47" Width="158"/>
+
+                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Text" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="76" Width="158"/>
+
+                                            <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+        								Text="Text Size:" Canvas.Left="362" Canvas.Top="78"/>
 
                                             <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" />

@@ -240,84 +240,7 @@ namespace FrontView
             return Binding.DoNothing;
         }
     }
-    public class CacheImageHeightConverter : IValueConverter
-    {
-        private static readonly CacheImageHeightConverter TheInstance = new CacheImageHeightConverter();
-        private CacheImageHeightConverter() { }
-        public static CacheImageHeightConverter Instance
-        {
-            get { return TheInstance; }
-        }
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == DependencyProperty.UnsetValue) return false;
-
-            double  ratio = 1;
-            double setwidth = 104;
-            int width = 104;
-            int height = 176;
-            var param = (string)parameter;
-            var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
-
-            if (File.Exists(path))
-            {
-                try
-                {
-
-                    width = new BitmapImage(new Uri(path)).PixelWidth;
-                    height = new BitmapImage(new Uri(path)).PixelHeight;
-                    ratio = (double)height / width;
-
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning setwidth : " + Math.Ceiling(setwidth));
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning rationew : " + ratio);
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning Width : " + width);
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning Height : " + height);
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning Width times rationew : " + setwidth * ratio);
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
-                    return Math.Ceiling(((double)setwidth * ratio));
-
-
-
-
-                }
-                catch (Exception)
-                {
-                    width = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth;
-                    height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
-                    ratio = (double)height / width;
-
-                    Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
-                    return Math.Ceiling(((double)setwidth * ratio));
-                }
-            }
-
-            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
-            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
-            if (File.Exists(path))
-            {
-                width = new BitmapImage(new Uri(path)).PixelWidth;
-                height = new BitmapImage(new Uri(path)).PixelHeight;
-                ratio = (double)height / width;
-                Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
-                return Math.Ceiling(((double)setwidth * ratio));
-            }
-            Logger.Instance().Log("Cache Hight Converter", "Missing default Image : " + path);
-
-            width = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth;
-            height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
-            ratio = (double)height / width;
-
-            Logger.Instance().LogDump("Cache Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
-            return Math.Ceiling(((double)setwidth * ratio));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-    }
-
+   
 
 
     public class SkinImageConverter : IValueConverter
@@ -394,6 +317,100 @@ namespace FrontView
             
             
             return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+
+    public class SkinExtraConverter : IValueConverter
+    {
+        private static readonly SkinExtraConverter TheInstance = new SkinExtraConverter();
+        private SkinExtraConverter() { }
+        public static SkinExtraConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var img = (string)value;
+            var param = (string)parameter;
+
+            if (String.IsNullOrEmpty(param))
+                return false;
+
+            Logger.Instance().Trace("SkinExtraConverter:", "img: " + img + ":param:"+param);
+
+            if (img=="V Large NowPlaying")
+            {
+                if (param == "scale")
+                {
+                    return 1.6;
+                }
+                if (param == "scaleneg")
+                {
+                    return -1.6;
+                }
+                if (param == "margincover")
+                {
+                    return new Thickness(2,0,0,256); 
+                }
+                if (param == "margincoverreflection")
+                {
+                    return new Thickness(50,0,0 ,-182 );
+                }
+                
+            }
+            else if (img == "Large NowPlaying")
+            {
+                if (param == "scale")
+                {
+                    return 1.4;
+                }
+                if (param == "scaleneg")
+                {
+                    return -1.4;
+                }
+                if (param == "margincover")
+                {
+                    return new Thickness(8, 0, 0, 226);
+                }
+                if (param == "margincoverreflection")
+                {
+                    return new Thickness(40, 0, 0, -160);
+                }
+            }
+            else if (img == "Small NowPlaying")
+            {
+                if (param == "scale")
+                {
+                    return 1;
+                }
+                if (param == "scaleneg")
+                {
+                    return -1;
+                }
+                if (param == "margincover")
+                {
+                    return new Thickness(40, 0, 0, 126);
+                }
+                if (param == "margincoverreflection")
+                {
+                    return new Thickness(40, 0, 0, -125);
+                }
+            }
+
+
+
+
+            return 1;
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
