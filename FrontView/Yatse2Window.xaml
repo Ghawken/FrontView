@@ -869,7 +869,7 @@
                         </Border>
                     </Grid>
                 </Grid>
-                <Grid x:Name="grd_Movies" Visibility="Hidden" Background="#EE000000" Margin="0,-1,0,1" d:IsHidden="True">
+                <Grid x:Name="grd_Movies" Visibility="Hidden" Background="#EE000000" Margin="0" d:IsHidden="True">
 
 
 
@@ -1775,7 +1775,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible" d:IsHidden="True">
+            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1817,21 +1817,24 @@
                 <TextBlock HorizontalAlignment="Left" Height="32.75" Margin="8,0,0,445" TextWrapping="Wrap" VerticalAlignment="Center" Width="350" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center"
                        Text="{Binding SelectedItem.Director, ElementName=lst_Movies_flow}" />
                 -->
-                <TextBlock  Margin="21,0,23,30"  TextWrapping="Wrap" VerticalAlignment="Bottom"  Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="2" TextAlignment="Center"
-                       Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}" Height="53" />
-
+                <Viewbox Margin="50,0,51,34" Grid.Row="2" Stretch="Uniform" StretchDirection="Both" Height="49" VerticalAlignment="Bottom" >
+                    <TextBlock  TextWrapping="Wrap" VerticalAlignment="Bottom"  Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center"
+                       Text="{Binding SelectedItem.Director, StringFormat=Director:{0}, ElementName=lst_Movies_flow}"  />
+                </Viewbox>
 
                 <!-- Trying some annoying changes that do not resize with different windows about to give up: below is default 
                 <TextBlock Height="29.5" Margin="8,450,73,0" TextWrapping="Wrap" VerticalAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Center" FontWeight="Bold"
                        Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}"/>
                 -->
-                <TextBlock Margin="137,10,135,0" FontSize="38" TextAlignment="Center" FontWeight="Bold"
-                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top"/>
+                <Viewbox Grid.ColumnSpan="2" Margin="50,10,50,0" Stretch="Uniform" StretchDirection="Both" Height="63" VerticalAlignment="Top">
+                    <TextBlock TextAlignment="Center" FontWeight="Bold"
+                       Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" Foreground="{DynamicResource Default_Font_Color}" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
+                </Viewbox>
 
-
-                <TextBlock Margin="19,21,41,175" TextWrapping="Wrap" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
-                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1"/>
-
+                <Viewbox Margin="10,23,25,0" Grid.Column="1" Grid.Row="1" Stretch="Uniform"  VerticalAlignment="Top" Height="189">
+                    <TextBlock  Width="300" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Justify"
+                           Text="{Binding SelectedItem.Plot, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" />
+                </Viewbox>
 
                 <TextBlock  Margin="10,0,13,10"   TextWrapping="Wrap" FontSize="160" Opacity="0.2" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Right"
                            Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="179" VerticalAlignment="Bottom"  />
@@ -1851,15 +1854,17 @@
 
 
 
-                <TextBlock Margin="31,248,25,0" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
-        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Top" />
+                <TextBlock Margin="46,0,10,146" Grid.Row="1" Grid.Column="1"  Grid.RowSpan="2"   TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
+        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Bottom"  />
 
                 <!--
                 <Button HorizontalAlignment="Right" Margin="0,430,8,0" VerticalAlignment="Center" Width="50" Height="50" Content="3" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
             -->
-                <Button Margin="0,0,315,10" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click"
-        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="78" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
+
+                <Button Margin="0,312,315,10" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click" 
+        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
+
 
 
             </Grid>
