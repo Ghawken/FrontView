@@ -409,7 +409,7 @@ namespace FrontView
                 }
                 if (param == "margincover")
                 {
-                    return new Thickness(8, 0, 0, 226);
+                    return new Thickness(8, 0, 0, 216);
                 }
                 if (param == "margincoverreflection")
                 {
@@ -428,7 +428,7 @@ namespace FrontView
                 }
                 if (param == "margincover")
                 {
-                    return new Thickness(40, 0, 0, 126);
+                    return new Thickness(40, 0, 0, 106);
                 }
                 if (param == "margincoverreflection")
                 {

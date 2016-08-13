@@ -382,7 +382,7 @@
                     <Button Content="Button" HorizontalAlignment="Right" Height="48" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="48" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Pictures, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Home_Diaporama_Click" d:IsHidden="True" />
                 </Grid>
-                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden" d:IsHidden="True">
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden">
 
 
                     <!-- Fanart For all Now Playing Screens -->
@@ -511,8 +511,8 @@
                         </Grid>
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
-                        <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
+        			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
+                        <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0">
                             <Grid Margin="0" d:IsHidden="True">
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" d:IsHidden="True"/>
@@ -529,7 +529,7 @@
                         </Border>
 
                         <Border x:Name="brd_Current_Movie" VerticalAlignment="Bottom" 
-        				Height="150" BorderBrush="Black" BorderThickness="0" Background="#BF000000" d:IsHidden="True">
+        				Height="150" BorderBrush="Black" BorderThickness="0" Background="#BF000000">
                             <Grid Margin="0" d:IsHidden="True">
                                 <Slider x:Name="sld_Current_Movie_Progress" Margin="260,10,69,0" Style="{DynamicResource Slider}" VerticalAlignment="Top" Height="20" Maximum="100" Background="White" 
         						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp" d:IsHidden="True"/>
@@ -572,8 +572,8 @@
         						Text="{Binding Currently.MovieYear, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" VerticalAlignment="Bottom" Height="52" Visibility="Hidden" d:IsHidden="True" />
                             </Grid>
                         </Border>
-                        <Border d:IsHidden="True" >
-                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincover, Source={StaticResource Yatse2Properties}}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" d:IsHidden="True">
+                        <Border >
+                            <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincover, Source={StaticResource Yatse2Properties}}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
 
 
                                 <!-- Big one old equals Margin="8,0,0,186" -->
@@ -594,7 +594,7 @@
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Border>
-                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincoverreflection, Source={StaticResource Yatse2Properties}}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
+                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincoverreflection, Source={StaticResource Yatse2Properties}}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
 
                             <!-- Big one equals MarginMargin="40,0,0,-162" -->
                             <Border.RenderTransform>
@@ -616,7 +616,7 @@
                                 </LinearGradientBrush>
                             </Border.OpacityMask>
                         </Border>
-                        <Grid x:Name="grd_Current_Movie_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000" d:IsHidden="True">
+                        <Grid x:Name="grd_Current_Movie_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000">
                             <TextBlock Margin="381,0,8,8" VerticalAlignment="Bottom" Height="166" FontSize="160" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         					Text="{Binding Currently.MovieYear, Source={StaticResource Yatse2Properties}}" Opacity="0.2" d:IsHidden="True" />
                             <TextBlock Margin="338,0,256,15.2" VerticalAlignment="Bottom" Height="21" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
@@ -946,18 +946,22 @@
         								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723"/>
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Extras:" Canvas.Left="362" Canvas.Top="48"/>
+        								Text="Cover Size:" Canvas.Left="362" Canvas.Top="79"/>
 
                                             <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723"/>
 
                                             <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="47" Width="158"/>
+                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="78" Width="158"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Text" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="76" Width="158"/>
+                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Text" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="107" Width="158"/>
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Text Size:" Canvas.Left="362" Canvas.Top="78"/>
+        								Text="Text Size:" Canvas.Left="354" Canvas.Top="106"/>
+
+                                            <TextBlock Width="156" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+        								Text="Now Playing Screen:" Canvas.Left="451" Canvas.Top="54"/>
+
 
                                             <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" />
