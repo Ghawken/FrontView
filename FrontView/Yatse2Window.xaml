@@ -1880,7 +1880,7 @@
 
 
 
-            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden" d:IsHidden="True">
+            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1891,29 +1891,30 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
-                <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity="0.5" d:IsHidden="True">
+                <Rectangle Margin="0,0,0,0" Grid.ColumnSpan="2" Grid.RowSpan="3" Opacity="0.5">
                     <Rectangle.Fill>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}" />
 
                     </Rectangle.Fill>
                 </Rectangle>
-              
+
+
+
+                <Rectangle  Margin="50,10,39,88" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="1" >
+                    <Rectangle.Fill>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+
                 <Rectangle Grid.ColumnSpan="2" Margin="0,5,0,0" >
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Logo, ConverterParameter=Video\\Logos, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <Rectangle  Margin="50,90,51,88" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.RowSpan="3" >
-                    <Rectangle.Fill>
-                        <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-
                 <TextBlock  Margin="21,0,23,30"  TextWrapping="Wrap" VerticalAlignment="Bottom"  Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="2" TextAlignment="Center"
                        Text="{Binding SelectedItem.Premiered, StringFormat=Premiered:{0}, ElementName=lst_TvShows_flow}" Height="33"  />
-<!--
+                <!--
                 <TextBlock Margin="137,10,135,0" FontSize="38" TextAlignment="Center" FontWeight="Bold"
                        Text="{Binding SelectedItem.Title, ElementName=lst_TvShows_flow}" Foreground="{DynamicResource Default_Font_Color}" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" />
 -->

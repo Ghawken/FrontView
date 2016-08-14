@@ -232,7 +232,7 @@ namespace Remote.XBMC.Frodo.Api
                   Mpaa = "",
                   Date = genre["firstaired"].ToString(),
                   Director = "",
-                  PlayCount = 0,
+                  PlayCount = (long)(JsonNumber)genre["playcount"],
                   Studio = "",
                   IdEpisode = (long)(JsonNumber)genre["episodeid"],
                   IdShow = (long)(JsonNumber)genre["tvshowid"],

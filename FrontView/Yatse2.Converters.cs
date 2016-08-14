@@ -393,7 +393,7 @@ namespace FrontView
                 }
                 if (param == "margincoverreflection")
                 {
-                    return new Thickness(50,0,0 ,-182 );
+                    return new Thickness(50,0,0 ,-198 );
                 }
                 
             }
@@ -413,7 +413,7 @@ namespace FrontView
                 }
                 if (param == "margincoverreflection")
                 {
-                    return new Thickness(40, 0, 0, -160);
+                    return new Thickness(40, 0, 0, -170);
                 }
             }
             else if (img == "Small NowPlaying")
@@ -428,7 +428,7 @@ namespace FrontView
                 }
                 if (param == "margincover")
                 {
-                    return new Thickness(40, 0, 0, 106);
+                    return new Thickness(40, 0, 0, 116);
                 }
                 if (param == "margincoverreflection")
                 {
