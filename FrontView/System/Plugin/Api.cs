@@ -357,6 +357,8 @@ namespace Plugin
         public long PlayCount { get; set; }
         public string Hash { get; set; }
         public string Thumb { get; set; }
+        public string Banner { get; set; }
+        public string Logo { get; set; }
         public string Fanart { get; set; }
         public long IsStack { get; set; }
         public string DateAdded { get; set; }
@@ -378,6 +380,7 @@ namespace Plugin
         public string Hash { get; set; }
         public string Thumb { get; set; }
         public string Fanart { get; set; }
+        public string Banner { get; set; }
     }
 
     public class ApiTvEpisode

@@ -38,11 +38,12 @@ namespace FrontView.Classes
         private SQLiteTransaction _dbTrans;
         private bool _connected;
         private bool _bulkInsert;
-        private const int DBVersion = 7;
+        private const int DBVersion = 8;
 
         //7 is addition of sqlDateTime to Remote to indicate time of last check
         // on second thought might test speed first and then run and ever start if not to long
-        //
+        //8 addition of Movie Logo and Banner image information
+
         [SQLiteFunction(FuncType = FunctionType.Collation, Name = "IGNORESORTTOKENS")]
         public class SqLiteIgnoreSortTokensCollation : SQLiteFunction
         {
@@ -1124,7 +1125,9 @@ namespace FrontView.Classes
                         Hash = GetString(sqldReader, "Hash"),
                         Thumb = GetString(sqldReader, "Thumb"),
                         Fanart = GetString(sqldReader, "Fanart"),
-                        IsFavorite = GetLong(sqldReader, "IsFavorite")
+                        IsFavorite = GetLong(sqldReader, "IsFavorite"),
+                        Banner = GetString(sqldReader, "Banner")
+                   
                     };
                     tvShows.Add(movie);
                     Log("SQL DATA::: Title:" + GetString(sqldReader, "Title") + "ID" + GetLong(sqldReader, "IdShow") + "Premiere:"+ GetString(sqldReader, "Premiered") +"Date: "+GetString(sqldReader, "Date"));
@@ -1206,8 +1209,8 @@ namespace FrontView.Classes
                 return 0;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"INSERT INTO `TvShows` ( IdRemote ,IdShow,IdScraper,Title,Plot,Premiered,Rating,Genre,Mpaa,Studio,Path,TotalCount,Hash,Thumb,Fanart,IsFavorite ) 
-                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                @"INSERT INTO `TvShows` ( IdRemote ,IdShow,IdScraper,Title,Plot,Premiered,Rating,Genre,Mpaa,Studio,Path,TotalCount,Hash,Thumb,Fanart,IsFavorite,Banner ) 
+                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             sqlCmd.Parameters.AddWithValue("a1", show.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", show.IdShow);
             sqlCmd.Parameters.AddWithValue("a3", show.IdScraper);
@@ -1224,6 +1227,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a14", show.Thumb);
             sqlCmd.Parameters.AddWithValue("a15", show.Fanart);
             sqlCmd.Parameters.AddWithValue("a16", show.IsFavorite);
+            sqlCmd.Parameters.AddWithValue("a17", show.Banner);
 
             return QueryInsert(sqlCmd);
         }
@@ -1234,7 +1238,7 @@ namespace FrontView.Classes
                 return false;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"UPDATE `TvShows` SET IdRemote = ?,IdShow = ?,IdScraper = ?,Title = ?,Plot = ?,Premiered = ?,Rating = ?,Genre = ?,Mpaa = ?,Studio = ?,Path = ?,TotalCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsFavorite = ? WHERE Id = @Id;";
+                @"UPDATE `TvShows` SET IdRemote = ?,IdShow = ?,IdScraper = ?,Title = ?,Plot = ?,Premiered = ?,Rating = ?,Genre = ?,Mpaa = ?,Studio = ?,Path = ?,TotalCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsFavorite = ?, Banner = ?, WHERE Id = @Id;";
             sqlCmd.Parameters.AddWithValue("a1", show.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", show.IdShow);
             sqlCmd.Parameters.AddWithValue("a3", show.IdScraper);
@@ -1251,6 +1255,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a14", show.Thumb);
             sqlCmd.Parameters.AddWithValue("a15", show.Fanart);
             sqlCmd.Parameters.AddWithValue("a16", show.IsFavorite);
+            sqlCmd.Parameters.AddWithValue("a17", show.Banner);
             sqlCmd.Parameters.AddWithValue("@Id", show.Id);
 
             return Query(sqlCmd);
@@ -1311,7 +1316,9 @@ namespace FrontView.Classes
                         Fanart = GetString(sqldReader, "Fanart"),
                         IsStack = GetLong(sqldReader, "IsStack"),
                         IsFavorite = GetLong(sqldReader, "IsFavorite"),
-                        DateAdded = GetString(sqldReader, "DateAdded")
+                        DateAdded = GetString(sqldReader, "DateAdded"),
+                        Banner = GetString(sqldReader, "Banner"),
+                        Logo = GetString(sqldReader, "Logo")
                     };
                     movies.Add(movie);
                 }
@@ -1378,8 +1385,8 @@ namespace FrontView.Classes
                 return 0;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite,DateAdded ) 
-                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite,DateAdded, Banner, Logo ) 
+                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1405,6 +1412,8 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a23", movie.IdMovie);
             sqlCmd.Parameters.AddWithValue("a24", movie.IsFavorite);
             sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
+            sqlCmd.Parameters.AddWithValue("a26", movie.Banner);
+            sqlCmd.Parameters.AddWithValue("a27", movie.Logo);
             return QueryInsert(sqlCmd);
         }
 
@@ -1414,7 +1423,7 @@ namespace FrontView.Classes
                 return false;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ?, DateAdded = ? WHERE Id = @Id;";
+                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ?, DateAdded = ?, Banner = ?, Logo = ? WHERE Id = @Id;";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1440,6 +1449,9 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a23", movie.IdMovie);
             sqlCmd.Parameters.AddWithValue("a24", movie.IsFavorite);
             sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
+            sqlCmd.Parameters.AddWithValue("a26", movie.Banner);
+            sqlCmd.Parameters.AddWithValue("a27", movie.Logo);
+
             sqlCmd.Parameters.AddWithValue("@Id", movie.Id);
 
             return Query(sqlCmd);
@@ -1663,7 +1675,32 @@ namespace FrontView.Classes
                     { 
                     }
                 }
+                if (fromBuild <= 7)
+                {
+                    Log("Applying database update 8....");
+                    try
+                    {
 
+                        sqlCmd.CommandText = @"ALTER TABLE 'Movies' ADD COLUMN 'Banner' Text;";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+                        sqlCmd.CommandText = @"ALTER TABLE 'Movies' ADD COLUMN 'Logo' Text;";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+
+                        sqlCmd.CommandText = @"ALTER TABLE 'TvShows' ADD COLUMN 'Banner' Text;";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+
+
+                    }
+                    catch (SQLiteException)
+                    {
+                    }
+                }
 
 
                 sqlCmd.CommandText = "UPDATE Version SET Version = " + DBVersion + ";";
@@ -1740,7 +1777,9 @@ namespace FrontView.Classes
                        Fanart TEXT,
                        IsStack INTEGER,
                        IsFavorite INTEGER,
-                       DateAdded TEXT
+                       DateAdded TEXT,
+                       Banner TEXT,
+                       Logo TEXT
                     );
                     CREATE TABLE `AudioGenres`
                     (
@@ -1821,7 +1860,8 @@ namespace FrontView.Classes
                        Hash VARCHAR(50),
                        Thumb TEXT,
                        Fanart TEXT,
-                       IsFavorite INTEGER
+                       IsFavorite INTEGER,
+                       Banner TEXT
                     );
                     CREATE TABLE `TvSeasons`
                     (

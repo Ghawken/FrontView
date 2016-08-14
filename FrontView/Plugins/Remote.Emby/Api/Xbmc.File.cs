@@ -114,7 +114,8 @@ namespace Remote.Emby.Api
             }
             catch (System.Exception ex)
             {
-                _parent.Log("Exception in Download Images Caught Should continue " + ex);
+                _parent.Log("Download Image: Does not Exist:" + ex);
+                // Maybe add this check log first -- apiImageDownloadInfo.Source = "NONE";
                 return false;
 ;
             }

@@ -191,6 +191,8 @@ namespace FrontView.Classes
         public string Path { get; set; }
         public string Hash { get; set; }
         public string Thumb { get; set; }
+        public string Banner { get; set; }
+        public string Logo { get; set; }
         public string Fanart { get; set; }
         public long IsStack { get; set; }
         public string DateAdded { get; set; }
@@ -226,6 +228,8 @@ namespace FrontView.Classes
                               Studio = Studio,
                               Tagline = Tagline,
                               Thumb = Thumb,
+                              Banner = Banner,
+                              Logo = Logo,
                               Title = Title,
                               Votes = Votes,
                               Year = Year,
@@ -254,6 +258,8 @@ namespace FrontView.Classes
             IdMovie = apiMovie.IdMovie;
             Thumb = apiMovie.Thumb;
             Fanart = apiMovie.Fanart;
+            Banner = apiMovie.Banner;
+            Logo = apiMovie.Logo;
             Hash = apiMovie.Hash;
             IsStack = apiMovie.IsStack;
             Length = apiMovie.Length;
@@ -477,7 +483,8 @@ namespace FrontView.Classes
         public string Hash { get; set; }
         public string Thumb { get; set; }
         public string Fanart { get; set; }
-
+        public string Banner { get; set; }
+        
         public ApiTvShow ToApi()
         {
             var api = new ApiTvShow
@@ -495,7 +502,8 @@ namespace FrontView.Classes
                 Premiered = Premiered,
                 Rating = Rating,
                 Studio = Studio,
-                TotalCount = TotalCount
+                TotalCount = TotalCount,
+                Banner = Banner
             };
             return api;
 
@@ -521,6 +529,7 @@ namespace FrontView.Classes
             Hash = apiTvShow.Hash;
             Thumb = apiTvShow.Thumb;
             Fanart = apiTvShow.Fanart;
+            Banner = apiTvShow.Banner;
         }
     }
 
@@ -577,7 +586,8 @@ namespace FrontView.Classes
                 IsStack = IsStack,
                 PlayCount = PlayCount,
                 Season = Season,
-                ShowTitle = ShowTitle
+                ShowTitle = ShowTitle,
+
             };
             return api;
         }

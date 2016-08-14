@@ -339,7 +339,7 @@ namespace FrontView
             
             if ( _database.UpdateDatabase() == true)
             {
-                Logger.Instance().Log("FrontView+", "Database Updated - Running Full Refresh.....");
+                Logger.Instance().Log("FrontView+", "Database Updated - Need to run Full Refresh.....");
                // RefreshLibrary();
                 // Not connected - so can't run this here - could set variable - but will see
             }
@@ -469,6 +469,8 @@ namespace FrontView
             Directory.CreateDirectory(Helper.CachePath + @"Weather");
             Directory.CreateDirectory(Helper.CachePath + @"Video\Thumbs");
             Directory.CreateDirectory(Helper.CachePath + @"Video\Fanarts");
+            Directory.CreateDirectory(Helper.CachePath + @"Video\Logos");
+            Directory.CreateDirectory(Helper.CachePath + @"Video\Banners");
             Directory.CreateDirectory(Helper.CachePath + @"Music\Thumbs");
             Directory.CreateDirectory(Helper.CachePath + @"Music\Artists");
             Directory.CreateDirectory(Helper.CachePath + @"Music\Fanarts");

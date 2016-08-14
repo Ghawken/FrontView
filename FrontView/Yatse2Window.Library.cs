@@ -499,6 +499,40 @@ namespace FrontView
                         dlinfo.Add(info);
                     }
                 }
+
+                if (line.Banner != "NONE" && !String.IsNullOrEmpty(line.Banner))
+                {
+                    var path = Helper.CachePath + @"Video\Banners\" + _remotePlugin.GetHashFromFileName(line.Banner) + ".jpg";
+                    if (!File.Exists(path))
+                    {
+                        var info = new ApiImageDownloadInfo
+                        {
+                            Destination = path,
+                            Source = line.Banner,
+                            ToThumb = _config.CropCacheImage,
+                            MaxHeight = (int)Height / 2
+                        };
+                        dlinfo.Add(info);
+                    }
+                }
+
+                if (line.Logo != "NONE" && !String.IsNullOrEmpty(line.Logo))
+                {
+                    var path = Helper.CachePath + @"Video\Logos\" + _remotePlugin.GetHashFromFileName(line.Logo) + ".jpg";
+                    if (!File.Exists(path))
+                    {
+                        var info = new ApiImageDownloadInfo
+                        {
+                            Destination = path,
+                            Source = line.Logo,
+                            ToThumb = _config.CropCacheImage,
+                            MaxHeight = (int)Height / 2
+                        };
+                        dlinfo.Add(info);
+                    }
+                }
+
+
                 if (line.Fanart != "NONE" && !String.IsNullOrEmpty(line.Fanart))
                 {
                     var path = Helper.CachePath + @"Video\Fanarts\" + _remotePlugin.GetHashFromFileName(line.Fanart) + ".jpg";
@@ -552,6 +586,22 @@ namespace FrontView
                         dlinfo.Add(info);
                     }
                 }
+                if (line.Banner != "NONE" && !String.IsNullOrEmpty(line.Banner))
+                {
+                    var path = Helper.CachePath + @"Video\Banners\" + _remotePlugin.GetHashFromFileName(line.Banner) + ".jpg";
+                    if (!File.Exists(path))
+                    {
+                        var info = new ApiImageDownloadInfo
+                        {
+                            Destination = path,
+                            Source = line.Banner,
+                            ToThumb = _config.CropCacheImage,
+                            MaxHeight = (int)Height
+                        };
+                        dlinfo.Add(info);
+                    }
+                }
+
             }
         }
 
@@ -679,6 +729,7 @@ namespace FrontView
                 QuickRefreshTvEpisodesLibrary();
                 _yatse2Properties.RefreshWhat = GetLocalizedString(4);
                 Application.DoEvents();
+                RefreshThumbsFanarts();
 
             }
             catch (Exception Ex)

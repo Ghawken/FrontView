@@ -78,7 +78,7 @@ namespace Remote.Emby.Api.SingleMovieItem
 
     public class Userdata
     {
-        public int PlaybackPositionTicks { get; set; }
+        public long PlaybackPositionTicks { get; set; }
         public int? PlayCount { get; set; }
         public bool IsFavorite { get; set; }
         public DateTime LastPlayedDate { get; set; }
