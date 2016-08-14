@@ -2139,19 +2139,17 @@ namespace FrontView
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
 
-
+            int screenDisplayNumber = 1;
             //bit of a hack - use dIsplay1/2/3 etc remove the number, subtract by one to get devNum hopefully holds true above 2 screens
-
-            int screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
+            if (_config.SelectedDisplay != null && _config.SelectedDisplay != "")
+            {
+                screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
+            }
 
 
             //fix for no SelectedDisplay setting being set if upgrading
 
-            if (screenDisplayNumber < 0)
-            {
-                screenDisplayNumber = 1;
-            }
-
+          
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
             screenDisplayNumber = screenDisplayNumber - 1;
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name: Subtract one equals:", screenDisplayNumber);
