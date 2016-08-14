@@ -154,20 +154,28 @@ namespace FrontView
         private void RefreshTvSeasonLibrary()
         {
             Logger.Instance().Log("FrontView+", "Start Refresh : TvSeasons");
+
+
             var res = _remote.VideoLibrary.GetTvSeasons();
             Logger.Instance().Log("FrontView+", "Remote TvSeasons : " + res.Count);
-
-            var oldData = _database.GetTvSeason(_remoteInfo.Id);
+            
+            //Below should be empty as everything deleted before running so what is the point/at least initialises
+            
 
             _database.SetBulkInsert(true);
             _database.BeginTransaction();
+
             _database.DeleteRemoteTvSeasons(_remoteInfo.Id);
+
+            var oldData = _database.GetTvSeason(_remoteInfo.Id);
 
             var notfound = true;
 
             foreach (var apiTvSeason in res)
             {
                 notfound = true;
+
+               
 
               //  long oldFavorite = 0;
 
@@ -177,10 +185,9 @@ namespace FrontView
                     {
                         notfound = false;
                         Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons : Season Already Exisits: Seasons Id Show.Name: " + show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow + " SeasonNumber:" + apiTvSeason.SeasonNumber + " show.SeasonNumber:" + show.SeasonNumber);
-
                     }
-
                 }
+
                 if (notfound == true)
                 {
                     Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons :nserting TV Season :Show Name:" + apiTvSeason.Show + ": ShowID:" + apiTvSeason.IdShow + " Season Number:" + apiTvSeason.SeasonNumber + " Episode Count:" + apiTvSeason.EpisodeCount + " Hash " + apiTvSeason.Hash);

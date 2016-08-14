@@ -383,7 +383,7 @@ namespace Remote.XBMC.Frodo.Api
               var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
               var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
               var movie = new ApiMovie
-                {
+              {
 
                   Title = genre["title"].ToString(),
                   Plot = genre["plot"].ToString(),
@@ -399,7 +399,7 @@ namespace Remote.XBMC.Frodo.Api
                   Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
                   IdFile = 0,
                   IdMovie = (long)(JsonNumber)genre["movieid"],
-                  FileName = "",
+                  FileName = genre["file"].ToString(),
                   Path = "",
                   PlayCount = 0,
                   Thumb = genre["thumbnail"].ToString(),
