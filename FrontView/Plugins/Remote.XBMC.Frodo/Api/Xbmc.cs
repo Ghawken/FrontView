@@ -438,6 +438,14 @@ namespace Remote.XBMC.Frodo.Api
             return result;
         }
 
+
+
+        public String JsonParamToString(JsonArray array, string param)
+        {
+            String result = "";
+            return result;
+        }
+
         public Object JsonArrayCommand(string[] cmd, Object[] parameter)
         {
             if (!_configured)

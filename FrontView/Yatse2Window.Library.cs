@@ -339,7 +339,8 @@ namespace FrontView
 
             _database.SetBulkInsert(true);
             _database.BeginTransaction();
-           // _database.DeleteRemoteMovie(_remoteInfo.Id);
+
+          //  _database.DeleteRemoteMovie(_remoteInfo.Id);
             var notfound = true;
             foreach (var apiMovie in res)
             {

@@ -259,7 +259,7 @@ namespace Remote.XBMC.Frodo.Api
     {
       var shows = new Collection<ApiTvShow>();
 
-      var properties = new JsonArray(new[] { "title", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode" });
+      var properties = new JsonArray(new[] { "title", "art", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode","file" });
       var param = new JsonObject();
       param["properties"] = properties;
       var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetTVShows", param);
@@ -271,7 +271,28 @@ namespace Remote.XBMC.Frodo.Api
           {
             try
             {
-              var tvShow = new ApiTvShow
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            // go through art and see.
+
+                            JsonObject results = (JsonObject)genre["art"];
+
+                            if (results != null)
+                            {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+
+                            }
+
+
+
+                            var tvShow = new ApiTvShow
                 {
                   Title = genre["title"].ToString(),
                   Plot = genre["plot"].ToString(),
@@ -282,17 +303,21 @@ namespace Remote.XBMC.Frodo.Api
                   Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
                   IdShow = (long)(JsonNumber)genre["tvshowid"],
                   TotalCount = (long)(JsonNumber)genre["episode"],
-                  Path = "",
+                  Path = genre["file"].ToString(),
                   Premiered = genre["premiered"].ToString(),
                   Thumb = genre["thumbnail"].ToString(),
                   Fanart = genre["fanart"].ToString(),
+                  Logo = clearlogo,
+                  Banner = banner,
                   Hash = Xbmc.Hash(genre["thumbnail"].ToString())
                 };
               shows.Add(tvShow);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-            }
+                            _parent.Log("GetTVShows : Exception Caught: Json seems to equal :" + ex);
+
+                        }
           }
         }
       }
@@ -302,7 +327,7 @@ namespace Remote.XBMC.Frodo.Api
     {
         var shows = new Collection<ApiTvShow>();
 
-        var properties = new JsonArray(new[] { "title", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode" });
+        var properties = new JsonArray(new[] { "title", "art","plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode", "file" });
         var param = new JsonObject();
         param["properties"] = properties;
 
@@ -326,6 +351,26 @@ namespace Remote.XBMC.Frodo.Api
                 {
                     try
                     {
+                        var clearlogo = "NONE";
+                        var banner = "NONE";
+                            // go through art and see.
+
+                        JsonObject results = (JsonObject)genre["art"];
+
+                        if (results != null)
+                        {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+
+                         }
+
+
                         var tvShow = new ApiTvShow
                         {
                             Title = genre["title"].ToString(),
@@ -337,40 +382,127 @@ namespace Remote.XBMC.Frodo.Api
                             Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
                             IdShow = (long)(JsonNumber)genre["tvshowid"],
                             TotalCount = (long)(JsonNumber)genre["episode"],
-                            Path = "",
+                            Path = genre["file"].ToString(),
                             Premiered = genre["premiered"].ToString(),
                             Thumb = genre["thumbnail"].ToString(),
                             Fanart = genre["fanart"].ToString(),
+                            Logo = clearlogo,
+                            Banner = banner,
                             Hash = Xbmc.Hash(genre["thumbnail"].ToString())
                         };
                         shows.Add(tvShow);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                    }
+                            _parent.Log("GetTVShowsRefresh : Exception Caught: Json seems to equal :" + ex);
+                     }
                 }
             }
         }
         return shows;
-    }   
-    public Collection<ApiMovie> GetMoviesRefresh()
+    }
+        public Collection<ApiMovie> GetMoviesRefresh()
+        {
+            var movies = new Collection<ApiMovie>();
+
+            var properties = new JsonArray(new[] { "title", "art", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
+            var param = new JsonObject();
+            param["properties"] = properties;
+            // First 100 Date sorted
+            var param2 = new JsonObject();
+            param2.Add("start", 0);
+            param2.Add("end", 30);  //Number of Movies Quick refresh gets
+            var param3 = new JsonObject();
+            param3.Add("order", "descending");
+            param3.Add("method", "dateadded");
+            param.Add("sort", param3);
+            param.Add("limits", param2);
+
+
+            var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
+
+            if (result != null)
+            {
+                if (result.Contains("movies"))
+                {
+                    foreach (JsonObject genre in (JsonArray)result["movies"])
+                    {
+                        try
+                        {
+                            var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
+                            var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            // go through art and see.
+
+                            JsonObject results = (JsonObject)genre["art"];
+
+                            if (results != null)
+                            {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+
+                            }
+
+              
+                            var movie = new ApiMovie
+                            {
+
+                                Title = genre["title"].ToString(),
+                                Plot = genre["plot"].ToString(),
+                                Votes = genre["votes"].ToString(),
+                                Rating = genre["rating"].ToString(),
+                                Year = (long)(JsonNumber)genre["year"],
+                                IdScraper = "",
+                                Length = duration,
+                                Mpaa = genre["mpaa"].ToString(),
+                                Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
+                                Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
+                                OriginalTitle = genre["originaltitle"].ToString(),
+                                Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
+                                IdFile = 0,
+                                IdMovie = (long)(JsonNumber)genre["movieid"],
+                                FileName = genre["file"].ToString(),
+                                Path = "",
+                                PlayCount = 0,
+                                Thumb = genre["thumbnail"].ToString(),
+                                Fanart = genre["fanart"].ToString(),
+                                Logo = clearlogo,
+                                Banner = banner,
+                                Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
+                                DateAdded = genre["dateadded"].ToString()
+                            };
+                            movies.Add(movie);
+                        }
+                        catch (Exception ex)
+                        {
+                            _parent.Log("Exception Caught: Json seems to equal :" + ex);
+                        }
+                    }
+
+                }
+                return movies;
+
+                
+            }
+            return movies;
+        }
+
+    public Collection<ApiMovie> GetMovies()
     {
-        var movies = new Collection<ApiMovie>();
-        
-        var properties = new JsonArray(new[] { "title", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes" });
+      var movies = new Collection<ApiMovie>();
+
+        //add dateadded
+
+      var properties = new JsonArray(new[] { "title", "art", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
       var param = new JsonObject();
       param["properties"] = properties;
-        // First 100 Date sorted
-      var param2 = new JsonObject();
-      param2.Add("start",0);
-        param2.Add("end",30);  //Number of Movies Quick refresh gets
-        var param3 = new JsonObject();
-          param3.Add("order", "descending");     
-        param3.Add("method", "dateadded");
-        param.Add("sort", param3);
-        param.Add("limits", param2);
-          
-
       var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
       if (result != null)
       {
@@ -382,8 +514,28 @@ namespace Remote.XBMC.Frodo.Api
             {
               var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
               var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
-              var movie = new ApiMovie
+              var clearlogo = "NONE";
+              var banner = "NONE";
+                            // go through art and see.
+
+               JsonObject results = (JsonObject)genre["art"];
+
+              if (results != null)
               {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+               }
+
+
+
+              var movie = new ApiMovie
+                {
 
                   Title = genre["title"].ToString(),
                   Plot = genre["plot"].ToString(),
@@ -404,72 +556,16 @@ namespace Remote.XBMC.Frodo.Api
                   PlayCount = 0,
                   Thumb = genre["thumbnail"].ToString(),
                   Fanart = genre["fanart"].ToString(),
+                  Logo = clearlogo,
+                  Banner = banner,
                   Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
                   DateAdded = genre["dateadded"].ToString()
                 };
               movies.Add(movie);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-            }
-          }
-        }
-      }
-
-      return movies;
-   
-  }
-    
-
-    public Collection<ApiMovie> GetMovies()
-    {
-      var movies = new Collection<ApiMovie>();
-
-        //add dateadded
-
-      var properties = new JsonArray(new[] { "title", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes" });
-      var param = new JsonObject();
-      param["properties"] = properties;
-      var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
-      if (result != null)
-      {
-        if (result.Contains("movies"))
-        {
-          foreach (JsonObject genre in (JsonArray)result["movies"])
-          {
-            try
-            {
-              var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
-              var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
-              var movie = new ApiMovie
-                {
-
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Votes = genre["votes"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  Year = (long)(JsonNumber)genre["year"],
-                  IdScraper = "",
-                  Length = duration,
-                  Mpaa = genre["mpaa"].ToString(),
-                  Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                  Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
-                  OriginalTitle = genre["originaltitle"].ToString(),
-                  Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                  IdFile = 0,
-                  IdMovie = (long)(JsonNumber)genre["movieid"],
-                  FileName = "",
-                  Path = "",
-                  PlayCount = 0,
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
-                  DateAdded = genre["dateadded"].ToString()
-                };
-              movies.Add(movie);
-            }
-            catch (Exception)
-            {
+                            _parent.Log("Exception Caught: Json Clearlogo seems to equal :" + ex);
             }
           }
         }
