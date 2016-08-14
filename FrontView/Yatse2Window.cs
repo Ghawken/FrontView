@@ -2149,7 +2149,7 @@ namespace FrontView
 
             if (screenDisplayNumber < 0)
             {
-                screenDisplayNumber = 0;
+                screenDisplayNumber = 1;
             }
 
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
