@@ -450,7 +450,7 @@ namespace FrontView
                 }
                 if (param == "boxsize")
                 {
-                    return 55;
+                    return 65;
                 }
                 if (param == "TVS00E00")
                 {

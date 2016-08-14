@@ -268,6 +268,15 @@ namespace FrontView.Classes
             set { SetValue(FanartProperty, value); }
         }
 
+        public static readonly DependencyProperty LogoProperty =
+    DependencyProperty.Register("Logo", typeof(string), typeof(Yatse2Currently));
+
+        public string Logo
+        {
+            get { return (string)GetValue(LogoProperty); }
+            set { SetValue(LogoProperty, value); }
+        }
+
 
         public static readonly DependencyProperty TimeProperty =
             DependencyProperty.Register("Time", typeof(string), typeof(Yatse2Currently));

@@ -409,6 +409,7 @@ namespace FrontView
                     Logger.Instance().Log("FrontView+", "New TvShow Media : " + nowPlaying.FileName);
                     _yatse2Properties.Currently.IsTv = true;
                     _yatse2Properties.Currently.Thumb = GetVideoThumbPath(nowPlaying.ThumbURL); // TODO : Change to converter
+                    _yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
                     var epinfo = _database.GetTvEpisodeFromFile(_remoteInfo.Id, nowPlaying.FileName);
                     if (epinfo.Count > 0)
                     {
@@ -424,6 +425,7 @@ namespace FrontView
                         _yatse2Properties.Currently.TvDirector = epinfo[0].Director;
                         _yatse2Properties.Currently.TvYear = epinfo[0].Date.Length > 3 ? epinfo[0].Date.Substring(0, 4) : epinfo[0].Date;
                         _yatse2Properties.Currently.TvVotes = "";
+                       
                     }
                     else
                     {
@@ -444,7 +446,7 @@ namespace FrontView
                 
                 case "Movie":
                     _yatse2Properties.Currently.Thumb = GetVideoThumbPath(nowPlaying.ThumbURL); // TODO : Change to converter
-
+                    _yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
                     Logger.Instance().Log("FrontView+", "New Movie Media : " + nowPlaying.FileName);
                     var movieinfo = _database.GetMovieFromFile(_remoteInfo.Id, nowPlaying.FileName);
                     _yatse2Properties.Currently.IsMovie = true;
@@ -672,7 +674,7 @@ namespace FrontView
                     _yatse2Properties.IsSyncing = false;
                     _database.UpdateRemote(_remoteInfo);
                     ShowPopup(GetLocalizedString(102));
-                    ShowHome();
+                    //ShowHome();
                     _audioSongsDataSource.Clear();
                     _audioGenresDataSource.Clear();
                     _audioArtistsDataSource.Clear();

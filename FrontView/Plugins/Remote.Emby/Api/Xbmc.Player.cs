@@ -439,6 +439,7 @@ namespace Remote.Emby.Api
                                         _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.BackdropItemId + "/Images/Primary";
 
                                         _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
+                                       
                                         _nowPlaying.Artist = server.Artist;
 
                                     }
@@ -457,7 +458,8 @@ namespace Remote.Emby.Api
                                         _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
                                         _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.BackdropItemId + "/Images/Backdrop";
                                         _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
-                                    }
+                                   //     _nowPlaying.LogoURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.BackdropItemId + "/Images/Logo";
+                                }
 
                                     if (server.MediaType == "Movie")
                                     {
@@ -474,7 +476,9 @@ namespace Remote.Emby.Api
                                         _parent.Log("------------- EMBY IMAGES: FanartURL " + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop");
                                         _nowPlaying.FanartURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Backdrop";
                                         _nowPlaying.ThumbURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Primary";
-                                    }
+                                        _nowPlaying.LogoURL = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + server.PrimaryItemId + "/Images/Logo";
+
+                                }
 
                                     if (server.MediaType == "Video")
                                     {

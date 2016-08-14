@@ -312,6 +312,7 @@ namespace Plugin
         public string Genre { get; set; }
         public string ThumbURL { get; set; }
         public string FanartURL { get; set; }
+        public string LogoURL { get; set; }
         public string ShowTitle { get; set; }
         public DateTime FirstAired { get; set; }
         public string Plot { get; set; }

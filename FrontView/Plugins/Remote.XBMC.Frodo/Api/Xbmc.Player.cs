@@ -182,7 +182,8 @@ namespace Remote.XBMC.Frodo.Api
                                             //"firstaired",
                                             "tagline",
                                             "thumbnail",
-                                            "fanart"
+                                            "fanart",
+                                            "art"
                                             //"top250",
                                             //"trailer"
                                         };
@@ -219,6 +220,27 @@ namespace Remote.XBMC.Frodo.Api
 
                     result2 = (JsonObject)(result2)["item"];
 
+                    var clearlogo = "NONE";
+                    var banner = "NONE";
+                    // go through art and see.
+
+                    JsonObject artresults = (JsonObject)result2["art"];
+
+                    if (artresults != null)
+                    {
+                        if (artresults["clearlogo"] != null)
+                        {
+                            clearlogo = artresults["clearlogo"].ToString();
+                        }
+                        if (artresults["banner"] != null)
+                        {
+                            banner = artresults["banner"].ToString();
+                        }
+
+                    }
+
+
+
                     if (_nowPlaying.MediaType == "video")
                     {
                         if (result2["type"].ToString() == "channel")  //if PVR Needs to go high otherwise exception
@@ -228,6 +250,7 @@ namespace Remote.XBMC.Frodo.Api
                             _nowPlaying.FileName = result2["label"].ToString();
                             _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
                             _nowPlaying.FanartURL = result2["fanart"].ToString();
+                            _nowPlaying.LogoURL = clearlogo;
                             _nowPlaying.Title = result2["label"].ToString();
                             _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
                             _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
@@ -307,6 +330,7 @@ namespace Remote.XBMC.Frodo.Api
                         _nowPlaying.Rating = result2["rating"].ToString();
                         _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
                         _nowPlaying.FanartURL = result2["fanart"].ToString();
+                        _nowPlaying.LogoURL = clearlogo;
                     }
                 }
             }
