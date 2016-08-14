@@ -659,6 +659,7 @@ namespace FrontView
                 {
                     _showRemoteSelect = true;
                     ShowGrid(grd_Remotes);
+                   
                 }
             }
 

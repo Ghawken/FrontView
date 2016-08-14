@@ -381,6 +381,7 @@ namespace Plugin
         public string Thumb { get; set; }
         public string Fanart { get; set; }
         public string Banner { get; set; }
+        public string Logo { get;set;}
     }
 
     public class ApiTvEpisode

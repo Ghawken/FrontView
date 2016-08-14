@@ -157,6 +157,52 @@ namespace FrontView
             var res = _remote.VideoLibrary.GetTvSeasons();
             Logger.Instance().Log("FrontView+", "Remote TvSeasons : " + res.Count);
 
+            var oldData = _database.GetTvSeason(_remoteInfo.Id);
+
+            _database.SetBulkInsert(true);
+            _database.BeginTransaction();
+            _database.DeleteRemoteTvSeasons(_remoteInfo.Id);
+
+            var notfound = true;
+
+            foreach (var apiTvSeason in res)
+            {
+                notfound = true;
+
+              //  long oldFavorite = 0;
+
+                foreach (var show in oldData)
+                {
+                    if (show.IdShow == apiTvSeason.IdShow && apiTvSeason.SeasonNumber == show.SeasonNumber)
+                    {
+                        notfound = false;
+                        Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons : Season Already Exisits: Seasons Id Show.Name: " + show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow + " SeasonNumber:" + apiTvSeason.SeasonNumber + " show.SeasonNumber:" + show.SeasonNumber);
+
+                    }
+
+                }
+                if (notfound == true)
+                {
+                    Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons :nserting TV Season :Show Name:" + apiTvSeason.Show + ": ShowID:" + apiTvSeason.IdShow + " Season Number:" + apiTvSeason.SeasonNumber + " Episode Count:" + apiTvSeason.EpisodeCount + " Hash " + apiTvSeason.Hash);
+                    var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
+                    _database.InsertTvSeason(tvSeason);
+                    oldData = _database.GetTvSeason(_remoteInfo.Id);
+                }
+            }
+
+
+            _database.CommitTransaction();
+            _database.SetBulkInsert(false);
+            Logger.Instance().Log("FrontView+", "End Refresh : TvSeasons");
+        }
+        /**
+
+        private void RefreshTvSeasonLibrary()
+        {
+            Logger.Instance().Log("FrontView+", "Start Refresh : TvSeasons");
+            var res = _remote.VideoLibrary.GetTvSeasons();
+            Logger.Instance().Log("FrontView+", "Remote TvSeasons : " + res.Count);
+
             var oldData = _database.GetTvSeasonFavorites(_remoteInfo.Id);
 
             _database.SetBulkInsert(true);
@@ -179,7 +225,7 @@ namespace FrontView
             _database.SetBulkInsert(false);
             Logger.Instance().Log("FrontView+", "End Refresh : TvSeasons");
         }
-
+    */
         private void QuickRefreshTvEpisodesLibrary()
         {
             Logger.Instance().Log("FrontView+", "Start QUICK Refresh : TvEpisodes");
@@ -554,6 +600,9 @@ namespace FrontView
         private void RefreshTFTvShows(ref List<ApiImageDownloadInfo> dlinfo)
         {
             var lines = _database.GetTvShow(_remoteInfo.Id);
+
+            Logger.Instance().LogDump("FrontView+", "Start RefresTFTTvShows : Banners TV SHows:" + lines.Count);
+
             foreach (var line in lines)
             {
                 if (line.Thumb != "NONE" && !String.IsNullOrEmpty(line.Thumb))
@@ -588,6 +637,8 @@ namespace FrontView
                 }
                 if (line.Banner != "NONE" && !String.IsNullOrEmpty(line.Banner))
                 {
+
+                    Logger.Instance().LogDump("FrontView+", "Start Refresh : Banners TV SHows:"+line.Banner);
                     var path = Helper.CachePath + @"Video\Banners\" + _remotePlugin.GetHashFromFileName(line.Banner) + ".jpg";
                     if (!File.Exists(path))
                     {
@@ -595,6 +646,23 @@ namespace FrontView
                         {
                             Destination = path,
                             Source = line.Banner,
+                            ToThumb = _config.CropCacheImage,
+                            MaxHeight = (int)Height
+                        };
+                        dlinfo.Add(info);
+                    }
+                }
+
+                if (line.Logo != "NONE" && !String.IsNullOrEmpty(line.Logo))
+                {
+                    Logger.Instance().LogDump("FrontView+", "Start Refresh : Logos TV SHows:" + line.Logo);
+                    var path = Helper.CachePath + @"Video\Logos\" + _remotePlugin.GetHashFromFileName(line.Logo) + ".jpg";
+                    if (!File.Exists(path))
+                    {
+                        var info = new ApiImageDownloadInfo
+                        {
+                            Destination = path,
+                            Source = line.Logo,
                             ToThumb = _config.CropCacheImage,
                             MaxHeight = (int)Height
                         };

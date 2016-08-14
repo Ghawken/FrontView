@@ -38,7 +38,7 @@ namespace FrontView.Classes
         private SQLiteTransaction _dbTrans;
         private bool _connected;
         private bool _bulkInsert;
-        private const int DBVersion = 8;
+        private const int DBVersion = 9;
 
         //7 is addition of sqlDateTime to Remote to indicate time of last check
         // on second thought might test speed first and then run and ever start if not to long
@@ -1126,7 +1126,8 @@ namespace FrontView.Classes
                         Thumb = GetString(sqldReader, "Thumb"),
                         Fanart = GetString(sqldReader, "Fanart"),
                         IsFavorite = GetLong(sqldReader, "IsFavorite"),
-                        Banner = GetString(sqldReader, "Banner")
+                        Banner = GetString(sqldReader, "Banner"),
+                        Logo = GetString(sqldReader, "Logo")
                    
                     };
                     tvShows.Add(movie);
@@ -1209,8 +1210,8 @@ namespace FrontView.Classes
                 return 0;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"INSERT INTO `TvShows` ( IdRemote ,IdShow,IdScraper,Title,Plot,Premiered,Rating,Genre,Mpaa,Studio,Path,TotalCount,Hash,Thumb,Fanart,IsFavorite,Banner ) 
-                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                @"INSERT INTO `TvShows` ( IdRemote ,IdShow,IdScraper,Title,Plot,Premiered,Rating,Genre,Mpaa,Studio,Path,TotalCount,Hash,Thumb,Fanart,IsFavorite,Banner,Logo ) 
+                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             sqlCmd.Parameters.AddWithValue("a1", show.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", show.IdShow);
             sqlCmd.Parameters.AddWithValue("a3", show.IdScraper);
@@ -1228,6 +1229,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a15", show.Fanart);
             sqlCmd.Parameters.AddWithValue("a16", show.IsFavorite);
             sqlCmd.Parameters.AddWithValue("a17", show.Banner);
+            sqlCmd.Parameters.AddWithValue("a18", show.Logo);
 
             return QueryInsert(sqlCmd);
         }
@@ -1238,7 +1240,7 @@ namespace FrontView.Classes
                 return false;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"UPDATE `TvShows` SET IdRemote = ?,IdShow = ?,IdScraper = ?,Title = ?,Plot = ?,Premiered = ?,Rating = ?,Genre = ?,Mpaa = ?,Studio = ?,Path = ?,TotalCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsFavorite = ?, Banner = ?, WHERE Id = @Id;";
+                @"UPDATE `TvShows` SET IdRemote = ?,IdShow = ?,IdScraper = ?,Title = ?,Plot = ?,Premiered = ?,Rating = ?,Genre = ?,Mpaa = ?,Studio = ?,Path = ?,TotalCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsFavorite = ?, Banner = ?, Logo = ? WHERE Id = @Id;";
             sqlCmd.Parameters.AddWithValue("a1", show.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", show.IdShow);
             sqlCmd.Parameters.AddWithValue("a3", show.IdScraper);
@@ -1256,6 +1258,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a15", show.Fanart);
             sqlCmd.Parameters.AddWithValue("a16", show.IsFavorite);
             sqlCmd.Parameters.AddWithValue("a17", show.Banner);
+            sqlCmd.Parameters.AddWithValue("a18", show.Logo);
             sqlCmd.Parameters.AddWithValue("@Id", show.Id);
 
             return Query(sqlCmd);
@@ -1701,6 +1704,25 @@ namespace FrontView.Classes
                     {
                     }
                 }
+                if (fromBuild <= 8)
+                {
+                    Log("Applying database update 8....");
+                    try
+                    {
+                        
+                        sqlCmd.CommandText = @"ALTER TABLE 'TvShows' ADD COLUMN 'Logo' Text;";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+
+
+                    }
+                    catch (SQLiteException)
+                    {
+                    }
+                }
+
+
 
 
                 sqlCmd.CommandText = "UPDATE Version SET Version = " + DBVersion + ";";
@@ -1861,7 +1883,8 @@ namespace FrontView.Classes
                        Thumb TEXT,
                        Fanart TEXT,
                        IsFavorite INTEGER,
-                       Banner TEXT
+                       Banner TEXT,
+                       Logo TEXT
                     );
                     CREATE TABLE `TvSeasons`
                     (

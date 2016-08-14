@@ -82,14 +82,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="770048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="771584">
       <assemblyIdentity name="FrontView" version="1.0.173.173" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mbXjRzwDc8tBONzSqhWMhv198ECyrtwL5cEgW72uRsM=</dsig:DigestValue>
+        <dsig:DigestValue>dNqXqnUM4SlU9oXTAn8OGHCDnEx8szWChuw2aP2pwH0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

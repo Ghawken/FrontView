@@ -484,6 +484,7 @@ namespace FrontView.Classes
         public string Thumb { get; set; }
         public string Fanart { get; set; }
         public string Banner { get; set; }
+        public string Logo { get; set; }
         
         public ApiTvShow ToApi()
         {
@@ -503,7 +504,8 @@ namespace FrontView.Classes
                 Rating = Rating,
                 Studio = Studio,
                 TotalCount = TotalCount,
-                Banner = Banner
+                Banner = Banner,
+                Logo = Logo
             };
             return api;
 
@@ -530,6 +532,7 @@ namespace FrontView.Classes
             Thumb = apiTvShow.Thumb;
             Fanart = apiTvShow.Fanart;
             Banner = apiTvShow.Banner;
+            Logo = apiTvShow.Logo;
         }
     }
 

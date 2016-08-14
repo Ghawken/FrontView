@@ -150,7 +150,7 @@ namespace Remote.Emby.Api
                 var request = WebRequest.CreateHttp(NPurl);
 
                 request.Method = "get";
-                request.Timeout = 150000;
+                request.Timeout = 700000;
                 _parent.Trace("Single TV Season from TV Episodes NEW: Selection: " + _parent.IP + ":" + _parent.Port);
 
                 var authString = _parent.GetAuthString();
@@ -174,7 +174,10 @@ namespace Remote.Emby.Api
 
                         var deserializer = new JavaScriptSerializer();
 
+                        deserializer.MaxJsonLength = Int32.MaxValue;
+                        // Hopefully fix above.
                         var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
+
                         //   _parent.Trace("---------------Get Single TV Season Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
 
                         foreach (var genre in ItemData.Items)
@@ -491,7 +494,8 @@ namespace Remote.Emby.Api
                                     Premiered = SingleTVData.PremiereDate.ToString("D") ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
-                                    Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Banner" ?? "",
+                                    Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.ParentBackdropItemId + "/Images/Banner" ?? "",
+                                    Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.ParentBackdropItemId + "/Images/Logo" ?? "",
                                     Hash = Xbmc.Hash(genre.SeriesId)
 
                                 };
@@ -601,6 +605,7 @@ namespace Remote.Emby.Api
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Backdrop" ?? "",
                                     Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Banner" ?? "",
+                                    Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Logo" ?? "",
                                     Hash = Xbmc.Hash(genre.Id)
 
                                 };
