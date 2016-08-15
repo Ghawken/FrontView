@@ -1800,7 +1800,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
+            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1897,7 +1897,7 @@
             -->
 
                 <Button Margin="0,312,315,10" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click" 
-        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
+        		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="70" Width="70" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
 
 
 
