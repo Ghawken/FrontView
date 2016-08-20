@@ -240,12 +240,15 @@ namespace Remote.Plex.Api
                         // Open the stream using a StreamReader.
                         System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
-                        XmlSerializer serializer = new XmlSerializer(typeof(ClientsMediaContainer));
-                        ClientsMediaContainer deserialized = (ClientsMediaContainer)serializer.Deserialize(reader);
 
 
+                        XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients2.MediaContainer));
+                        Remote.Plex.Api.Clients2.MediaContainer deserialized = (Remote.Plex.Api.Clients2.MediaContainer)serializer.Deserialize(reader);
 
-                        if (deserialized.Server.Count == 0)
+                        string json = reader.ReadToEnd().ToString();
+                        Log("CheckConnection Plex:" + json);
+                        
+                        if (deserialized.size == 0)
                         {
                             Log("No connected Plex. Clients Found");
                             return false;
@@ -253,9 +256,10 @@ namespace Remote.Plex.Api
 
                         foreach (var server in deserialized.Server)
                         {
-                            Log("Clients FOUND: " + server.Value);
+                            Log("Clients FOUND: " + deserialized.size);
                             Log("name is " + server.name + " and host is " + server.host);
 
+                            
                             if (server.host == GetLocalIPAddress())
                             {
                                 Log("Client Machine Found - Yah!    " + server.host + ":" + server.name);
@@ -344,12 +348,15 @@ namespace Remote.Plex.Api
                     // Open the stream using a StreamReader.
                     System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(ClientsMediaContainer));
-                    ClientsMediaContainer deserialized = (ClientsMediaContainer)serializer.Deserialize(reader);
-                     
-                       
 
-                    if (deserialized.Server.Count == 0)
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients.MediaContainer));
+                    Remote.Plex.Api.Clients.MediaContainer deserialized = (Remote.Plex.Api.Clients.MediaContainer)serializer.Deserialize(reader);
+
+                    string json = reader.ReadToEnd().ToString();
+                    Log("TestConnection Plex:" + json);
+
+                    if (deserialized.size == 0)
                     {
                        Log("No connected Plex. Clients Found");
                        return 0;
@@ -357,7 +364,7 @@ namespace Remote.Plex.Api
 
                     foreach (var server in deserialized.Server)
                     {
-                        Log("Clients FOUND: " + server.Value);
+                        Log("Clients FOUND: " + deserialized.size);
                         Log("name is " + server.name + " and host is " + server.host);
 
                         if (server.host == GetLocalIPAddress())
@@ -429,9 +436,9 @@ namespace Remote.Plex.Api
                 {
                     var values = new NameValueCollection();
                     values["Authorization"] = "Basic " + auth;
-                    values["X-Plex-Client-Identifier"] = "Yatse3Socket";
-                    values["X-Plex-Product"] = "Yatse 3 Socket";
-                    values["X-Plex-Version"] = "0.1.0";
+                    values["X-Plex-Client-Identifier"] = "FrontView+";
+                    values["X-Plex-Product"] = "FrontView+";
+                    values["X-Plex-Version"] = "1.181";
 
                     client.Headers.Add(values);
 
@@ -615,9 +622,9 @@ namespace Remote.Plex.Api
 
                 var request = WebRequest.Create(url);
                 request.Headers.Add("X-Plex-Token", PlexAuthToken);
-                request.Headers.Add("X-Plex-Client-Identifier", "Yatse3Socket");
-                request.Headers.Add("X-Plex-Product","Yatse 3 Socket");
-                request.Headers.Add("X-Plex-Version","0.1.0");
+                request.Headers.Add("X-Plex-Client-Identifier", "FrontView+");
+                request.Headers.Add("X-Plex-Product","FrontView+");
+                request.Headers.Add("X-Plex-Version","1.181");
                 var response = request.GetResponse();
 
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)

@@ -55,7 +55,7 @@ namespace Remote.Plex
                            AudioLibrary = true,
                            TvShowLibrary = true,
                            PictureLibrary = true,
-                           SupportsRemoteControl = true
+                           SupportsRemoteControl = false
                        };
         }
 
