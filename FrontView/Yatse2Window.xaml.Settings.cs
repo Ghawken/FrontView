@@ -200,13 +200,13 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.Items.Add("V Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Small");
-            lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Logo;
+            lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
 
             lst_Settings_Skin_Extra_Logo.Items.Clear();
             lst_Settings_Skin_Extra_Logo.Items.Add("Large");
             lst_Settings_Skin_Extra_Logo.Items.Add("Medium");
             lst_Settings_Skin_Extra_Logo.Items.Add("Small");
-            lst_Settings_Skin_Extra_Logo.SelectedItem = _config.Skin_Extra_Text;
+            lst_Settings_Skin_Extra_Logo.SelectedItem = _config.Skin_Extra_Logo;
 
             lst_Settings_DimAmount.Items.Clear();
             //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;

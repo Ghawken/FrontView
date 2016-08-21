@@ -518,10 +518,30 @@
                         <Border x:Name="brd_Current_Movie_Header" Margin="235,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}">
 
                             <Grid Margin="0" >
-                                <!--  <Image Source="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"></Image>  -->
-                                <!--
-                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
-        						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown"/>   -->
+                                <!--  <Image Source="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"></Image>   Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=boolinvert, Source={StaticResource Yatse2Properties}}"    -->
+
+                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center"  Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+        						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding UseLogo, Source={StaticResource Yatse2Properties}}" Value="true" />  
+                                                        <Condition Binding="{Binding Currently.Logo, Converter={x:Static Yatse2:SkinLogoConverter.Instance}, ConverterParameter=normal, Source={StaticResource Yatse2Properties}}" Value="false" /> 
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="TextBlock.Visibility" Value="Hidden"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        
+                                    </TextBlock.Style>
+
+                                </TextBlock>
+                                 
+                                           
+                                  
 
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
@@ -562,7 +582,7 @@
                                 Click="btn_Current_Music_Mute_Click" />
                                 <Border Height="Auto">
 
-                                    <Rectangle x:Name="rct_Current_Movie_Logo" StrokeThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="319,-193,97,143"  MaxHeight="500" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=logosize, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" RenderTransformOrigin="0.5,1" Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" >
+                                    <Rectangle x:Name="rct_Current_Movie_Logo" StrokeThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="319,-193,97,143"  MaxHeight="500" Height="{Binding Skin_Extra_Logo, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=logosize, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" RenderTransformOrigin="0.5,1" Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" >
                                         <Rectangle.Fill>
                                             <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"  />
 

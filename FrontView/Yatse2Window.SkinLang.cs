@@ -123,6 +123,28 @@ namespace FrontView
             return "";
         }
 
+        private string GetVideoLogoPath(string remotepath)
+        {
+            var hash = _remotePlugin.GetHashFromFileName(remotepath);
+            var destFile = Helper.CachePath + @"Video\Logos\" + hash + ".jpg";
+
+            if (File.Exists(destFile)) return destFile;
+
+            _remote.File.DownloadImages(new ApiImageDownloadInfo { Source = remotepath, Destination = destFile, MaxHeight = (int)Height, ToThumb = _config.CropCacheImage });
+
+            if (File.Exists(destFile))
+            {
+                return destFile;
+            }
+
+            if (File.Exists(Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Video-Logos.png")))
+            {
+                return Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Video-Logos.png");
+            }
+            Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Video-Logos.png", true);
+            return "";
+        }
+
         private string GetRandomImagePath(string path)
         { //TODO : Add parameter to change default image
             if (string.IsNullOrEmpty(path))

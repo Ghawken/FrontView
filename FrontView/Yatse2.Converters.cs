@@ -25,6 +25,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Setup;
 using FrontView.Libs;
+using System.Linq;
 
 namespace FrontView
 {
@@ -356,6 +357,53 @@ namespace FrontView
     }
 
 
+    public class SkinLogoConverter : IValueConverter
+    {
+        private static readonly SkinLogoConverter TheInstance = new SkinLogoConverter();
+        private SkinLogoConverter() { }
+        public static SkinLogoConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var img = (string)value;
+            var param = (string)parameter;
+
+            if (String.IsNullOrEmpty(img))
+            {
+                Logger.Instance().Trace("SkinLogoConverter:", "img NULLorEMPTY ");
+                return false; 
+                
+            }
+
+
+            string lastpart = img.Substring(Math.Max(0, img.Length - 23));
+
+            Logger.Instance().Trace("SkinLogoConverter:", "img: " + img + ":param:" + param + " Last last of Filename:======"+lastpart);
+
+
+            if (lastpart == "Default_Video-Logos.png")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
     public class SkinExtraConverter : IValueConverter
     {
         private static readonly SkinExtraConverter TheInstance = new SkinExtraConverter();
@@ -454,7 +502,7 @@ namespace FrontView
                 }
                 if (param == "boxsize")
                 {
-                    return 150;
+                    return 100;
                 }
                 if (param == "TVS00E00")
                 {
@@ -477,11 +525,18 @@ namespace FrontView
                 }
                 if (param == "boxsize")
                 {
-                    return 100;
+                    return 60;
                 }
                 if (param == "TVS00E00")
                 {
                     return 18;
+                }
+            }
+            if (img=="Medium"  )
+            {
+                if (param== "logosize")
+                {
+                    return 120;
                 }
             }
             if (img == "Small")
@@ -496,7 +551,7 @@ namespace FrontView
                 }
                 if (param == "logosize")
                 {
-                    return 100;
+                    return 50;
                 }
                 if (param == "boxsize")
                 {
