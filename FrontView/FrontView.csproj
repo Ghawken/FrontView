@@ -5024,9 +5024,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Skin\Default\Interface\Default_Video-Logos.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Skin\Default\Interface\Default_Video-Logos.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

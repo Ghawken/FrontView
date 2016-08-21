@@ -4495,3 +4495,4 @@ C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\obj\x86\Debug\FrontV
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\obj\x86\Debug\FrontView.application
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\obj\x86\Debug\FrontView.exe
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\obj\x86\Debug\FrontView.pdb
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\bin\x86\Debug\Skin\Default\Interface\Default_Video-Logos.png
