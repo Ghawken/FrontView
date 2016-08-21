@@ -71,11 +71,13 @@ namespace FrontView.Classes
         public int DimTime { get; set; }
         public string Skin_Extra { get; set; }
         public string Skin_Extra_Text { get; set; }
+        public string Skin_Extra_Logo { get; set; }
         public double FanArtOpacity { get; set; }
         public double SemiCircleOpacity { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
+        public bool UseLogo { get; set; }
         public bool UseBanner { get; set; }
         public bool ShowOverlay { get; set; } // TODO : Use this
         public bool ShowEmptyMusicGenre { get; set; }
@@ -168,6 +170,7 @@ namespace FrontView.Classes
             Currently = true;
             CurrentlyMovie = true;
             HideCursor = false;
+            UseLogo = true;
             UseBanner = false;
             ShowOverlay = true;
             ShowEmptyMusicGenre = false;
@@ -201,7 +204,8 @@ namespace FrontView.Classes
             FanartTimer = 5;
             DimmingTimer = 15;
             Skin_Extra = "";
-            Skin_Extra_Text = "";
+            Skin_Extra_Text = "Large";
+            Skin_Extra_Logo = "Large";
             DisableScreenPositioning = false;
             MouseMode = false;
             CropCacheImage = true;
@@ -293,11 +297,13 @@ namespace FrontView.Classes
             DimAmount = config.DimAmount;
             Skin_Extra = config.Skin_Extra;
             Skin_Extra_Text = config.Skin_Extra_Text;
+            Skin_Extra_Logo = config.Skin_Extra_Logo;
             TVOrderbyNewEpsiodes = config.TVOrderbyNewEpsiodes;
             DimTime = config.DimTime;
             Currently = config.Currently;
             CurrentlyMovie = config.CurrentlyMovie;
             HideCursor = config.HideCursor;
+            UseLogo = config.UseLogo;
             UseBanner = config.UseBanner;
             ShowOverlay = config.ShowOverlay;
             ShowEmptyMusicGenre = config.ShowEmptyMusicGenre;

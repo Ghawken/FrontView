@@ -382,7 +382,9 @@
                     <Button Content="Button" HorizontalAlignment="Right" Height="48" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="48" Style="{DynamicResource Remote_Button}"
         			Background="{Binding Skin, ConverterParameter=Remote_Pictures, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Home_Diaporama_Click" d:IsHidden="True" />
                 </Grid>
-                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden">
+                
+                
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Visible">
 
 
                     <!-- Fanart For all Now Playing Screens -->
@@ -517,7 +519,7 @@
 
                             <Grid Margin="0" >
                                 <!--  <Image Source="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"></Image>  -->
-                               <!--
+                                <!--
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.MovieTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown"/>   -->
 
@@ -560,15 +562,15 @@
                                 Click="btn_Current_Music_Mute_Click" />
                                 <Border Height="Auto">
 
-                                    <Rectangle x:Name="rct_Current_Movie_Logo" StrokeThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="319,-193,97,143"  MaxHeight="500" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=logosize, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" RenderTransformOrigin="0.5,1" >
+                                    <Rectangle x:Name="rct_Current_Movie_Logo" StrokeThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="319,-193,97,143"  MaxHeight="500" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=logosize, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown" RenderTransformOrigin="0.5,1" Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" >
                                         <Rectangle.Fill>
                                             <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"  />
-                                            
+
                                         </Rectangle.Fill>
                                         <Rectangle.Effect>
                                             <DropShadowEffect/>
                                         </Rectangle.Effect>
-                                       
+
                                     </Rectangle>
                                 </Border>
 
@@ -979,6 +981,14 @@
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="Text Size:" Canvas.Left="354" Canvas.Top="106"/>
 
+                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Logo" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="455" Canvas.Top="136" Width="158"/>
+
+                                            <CheckBox x:Name="chk_Settings_UseLogo" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Use Logo" Padding="5,0,0,0" Canvas.Left="484" Canvas.Top="165" Width="123" />
+
+                                            <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+        								Text="Logo Size:" Canvas.Left="357" Canvas.Top="137"/>
+
                                             <TextBlock Width="156" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="Now Playing Screen:" Canvas.Left="451" Canvas.Top="54"/>
 
@@ -988,13 +998,13 @@
                                             <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" />
 
-                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="262" Canvas.Top="193" Width="188"/>
+                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="429" Canvas.Top="217" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="262" Canvas.Top="162" Width="188"/>
+        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="402" Canvas.Top="198" Width="191"/>
 
-                                            <ComboBox x:Name="lst_Settings_DimTime" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="262" Canvas.Top="251" Width="188"/>
+                                            <ComboBox x:Name="lst_Settings_DimTime" Height="22" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="429" Canvas.Top="268" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="262" Canvas.Top="227" Width="188"/>
+        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="422" Canvas.Top="249" Width="191"/>
                                         </Canvas>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">

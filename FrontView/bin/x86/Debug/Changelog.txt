@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+1.185
+Fix for Plex - V.Limited support for Plex - NowPlaying screen only
+Add Settings Buttons for Logos
+
+
 Version: 1.164
 Add Display Selection Box - enables as many screen as liked to be selected
 Resolution fixes - should display options for more

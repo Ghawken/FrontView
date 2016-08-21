@@ -114,6 +114,25 @@ DependencyProperty.Register("Skin_Extra_Text", typeof(string), typeof(Yatse2Prop
             set { SetValue(Skin_Extra_TextProperty, value); }
         }
 
+        public static readonly DependencyProperty UseLogoProperty =
+DependencyProperty.Register("UseLogo", typeof(bool), typeof(Yatse2Properties));
+
+        public bool UseLogo
+        {
+            get { return (bool)GetValue(UseLogoProperty); }
+            set { SetValue(UseLogoProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty Skin_Extra_LogoProperty =
+DependencyProperty.Register("Skin_Extra_Logo", typeof(string), typeof(Yatse2Properties));
+
+        public string Skin_Extra_Logo
+        {
+            get { return (string)GetValue(Skin_Extra_LogoProperty); }
+            set { SetValue(Skin_Extra_LogoProperty, value); }
+        }
+
         public static readonly DependencyProperty SkinProperty =
             DependencyProperty.Register("Skin", typeof(string), typeof(Yatse2Properties));
 

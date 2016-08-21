@@ -90,6 +90,7 @@ namespace FrontView
             chk_Settings_Currently.IsChecked = _config.Currently;
             chk_Settings_CurrentlyMovie.IsChecked = _config.CurrentlyMovie;
             chk_Settings_HideCursor.IsChecked = _config.HideCursor;
+            chk_Settings_UseLogo.IsChecked = _config.UseLogo;
 
             chk_Settings_UseBanner.IsChecked = _config.UseBanner;
             chk_Settings_ShowOverlay.IsChecked = _config.ShowOverlay;
@@ -199,8 +200,13 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.Items.Add("V Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Small");
-            lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
+            lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Logo;
 
+            lst_Settings_Skin_Extra_Logo.Items.Clear();
+            lst_Settings_Skin_Extra_Logo.Items.Add("Large");
+            lst_Settings_Skin_Extra_Logo.Items.Add("Medium");
+            lst_Settings_Skin_Extra_Logo.Items.Add("Small");
+            lst_Settings_Skin_Extra_Logo.SelectedItem = _config.Skin_Extra_Text;
 
             lst_Settings_DimAmount.Items.Clear();
             //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;
@@ -340,6 +346,7 @@ namespace FrontView
                 _config.Currently = (bool)chk_Settings_Currently.IsChecked;
                 _config.CurrentlyMovie = (bool)chk_Settings_CurrentlyMovie.IsChecked;
                 _config.HideCursor = (bool)chk_Settings_HideCursor.IsChecked;
+                _config.UseLogo = (bool)chk_Settings_UseLogo.IsChecked;
                 _config.UseBanner = (bool)chk_Settings_UseBanner.IsChecked;
                 _config.ShowOverlay = (bool)chk_Settings_ShowOverlay.IsChecked;
                 _config.ShowEmptyMusicGenre = (bool)chk_Settings_ShowEmptyMusicGenre.IsChecked;
@@ -412,6 +419,8 @@ namespace FrontView
 
             _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
 
+            _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
+
             _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
 
             en = _yatse2PlayModes.GetEnumerator();
@@ -462,6 +471,8 @@ namespace FrontView
             _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
+            _yatse2Properties.Skin_Extra_Logo = _config.Skin_Extra_Logo;
+            _yatse2Properties.UseLogo = _config.UseLogo;
             RefreshDictionaries();
 
             _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;

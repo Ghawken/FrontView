@@ -718,6 +718,8 @@ namespace FrontView
                     _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
                     _yatse2Properties.Skin_Extra = _config.Skin_Extra;
                     _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
+                    _yatse2Properties.Skin_Extra_Logo = _config.Skin_Extra_Logo;
+                    _yatse2Properties.UseLogo = _config.UseLogo;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                                                         {
