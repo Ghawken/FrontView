@@ -372,29 +372,76 @@ namespace FrontView
             
             if (value == DependencyProperty.UnsetValue) return false;
 
+
+            // Check and change the filename from default to cache file first and then check if equals default cache.
+
+            string cacheornot = "";
             var img = (string)value;
-            var param = (string)parameter;
 
             if (String.IsNullOrEmpty(img))
             {
-                Logger.Instance().Trace("SkinLogoConverter:", "img NULLorEMPTY ");
+                Logger.Instance().Trace("SkinLogoConverter:", "img NULL orEMPTY; returning false ");
                 return false; 
                 
             }
 
 
-            string lastpart = img.Substring(Math.Max(0, img.Length - 23));
+            var param = (string)parameter;
+            var path = Helper.CachePath + "Video\\Logos" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
 
-            Logger.Instance().Trace("SkinLogoConverter:", "img: " + img + ":param:" + param + " Last last of Filename:======"+lastpart);
+            Logger.Instance().Trace("SkinLogoConverter:", "img: " + img + ":param:" + param +" path :"+path);
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    // Early return - obviously not using default as using Cache.
+                    Logger.Instance().Trace("SkinLogoConverter: Returning FALSE:", "img: " + img + ":param:" + param + " path :" + path);
+                    return false;
+                }
+                catch (Exception)
+                {
+       
+                }
+            }
+            /**
+            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
+
+            if (File.Exists(path))
+            {
+                cacheornot = path;
+            }
+            else
+            {
+                cacheornot = "pack://application:,,,/Skin/Internal/Images/Empty.png";
+            }
+    **/
+            // if gets this far - cache image does not exist
+            // why?  alwways return true
+
+            return true;
+
+
+            var img2 = (string)value;
+            var param2 = (string)parameter;
+
+
+
+            string lastpart = img2.Substring(Math.Max(0, img2.Length - 23));
+
+            Logger.Instance().Trace("SkinLogoConverter:", "img: " + img2 + ":param:" + param2 + " Last last of Filename:======"+lastpart);
 
 
             if (lastpart == "Default_Video-Logos.png")
             {
                 return true;
+                //using Default Video Logos png hence turn
             }
             else
             {
                 return false;
+                // Not Default return false..
             }
         }
 
