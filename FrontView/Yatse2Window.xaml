@@ -1967,18 +1967,21 @@
 
 
 
-                <Rectangle  Margin="50,10,39,88" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="1" >
+                <Rectangle  Margin="50,10,39,88" RadiusY="10" RadiusX="10"  Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="1" Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Thumb, ConverterParameter=Video\\Thumbs, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
 
+                
                 <Rectangle Grid.ColumnSpan="2" Margin="0,5,0,0" >
                     <Rectangle.Fill>
                         <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Logo, ConverterParameter=Video\\Logos, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_TvShows_flow}"/>
                     </Rectangle.Fill>
                 </Rectangle>
 
+                
+                
                 <TextBlock  Margin="21,0,23,30"  TextWrapping="Wrap" VerticalAlignment="Bottom"  Foreground="{DynamicResource Default_Font_Color}" FontSize="24" Grid.Row="2" TextAlignment="Center"
                        Text="{Binding SelectedItem.Premiered, StringFormat=Premiered:{0}, ElementName=lst_TvShows_flow}" Height="33"  />
                 <!--
