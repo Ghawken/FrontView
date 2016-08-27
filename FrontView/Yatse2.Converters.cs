@@ -375,7 +375,7 @@ namespace FrontView
 
             // Check and change the filename from default to cache file first and then check if equals default cache.
 
-            string cacheornot = "";
+            //string cacheornot = "";
             var img = (string)value;
 
             if (String.IsNullOrEmpty(img))
@@ -387,9 +387,18 @@ namespace FrontView
 
 
             var param = (string)parameter;
-            var path = Helper.CachePath + "Video\\Logos" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+            var path = img;
 
-            Logger.Instance().Trace("SkinLogoConverter:", "img: " + img + ":param:" + param +" path :"+path);
+            Logger.Instance().Trace("SkinLogoConverter: Base:", "img: " + img + ":param:" + param +" path :"+path);
+
+            if (img.Contains(@"Video\Logos") == false)
+            {
+                path = Helper.CachePath + "Video\\Logos" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+                Logger.Instance().Trace("SkinLogoConverter: Contains Video-Logo FALSE", "img: " + img + ":param:" + param + " path :" + path);
+            }
+
+
+
 
             if (File.Exists(path))
             {
@@ -401,7 +410,7 @@ namespace FrontView
                 }
                 catch (Exception)
                 {
-       
+                    Logger.Instance().Trace("SkinLogoConverter: Exception:", "img: " + img + ":param:" + param + " path :" + path);
                 }
             }
             /**
@@ -420,6 +429,7 @@ namespace FrontView
             // if gets this far - cache image does not exist
             // why?  alwways return true
 
+            Logger.Instance().Trace("SkinLogoConverter: Returning True:", "img: " + img + ":param:" + param + " path :" + path);
             return true;
 
 

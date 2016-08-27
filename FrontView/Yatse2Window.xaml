@@ -912,7 +912,7 @@
                         </Border>
                     </Grid>
                 </Grid>
-                <Grid x:Name="grd_Movies" Visibility="Hidden" Background="#EE000000" Margin="0" d:IsHidden="True">
+                <Grid x:Name="grd_Movies" Visibility="Hidden" Background="#EE000000" Margin="0" >
 
 
 
@@ -922,7 +922,7 @@
                     </Grid.RowDefinitions>
 
 
-                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
+                    <Rectangle x:Name="Background_fanart_MoviesFlow" Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding SelectedItem.Fanart, ConverterParameter=Video\\Fanarts, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}" />
                         </Rectangle.Fill>
@@ -943,8 +943,17 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                     <Button x:Name="btn_Movies_Infos" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Bottom" Width="60" Height="60" Content="4" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Infos_Click"
         			Background="{Binding Skin, ConverterParameter=Remote_Info/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
+                    
+                    
                     <TextBlock Margin="130,0,130,8" FontSize="21.333" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="30" VerticalAlignment="Bottom" Grid.Row="1"
-        			Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" d:IsHidden="True"/>
+        			Text="{Binding SelectedItem.Title, ElementName=lst_Movies_flow}" />  
+<!--
+                    <Rectangle Margin="130,0,130,8"  Height="30" VerticalAlignment="Bottom" Grid.Row="1" >
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding SelectedItem.Logo, ConverterParameter=Video\\Logos, Converter={x:Static Yatse2:CacheImageConverter.Instance}, ElementName=lst_Movies_flow}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+-->
                     <ListBox x:Name="lst_Movies_flow" Margin="0,-14.5,0,61.5" ItemsSource="{DynamicResource MoviesDataSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{DynamicResource MoviesDataTemplate}" ItemContainerStyle="{DynamicResource ListBoxItemStyle_Movies}" ItemsPanel="{DynamicResource ItemsPanelTemplate_Movies}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" BorderThickness="0" Grid.Row="1" SelectionChanged="lst_Movies_flow_SelectionChanged" PreviewMouseLeftButtonDown="lst_Movies_flow_PreviewMouseLeftButtonDown" Panel.ZIndex="2" d:IsHidden="True">
                         <ListBox.OpacityMask>
                             <RadialGradientBrush>
@@ -1826,7 +1835,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
+            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
