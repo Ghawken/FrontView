@@ -118,6 +118,23 @@ namespace FrontView
 
             }
         }
+
+
+        private void LogoSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            {
+                // ... Get Slider reference.
+                var slider = sender as Slider;
+                // ... Get Value.
+                double value = Math.Round(slider.Value,0);
+                // ... Set Window Title.
+
+                _config.LogoSize = value;
+                _yatse2Properties.LogoSize = value;
+
+            }
+        }
+
         private void SemiCircleOpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             {

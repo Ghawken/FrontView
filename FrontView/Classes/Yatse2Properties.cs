@@ -67,6 +67,20 @@ namespace FrontView.Classes
             }
         }
 
+
+        public static readonly DependencyProperty LogoSizeProperty =
+    DependencyProperty.Register("LogoSize", typeof(double), typeof(Yatse2Properties));
+
+        public double LogoSize
+        {
+            get { return (double)GetValue(LogoSizeProperty); }
+            set
+            {
+                SetValue(LogoSizeProperty, value);
+
+            }
+        }
+
         public static readonly DependencyProperty SemiCircleOpacityProperty =
     DependencyProperty.Register("SemiCircleOpacity", typeof(double), typeof(Yatse2Properties));
 

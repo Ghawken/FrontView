@@ -73,6 +73,7 @@ namespace FrontView.Classes
         public string Skin_Extra_Text { get; set; }
         public string Skin_Extra_Logo { get; set; }
         public double FanArtOpacity { get; set; }
+        public double LogoSize { get; set; }
         public double SemiCircleOpacity { get; set; }
         public bool Currently { get; set; }
         public bool CurrentlyMovie { get; set; }
@@ -229,7 +230,7 @@ namespace FrontView.Classes
             FanartNumberDirectories = 3;
             HttpSend = false;
             HttpUseDigest = false;
-
+            LogoSize = 100.0;
             FanArtOpacity = 1.0;
             SemiCircleOpacity = 0.65;
             HttpUser = "";
@@ -267,7 +268,7 @@ namespace FrontView.Classes
             // Changes for Http Sending
             HttpSend = config.HttpSend;
             HttpUseDigest = config.HttpUseDigest;
-
+            LogoSize = config.LogoSize;
             FanArtOpacity = config.FanArtOpacity;
             SemiCircleOpacity = config.SemiCircleOpacity;
             HttpUser = config.HttpUser;

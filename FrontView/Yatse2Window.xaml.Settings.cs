@@ -202,11 +202,13 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.Items.Add("Small");
             lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
 
-            lst_Settings_Skin_Extra_Logo.Items.Clear();
-            lst_Settings_Skin_Extra_Logo.Items.Add("Large");
-            lst_Settings_Skin_Extra_Logo.Items.Add("Medium");
-            lst_Settings_Skin_Extra_Logo.Items.Add("Small");
-            lst_Settings_Skin_Extra_Logo.SelectedItem = _config.Skin_Extra_Logo;
+            lst_Settings_LogoSize.Value = _config.LogoSize;
+            
+           // lst_Settings_Skin_Extra_Logo.Items.Clear();
+           // lst_Settings_Skin_Extra_Logo.Items.Add("Large");
+           // lst_Settings_Skin_Extra_Logo.Items.Add("Medium");
+          //  lst_Settings_Skin_Extra_Logo.Items.Add("Small");
+          //  lst_Settings_Skin_Extra_Logo.SelectedItem = _config.Skin_Extra_Logo;
 
             lst_Settings_DimAmount.Items.Clear();
             //lst_Settings_DimAmount.Items.CurrentItem = _config.DimAmount;
@@ -272,6 +274,8 @@ namespace FrontView
             var screens = Screen.AllScreens;
 
             lst_Settings_Displays.Items.Clear();
+
+            lst_Settings_LogoSize.Value = _config.LogoSize;
 
             lst_Settings_FanartOpacity.Value = _config.FanArtOpacity;
             lst_Settings_SemiCircleOpacity.Value = _config.SemiCircleOpacity;
@@ -419,7 +423,9 @@ namespace FrontView
 
             _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
 
-            _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
+            _config.LogoSize = lst_Settings_LogoSize.Value;
+
+          //  _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
 
             _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
 
@@ -468,6 +474,7 @@ namespace FrontView
             _yatse2Properties.Language = _config.Language;
             _yatse2Properties.DimAmount = _config.DimAmount;
             _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
+            _yatse2Properties.LogoSize = _config.LogoSize;
             _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
