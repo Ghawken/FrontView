@@ -122,7 +122,83 @@ namespace FrontView
             return Binding.DoNothing;
         }
     }
+    public class SkinIconConverter : IValueConverter
+    {
+        private static readonly SkinIconConverter TheInstance = new SkinIconConverter();
+        private SkinIconConverter() { }
+        public static SkinIconConverter Instance
+        {
+            get { return TheInstance; }
+        }
 
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var param = (string)parameter;
+            var temp = param.Split('/');
+
+            if (temp.Length > 1)
+            {
+                param = temp[0];
+            }
+
+            var path = Helper.SkinPath + (string)value + @"\Interface\" + param + ".png";
+
+
+            if (!File.Exists(path))
+            {
+                // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
+
+                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                path = Helper.SkinPath + "Default" + @"\Interface\" + param + ".png";
+                if (!File.Exists(path))
+                {
+                    Logger.Instance().Log("C_SkinBrush", "Missing DEFAULT skin image : " + path);
+                    return new ImageBrush();
+                }
+
+            }
+
+
+            if (temp.Length > 1)
+            {
+                if (temp[1] == "Small")
+                    return new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(path)),
+                        Stretch = Stretch.Uniform,
+                        TileMode = TileMode.None,
+                        AlignmentX = AlignmentX.Center,
+                        AlignmentY = AlignmentY.Center,
+                        Viewport = new Rect(10, 10, 34, 34),
+                        ViewportUnits = BrushMappingMode.Absolute,
+                    };
+                if (temp[1] == "Fill")
+                    return new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(path)),
+                        Stretch = Stretch.UniformToFill,
+                        AlignmentX = AlignmentX.Center,
+                        AlignmentY = AlignmentY.Center
+                    };
+            }
+
+            return new ImageBrush
+            {
+                ImageSource = new BitmapImage(new Uri(path)),
+                Stretch = Stretch.Uniform,
+                AlignmentX = AlignmentX.Center,
+                AlignmentY = AlignmentY.Center,
+            };
+            
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
     public class SkinBrushConverter : IValueConverter
     {
         private static readonly SkinBrushConverter TheInstance = new SkinBrushConverter();

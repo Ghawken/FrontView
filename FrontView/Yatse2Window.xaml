@@ -1932,6 +1932,16 @@
                 
                 <TextBlock Margin="214,0,65,52" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         			Text="{Binding SelectedItem.MovieIcons, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Height="37" VerticalAlignment="Bottom" />
+                
+                <!--  Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"-->
+                <Grid Grid.Column="1" Grid.Row="1" Margin="34,0,20,0" Height="130" VerticalAlignment="Bottom">
+                    <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=Icon_1080p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}">
+
+                    </Rectangle>
+                    <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=Icon_1080p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}">
+
+                    </Rectangle>
+                </Grid>
 
                 <TextBlock HorizontalAlignment="Right" Margin="0,0,83,19" Width="47" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         			Text="/10" Grid.Row="2"  Grid.Column="1" Height="20" VerticalAlignment="Bottom" />
@@ -1964,7 +1974,7 @@
 
 
 
-            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
+            <Grid x:Name="grd_TvShows_Details" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_TvShows_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />

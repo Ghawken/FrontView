@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("skin/default/interface/default_video-logos.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("skin/default/interface/1080p.png")]
 
 
