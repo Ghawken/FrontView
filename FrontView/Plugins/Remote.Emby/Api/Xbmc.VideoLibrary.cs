@@ -869,6 +869,18 @@ namespace Remote.Emby.Api
                                         {
 
                                             SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
+
+                                            List<string> MovieIcons = new List<string>();
+
+                                            // if null equals null-  doesn't make much sense but no harm.  Perhaps change to empty later.
+                                            // needs to be empty otherwise will fail with null exception down further
+                                            //
+
+                                            MovieIcons = GetMovieIcons(Movieitem);
+
+
+                                            
+
                                             string newDirector = "";
 
                                             bool index = Movieitem.People.Any(item => item.Type == "Director");
@@ -894,6 +906,8 @@ namespace Remote.Emby.Api
                                                 }
                                             }
 
+
+
                                             var Seconds = Convert.ToInt64(id.RunTimeTicks ?? 0);
                                             var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
 
@@ -918,6 +932,7 @@ namespace Remote.Emby.Api
                                             _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary");
                                             _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop");
                                             _parent.Trace(Xbmc.Hash(id.Id));
+                                            _parent.Trace("MovieIcons Set:" + String.Join(",", MovieIcons));
 
 
 
@@ -946,7 +961,8 @@ namespace Remote.Emby.Api
                                                 Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
                                                 Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
                                                 Hash = Xbmc.Hash(id.Id),
-                                                DateAdded = Movieitem.DateCreated.ToString("s")
+                                                DateAdded = Movieitem.DateCreated.ToString("s"),
+                                                MovieIcons = MovieIcons
                                             };
                                             movies.Add(movie);
                                         }
@@ -986,6 +1002,122 @@ namespace Remote.Emby.Api
             }
         }
 
+        public List<string> GetMovieIcons(SingleMovieItem.Rootobject Movieitem)
+        {
+
+            List<string> MovieIcons = new List<string>();
+            _parent.Trace("MovieIcons Generating List:");
+            
+            // Make sure not null; 
+            MovieIcons.Add("");
+
+
+            try
+            {
+
+                if (Movieitem.MediaStreams.FirstOrDefault(i => i.IsDefault == true) != null)
+                {
+
+                    // added check - make sure is default stream being checked
+                    // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+
+                    try
+                    {
+                        if (Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault().Codec.Contains("dca") == true)
+                        {
+                            MovieIcons.Add("DTS");
+                            _parent.Trace("MovieIcons Adding DTS");
+                        }
+                        if (Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault().Codec.Contains("ac3") == true)
+                        {
+                            MovieIcons.Add("DolbyDigital");
+                            _parent.Trace("MovieIcons Adding DolbyDigital");
+                        }
+                        if (Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault().Codec.Contains("eac3") == true)
+                        {
+                            MovieIcons.Add("DolbyDigital+");
+                            _parent.Trace("MovieIcons Adding Dolby Digital Plus");
+                        }
+                        if (Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault().Codec.Contains("aac") == true)
+                        {
+                            MovieIcons.Add("aac");
+                            _parent.Trace("MovieIcons Adding AAC");
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+                        return MovieIcons;
+                    }
+
+                }
+
+                var VideoInfo = Movieitem.MediaStreams.SingleOrDefault(i => i.Type == "Video");
+
+                if (VideoInfo != null)
+                {
+                    if (VideoInfo.Codec == "h264")
+                    {
+                        MovieIcons.Add("h264");
+                        _parent.Trace("MovieIcons Adding h264");
+                    }
+                    if (VideoInfo.AspectRatio == "16:9")
+                    {
+                        MovieIcons.Add("16:9");
+                        _parent.Trace("MovieIcons Adding 16:9");
+                    }
+                    if (VideoInfo.AspectRatio == "2.40:1")
+                    {
+                        MovieIcons.Add("2.40:1");
+                        _parent.Trace("MovieIcons Adding 2.40:1");
+                    }
+
+                    if (VideoInfo.Width > 3800 )
+                    {
+                        MovieIcons.Add("4K");
+                        _parent.Trace("MoviesIcons Adding 4K");
+                    }
+                    else if  (VideoInfo.Width >= 1900 )
+                    {
+                        MovieIcons.Add("1080p");
+                        _parent.Trace("MoviesIcons Adding 1080p");
+                    }
+                    else if (VideoInfo.Width >= 1270)
+                    {
+                        MovieIcons.Add("720p");
+                        _parent.Trace("MoviesIcons Adding 720p");
+                    }
+                    else if (VideoInfo.Width >= 700)
+                    {
+                        MovieIcons.Add("480P");
+                        _parent.Trace("MoviesIcons Adding 480p");
+                    }
+                    else
+                    {
+                        MovieIcons.Add("SD");
+                        _parent.Trace("MoviesIcons Adding SD");
+                    }
+                }
+
+
+
+           
+            }
+            catch (Exception ex)
+            {
+                _parent.Trace("MovieIcons Exception Caught Within VideoInfo Codec Check:" + ex);
+                return MovieIcons;
+            }
+
+
+
+
+            return MovieIcons;
+
+
+
+        }
 
 
         public Collection<ApiTvEpisode> GetTvEpisodesRefresh()
@@ -1131,6 +1263,16 @@ namespace Remote.Emby.Api
                                 {
 
                                     SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
+
+                                    List<string> MovieIcons = new List<string>();
+
+                                    // if null equals null-  doesn't make much sense but no harm.  Perhaps change to empty later.
+                                    // needs to be empty otherwise will fail with null exception down further
+                                    //
+
+                                    MovieIcons = GetMovieIcons(Movieitem);
+
+
                                     string newDirector = "";
 
                                     bool index = Movieitem.People.Any(item => item.Type == "Director");
@@ -1210,7 +1352,8 @@ namespace Remote.Emby.Api
                                         Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner",
                                         Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
                                         Hash = Xbmc.Hash(id.Id),
-                                        DateAdded = Movieitem.DateCreated.ToString("s")
+                                        DateAdded = Movieitem.DateCreated.ToString("s"),
+                                        MovieIcons = MovieIcons
                                     };
                                     movies.Add(movie);
                                 }

@@ -132,6 +132,8 @@ namespace Remote.Emby.Api.SingleMovieItem
     {
         public string Codec { get; set; }
         public string Language { get; set; }
+        public string Title { get; set; }
+        public string DisplayTitle { get; set; }
         public bool IsInterlaced { get; set; }
         public int BitRate { get; set; }
         public int BitDepth { get; set; }
@@ -182,6 +184,8 @@ namespace Remote.Emby.Api.SingleMovieItem
     {
         public string Codec { get; set; }
         public string Language { get; set; }
+        public string Title { get; set; }
+        public string DisplayTitle { get; set; }
         public bool IsInterlaced { get; set; }
         public int BitRate { get; set; }
         public int BitDepth { get; set; }
