@@ -364,7 +364,7 @@ namespace Plugin
         public string Fanart { get; set; }
         public long IsStack { get; set; }
         public string DateAdded { get; set; }
-        public List<string> MovieIcons { get; set; }
+        public string MovieIcons { get; set; }
         
     }
 

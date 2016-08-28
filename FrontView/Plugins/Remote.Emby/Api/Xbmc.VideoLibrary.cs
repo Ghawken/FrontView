@@ -962,7 +962,7 @@ namespace Remote.Emby.Api
                                                 Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
                                                 Hash = Xbmc.Hash(id.Id),
                                                 DateAdded = Movieitem.DateCreated.ToString("s"),
-                                                MovieIcons = MovieIcons
+                                                MovieIcons = String.Join(",",MovieIcons)
                                             };
                                             movies.Add(movie);
                                         }
@@ -1353,7 +1353,7 @@ namespace Remote.Emby.Api
                                         Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
                                         Hash = Xbmc.Hash(id.Id),
                                         DateAdded = Movieitem.DateCreated.ToString("s"),
-                                        MovieIcons = MovieIcons
+                                        MovieIcons = String.Join(",", MovieIcons)
                                     };
                                     movies.Add(movie);
                                 }

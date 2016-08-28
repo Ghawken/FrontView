@@ -17,6 +17,7 @@
 // ------------------------------------------------------------------------
 
 using System.Windows;
+using System.Collections.Generic;
 using Plugin;
 
 namespace FrontView.Classes
@@ -196,6 +197,7 @@ namespace FrontView.Classes
         public string Fanart { get; set; }
         public long IsStack { get; set; }
         public string DateAdded { get; set; }
+        public string MovieIcons { get; set; }
 
         public static readonly DependencyProperty PlayCountProperty =
             DependencyProperty.Register("PlayCount", typeof(long), typeof(Yatse2Movie));
@@ -233,7 +235,8 @@ namespace FrontView.Classes
                               Title = Title,
                               Votes = Votes,
                               Year = Year,
-                              DateAdded = DateAdded
+                              DateAdded = DateAdded,
+                              MovieIcons = MovieIcons
                           };
             return api;
         }
@@ -269,6 +272,7 @@ namespace FrontView.Classes
             Votes = apiMovie.Votes;
             Year = apiMovie.Year;
             DateAdded = apiMovie.DateAdded;
+            MovieIcons = apiMovie.MovieIcons;
         }
     }
 

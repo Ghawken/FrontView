@@ -38,7 +38,7 @@ namespace FrontView.Classes
         private SQLiteTransaction _dbTrans;
         private bool _connected;
         private bool _bulkInsert;
-        private const int DBVersion = 9;
+        private const int DBVersion = 10;
 
         //7 is addition of sqlDateTime to Remote to indicate time of last check
         // on second thought might test speed first and then run and ever start if not to long
@@ -1321,7 +1321,8 @@ namespace FrontView.Classes
                         IsFavorite = GetLong(sqldReader, "IsFavorite"),
                         DateAdded = GetString(sqldReader, "DateAdded"),
                         Banner = GetString(sqldReader, "Banner"),
-                        Logo = GetString(sqldReader, "Logo")
+                        Logo = GetString(sqldReader, "Logo"),
+                        MovieIcons = GetString(sqldReader, "MovieIcons")
                     };
                     movies.Add(movie);
                 }
@@ -1388,8 +1389,8 @@ namespace FrontView.Classes
                 return 0;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite,DateAdded, Banner, Logo ) 
-                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                @"INSERT INTO `Movies` ( IdRemote ,IdFile,IdScraper,Title,OriginalTitle,Genre,Tagline,Plot,Director,Year,Length,Mpaa,Studio,Rating,Votes,FileName,Path,PlayCount,Hash,Thumb,Fanart,IsStack,IdMovie,IsFavorite,DateAdded, Banner, Logo, MovieIcons ) 
+                  VALUES ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1417,6 +1418,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
             sqlCmd.Parameters.AddWithValue("a26", movie.Banner);
             sqlCmd.Parameters.AddWithValue("a27", movie.Logo);
+            sqlCmd.Parameters.AddWithValue("a28", movie.MovieIcons);
             return QueryInsert(sqlCmd);
         }
 
@@ -1426,7 +1428,7 @@ namespace FrontView.Classes
                 return false;
             var sqlCmd = _dbConnection.CreateCommand();
             sqlCmd.CommandText =
-                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ?, DateAdded = ?, Banner = ?, Logo = ? WHERE Id = @Id;";
+                @"UPDATE `Movies` SET IdRemote = ?,IdFile = ?,IdScraper = ?,Title = ?,OriginalTitle = ?,Genre = ?,Tagline = ?,Plot = ?,Director = ?,Year = ?,Length = ?,Mpaa = ?,Studio = ?,Rating = ?,Votes = ?,FileName = ?,Path = ?,PlayCount = ?,Hash = ?,Thumb = ?,Fanart = ?,IsStack = ?,IdMovie = ?,IsFavorite = ?, DateAdded = ?, Banner = ?, Logo = ?, MovieIcons = ? WHERE Id = @Id;";
             sqlCmd.Parameters.AddWithValue("a1", movie.IdRemote);
             sqlCmd.Parameters.AddWithValue("a2", movie.IdFile);
             sqlCmd.Parameters.AddWithValue("a3", movie.IdScraper);
@@ -1454,6 +1456,7 @@ namespace FrontView.Classes
             sqlCmd.Parameters.AddWithValue("a25", movie.DateAdded);
             sqlCmd.Parameters.AddWithValue("a26", movie.Banner);
             sqlCmd.Parameters.AddWithValue("a27", movie.Logo);
+            sqlCmd.Parameters.AddWithValue("a28", movie.MovieIcons);
 
             sqlCmd.Parameters.AddWithValue("@Id", movie.Id);
 
@@ -1721,7 +1724,23 @@ namespace FrontView.Classes
                     {
                     }
                 }
+                if (fromBuild <= 9)
+                {
+                    Log("Applying database update 10.. Icons....");
+                    try
+                    {
 
+                        sqlCmd.CommandText = @"ALTER TABLE 'Movies' ADD COLUMN 'MovieIcons' Text;";
+
+                        LogQuery(sqlCmd);
+                        sqlCmd.ExecuteNonQuery();
+
+
+                    }
+                    catch (SQLiteException)
+                    {
+                    }
+                }
 
 
 
@@ -1801,7 +1820,8 @@ namespace FrontView.Classes
                        IsFavorite INTEGER,
                        DateAdded TEXT,
                        Banner TEXT,
-                       Logo TEXT
+                       Logo TEXT,
+                       MovieIcons TEXT
                     );
                     CREATE TABLE `AudioGenres`
                     (
