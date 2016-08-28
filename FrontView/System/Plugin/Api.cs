@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -363,6 +364,8 @@ namespace Plugin
         public string Fanart { get; set; }
         public long IsStack { get; set; }
         public string DateAdded { get; set; }
+        public List<string> MovieIcons { get; set; }
+        
     }
 
     public class ApiTvShow
