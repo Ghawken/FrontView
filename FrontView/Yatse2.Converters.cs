@@ -65,6 +65,43 @@ namespace FrontView
         }
     }
 
+    public class IconVisibility : IValueConverter
+    {
+        private static readonly IconVisibility TheInstance = new IconVisibility();
+        private IconVisibility() { }
+        public static IconVisibility Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+
+            var param = (string)parameter;
+            var check = (string)value;
+
+
+            Logger.Instance().Trace("IconVisibility:", "check for: " + check + ":param:" + param);
+
+            // check equals to MovieIcons contents eg.  DTS,h264,1080p,2:40:1 etc
+            // param is value passed
+
+            if (check.Contains(param))
+            {
+                return Visibility.Visible;
+            }
+
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+
 
     public class LongDurationConverter : IValueConverter
     {

@@ -81,6 +81,21 @@ namespace FrontView.Classes
             }
         }
 
+
+        public static readonly DependencyProperty MediaIconSizeProperty =
+    DependencyProperty.Register("MediaIconSize", typeof(double), typeof(Yatse2Properties));
+
+        public double MediaIconSize
+        {
+            get { return (double)GetValue(MediaIconSizeProperty); }
+            set
+            {
+                SetValue(MediaIconSizeProperty, value);
+
+            }
+        }
+
+
         public static readonly DependencyProperty SemiCircleOpacityProperty =
     DependencyProperty.Register("SemiCircleOpacity", typeof(double), typeof(Yatse2Properties));
 

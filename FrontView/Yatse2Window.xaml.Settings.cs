@@ -203,7 +203,9 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
-            
+
+            lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
+
            // lst_Settings_Skin_Extra_Logo.Items.Clear();
            // lst_Settings_Skin_Extra_Logo.Items.Add("Large");
            // lst_Settings_Skin_Extra_Logo.Items.Add("Medium");
@@ -276,6 +278,8 @@ namespace FrontView
             lst_Settings_Displays.Items.Clear();
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
+
+            lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
 
             lst_Settings_FanartOpacity.Value = _config.FanArtOpacity;
             lst_Settings_SemiCircleOpacity.Value = _config.SemiCircleOpacity;
@@ -425,6 +429,8 @@ namespace FrontView
 
             _config.LogoSize = lst_Settings_LogoSize.Value;
 
+            _config.MediaIconSize = lst_Settings_MediaIconSize.Value;
+
           //  _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
 
             _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
@@ -475,6 +481,7 @@ namespace FrontView
             _yatse2Properties.DimAmount = _config.DimAmount;
             _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
             _yatse2Properties.LogoSize = _config.LogoSize;
+            _yatse2Properties.MediaIconSize = _config.MediaIconSize;
             _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
