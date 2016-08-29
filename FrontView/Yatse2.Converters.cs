@@ -143,7 +143,7 @@ namespace FrontView
                 param = temp[0];
             }
 
-            var path = Helper.SkinPath + (string)value + @"\Interface\" + param + ".png";
+            var path = Helper.SkinPath + (string)value + @"\Icons\" + param + ".png";
 
 
             if (!File.Exists(path))
@@ -151,7 +151,7 @@ namespace FrontView
                 // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
 
                 Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
-                path = Helper.SkinPath + "Default" + @"\Interface\" + param + ".png";
+                path = Helper.SkinPath + "Default" + @"\Icons\" + param + ".png";
                 if (!File.Exists(path))
                 {
                     Logger.Instance().Log("C_SkinBrush", "Missing DEFAULT skin image : " + path);
@@ -189,7 +189,8 @@ namespace FrontView
                 ImageSource = new BitmapImage(new Uri(path)),
                 Stretch = Stretch.Uniform,
                 AlignmentX = AlignmentX.Center,
-                AlignmentY = AlignmentY.Center,
+                AlignmentY = AlignmentY.Center
+                
             };
             
         }

@@ -1934,13 +1934,15 @@
         			Text="{Binding SelectedItem.MovieIcons, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Height="37" VerticalAlignment="Bottom" />
                 
                 <!--  Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"-->
-                <Grid Grid.Column="1" Grid.Row="1" Margin="34,0,20,0" Height="130" VerticalAlignment="Bottom">
-                    <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=Icon_1080p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}">
+                <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,13,34" Height="100" VerticalAlignment="Bottom" Grid.RowSpan="2">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_ddtruehd, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" >
 
-                    </Rectangle>
-                    <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=Icon_1080p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}">
+                        </Rectangle>
+                        <Rectangle Width="100" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_185, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}">
 
-                    </Rectangle>
+                        </Rectangle>
+                    </StackPanel>
                 </Grid>
 
                 <TextBlock HorizontalAlignment="Right" Margin="0,0,83,19" Width="47" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"

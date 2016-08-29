@@ -11,3 +11,4 @@ C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\bin\net-2.0\debug\Ja
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\bin\net-2.0\debug\Jayrock.Json.pdb
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.dll
 C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\VisualStudio15\FrontViewNew\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.csprojResolveAssemblyReference.cache
