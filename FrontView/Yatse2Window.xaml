@@ -1180,14 +1180,14 @@
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Brighter" Padding="5,0,0,0" Margin="0,205,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
-                                        <Slider x:Name="lst_Settings_MediaIconSize" Value="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"  Margin="10,245,36,0"  Maximum="150.0" Minimum="25.0" Height="18" VerticalAlignment="Top"/>
+                                            <Slider x:Name="lst_Settings_MediaIconSize" Value="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"  Margin="10,245,36,0"  Maximum="150.0" Minimum="25.0" Height="18" VerticalAlignment="Top"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="MediaIcon Size:" Padding="5,0,0,0" Margin="10,224,183,0" VerticalAlignment="Top"  />
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Smaller" Padding="5,0,0,0" Margin="10,268,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Larger" Padding="5,0,0,0" Margin="0,272,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  /> 
-                                            
+        								Text="Larger" Padding="5,0,0,0" Margin="0,272,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
+
 
                                         </Grid>
                                     </TabItem>
@@ -1944,7 +1944,7 @@
                 <!--  Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"-->
                 <!--  ICON ICONS and more ICONS - Stackpanel to resize and then Converter to Collapse and/or Show -->
 
-                <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,13,34" Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" VerticalAlignment="Bottom" Grid.RowSpan="2" x:Name="IconPanel">
+                <Grid Grid.Column="1" Grid.Row="2" Margin="0,0,13,55" Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" VerticalAlignment="Bottom" x:Name="IconPanel">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_dts, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=DTS, ElementName=lst_Movies_flow}" >
                         </Rectangle>
