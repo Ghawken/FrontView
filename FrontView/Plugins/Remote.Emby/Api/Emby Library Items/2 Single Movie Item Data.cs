@@ -140,8 +140,8 @@ namespace Remote.Emby.Api.SingleMovieItem
         public int RefFrames { get; set; }
         public bool IsDefault { get; set; }
         public bool IsForced { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public int? Height { get; set; }
+        public int? Width { get; set; }
         public float AverageFrameRate { get; set; }
         public float RealFrameRate { get; set; }
         public string Profile { get; set; }
@@ -192,8 +192,8 @@ namespace Remote.Emby.Api.SingleMovieItem
         public int RefFrames { get; set; }
         public bool IsDefault { get; set; }
         public bool IsForced { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public int? Height { get; set; }
+        public int? Width { get; set; }
         public float AverageFrameRate { get; set; }
         public float RealFrameRate { get; set; }
         public string Profile { get; set; }
