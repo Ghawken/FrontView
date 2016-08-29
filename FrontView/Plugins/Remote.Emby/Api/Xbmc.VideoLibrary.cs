@@ -1015,58 +1015,64 @@ namespace Remote.Emby.Api
             try
             {
 
-                if (Movieitem.MediaStreams.FirstOrDefault(i => i.IsDefault == true) != null)
+                var CountStreams = Movieitem.MediaStreams.Count(i => i.IsDefault == true);
+
+                if (CountStreams > 0)
                 {
+                    var isDefaultMediaStream = Movieitem.MediaStreams.FirstOrDefault(i => i.IsDefault == true);
 
                     // added check - make sure is default stream being checked
                     // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
 
                     try
-                    { 
+                    {
 
-                    var MovieCodec = Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault();
-                    
-                        if (MovieCodec.Codec.Contains("dca") == true)
+                        var MovieCodec = Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault();
+
+                        if (MovieCodec != null)
                         {
-                            if (MovieCodec.Profile.Contains("DTS-HD"))
+                            if (MovieCodec.Codec.Contains("dca") == true)
                             {
-                                MovieIcons.Add("DTHD");
-                                _parent.Trace("MovieIcons Adding DTHD - equals DTS-HD MA !");
+                                if (MovieCodec.Profile.Contains("DTS-HD"))
+                                {
+                                    MovieIcons.Add("DTHD");
+                                    _parent.Trace("MovieIcons Adding DTHD - equals DTS-HD MA !");
+                                }
+                                else if (MovieCodec.Profile.Contains("DTS"))
+                                {
+                                    MovieIcons.Add("DTS");
+                                    _parent.Trace("MovieIcons Adding DTS");
+                                }
+
                             }
-                            else if (MovieCodec.Profile.Contains("DTS"))
+                            if (MovieCodec.Codec.Contains("truehd") == true)
                             {
-                                MovieIcons.Add("DTS");
-                                _parent.Trace("MovieIcons Adding DTS");
+                                MovieIcons.Add("TrueHD");
+                                _parent.Trace("MoviesIcons Adding TrueHD");
+                            }
+                            if (MovieCodec.Codec.Contains("ac3") == true)
+                            {
+                                MovieIcons.Add("DolbyDigital");
+                                _parent.Trace("MovieIcons Adding DolbyDigital");
+                            }
+                            if (MovieCodec.Codec.Contains("eac3") == true)
+                            {
+                                MovieIcons.Add("DolbyDigitl+");
+                                _parent.Trace("MovieIcons Adding Dolby Digitl Plus");
+                            }
+                            if (MovieCodec.Codec.Contains("aac") == true)
+                            {
+                                MovieIcons.Add("aac");
+                                _parent.Trace("MovieIcons Adding AAC");
+                            }
+
+                            if (MovieCodec.Channels > 0)
+                            {
+                                MovieIcons.Add("Channels" + MovieCodec.Channels.ToString());
+                                _parent.Trace("MovieIcons Adding Channels:" + MovieCodec.Channels.ToString());
                             }
 
                         }
-                        if (MovieCodec.Codec.Contains("truehd") == true)
-                        {
-                            MovieIcons.Add("TrueHD");
-                            _parent.Trace("MoviesIcons Adding TrueHD");
-                        }
-                        if (MovieCodec.Codec.Contains("ac3") == true)
-                        {
-                            MovieIcons.Add("DolbyDigital");
-                            _parent.Trace("MovieIcons Adding DolbyDigital");
-                        }
-                        if (MovieCodec.Codec.Contains("eac3") == true)
-                        {
-                            MovieIcons.Add("DolbyDigitl+");
-                            _parent.Trace("MovieIcons Adding Dolby Digitl Plus");
-                        }
-                        if (MovieCodec.Codec.Contains("aac") == true)
-                        {
-                            MovieIcons.Add("aac");
-                            _parent.Trace("MovieIcons Adding AAC");
-                        }
-
-                        if (MovieCodec.Channels > 0  )
-                        {
-                            MovieIcons.Add("Channels"+ MovieCodec.Channels.ToString());
-                            _parent.Trace("MovieIcons Adding Channels:" +MovieCodec.Channels.ToString());
-                        }
-
                     }
                     catch (Exception ex)
                     {
