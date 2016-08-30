@@ -18,8 +18,11 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Plugin;
 using Jayrock.Json;
+using System.Web.Script.Serialization;
+using System.Linq;
 
 namespace Remote.XBMC.Frodo.Api
 {
@@ -405,7 +408,7 @@ namespace Remote.XBMC.Frodo.Api
         {
             var movies = new Collection<ApiMovie>();
 
-            var properties = new JsonArray(new[] { "title", "art", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
+            var properties = new JsonArray(new[] { "title", "art", "streamdetails", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
             var param = new JsonObject();
             param["properties"] = properties;
             // First 100 Date sorted
@@ -436,7 +439,7 @@ namespace Remote.XBMC.Frodo.Api
                             // go through art and see.
 
                             JsonObject results = (JsonObject)genre["art"];
-
+                                                        
                             if (results != null)
                             {
                                 if (results["clearlogo"] != null)
@@ -450,7 +453,14 @@ namespace Remote.XBMC.Frodo.Api
 
                             }
 
+                            JsonObject streamdetails = (JsonObject)genre["streamdetails"];
+                            List<string> MovieIcons = new List<string>();
+                            MovieIcons = GetMovieIcons(streamdetails);
               
+
+
+
+
                             var movie = new ApiMovie
                             {
 
@@ -476,7 +486,8 @@ namespace Remote.XBMC.Frodo.Api
                                 Logo = clearlogo,
                                 Banner = banner,
                                 Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
-                                DateAdded = genre["dateadded"].ToString()
+                                DateAdded = genre["dateadded"].ToString(),
+                                MovieIcons = String.Join(",", MovieIcons)
                             };
                             movies.Add(movie);
                         }
@@ -494,13 +505,178 @@ namespace Remote.XBMC.Frodo.Api
             return movies;
         }
 
-    public Collection<ApiMovie> GetMovies()
+        public List<string> GetMovieIcons(JsonObject streamdetails)
+        {
+
+
+
+            List<string> MovieIcons = new List<string>();
+            _parent.Trace("MovieIcons Generating List:");
+
+            // Make sure not null; 
+            MovieIcons.Add("");
+
+            try
+            {
+
+
+            var stringJsonResults = Jayrock.Json.Conversion.JsonConvert.ExportToString(streamdetails);
+
+            _parent.Trace("MovieIcons" + stringJsonResults);
+            var deserializer = new JavaScriptSerializer();
+            StreamDetails.Rootobject ItemData = deserializer.Deserialize<StreamDetails.Rootobject>(stringJsonResults);
+
+
+
+
+
+                //Container
+                if (ItemData != null)
+                {
+
+
+                    if (ItemData.audio != null)
+                    {
+
+
+                        //Sorry Non-English Speakers defaults to English stream
+
+                        int CountStreams = ItemData.audio.Where(i => i.language == "eng").Count() ;
+                        _parent.Trace("MovieIcons CountStreams : " + CountStreams.ToString());
+
+                        if (CountStreams > 0)
+                        {
+                            var isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == "eng");
+
+                            // added check - make sure is default stream being checked
+                            // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+
+                            try
+                            {
+
+                                var MovieCodec = isDefaultMediaStream.codec;
+
+                                if (MovieCodec != null && !string.IsNullOrEmpty(MovieCodec))
+                                {
+                                    if (MovieCodec.Equals("dca") == true || MovieCodec.Equals("dts"))
+                                    {
+                                        MovieIcons.Add("DTS");
+                                        _parent.Trace("MovieIcons adding DTS Profile: DTS :  Codecequals" + MovieCodec.ToUpper().ToString());
+                                    }
+                                    else if (MovieCodec.Contains("dts") && !MovieCodec.Equals("dts"))
+                                    {
+                                        string Profile = MovieCodec.ToString();
+                                        Profile = Profile.Replace("dts", "dst");
+                                        MovieIcons.Add(Profile.ToUpper());
+                                        _parent.Trace("MovieIcons dca adding DST Plus Profile:" + Profile.ToUpper());
+                                    }
+                                    else
+                                    {
+                                        MovieIcons.Add(MovieCodec.ToString());
+                                        _parent.Trace("MovieIcons Adding Codec:" + MovieCodec.ToString());
+                                    }
+                                }
+
+                                var Channels = ItemData.audio.Where(i => i.language == "eng").FirstOrDefault().channels;
+                                if (Channels >0 )
+                                {
+                                        MovieIcons.Add("Channels" + Channels.ToString());
+                                        _parent.Trace("MovieIcons Adding Channels:" + Channels.ToString());
+                                }
+
+                               
+                            }
+                            catch (Exception ex)
+                            {
+                                _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+                                return MovieIcons;
+                            }
+
+                        }
+
+
+                        var VideoInfo = ItemData.video.First();
+
+                        if (VideoInfo != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(VideoInfo.codec))
+                            {
+                                MovieIcons.Add("codec" + VideoInfo.codec.ToString());
+                                _parent.Trace("MovieIcons Adding codec" + VideoInfo.codec.ToString());
+
+                            }
+                            if (VideoInfo.aspect > 0)
+                            {
+
+                                if (VideoInfo.aspect > 0)
+                                {
+                                    MovieIcons.Add(VideoInfo.aspect.ToString("0.00")+":1");
+                                    _parent.Trace("MovieIcons Adding Ratio:" + VideoInfo.aspect.ToString("0.00")+":1");
+                                }
+
+                            }
+
+                            if (VideoInfo.width.HasValue)
+                            {
+                                if (VideoInfo.width > 3800)
+                                {
+                                    MovieIcons.Add("4K");
+                                    _parent.Trace("MoviesIcons Adding 4K");
+                                }
+                                else if (VideoInfo.width >= 1900)
+                                {
+                                    MovieIcons.Add("1080p");
+                                    _parent.Trace("MoviesIcons Adding 1080p");
+                                }
+                                else if (VideoInfo.width >= 1270)
+                                {
+                                    MovieIcons.Add("720p");
+                                    _parent.Trace("MoviesIcons Adding 720p");
+                                }
+                                else if (VideoInfo.width >= 700)
+                                {
+                                    MovieIcons.Add("480P");
+                                    _parent.Trace("MoviesIcons Adding 480p");
+                                }
+                                else
+                                {
+                                    MovieIcons.Add("SD");
+                                    _parent.Trace("MoviesIcons Adding SD");
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _parent.Trace("MovieIcons Exception Caught Within VideoInfo Codec Check:" + ex);
+                return MovieIcons;
+            }
+
+
+
+
+            return MovieIcons;
+
+
+
+        }
+
+
+
+
+
+        public Collection<ApiMovie> GetMovies()
     {
       var movies = new Collection<ApiMovie>();
 
         //add dateadded
 
-      var properties = new JsonArray(new[] { "title", "art", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
+      var properties = new JsonArray(new[] { "title", "art","streamdetails","plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes", "file" });
       var param = new JsonObject();
       param["properties"] = properties;
       var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
@@ -532,9 +708,11 @@ namespace Remote.XBMC.Frodo.Api
                                 }
                }
 
+               JsonObject streamdetails = (JsonObject)genre["streamdetails"];
+               List<string> MovieIcons = new List<string>();
+               MovieIcons = GetMovieIcons(streamdetails);
 
-
-              var movie = new ApiMovie
+                var movie = new ApiMovie
                 {
 
                   Title = genre["title"].ToString(),
@@ -559,7 +737,8 @@ namespace Remote.XBMC.Frodo.Api
                   Logo = clearlogo,
                   Banner = banner,
                   Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
-                  DateAdded = genre["dateadded"].ToString()
+                  DateAdded = genre["dateadded"].ToString(),
+                  MovieIcons = String.Join(",", MovieIcons)
                 };
               movies.Add(movie);
             }
