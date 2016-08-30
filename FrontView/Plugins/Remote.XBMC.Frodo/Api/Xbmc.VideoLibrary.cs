@@ -595,7 +595,7 @@ namespace Remote.XBMC.Frodo.Api
                         }
 
 
-                        var VideoInfo = ItemData.video.First();
+                        var VideoInfo = ItemData.video.FirstOrDefault();
 
                         if (VideoInfo != null)
                         {

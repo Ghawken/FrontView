@@ -1171,14 +1171,14 @@
 
 
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="SemiCircle Opacity:" Padding="5,0,0,0" Margin="10,163,183,0" VerticalAlignment="Top"  />
-                                            <Slider x:Name="lst_Settings_SemiCircleOpacity" Value="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}"  Margin="10,182,36,0" ValueChanged="SemiCircleOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
+        								Text="SemiCircle Opacity:" Padding="5,0,0,0" Margin="10,155,183,0" VerticalAlignment="Top"  />
+                                            <Slider x:Name="lst_Settings_SemiCircleOpacity" Value="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}"  Margin="10,174,36,0" ValueChanged="SemiCircleOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
                                             <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="0,0,-184,273" HorizontalAlignment="Right" Width="427"  />
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dimmer" Padding="5,0,0,0" Margin="10,205,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+        								Text="Dimmer" Padding="5,0,0,0" Margin="10,197,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Brighter" Padding="5,0,0,0" Margin="0,205,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
+        								Text="Brighter" Padding="5,0,0,0" Margin="0,197,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
                                             <Slider x:Name="lst_Settings_MediaIconSize" Value="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"  Margin="10,245,36,0"  Maximum="150.0" Minimum="25.0" Height="18" VerticalAlignment="Top"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
@@ -1846,7 +1846,7 @@
                 </Border>
             </Grid>
 
-            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Visible">
+            <Grid x:Name="grd_Movies_Details" Margin="0" Background="#EE000000" Panel.ZIndex="120" PreviewMouseDown="grd_Movies_Details_PreviewMouseDown" Opacity="0" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="4*" />
@@ -1939,9 +1939,9 @@
                            Text="{Binding SelectedItem.Year, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Height="179" VerticalAlignment="Bottom"  />
                  <Button Margin="0,312,315,10" Content="3" Grid.Row="1" Style="{DynamicResource Remote_Button}" Click="btn_Movies_Play_Click" 
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Height="70" Width="70" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Column="1"   />
-                
+          <!--      
                 <TextBlock Margin="214,0,65,52" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        			Text="{Binding SelectedItem.MovieIcons, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Height="37" VerticalAlignment="Bottom" />
+        			Text="{Binding SelectedItem.MovieIcons, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Height="37" VerticalAlignment="Bottom" />  -->
 
                 <TextBlock Margin="46,0,10,146" Grid.Row="1" Grid.Column="1"  Grid.RowSpan="2"   TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
         		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Bottom"  />                
@@ -1952,10 +1952,10 @@
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=media_mkv, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=mkv, ElementName=lst_Movies_flow}" >
                         </Rectangle>
-                        
+
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=media_mp4, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=mp4, ElementName=lst_Movies_flow}" >
                         </Rectangle>
-                        
+
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=media_wmv, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=wmv, ElementName=lst_Movies_flow}" >
                         </Rectangle>
 
@@ -1995,7 +1995,7 @@
 
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_dts, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=DTS, ElementName=lst_Movies_flow}" >
                         </Rectangle>
-                        
+
 
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_dts_hd_ma, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DST-HD MA', ElementName=lst_Movies_flow}" >
                         </Rectangle>
@@ -2028,10 +2028,12 @@
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.77:1', ElementName=lst_Movies_flow}"   >
                         </Rectangle>
 
+                        <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_150, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.50:1', ElementName=lst_Movies_flow}"   >
+                        </Rectangle>
+
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.78:1', ElementName=lst_Movies_flow}"   >
                         </Rectangle>
-                        <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.78:1', ElementName=lst_Movies_flow}"   >
-                        </Rectangle>
+
                         <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=aspect_185, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.85:1', ElementName=lst_Movies_flow}"   >
                         </Rectangle>
 
@@ -2117,7 +2119,7 @@
         		Background="{Binding Skin, ConverterParameter=Remote_Play/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
             -->
 
-             
+
 
 
             </Grid>

@@ -776,6 +776,7 @@ namespace FrontView
             _remote.File.AsyncDownloadImages(dlinfo.ToArray());
             _remoteInfo.CacheFilled = 0;
             _database.UpdateRemote(_remoteInfo);
+
             Logger.Instance().Log("FrontView+", "End Refresh : Thumbs/Fanarts");
 
         }
@@ -815,8 +816,18 @@ namespace FrontView
 
             Logger.Instance().Log("FrontView+", "End Library Quick Refresh", true);
             //_remoteLibraryRefreshed = true;
+
             ShowPopup(GetLocalizedString(101));
-            _yatse2Properties.ShowRefreshLibrary = false;
+
+           _yatse2Properties.ShowRefreshLibrary = false;
+
+            _audioGenresDataSource.Clear();
+            _audioArtistsDataSource.Clear();
+            _audioArtistsDataSource.Clear();
+            _moviesDataSource.Clear();
+            _tvShowsDataSource.Clear();
+
+
         }
         
 
@@ -875,6 +886,7 @@ namespace FrontView
             Logger.Instance().Log("FrontView+", "End Library Refresh", true);
             _remoteLibraryRefreshed = true;
             ShowPopup(GetLocalizedString(101));
+
             _yatse2Properties.ShowRefreshLibrary = false;
 
             _audioGenresDataSource.Clear();
