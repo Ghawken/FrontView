@@ -88,10 +88,22 @@ namespace FrontView
 
             _remote.File.DownloadImages(new ApiImageDownloadInfo { Source = remotepath, Destination = destFile, MaxHeight = (int)Height / 2, ToThumb = _config.CropCacheImage });
 
+            // Add CoverArt treatment for Kodi
+            /**
+            if(_remote.GetOS()=="Xbmc"  )  //Need to add optional check to apply CoverARt
+            {
+                Logger.Instance().LogDump("KodiCoverArt", "destFile Exisits now changing...", true);
+                destFile = CoverArtTreatmentKodi(destFile);
+            }
+    **/
+
+
             if (File.Exists(destFile))
             {
                 return destFile;
             }
+
+
 
             if (File.Exists( Helper.SkinorDefault( Helper.SkinPath , _config.Skin , @"\Interface\Default_Video-Thumbs.png")))
             {

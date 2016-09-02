@@ -876,7 +876,7 @@ namespace FrontView
             try
             {
 
-                Logger.Instance().Log("Kodi Source", "Checking for Kodi Source xml file", true);
+                Logger.Instance().Log("Kodi Source", "Checking for LOCAL LOCAL LOCAL Kodi Source xml file", true);
                 var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 XmlDocument kodisource = new XmlDocument();
                 kodisource.Load(@appdatadirectory + @"\Kodi\userdata\sources.xml");
@@ -981,6 +981,7 @@ namespace FrontView
                 int r = rnd.Next(lines.Count);
                 string pathforrandomthumb = lines[r].Thumb;
                 Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details somehow ... " + pathforrandomthumb);
+
                 var path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName(pathforrandomthumb, Helper.Instance.CurrentApi) + ".jpg";
                 Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details path of Cache Image ... " + path);
 
@@ -1004,13 +1005,13 @@ namespace FrontView
                         return Math.Ceiling(((double)setwidth * ratio));
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         width = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelWidth;
                         height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
                         ratio = (double)height / width;
 
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        Logger.Instance().LogDump("Cache TV Height -- Exception -- : "  +ex + ":Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
                         return Math.Ceiling(((double)setwidth * ratio));
                     }
                 }

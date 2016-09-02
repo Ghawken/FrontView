@@ -19,11 +19,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Drawing;
 using Setup;
 using FrontView.Classes;
 using FrontView.Libs;
 using Application = System.Windows.Forms.Application;
 using Plugin;
+using System.Drawing.Drawing2D;
 
 namespace FrontView
 {
@@ -541,6 +544,7 @@ namespace FrontView
                 if (line.Thumb != "NONE" && !String.IsNullOrEmpty(line.Thumb))
                 {
                     var path = Helper.CachePath + @"Video\Thumbs\" + _remotePlugin.GetHashFromFileName(line.Thumb) + ".jpg";
+
                     if (!File.Exists(path))
                     {
                         var info = new ApiImageDownloadInfo
@@ -756,6 +760,81 @@ namespace FrontView
                 }
             }
         }
+
+        private string CoverArtTreatmentKodi(string destFile)
+        {
+
+            Image Art;
+            try
+            {
+                Art = Image.FromFile(destFile);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("CoverArTKodi", "Exception Using Default destFile:" + destFile);
+                return destFile;
+            }
+
+            Image frame;
+            try
+            {
+                string BlueRayCase = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Case_BlurayCase.png");
+                frame = Image.FromFile(BlueRayCase);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:" + destFile);
+                return destFile;
+            }
+
+            var width = 574;
+            var height = 800;
+            using (frame)
+            {
+                using (var bitmap = new Bitmap(width, height))
+                {
+                    using (var canvas = Graphics.FromImage(bitmap))
+                    {
+                        canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        canvas.DrawImage(Art, 0, 25, 545, 750);
+                        canvas.DrawImage(frame,
+                                         new Rectangle(0,
+                                                       0,
+                                                       width,
+                                                       height),
+                                         new Rectangle(0,
+                                                       0,
+                                                       frame.Width,
+                                                       frame.Height),
+                                         GraphicsUnit.Pixel);
+
+
+                        canvas.Save();
+                    }
+                    try
+                    {
+                        bitmap.Save(destFile, System.Drawing.Imaging.ImageFormat.Png);
+                        Logger.Instance().LogDump("CoverArTKodi", "Save to same name ?possible Using Default destFile:" + destFile );
+                        return destFile;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:" + destFile + "Exception :"+ex);
+                        return destFile;
+
+                    }
+                }
+            }
+
+
+
+
+
+
+        }
+    
+
 
         private void RefreshThumbsFanarts()
         {

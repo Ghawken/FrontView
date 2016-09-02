@@ -329,6 +329,7 @@ namespace FrontView
 
             var param = (string)parameter;
             var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+
             if (File.Exists(path))
             {
                 try
