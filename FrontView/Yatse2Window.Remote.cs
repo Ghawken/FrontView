@@ -84,6 +84,9 @@ namespace FrontView
             _remoteInfo = remoteInfo;
 
             Helper.Instance.CurrentApi = _remoteInfo.Api;
+
+            //Helper.Instance.UseCoverArt = (bool)_config.CoverArt;
+
             _yatse2Properties.Api = _remoteInfo.Api;
 
             ClearFiltersAndDataSource();
@@ -609,9 +612,20 @@ namespace FrontView
         private void updateCacheSizes()
         {
             //Set Coverflow size once at beginning based on Random Coverart
+            // or fix to 574x800 equivalent size if using CoverART Kodi
             double cachewidth = 110;
-            _yatse2Properties.MovieCacheHeight = getMovieCacheImageHeight(cachewidth);
+            if (_config.CoverArt == true)
+            {
+                _yatse2Properties.MovieCacheHeight = 154;
+
+            }
+            else
+            {
+                _yatse2Properties.MovieCacheHeight = getMovieCacheImageHeight(cachewidth);
+            }
+
             _yatse2Properties.MovieCacheWidth = cachewidth+1;
+
             _yatse2Properties.TVCacheHeight = getTVCacheImageHeight(cachewidth);
             _yatse2Properties.TVCacheWidth = cachewidth+1;
         }

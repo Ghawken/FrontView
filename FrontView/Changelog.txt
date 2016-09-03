@@ -1,10 +1,13 @@
 ﻿Changelog:
 
 1.191
-Add Kodi Krypton Remote Connection Option
+Add Kodi Krypton Remote Connection Option  (minimal changes - but works)
 Add Icon_ for Kodi 
-Emby Remote: Version/Name Info
-Change to Remotes - will need to delete db and refresh
+Emby Remote: Version/Name Info (may need to reconnect remote on new server versions)
+Change to Remote Code naming - may need to delete db and refresh
+Add Kodi CoverArt Option: Skinable Bluray and DVD Case
+(can also add for Emby if interested - but Emby CoverArt gives same impact)
+
 
 
 1.190

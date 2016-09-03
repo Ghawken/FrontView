@@ -42,6 +42,7 @@ namespace FrontView.Libs
 
         public string CurrentSkin { get; set; }
         public string CurrentApi { get; set; }
+        public bool UseCoverArt { get; set; }
 
 
         internal static class NativeMethods

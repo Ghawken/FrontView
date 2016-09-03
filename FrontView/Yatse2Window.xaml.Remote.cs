@@ -27,6 +27,14 @@ namespace FrontView
         {
             RefreshLibrary();
         }
+        private void btn_Coverart_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            _yatse2Properties.RefreshWhat = "CoverArt Cases";
+            _yatse2Properties.ShowRefreshLibrary = true;
+            System.Windows.Forms.Application.DoEvents();
+            RefreshKodiCases();
+            _yatse2Properties.ShowRefreshLibrary = false;
+        }
 
         private void btn_Remote_Close_Click(object sender, RoutedEventArgs e)
         {

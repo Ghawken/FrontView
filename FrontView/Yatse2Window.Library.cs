@@ -536,6 +536,38 @@ namespace FrontView
             }
         }
 
+        private void RefreshKodiCases()
+        {
+            if (_remote.GetOS()!="Kodi")
+            {
+                return;
+            }
+
+
+            var lines = _database.GetMovie(_remoteInfo.Id);
+            foreach (var line in lines)
+            {
+                if (line.Thumb != "NONE" && !String.IsNullOrEmpty(line.Thumb))
+                {
+                    var path = Helper.CachePath + @"Video\Thumbs\" + _remotePlugin.GetHashFromFileName(line.Thumb) + ".jpg";
+                    string newpath = path.Remove(path.Length - 4) + "-Case.jpg";
+
+                    if (!File.Exists(newpath))
+                    {
+                        ApiHelper.Instance().CoverArtTreatmentKodi(path, _config.Skin, line.MovieIcons);
+
+                    }
+                }
+
+           
+
+            }
+
+
+        }
+
+
+
         private void RefreshTFMovies(ref List<ApiImageDownloadInfo> dlinfo)
         {
             var lines = _database.GetMovie(_remoteInfo.Id);
@@ -761,79 +793,7 @@ namespace FrontView
             }
         }
 
-        private string CoverArtTreatmentKodi(string destFile)
-        {
 
-            Image Art;
-            try
-            {
-                Art = Image.FromFile(destFile);
-            }
-            catch (Exception ex)
-            {
-                Logger.Instance().LogDump("CoverArTKodi", "Exception Using Default destFile:" + destFile);
-                return destFile;
-            }
-
-            Image frame;
-            try
-            {
-                string BlueRayCase = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Case_BlurayCase.png");
-                frame = Image.FromFile(BlueRayCase);
-            }
-            catch (Exception ex)
-            {
-                Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:" + destFile);
-                return destFile;
-            }
-
-            var width = 574;
-            var height = 800;
-            using (frame)
-            {
-                using (var bitmap = new Bitmap(width, height))
-                {
-                    using (var canvas = Graphics.FromImage(bitmap))
-                    {
-                        canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        canvas.DrawImage(Art, 0, 25, 545, 750);
-                        canvas.DrawImage(frame,
-                                         new Rectangle(0,
-                                                       0,
-                                                       width,
-                                                       height),
-                                         new Rectangle(0,
-                                                       0,
-                                                       frame.Width,
-                                                       frame.Height),
-                                         GraphicsUnit.Pixel);
-
-
-                        canvas.Save();
-                    }
-                    try
-                    {
-                        bitmap.Save(destFile, System.Drawing.Imaging.ImageFormat.Png);
-                        Logger.Instance().LogDump("CoverArTKodi", "Save to same name ?possible Using Default destFile:" + destFile );
-                        return destFile;
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:" + destFile + "Exception :"+ex);
-                        return destFile;
-
-                    }
-                }
-            }
-
-
-
-
-
-
-        }
-    
 
 
         private void RefreshThumbsFanarts()
@@ -886,6 +846,11 @@ namespace FrontView
                 _yatse2Properties.RefreshWhat = GetLocalizedString(4);
                 Application.DoEvents();
                 RefreshThumbsFanarts();
+
+                //Delete this after testing
+                _yatse2Properties.RefreshWhat = "Kodi Cases";
+                Application.DoEvents();
+                RefreshKodiCases();
 
             }
             catch (Exception Ex)
@@ -954,8 +919,11 @@ namespace FrontView
                 RefreshThumbsFanarts();
                 _database.SetDebug(_config.Debug);
 
+                _yatse2Properties.RefreshWhat = "Kodi Cases";
+                RefreshKodiCases();
 
-                 
+
+
             }
             catch (Exception Ex)
             {

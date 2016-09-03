@@ -635,9 +635,9 @@
 
                                 <Rectangle.Fill>
                                     <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, ConverterParameter=NoChange, Converter={x:Static Yatse2:CacheImageMovieDetailsConverter.Instance}, Source={StaticResource Yatse2Properties}}"/>
-                                    
+
                                     <!-- <ImageBrush Stretch="Uniform" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}"  />-->
-                                
+
                                 </Rectangle.Fill>
                             </Rectangle>
                         </Border>
@@ -1176,10 +1176,19 @@
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Text="SemiCircle Opacity:" Padding="5,0,0,0" Margin="10,155,183,0" VerticalAlignment="Top"  />
                                             <Slider x:Name="lst_Settings_SemiCircleOpacity" Value="{Binding SemiCircleOpacity, Source={StaticResource Yatse2Properties}}"  Margin="10,174,36,0" ValueChanged="SemiCircleOpacitySlider_ValueChanged" Maximum="1.0" Minimum="0.0" Height="18" VerticalAlignment="Top"/>
-                                            <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="0,0,-184,273" HorizontalAlignment="Right" Width="427"  />
+
+                                            <CheckBox x:Name="chk_Settings_CoverArt" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Apply CoverArt" Padding="5,0,0,0" Margin="0,27,-184,246" HorizontalAlignment="Right" Width="427"  />
+
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Dimmer" Padding="5,0,0,0" Margin="10,197,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+
+                                            <CheckBox x:Name="chk_Settings_MinimiseAlways" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="{DynamicResource Localized_142}" Padding="5,0,0,0" Margin="0,0,-184,273" HorizontalAlignment="Right" Width="427"  />
+
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="Dimmer" Padding="5,0,0,0" Margin="10,197,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65"  />
+
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Brighter" Padding="5,0,0,0" Margin="0,197,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
@@ -1191,6 +1200,8 @@
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
         								Text="Larger" Padding="5,0,0,0" Margin="0,272,36,0" VerticalAlignment="Top" RenderTransformOrigin="1.443,0.208" HorizontalAlignment="Right" Width="61"  />
 
+                                            <Button Width="178" Height="26" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,49,65,0" VerticalAlignment="Top"
+        					Content="(Re)Generate Cases" Click="btn_Coverart_Refresh_Click" />
 
                                         </Grid>
                                     </TabItem>
@@ -1946,7 +1957,7 @@
         			Text="{Binding SelectedItem.MovieIcons, ElementName=lst_Movies_flow}" Grid.Column="1" Grid.Row="1" Height="37" VerticalAlignment="Bottom" />  -->
 
                 <TextBlock Margin="46,0,10,146" Grid.Row="1" Grid.Column="1"  Grid.RowSpan="2"   TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="24" TextAlignment="Right"
-        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Bottom"  />                
+        		Text="{Binding SelectedItem.Length, StringFormat=Duration:{0}, ElementName=lst_Movies_flow}" Height="48" VerticalAlignment="Bottom"  />
                 <!--  Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"-->
                 <!--  ICON ICONS and more ICONS - Stackpanel to resize and then Converter to Collapse and/or Show   Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"  -->
 

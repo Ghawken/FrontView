@@ -159,6 +159,7 @@ namespace FrontView
             chk_Settings_StartWithWindows.IsChecked = _config.StartWithWindows;
             chk_Settings_StartFrontViewServer.IsChecked = _config.StartFrontViewServer;
             chk_Settings_MinimiseAlways.IsChecked = _config.MinimiseAlways;
+            chk_Settings_CoverArt.IsChecked = _config.CoverArt;
             chk_Settings_HttpSend.IsChecked = _config.HttpSend;
             chk_Settings_UseReceiver.IsChecked = _config.UseReceiverIPforVolume;
             chk_Settings_HttpUseDigest.IsChecked = _config.HttpUseDigest;
@@ -378,6 +379,7 @@ namespace FrontView
                 _config.StartWithWindows = (bool)chk_Settings_StartWithWindows.IsChecked;
                 _config.StartFrontViewServer = (bool)chk_Settings_StartFrontViewServer.IsChecked;
                 _config.MinimiseAlways = (bool)chk_Settings_MinimiseAlways.IsChecked;
+                _config.CoverArt = (bool)chk_Settings_CoverArt.IsChecked;
                 _config.HttpSend = (bool)chk_Settings_HttpSend.IsChecked;
                 _config.UseReceiverIPforVolume = (bool)chk_Settings_UseReceiver.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
@@ -490,6 +492,8 @@ namespace FrontView
             RefreshDictionaries();
 
             _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
+
+            Helper.Instance.UseCoverArt = (bool)_config.CoverArt;
 
             RefreshHeader();
 

@@ -33,6 +33,8 @@ namespace FrontView.Classes
         public bool Debug { get; set; }
         public bool SecondScreen { get; set; }
         public bool MinimiseAlways { get; set; }
+
+        public bool CoverArt { get; set; }
         
         // Http Send Variable Changes
         public string HttpUser { get; set; }
@@ -157,7 +159,8 @@ namespace FrontView.Classes
             Debug = true;
             SecondScreen = false;
             FanartAlways = false;
-            //MinimiseAlways = false;
+            MinimiseAlways = false;
+            CoverArt = false;
             Topmost = true;
             Hack480 = false;
             ShowAudioMenu = true;
@@ -267,6 +270,7 @@ namespace FrontView.Classes
             Debug = config.Debug;
             SecondScreen = config.SecondScreen;
             MinimiseAlways = config.MinimiseAlways;
+            CoverArt = config.CoverArt;
             // Changes for Http Sending
             HttpSend = config.HttpSend;
             HttpUseDigest = config.HttpUseDigest;
@@ -370,13 +374,15 @@ namespace FrontView.Classes
             DisableResolutionDetection = config.DisableResolutionDetection;
             FanartDirectoryFixed = config.FanartDirectory;
 
+            Helper.Instance.UseCoverArt = (bool)config.CoverArt;
+
             return true;
         }
 
         public void Save(string configFile)
         {
             Logger.Instance().Log("FrontViewConfig", "Saving settings : " + configFile);
-                        
+
             try
             {
                 var res = Resolution;
