@@ -136,12 +136,51 @@ namespace Remote.Emby.Api
             ApiName = "EMBYAPI:";
        }
 
-        private JsonObject GetApplicationProperties(string label)
+        private string GetApplicationProperties(string label)
         {
-            //var items = new JsonObject();
-            //items["properties"] = new[] { label };
-            //var res = JsonCommand("Application.GetProperties", items);
-            //return res == null ? null : (JsonObject)((JsonObject)res)[label];
+            try
+            {
+                Trace("Getting System Properties" + IP);
+                string NPurl = "http://" + IP + ":" + Port + "/System/Info/Public";
+                Trace("Getting Emby System Properties " + NPurl);
+
+                var request = WebRequest.CreateHttp(NPurl);
+
+                request.Method = "get";
+                request.Timeout = 5000;
+                request.ContentType = "application/json; charset=utf-8";
+                request.Accept = "application/json; charset=utf-8";
+
+                var response = request.GetResponse();
+
+                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+                {
+
+                    System.IO.Stream dataStream = response.GetResponseStream();
+                    //REMOVETHIS                 System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+                    using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+                    {
+                        string json = sr.ReadToEnd();
+                        Trace("Emby System Properties:" + json);
+                        var deserializer = new JavaScriptSerializer();
+                        var ItemData = deserializer.Deserialize<SystemProperties.Rootobject>(json);
+                        Trace("Emby System Properties Version:" + ItemData.Version + "  Server OS: " + ItemData.OperatingSystem);
+                        return ItemData.Version + Environment.NewLine+ "OS:" + ItemData.OperatingSystem;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Trace("Get System Properties Exception:" + ex);
+            }
+
             return null;
         }
 
@@ -162,10 +201,12 @@ namespace Remote.Emby.Api
 
         public override string GetVersion()
         {
-            var infos = GetApplicationProperties("version");
+
+            string infos = GetApplicationProperties("Version");
+
             if (infos == null) return "";
-            var ver = "" + infos["major"] + "." + infos["minor"] +"." + infos["revision"];
-            return ver;
+
+            return infos;
         }
 
         public override string GetAdditionalInfo()

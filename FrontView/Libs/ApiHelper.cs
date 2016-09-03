@@ -24,6 +24,9 @@ using System.Windows.Controls.Primitives;
 using Plugin;
 using Setup;
 using FrontView.Classes;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Media.Imaging;
 
 namespace FrontView.Libs
 {
@@ -103,7 +106,103 @@ namespace FrontView.Libs
 
             return "";
         }
-    
+
+
+        public System.Windows.Media.Imaging.BitmapImage CoverArtTreatmentKodi(string destFile, string skin, string MovieIcons)
+        {
+
+            Bitmap Art;
+            try
+            {
+                Art = (Bitmap)Image.FromFile(destFile);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("CoverArTKodi", "Exception Using Default destFile:" + destFile +ex);
+                return new BitmapImage(new Uri(destFile));
+            }
+
+            Bitmap frame;
+            try
+            {
+
+                string BlueRayCase = Helper.SkinorDefault(Helper.SkinPath ,skin, @"\Interface\Case_BlurayCase.png");
+                string DVDCase = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Interface\Case_dvdCase.png");
+                string CasetoUse = "";
+
+                if (MovieIcons.Contains("1080p") || MovieIcons.Contains("720p"))
+                {
+                    Logger.Instance().LogDump("CoverArTKodi", "MovieIcons Contains 1080p or 720p:" + MovieIcons);
+                    CasetoUse = BlueRayCase;
+                }
+                else
+                {
+                    CasetoUse = DVDCase;
+                    Logger.Instance().LogDump("CoverArTKodi", "MovieIcons DOES NOT Contains 1080p or 720p:" + MovieIcons);
+                }
+
+                Logger.Instance().LogDump("CoverArTKodi", "Trying case:" + CasetoUse);
+
+                frame = (Bitmap)Image.FromFile(CasetoUse);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:"  +ex);
+                return new BitmapImage(new Uri(destFile));
+            }
+
+            var width = 574;
+            var height = 800;
+            using (frame)
+            {
+                using (var bitmap = new Bitmap(width, height))
+                {
+                    using (var canvas = Graphics.FromImage(bitmap))
+                    {
+                        canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        canvas.DrawImage(Art, 0, 25, 545, 750);
+                        canvas.DrawImage(frame,
+                                         new Rectangle(0,
+                                                       0,
+                                                       width,
+                                                       height),
+                                         new Rectangle(0,
+                                                       0,
+                                                       frame.Width,
+                                                       frame.Height),
+                                         GraphicsUnit.Pixel);
+
+
+                        canvas.Save();
+                    }
+                    try
+                    {
+                        string CasefileName = destFile.Remove(destFile.Length - 4) + "-Case.jpg";
+
+                        if (!File.Exists(CasefileName))
+                        {
+                            bitmap.Save(CasefileName);
+                            Logger.Instance().LogDump("CoverArTKodi", "Checking Existence of Case File Saving New:" + CasefileName);
+                        }
+                        else
+                        {
+                            Logger.Instance().LogDump("CoverArTKodi", "File Exisits:" + CasefileName);
+                            return new BitmapImage(new Uri(CasefileName));
+                        }
+                        return new BitmapImage(new Uri(CasefileName));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Instance().LogDump("CoverArTKodi", "Exception in frame Using Default destFile:" + destFile + "Exception :" + ex);
+                        return new BitmapImage(new Uri(destFile));
+
+                    }
+                }
+            }
+
+        }
+
+
         public bool FillApiComboBox(Selector lst,string api)
         {
             if (lst == null) return false;
@@ -157,6 +256,7 @@ namespace FrontView.Libs
 
             return null;
         }
+
     }
 
 

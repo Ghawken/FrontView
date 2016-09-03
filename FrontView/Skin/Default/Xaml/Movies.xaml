@@ -39,9 +39,24 @@
                     <Grid.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                     </Grid.OpacityMask>
+
+                    <Image Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" SnapsToDevicePixels="True">
+                        <Image.Source>
+                            <MultiBinding Converter="{x:Static Yatse2:CacheCoverartConverter.Instance}"
+                                ConverterParameter='Video\\Thumbs'>
+                                <Binding Path="Thumb"/>
+                                <Binding Path="Skin" Source="{StaticResource Yatse2Properties}"/>
+                                <Binding Path="MovieIcons"/>
+                            </MultiBinding>
+                        </Image.Source>
+
+                    </Image>
+
+                    <!--
                     <Image Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Fill" SnapsToDevicePixels="True"
-                           Source="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheImageConverter.Instance}, ConverterParameter='Video\\Thumbs' }">
-                    </Image> 
+                           Source="{Binding Path=Thumb,  Converter={x:Static Yatse2:CacheCoverartConverter.Instance}, ConverterParameter='Video\\Thumbs' }">
+                    </Image>
+-->
 
                     <Image Visibility="{Binding Path=PlayCount, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=long}"
                                Source="{Binding ConverterParameter=Overlay_Watched, Path=Skin, Source={StaticResource Yatse2Properties}, Converter={x:Static Yatse2:SkinImagePathConverter.Instance}}"

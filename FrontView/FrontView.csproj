@@ -5034,9 +5034,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Skin\Default\Interface\Case_BlurayCase.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Skin\Default\Interface\Case_BlurayCase.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Skin\Default\Icons\aspect_125-2.png">
@@ -5395,7 +5395,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Skin\Default\Interface\Case_dvdCase.png">
+    <None Include="Skin\Default\Interface\Case_dvdCase.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Skin\Default\Interface\Icon_Kodi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -52,6 +52,7 @@ namespace FrontView.Libs
         }
 
 
+
         public static string SkinPath
         {
             get

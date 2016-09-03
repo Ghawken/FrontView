@@ -117,7 +117,7 @@ namespace Remote.XBMC.Krypton.Api
 
         public override string GetOS()
         {
-            return "Xbmc";
+            return "Kodi";
         }
 
         public override string GetVersion()

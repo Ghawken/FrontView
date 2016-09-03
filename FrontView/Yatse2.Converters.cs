@@ -26,9 +26,11 @@ using System.Windows.Media.Imaging;
 using Setup;
 using FrontView.Libs;
 using System.Linq;
+using FrontView.Classes;
 
 namespace FrontView
 {
+
     public class VisibilityConverter : IValueConverter
     {
         private static readonly VisibilityConverter TheInstance = new VisibilityConverter();
@@ -317,6 +319,7 @@ namespace FrontView
     public class CacheImageConverter : IValueConverter
     {
         private static readonly CacheImageConverter TheInstance = new CacheImageConverter();
+
         private CacheImageConverter() { }
         public static CacheImageConverter Instance
         {
@@ -326,7 +329,6 @@ namespace FrontView
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == DependencyProperty.UnsetValue) return false;
-
             var param = (string)parameter;
             var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
 
@@ -356,9 +358,159 @@ namespace FrontView
             return Binding.DoNothing;
         }
     }
-   
+
+    public class CacheImageMovieDetailsConverter : IValueConverter
+    {
+        private static readonly CacheImageMovieDetailsConverter TheInstance = new CacheImageMovieDetailsConverter();
+
+        private CacheImageMovieDetailsConverter() { }
+        public static CacheImageMovieDetailsConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == DependencyProperty.UnsetValue) return false;
+            var param = (string)parameter;
+            var path = "";
+
+            if (param == @"Video\Thumbs")
+            {
+                path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
+            }
+            else
+            {
+                path = (string)value;
+            }
+
+            Logger.Instance().Trace("CoverART MovieDetails", "param = :" + param);
+            Logger.Instance().Trace("CoverART MovieDetails", "Path = :" + path);
+            Logger.Instance().Trace("CoverART MovieDetails", "Value = :" + (string)value);
+
+            // If running Kodi check for Case and use that if exists
+            if (Helper.Instance.CurrentApi == "Kodi 16" || Helper.Instance.CurrentApi == "Kodi 17")
+            {
+                var newpath = path.Remove(path.Length - 4) + "-Case.jpg";
+                if (File.Exists(newpath))
+                {
+                    try
+                    {
+                        return new BitmapImage(new Uri(newpath));
+                    }
+                    catch (Exception)
+                    {
+                        return new BitmapImage(new Uri(path));
+                    }
+                }
+
+            }
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    return new BitmapImage(new Uri(path));
+                }
+                catch (Exception)
+                {
+                    return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png"));
+                }
+            }
+
+            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
+            if (File.Exists(path))
+                return new BitmapImage(new Uri(path));
+
+            Logger.Instance().Log("C_CacheImage", "Missing default Image : " + path);
+            return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
 
 
+
+
+    public class CacheCoverartConverter : IMultiValueConverter
+    {
+        private static readonly CacheCoverartConverter TheInstance = new CacheCoverartConverter();
+        private CacheCoverartConverter() { }
+        public static CacheCoverartConverter Instance
+        {
+            get { return TheInstance; }
+        }
+
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == DependencyProperty.UnsetValue) return false;
+
+            var param = (string)parameter;
+            var path = Helper.CachePath + param + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)values[0], Helper.Instance.CurrentApi) + ".jpg";
+            var MovieIcons = (string)values[2];
+
+            Logger.Instance().Trace("CoverART", " Remote Property equals : " + Helper.Instance.CurrentApi);
+
+            if (Helper.Instance.CurrentApi == "Kodi 16" || Helper.Instance.CurrentApi== "Kodi 17")
+            {
+
+            Logger.Instance().Trace("CoverART", " values MultiBinding equals : " + values[0] +"Skin Value1:  "+values[1] +"MovieIcons:"+values[2]);
+
+            Logger.Instance().Trace("CoverART", " Remote Property equals : " + Helper.Instance.CurrentApi);
+            if (File.Exists(path))
+            {
+                return ApiHelper.Instance().CoverArtTreatmentKodi(path, (string)values[1], MovieIcons);
+
+            }
+
+
+            }
+
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    return new BitmapImage(new Uri(path));
+                }
+                catch (Exception)
+                {
+                    return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png"));
+                }
+            }
+
+            param = @"\Interface\Default_" + param.Replace("\\", "-") + ".png";
+            path = Helper.SkinPath + Helper.Instance.CurrentSkin + param;
+            if (File.Exists(path))
+                return new BitmapImage(new Uri(path));
+
+            Logger.Instance().Log("C_CacheImage", "Missing default Image : " + path);
+            return new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png"));
+        }
+
+    /**    public object ConvertBack(object value, Type[] targetType, object parameter, CultureInfo culture)
+        {
+            string[] splitValues = ((string)value).Split(' ');
+            return splitValues;
+        }
+            **/
+        object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            return ((IMultiValueConverter)TheInstance).ConvertBack(value, targetTypes, parameter, culture);
+        }
+    }
+
+
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class SkinImageConverter : IValueConverter
     {
         private static readonly SkinImageConverter TheInstance = new SkinImageConverter();

@@ -1,5 +1,15 @@
 ﻿Changelog:
 
+1.191
+Add Kodi Krypton Remote Connection Option
+Add Icon_ for Kodi 
+Emby Remote: Version/Name Info
+Change to Remotes - will need to delete db and refresh
+
+
+1.190
+
+
 1.185
 Fix for Plex - V.Limited support for Plex - NowPlaying screen only
 Add Settings Buttons for Logos
