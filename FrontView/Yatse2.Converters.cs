@@ -83,6 +83,11 @@ namespace FrontView
             var param = (string)parameter;
             var check = (string)value;
 
+            if (String.IsNullOrWhiteSpace(check))
+            {
+                Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for: " + check + ":param:" + param);
+                return Visibility.Collapsed;
+            }
 
             Logger.Instance().Trace("IconVisibility:", "check for: " + check + ":param:" + param);
 
@@ -173,6 +178,7 @@ namespace FrontView
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == DependencyProperty.UnsetValue) return false;
+
 
             var param = (string)parameter;
             var temp = param.Split('/');

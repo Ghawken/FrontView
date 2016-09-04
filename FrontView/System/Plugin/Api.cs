@@ -334,6 +334,7 @@ namespace Plugin
         public string CurrentMenuID { get; set; }
         public bool IsNewMedia{ get; set; }
         public bool IsMuted { get; set; }
+        public string MovieIcons { get; set; }
     }
 
     //ok about to change

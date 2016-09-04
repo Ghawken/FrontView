@@ -277,6 +277,14 @@ namespace FrontView.Classes
             set { SetValue(LogoProperty, value); }
         }
 
+        public static readonly DependencyProperty MovieIconsProperty =
+        DependencyProperty.Register("MovieIcons", typeof(string), typeof(Yatse2Currently));
+
+        public string MovieIcons
+        {
+            get { return (string)GetValue(MovieIconsProperty); }
+            set { SetValue(MovieIconsProperty, value); }
+        }
 
         public static readonly DependencyProperty TimeProperty =
             DependencyProperty.Register("Time", typeof(string), typeof(Yatse2Currently));

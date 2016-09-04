@@ -297,7 +297,8 @@ namespace FrontView
                     _yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
                     Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL +" and Yatse2Properties.Currently.Logo equals:"+ _yatse2Properties.Currently.Logo, true);
                     _yatse2Properties.Currently.Fanart = _config.MusicFanartRotation ? GetRandomImagePath(Helper.CachePath + @"Music\Fanarts") : GetMusicFanartPath(nowPlaying.FanartURL);
-                    
+                    _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
+
                 // Wholesale change coming up......  Move away from DB for Currently Info, instead move to extrafanart for the artist detected....
                 // Looks good - should do the same for Video Now Playing info screen
 
@@ -431,7 +432,7 @@ namespace FrontView
                         _yatse2Properties.Currently.TvDirector = epinfo[0].Director;
                         _yatse2Properties.Currently.TvYear = epinfo[0].Date.Length > 3 ? epinfo[0].Date.Substring(0, 4) : epinfo[0].Date;
                         _yatse2Properties.Currently.TvVotes = "";
-                       
+                        _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     }
                     else
                     {
@@ -446,6 +447,7 @@ namespace FrontView
                         _yatse2Properties.Currently.TvDirector = nowPlaying.Director;
                         _yatse2Properties.Currently.TvYear = nowPlaying.Year.ToString(CultureInfo.InvariantCulture);
                         _yatse2Properties.Currently.TvVotes = "";
+                        _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     }
                     VideoStarting();
                     break;
@@ -458,6 +460,9 @@ namespace FrontView
                     Logger.Instance().Log("FrontView+", "New Movie Media : " + nowPlaying.FileName);
                     var movieinfo = _database.GetMovieFromFile(_remoteInfo.Id, nowPlaying.FileName);
                     _yatse2Properties.Currently.IsMovie = true;
+
+                    Logger.Instance().LogDump("MovieIcons Currently", "nowPlaying MovieIcons equals:" + nowPlaying.MovieIcons +":", true);
+                    _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     if (movieinfo.Count > 0)
                     {
                         _yatse2Properties.Currently.MovieTitle = movieinfo[0].Title;
@@ -493,7 +498,7 @@ namespace FrontView
                     _yatse2Properties.Currently.UnknownFile = nowPlaying.FileName;
                     _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL); // TODO : Change to Covnerter
                     _yatse2Properties.Currently.Logo = GetVideoLogoPath(nowPlaying.LogoURL);
-
+                    _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     VideoStarting();
                     break;
                 //Attempt PVR support
@@ -507,7 +512,7 @@ namespace FrontView
                     _yatse2Properties.Currently.IsMovie = true;
                     _yatse2Properties.Currently.MovieTitle = nowPlaying.Title;
                     nowPlaying.FileName = nowPlaying.Title;
-
+                    _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     Logger.Instance().LogDump("FrontView PVR:", "nowPlaying Title: " + _yatse2Properties.Currently.MovieTitle, true);
                     _yatse2Properties.Currently.Fanart = GetVideoThumbPath(nowPlaying.ThumbURL);
                     Logger.Instance().LogDump("FrontView PVR:", "Fanart is : " + _yatse2Properties.Currently.Fanart, true);
