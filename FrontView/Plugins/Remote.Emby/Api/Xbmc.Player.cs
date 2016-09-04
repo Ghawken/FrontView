@@ -549,6 +549,9 @@ namespace Remote.Emby.Api
 
                                 _nowPlaying.Progress = (int)percent;
 
+
+                                
+
                                 _nowPlaying.IsMuted = server.IsMuted;
                                 _nowPlaying.Volume = Convert.ToInt32(server.Volume);
 

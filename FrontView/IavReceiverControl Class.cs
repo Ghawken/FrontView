@@ -139,96 +139,127 @@ namespace FrontView
 
         private void Receive()
         {
-            // Create the state object.
-            StateObject state = new StateObject();
-            state.workSocket = _sck;
+            try
+            {
 
-            // Begin receiving the data from the remote device.
-            _sck.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                new AsyncCallback(ReceiveCallback), state);
+                // Create the state object.
+                StateObject state = new StateObject();
+                state.workSocket = _sck;
+
+                // Begin receiving the data from the remote device.
+                _sck.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                    new AsyncCallback(ReceiveCallback), state);
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Exception Caught SocketConnected:" + ex, true);
+            }
         }
 
         private void ReceiveCallback(IAsyncResult ar)
         {
-            // Retrieve the state object and the client socket 
-            // from the asynchronous state object.
-            StateObject state = (StateObject)ar.AsyncState;
-            Socket client = state.workSocket;
-            // Read data from the remote device.
-            int bytesRead = client.EndReceive(ar);
-            if (bytesRead > 0)
+            try
             {
-                string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
-                Logger.Instance().LogDump("- IAVRECEIVER-", "Response: " + response,true);
-                if (response.Contains("VOL"))
+
+                // Retrieve the state object and the client socket 
+                // from the asynchronous state object.
+                StateObject state = (StateObject)ar.AsyncState;
+                Socket client = state.workSocket;
+                // Read data from the remote device.
+                int bytesRead = client.EndReceive(ar);
+                if (bytesRead > 0)
                 {
-                    string tobesearched = "VOL";
-                    string code = response.Substring(response.IndexOf(tobesearched) + tobesearched.Length);
+                    string response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+                    Logger.Instance().LogDump("- IAVRECEIVER-", "Response: " + response, true);
+                    if (response.Contains("VOL"))
+                    {
+                        string tobesearched = "VOL";
+                        string code = response.Substring(response.IndexOf(tobesearched) + tobesearched.Length);
 
-                    code = code.Substring(0, 3);
+                        code = code.Substring(0, 3);
 
-                    Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set:" + code,true);
+                        Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set:" + code, true);
 
-                    RecVolume = Convert.ToInt16(code);
-                    decimal HighestVolume = 161;
+                        RecVolume = Convert.ToInt16(code);
+                        decimal HighestVolume = 161;
 
-                    RecVolume = Convert.ToInt16(Math.Round(RecVolume / HighestVolume * 100, 0));
+                        RecVolume = Convert.ToInt16(Math.Round(RecVolume / HighestVolume * 100, 0));
 
-                    Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set Percentage:" + RecVolume, true);
+                        Logger.Instance().LogDump("- IAVRECEIVER-", "REC-Volume Set Percentage:" + RecVolume, true);
 
-                    //SetVolumeEvent(this, response);
+                        //SetVolumeEvent(this, response);
+                    }
+                    if (response.StartsWith("MUT"))
+                    {
+                        if (response.StartsWith("MUT0"))
+                        {
+                            Mute = true;
+                        }
+                        if (response.StartsWith("MUT1"))
+                        {
+                            Mute = false;
+                        }
+                    }
+
+                    // There might be more data, so store the data received so far.
+                    state.sb.Append(response);
+                    //  Get the rest of the data.
+                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                        new AsyncCallback(ReceiveCallback), state);
                 }
-                if (response.StartsWith("MUT"))
+                else
                 {
-                    if (response.StartsWith("MUT0"))
+                    // All the data has arrived; put it in response.
+                    if (state.sb.Length > 1)
                     {
-                        Mute = true;
+                        string response = state.sb.ToString();
+                        //   SetVolumeEvent(this, response);
                     }
-                    if (response.StartsWith("MUT1"))
-                    {
-                        Mute = false;
-                    }
+                    // Signal that all bytes have been received.
+                    receiveDone.Set();
                 }
-
-                // There might be more data, so store the data received so far.
-                state.sb.Append(response);
-                //  Get the rest of the data.
-                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReceiveCallback), state);
             }
-            else
+            catch (Exception ex)
             {
-                // All the data has arrived; put it in response.
-                if (state.sb.Length > 1)
-                {
-                    string response = state.sb.ToString();
-                    //   SetVolumeEvent(this, response);
-                }
-                // Signal that all bytes have been received.
-                receiveDone.Set();
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Exception Caught ReceiveCallback:" + ex, true);
             }
         }
 
         private void SendMessage(string message)
         {
-            byte[] buffer = Encoding.Default.GetBytes(message + "\r\n");
+            try
+            {
+                byte[] buffer = Encoding.Default.GetBytes(message + "\r\n");
 
-            _sck.BeginSend(buffer, 0, buffer.Length, SocketFlags.None,
-        new AsyncCallback(SendCallback), _sck);
-            Receive();
+                _sck.BeginSend(buffer, 0, buffer.Length, SocketFlags.None,
+            new AsyncCallback(SendCallback), _sck);
+                Receive();
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Exception Caught SendMessage:" + ex, true);
+            }
         }
 
         private void SendCallback(IAsyncResult ar)
         {
             // Retrieve the socket from the state object.
-            Socket client = (Socket)ar.AsyncState;
+            try
+            {
 
-            // Complete sending the data to the remote device.
-            int bytesSent = client.EndSend(ar);
-            Logger.Instance().LogDump("- IAVRECEIVER-", "Sent {0} bytes to server."+ bytesSent,true);
+                Socket client = (Socket)ar.AsyncState;
 
-            // Signal that all bytes have been sent.
-            sendDone.Set();
+                // Complete sending the data to the remote device.
+                int bytesSent = client.EndSend(ar);
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Sent {0} bytes to server." + bytesSent, true);
+
+                // Signal that all bytes have been sent.
+                sendDone.Set();
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().LogDump("- IAVRECEIVER-", "Exception Caught SendCallback:" + ex, true);
+            }
         }
 
 

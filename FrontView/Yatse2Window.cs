@@ -1711,7 +1711,7 @@ namespace FrontView
                     HttpisPlaying = false;
                     HttpisStopped = false;
                 }
-                if (nowPlaying.IsMuted == true && HttpisMuted == false)
+                if (nowPlaying.IsMuted == true && HttpisMuted == false && _config.UseReceiverIPforVolume== false)
                 {
                     gotoHttp(_config.HttpMute, nowPlaying);
                     HttpisMuted = true;
@@ -1724,7 +1724,7 @@ namespace FrontView
                     HttpisPaused = false;
                 }
 
-                if (nowPlaying.IsMuted == false && HttpisMuted == true)
+                if (nowPlaying.IsMuted == false && HttpisMuted == true && _config.UseReceiverIPforVolume == false)
                 {
                     gotoHttp(_config.HttpUnmute, nowPlaying);
                     HttpisMuted = false;
