@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Interop;
 using System.Diagnostics;
+using FrontView.Classes;
 
 namespace FrontView.Libs.DDCControl
 {
@@ -122,46 +123,68 @@ namespace FrontView.Libs.DDCControl
 
         private void SetupMonitors()
         {
-            IntPtr hMonitor = NativeCalls.MonitorFromWindow(hWnd, NativeConstants.MONITOR_DEFAULTTOPRIMARY);
-            int lastWin32Error = Marshal.GetLastWin32Error();
+            try
+            {
+                IntPtr hMonitor = NativeCalls.MonitorFromWindow(hWnd, NativeConstants.MONITOR_DEFAULTTOPRIMARY);
+                bool numberOfPhysicalMonitorsFromHmonitor = NativeCalls.GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor, ref pdwNumberOfPhysicalMonitors);
+                pPhysicalMonitorArray = new NativeStructures.PHYSICAL_MONITOR[pdwNumberOfPhysicalMonitors];
+                bool physicalMonitorsFromHmonitor = NativeCalls.GetPhysicalMonitorsFromHMONITOR(hMonitor, pdwNumberOfPhysicalMonitors, pPhysicalMonitorArray);
+                Setup.Logger.Instance().LogDump("DDCControl", "SetupMonitor Called: #Monitors:" + pdwNumberOfPhysicalMonitors);
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "SetupMonitor Exception: #Monitors:" + ex);
 
-            bool numberOfPhysicalMonitorsFromHmonitor = NativeCalls.GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor, ref pdwNumberOfPhysicalMonitors);
-            lastWin32Error = Marshal.GetLastWin32Error();
-
-            pPhysicalMonitorArray = new NativeStructures.PHYSICAL_MONITOR[pdwNumberOfPhysicalMonitors];
-            bool physicalMonitorsFromHmonitor = NativeCalls.GetPhysicalMonitorsFromHMONITOR(hMonitor, pdwNumberOfPhysicalMonitors, pPhysicalMonitorArray);
-            lastWin32Error = Marshal.GetLastWin32Error();
+            }
         }
 
-        private void GetMonitorCapabilities(int monitorNumber)
+        public bool GetMonitorCapabilities(int monitorNumber)
         {
-            uint pdwMonitorCapabilities = 0u;
-            uint pdwSupportedColorTemperatures = 0u;
-            var monitorCapabilities = NativeCalls.GetMonitorCapabilities(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref pdwMonitorCapabilities, ref pdwSupportedColorTemperatures);
-            Debug.WriteLine(pdwMonitorCapabilities);
-            Debug.WriteLine(pdwSupportedColorTemperatures);
-            int lastWin32Error = Marshal.GetLastWin32Error();
-            NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE type = NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE.MC_SHADOW_MASK_CATHODE_RAY_TUBE;
-            var monitorTechnologyType = NativeCalls.GetMonitorTechnologyType(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref type);
-            Debug.WriteLine(type);
-            lastWin32Error = Marshal.GetLastWin32Error();
+            try
+            {
+                uint pdwMonitorCapabilities = 0u;
+                uint pdwSupportedColorTemperatures = 0u;
+                var monitorCapabilities = NativeCalls.GetMonitorCapabilities(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref pdwMonitorCapabilities, ref pdwSupportedColorTemperatures);
+                Setup.Logger.Instance().LogDump("DDCControl", "GetMonitorCapabilites Called: #MonitorCapabilites:" + pdwMonitorCapabilities);
+                Setup.Logger.Instance().LogDump("DDCControl", "GetMonitorCapabilites Called: #ColorTemp:" + pdwSupportedColorTemperatures);
+
+                NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE type = NativeStructures.MC_DISPLAY_TECHNOLOGY_TYPE.MC_SHADOW_MASK_CATHODE_RAY_TUBE;
+                var monitorTechnologyType = NativeCalls.GetMonitorTechnologyType(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref type);
+                Setup.Logger.Instance().LogDump("DDCControl", "GetMonitorCapabilities Called: #type:" + type);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "GetMonitorCapabilites Exception:" + ex);
+                return false;
+            }
         }
 
         public bool SetBrightness(short brightness, int monitorNumber)
         {
-            var brightnessWasSet = NativeCalls.SetMonitorBrightness(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, (short)brightness);
-            if (brightnessWasSet)
-                Debug.WriteLine("Brightness set to " + (short)brightness);
-            int lastWin32Error = Marshal.GetLastWin32Error();
-            return brightnessWasSet;
+            try
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "SetBrightness Called:" + brightness + ":" + monitorNumber);
+                var brightnessWasSet = NativeCalls.SetMonitorBrightness(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, (short)brightness);
+                if (brightnessWasSet)
+                    Setup.Logger.Instance().LogDump("DDCControl", "SetBrightness brightnessWasSet True:" + brightness + ":" + monitorNumber);
+                return brightnessWasSet;
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "SetBrightness Exception:" + ex);
+                return false;
+            }
+            
         }
 
         public bool SetContrast(short contrast, int monitorNumber)
         {
+            Setup.Logger.Instance().LogDump("DDCControl", "SetContrast Called:" + contrast +":" +monitorNumber);
             var brightnessWasSet = NativeCalls.SetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, (short)contrast);
             if (brightnessWasSet)
-                Debug.WriteLine("Contrast set to " + (short)contrast);
-            int lastWin32Error = Marshal.GetLastWin32Error();
+                Setup.Logger.Instance().LogDump("DDCControl", "SetContrast brightnesswasSet True:" + contrast + ":" + monitorNumber);
+            
             return brightnessWasSet;
         }
 
@@ -169,15 +192,21 @@ namespace FrontView.Libs.DDCControl
         {
             short current = -1, minimum = -1, maximum = -1;
             bool getBrightness = NativeCalls.GetMonitorBrightness(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
-            int lastWin32Error = Marshal.GetLastWin32Error();
+            Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Called: Current:" + current + ":" + monitorNumber);
             return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
         }
-
+        public BrightnessInfo GetContrastCapabilities(int monitorNumber)
+        {
+            short current = -1, minimum = -1, maximum = -1;
+            bool getBrightness = NativeCalls.GetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
+            Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Called: Current:" + current + ":" + monitorNumber);
+            return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+        }
 
         public void DestroyMonitors()
         {
             var destroyPhysicalMonitors = NativeCalls.DestroyPhysicalMonitors(pdwNumberOfPhysicalMonitors, pPhysicalMonitorArray);
-            int lastWin32Error = Marshal.GetLastWin32Error();
+            
         }
 
         public uint GetMonitors()

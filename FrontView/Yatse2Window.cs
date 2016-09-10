@@ -108,6 +108,9 @@ namespace FrontView
                             };
 
         private FrontView.Libs.DDCControl.BrightnessControl brightnessControl;
+        public FrontView.Libs.DDCControl.BrightnessInfo brightnessInfo;
+        public FrontView.Libs.DDCControl.BrightnessInfo contrastInfo;
+
 
         private bool _videoFavoritesFilter;
         private bool _audioFavoritesFilter;
@@ -1766,24 +1769,10 @@ namespace FrontView
                             keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                             stbDimmingShow.Begin(this);
 
+                            SetBrightnessContrast(false);
 
 
 
-                            Window window = Window.GetWindow(this);
-                            var wih = new WindowInteropHelper(window);
-                            IntPtr hWnd = wih.Handle;
-
-                            brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
-
-                            Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
-
-                           
-
-                            if (brightnessControl != null)
-                            {
-                                brightnessControl.SetBrightness(1, 0);
-                                brightnessControl.SetContrast(1, 0);
-                            }
 
                         }
                         // Attempts to turn off Monitor Completely Begin here
@@ -1801,8 +1790,12 @@ namespace FrontView
                 {
                     var stbDimmingShow = (Storyboard)TryFindResource("stb_HideDimming");
                     if (stbDimmingShow != null)
+                    {
                         stbDimmingShow.Begin(this);
-                    Logger.Instance().LogDump("FrontView NEW DEBUG:", "Playback Paused or Playing - Dim on Undim");
+                        Logger.Instance().LogDump("FrontView NEW DEBUG:", "Playback Paused or Playing - Dim on Undim");
+                        SetBrightnessContrast(true);
+                    }
+                    
                 }
                 
                 
@@ -1844,6 +1837,7 @@ namespace FrontView
                             stbDimmingShow.Begin(this);
                         Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Paused undim ",true);
                         Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 3", _timer);
+                    SetBrightnessContrast(true);
                         ResetTimer();
                    }
 
@@ -1872,6 +1866,7 @@ namespace FrontView
                             stbDimmingShow.Begin(this);
                         Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Muted undim ",true);
                         Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from nowPlaying.IsMuted ", _timer);
+                        SetBrightnessContrast(true);
                         ResetTimer();
                     }
                     
@@ -1911,7 +1906,58 @@ namespace FrontView
           CheckFirstLaunch();
           
         }
-        
+
+        public void SetBrightnessContrast(bool turnonoff)
+        {
+            
+            try
+            {
+                Window window = Window.GetWindow(this);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+                // false equals set to zero/lowest possible/save current values first
+                //brightnessControl.GetMonitorCapabilities(0);
+
+                if (turnonoff == false)
+                {
+                    
+
+                    brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                    contrastInfo = brightnessControl.GetContrastCapabilities(0);
+
+                    Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
+
+
+                    if (brightnessControl != null)
+                    {
+                        brightnessControl.SetBrightness(1, 0);
+                        brightnessControl.SetContrast(1, 0);
+                    }
+
+                }
+
+                //true equals reset to previous values
+                if (turnonoff == true)
+                {
+
+                    Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
+
+
+                    if (brightnessControl != null)
+                    {
+                        brightnessControl.SetBrightness((short)brightnessInfo.current, 0);
+                        brightnessControl.SetContrast((short)contrastInfo.current, 0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("DDCControl", "Exception in SetBrightness/Contrast:"+ex);
+            }
+
+       }
+
 
         public void gotoHttpsimple(string url)
         {
