@@ -107,6 +107,8 @@ namespace FrontView
                                 {1, 140}
                             };
 
+        private FrontView.Libs.DDCControl.BrightnessControl brightnessControl;
+
         private bool _videoFavoritesFilter;
         private bool _audioFavoritesFilter;
         private bool _failedRemoteCheck;
@@ -1763,7 +1765,30 @@ namespace FrontView
                             Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
                             keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                             stbDimmingShow.Begin(this);
+
+
+
+
+                            Window window = Window.GetWindow(this);
+                            var wih = new WindowInteropHelper(window);
+                            IntPtr hWnd = wih.Handle;
+
+                            brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+
+                            Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
+
+                           
+
+                            if (brightnessControl != null)
+                            {
+                                brightnessControl.SetBrightness(1, 0);
+                                brightnessControl.SetContrast(1, 0);
+                            }
+
                         }
+                        // Attempts to turn off Monitor Completely Begin here
+                        // 
+
                     }
                 }
                 Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 2", _timer);
@@ -2089,6 +2114,10 @@ namespace FrontView
                         Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
                         keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
+
+
+
+
                     }
                 }
                 if (_config.Diaporama && (!_config.Dimming || _config.DimmingOnlyVideo))

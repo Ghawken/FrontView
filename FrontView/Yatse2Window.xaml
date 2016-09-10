@@ -384,7 +384,7 @@
                 </Grid>
 
 
-                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Visible">
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden">
 
 
                     <!-- Fanart For all Now Playing Screens -->
@@ -513,7 +513,7 @@
                         </Grid>
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="Visible">
+        			Visibility="Hidden">
                         <!--
                          <Grid Margin="0"
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">

@@ -473,6 +473,8 @@
     <Compile Include="IavReceiverControl Class.cs" />
     <Compile Include="Httpsend.cs" />
     <Compile Include="Digest.cs" />
+    <Compile Include="Libs\Brightness Info Struct.cs" />
+    <Compile Include="Libs\DDC Control.cs" />
     <Compile Include="Libs\Weather Classes\conditions.cs" />
     <Compile Include="Libs\Weather Classes\10dayForcast.cs" />
     <Compile Include="Libs\Weather-WeatherChannel.cs" />

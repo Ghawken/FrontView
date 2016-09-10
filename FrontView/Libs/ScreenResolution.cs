@@ -56,6 +56,8 @@ namespace FrontView.Libs
         public int DMDisplayFlags { get; set; }
         public int DMDisplayFrequency { get; set; }
 
+
+
         public static bool operator ==(Devmode dev1, Devmode dev2)
         {
             return dev1.Equals(dev2);
@@ -137,6 +139,33 @@ namespace FrontView.Libs
             cb = Marshal.SizeOf(this);
         }
 
+        public struct RAMP
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+            public UInt16[] Red;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+            public UInt16[] Green;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+            public UInt16[] Blue;
+        }
+
+        public enum ChangeDisplaySettingsFlags : uint
+        {
+            CDS_NONE = 0,
+            CDS_UPDATEREGISTRY = 0x00000001,
+            CDS_TEST = 0x00000002,
+            CDS_FULLSCREEN = 0x00000004,
+            CDS_GLOBAL = 0x00000008,
+            CDS_SET_PRIMARY = 0x00000010,
+            CDS_VIDEOPARAMETERS = 0x00000020,
+            CDS_ENABLE_UNSAFE_MODES = 0x00000100,
+            CDS_DISABLE_UNSAFE_MODES = 0x00000200,
+            CDS_RESET = 0x40000000,
+            CDS_RESET_EX = 0x20000000,
+            CDS_NORESET = 0x10000000
+        }
+
+
         public bool Equals(DisplayDevice other)
         {
             return other.cb == cb && other.DeviceName == DeviceName && other.DeviceString == DeviceString && other.StateFlags == StateFlags && other.DeviceID == DeviceID && other.DeviceKey == DeviceKey;
@@ -191,9 +220,9 @@ namespace FrontView.Libs
     public static class ScreenResolution
     {
         public static void ChangeResolution(int devNum, int modeNum)
-        { 
+        {
             var d = GetDevmode(devNum, modeNum);
-            
+
             if (d.DMBitsPerPel != 0 && d.DMPelsWidth != 0 && d.DMPelsHeight != 0)
             {
                 var result = NativeMethods.ChangeDisplaySettingsEx(GetDeviceName(devNum), ref d, IntPtr.Zero, 0, IntPtr.Zero);
@@ -203,7 +232,7 @@ namespace FrontView.Libs
         }
 
         public static void ChangeResolutionMode(int devNum, Devmode mode)
-        { 
+        {
             if (mode.DMBitsPerPel != 0 && mode.DMPelsWidth != 0 && mode.DMPelsHeight != 0)
             {
                 var result = NativeMethods.ChangeDisplaySettingsEx(GetDeviceName(devNum), ref mode, IntPtr.Zero, 0, IntPtr.Zero);
@@ -212,13 +241,50 @@ namespace FrontView.Libs
             }
         }
 
-       /* public static void TurnOffDevice(int devNum, Devmode mode)
+        public static void TurnOffScreen()
         {
-            var result = NativeMethods.TurnOffMonitorEx(GetDeviceName(devNum), int null, int null, 0, int null);
-            if (result > 0)
-                return; 
-         }*/
 
+            // Okay - below appears not possible to turn selective screen off - and even if was - would likely wake up immediately given playback on second screen
+            //
+            /**
+            int devNum = 1;
+            Devmode mode = new Devmode();
+            var currentRes = ScreenResolution.GetDevmode(1, -1);
+
+            var result = NativeMethods.ChangeDisplaySettingsEx(GetDeviceName(devNum), ref currentRes, IntPtr.Zero, DisplayDevice.ChangeDisplaySettingsFlags.CDS_UPDATEREGISTRY , IntPtr.Zero);
+            var result2 = NativeMethods.ChangeDisplaySettingsEx(null, ref currentRes, IntPtr.Zero, 0, IntPtr.Zero);
+        **/
+            // So trying a different approach - set Gamma of Monitor to zero and see.
+
+
+            }
+
+        /* public static void TurnOffDevice(int devNum, Devmode mode)
+         {
+             var result = NativeMethods.TurnOffMonitorEx(GetDeviceName(devNum), int null, int null, 0, int null);
+             if (result > 0)
+                 return; 
+          }*/
+        public static void SetGamma(int gamma)
+        {
+            if (gamma <= 256 && gamma >= 1)
+            {
+                DisplayDevice.RAMP ramp = new DisplayDevice.RAMP();
+                ramp.Red = new ushort[256];
+                ramp.Green = new ushort[256];
+                ramp.Blue = new ushort[256];
+                for (int i = 1; i < 256; i++)
+                {
+                    int iArrayValue = i * (gamma + 128);
+
+                    if (iArrayValue > 65535)
+                        iArrayValue = 65535;
+                    ramp.Red[i] = ramp.Blue[i] = ramp.Green[i] = (ushort)iArrayValue;
+                }
+                NativeMethods.SetDeviceGammaRamp(NativeMethods.GetDC(IntPtr.Zero), ref ramp);
+            }
+        }
+        
         public static int[] EnumDevices()
         { 
             var devices = new ArrayList();
@@ -304,6 +370,8 @@ namespace FrontView.Libs
 
         internal static class NativeMethods
         {
+
+
             [DllImport("User32.dll")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool EnumDisplayDevices(
@@ -321,15 +389,18 @@ namespace FrontView.Libs
 
             [DllImport("user32.dll", BestFitMapping = false)]
             public static extern int ChangeDisplaySettingsEx(
-               string devName, ref Devmode devMode, IntPtr hwnd, int dwFlags, IntPtr lParam);
+               string devName, ref Devmode devMode, IntPtr hwnd, DisplayDevice.ChangeDisplaySettingsFlags dwflags, IntPtr lParam);
 
-          /*  [DllImport("GDI32.dll")]
-            private static extern bool SetDeviceGammaRamp(Int32 hdc, void* ramp); 
+            [DllImport("GDI32.dll")]
+            public static extern bool SetDeviceGammaRamp(IntPtr hDC, ref DisplayDevice.RAMP lpRamp);
 
-     /*       [DllImport("user32.dll", BestFitMapping = false)]
-            public static extern int TurnOffMonitorEx(
-               string devName, int hwnd, int hwnd, int hwnd, int lParam);
-            */
+            [DllImport("user32.dll")]
+            public static extern IntPtr GetDC(IntPtr hWnd);
+
+            /*       [DllImport("user32.dll", BestFitMapping = false)]
+                   public static extern int TurnOffMonitorEx(
+                      string devName, int hwnd, int hwnd, int hwnd, int lParam);
+                   */
         }
 
     }
