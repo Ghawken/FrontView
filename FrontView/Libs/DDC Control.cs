@@ -180,29 +180,56 @@ namespace FrontView.Libs.DDCControl
 
         public bool SetContrast(short contrast, int monitorNumber)
         {
-            Setup.Logger.Instance().LogDump("DDCControl", "SetContrast Called:" + contrast +":" +monitorNumber);
-            var brightnessWasSet = NativeCalls.SetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, (short)contrast);
-            if (brightnessWasSet)
-                Setup.Logger.Instance().LogDump("DDCControl", "SetContrast brightnesswasSet True:" + contrast + ":" + monitorNumber);
-            
-            return brightnessWasSet;
+            try
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "SetContrast Called:" + contrast + ":" + monitorNumber);
+                var brightnessWasSet = NativeCalls.SetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, (short)contrast);
+                if (brightnessWasSet)
+                    Setup.Logger.Instance().LogDump("DDCControl", "SetContrast brightnesswasSet True:" + contrast + ":" + monitorNumber);
+
+                return brightnessWasSet;
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "SetContrast Exception:" + ex);
+                return false;
+            }
         }
 
         public BrightnessInfo GetBrightnessCapabilities(int monitorNumber)
         {
+
             short current = -1, minimum = -1, maximum = -1;
-            bool getBrightness = NativeCalls.GetMonitorBrightness(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
-            Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Called: Current:" + current + ":" + monitorNumber);
-            return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+            try
+            {
+                
+                bool getBrightness = NativeCalls.GetMonitorBrightness(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
+                Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Called: Current:" + current + ":" + monitorNumber);
+                return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Exception"+ex);
+                return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+            }
         }
+
         public BrightnessInfo GetContrastCapabilities(int monitorNumber)
         {
             short current = -1, minimum = -1, maximum = -1;
-            bool getBrightness = NativeCalls.GetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
-            Setup.Logger.Instance().LogDump("DDCControl", "GetBrightness Called: Current:" + current + ":" + monitorNumber);
-            return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
-        }
+            try
+            {
 
+                bool getBrightness = NativeCalls.GetMonitorContrast(pPhysicalMonitorArray[monitorNumber].hPhysicalMonitor, ref minimum, ref current, ref maximum);
+                Setup.Logger.Instance().LogDump("DDCControl", "GetContrast Called: Current:" + current + ":" + monitorNumber);
+                return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+            }
+            catch (Exception ex)
+            {
+                Setup.Logger.Instance().LogDump("DDCControl", "GetContrast Called: Current:" + ex);
+                return new BrightnessInfo { minimum = minimum, maximum = maximum, current = current };
+            }
+        }
         public void DestroyMonitors()
         {
             var destroyPhysicalMonitors = NativeCalls.DestroyPhysicalMonitors(pdwNumberOfPhysicalMonitors, pPhysicalMonitorArray);

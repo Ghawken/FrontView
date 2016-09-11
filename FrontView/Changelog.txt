@@ -1,5 +1,27 @@
 ﻿Changelog:
 
+
+Version 1.99
+Change to remote Version numbers Emby - just use first 3 digits (eg. 3.1 etc)
+Addition of DDC/CI Monitor Settings Control:
+Under DDC/Amp in Settings - will only work with monitors that support DDC (and unsure re USB Monitors)
+Allows FrontView to control the monitor settings directly (same as adjusting monitor menu settings)
+Enables FrontView to completely lower brightness and contrast during playback - avoiding a blank yet still 'bright' screen
+
+Add MediaIcons to NowPlaying Movie Screen:
+Very limited screen real estate.  Happy to take suggestions for placement
+Todo:  Add checkbox to remove displaying icons
+
+
+
+Version 1.195b
+Add Kodi Krypton Remote Connection Option (minimal changes - but works)
+Add Icon_ for Kodi 
+Emby Remote: Version/Name Info (may need to reconnect remote on new server versions)
+Change to Remote Code naming - may need to delete db and refresh
+Add Kodi CoverArt Option: Skinable Bluray and DVD Case
+(can also add for Emby if interested - but Emby CoverArt gives same impact)
+
 1.191
 Add Kodi Krypton Remote Connection Option  (minimal changes - but works)
 Add Icon_ for Kodi 

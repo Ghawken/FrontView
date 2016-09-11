@@ -513,7 +513,7 @@
                         </Grid>
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="Hidden">
+        			Visibility="Visible">
                         <!--
                          <Grid Margin="0"
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
@@ -655,7 +655,7 @@
                             </Rectangle>
                         </Border>
 
-                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincoverreflection, Source={StaticResource Yatse2Properties}}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                        <Border x:Name="brd_Current_Movie_Image_Reflexion"  RenderTransformOrigin="0.5,0.5" Width="160" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincoverreflection, Source={StaticResource Yatse2Properties}}" Height="240" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
 
                             <!-- Big one equals MarginMargin="40,0,0,-162" -->
                             <Border.RenderTransform>
@@ -721,13 +721,23 @@
 
                         </Grid>
 
-                        <Grid Margin="271,224,529,166" Height="200" Width="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5" x:Name="CIconPanel">
+                        <Grid  Margin="{Binding Path=Margin, ElementName=rct_Current_Movie_Details_Image }" Width="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" x:Name="CIconPanel" Height="Auto" VerticalAlignment="Bottom">
+                            <Grid.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=mediaiconX, Source={StaticResource Yatse2Properties}}" />
+                                </TransformGroup>
+                            </Grid.RenderTransform>
 
-                            <WrapPanel Orientation="Vertical" >
+
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="1">
                                 <WrapPanel.Resources>
                                     <Style TargetType="Rectangle">
                                         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
                                         <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                                        <Setter Property="Margin" Value="0"></Setter>
                                         <Setter Property="Height"  Value="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"></Setter>
                                     </Style>
 
@@ -1218,8 +1228,8 @@
         								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="422" Canvas.Top="249" Width="191"/>
                                         </Canvas>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
-                                        <Grid d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">
+                                        <Grid>
                                             <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" d:IsHidden="True" />
 
@@ -1235,7 +1245,7 @@
 
 
                                             <Button Width="251" Height="25.724" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="250,58,8,0" VerticalAlignment="Top"
-        					Content="Perform FULL Library UPDATE" Click="btn_Remote_Refresh_Click" d:IsHidden="True"/>
+        					Content="Perform FULL Library UPDATE" Click="btn_Remote_Refresh_Click"/>
 
                                             <CheckBox x:Name="chk_Settings_HideCompilationArtists" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_106}" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
@@ -1294,7 +1304,7 @@
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">
-                                        <Grid d:IsHidden="True">
+                                        <Grid >
                                             <CheckBox x:Name="chk_Settings_Debug" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_66}" Padding="5,0,0,0" Margin="8,0,124,8" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
                                                 <CheckBox.RenderTransform>
@@ -1380,7 +1390,7 @@
 
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_143}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_143}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
 
                                             <CheckBox x:Name="chk_Settings_HttpSend" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
@@ -1456,7 +1466,7 @@
                                         </Grid>
                                     </TabItem>
 
-                                    <TabItem Header="{DynamicResource Localized_145}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_145}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
 
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
@@ -1531,21 +1541,38 @@
                                         </Grid>
                                     </TabItem>
 
-                                    <TabItem Header="{DynamicResource Localized_146}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
-                                        <Grid d:IsHidden="True">
+                                    <TabItem Header="Amp/DDC" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" >
+                                        <Grid >
 
                                             <CheckBox x:Name="chk_Settings_UseReceiver" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="Use IP Pioneer Receiver Volume Control" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Content="Use IP Pioneer Receiver Volume Control" Padding="5,0,0,0" Margin="8,8,185,0" VerticalAlignment="Top"  />
 
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="IP Pioneer Receiver :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Text="IP Pioneer Receiver :" Padding="5,0,0,0" Margin="8,48.723,185,0" VerticalAlignment="Top" />
                                             <TextBox x:Name="txt_Settings_ReceiverIP" Style="{DynamicResource TextBox}" FontSize="16" 
-        								Text="txt_Settings_ReceiverIP" Padding="5,0,0,0" Margin="148,48.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Text="txt_Settings_ReceiverIP" Padding="5,0,0,0" Margin="148,48.723,185,0" VerticalAlignment="Top"  />
 
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Port :" Padding="5,0,0,0" Margin="8,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Text="Port :" Padding="5,0,0,0" Margin="8,88.723,185,0" VerticalAlignment="Top" />
                                             <TextBox x:Name="txt_Settings_ReceiverPort" Style="{DynamicResource TextBox}" FontSize="16" 
-        								Text="txt_Settings_ReceiverPort" Padding="5,0,0,0" Margin="148,88.723,185,0" VerticalAlignment="Top" d:IsHidden="True" />
+        								Text="txt_Settings_ReceiverPort" Padding="5,0,0,0" Margin="148,88.723,185,0" VerticalAlignment="Top" />
+
+                                            <TextBlock  FontSize="18" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="DDC/CI Monitor Control:" Padding="5,0,0,0" Margin="9,143,396,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" />
+
+
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="If Screen has DDC controls should dim on press and then undim on release.  If no response likely no DDC Control possible:" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,159,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="46" />
+
+                                            <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
+        								Text="If Screens supports it this will drop contrast/brightness of screen to minimum values, after FrontView dim is completed.  Removing blank, but some some brightness screen.  Very dependant on screen support ?USB-screens unsupported" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,210,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="72" />
+
+                                            <Button Width="251" Height="26" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,170,348,0" VerticalAlignment="Top"
+        					Content="Press to Test/Release to Return" PreviewMouseDown="DDCBrightness_MouseDown" PreviewMouseUp="DDCBrightness_MouseUp"/>
+
+                                            <CheckBox x:Name="chk_Settings_UseDDCControl" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Enable DDC Monitor Control" Padding="5,0,0,0" Margin="21,210,172,0" VerticalAlignment="Top"  />
+
 
                                         </Grid>
                                     </TabItem>

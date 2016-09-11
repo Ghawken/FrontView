@@ -22,6 +22,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using FrontView.Libs;
+using System.Windows.Interop;
 
 namespace FrontView
 {
@@ -115,6 +116,55 @@ namespace FrontView
 
                 _config.FanArtOpacity = value;
                 _yatse2Properties.FanArtOpacity = value;
+
+            }
+        }
+
+
+        private void DDCBrightness_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Window window = Window.GetWindow(this);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+
+                brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                contrastInfo = brightnessControl.GetContrastCapabilities(0);
+
+                if (brightnessControl != null)
+                {
+                    brightnessControl.SetBrightness((short)brightnessInfo.minimum, 0);
+                    brightnessControl.SetContrast((short)brightnessInfo.minimum, 0);
+                }
+            }
+            catch (Exception )
+            {
+              
+            }
+        }
+
+        private void DDCBrightness_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+
+                Window window = Window.GetWindow(this);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+
+
+
+                if (brightnessControl != null)
+                {
+                    brightnessControl.SetBrightness((short)brightnessInfo.current, 0);
+                    brightnessControl.SetContrast((short)brightnessInfo.current, 0);
+                }
+            }
+            catch (Exception )
+            {
 
             }
         }

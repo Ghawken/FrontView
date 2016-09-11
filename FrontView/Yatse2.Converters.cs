@@ -787,7 +787,12 @@ namespace FrontView
                 {
                     return new Thickness(50,0,0 ,-198 );
                 }
-                
+                if (param == "mediaiconX")
+                {
+                    return 220;
+                }
+
+
             }
             else if (img == "Large NowPlaying")
             {
@@ -807,6 +812,11 @@ namespace FrontView
                 {
                     return new Thickness(40, 0, 0, -170);
                 }
+                if (param == "mediaiconX")
+                {
+                    return 190;
+                }
+
             }
             else if (img == "Small NowPlaying")
             {
@@ -826,6 +836,11 @@ namespace FrontView
                 {
                     return new Thickness(40, 0, 0, -125);
                 }
+                if (param == "mediaiconX")
+                {
+                    return 160;
+                }
+
             }
 
 

@@ -746,7 +746,23 @@ namespace FrontView
 
                 RefreshHeader();
 
-     
+                // Not sure about this - may be need to check DDCEnable settings.
+                // Should run both once to check can connect and not -1
+
+
+                Window window = Window.GetWindow(this);
+                var wih = new WindowInteropHelper(window);
+                IntPtr hWnd = wih.Handle;
+                brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+                brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                contrastInfo = brightnessControl.GetContrastCapabilities(0);
+
+                Logger.Instance().Log("DDCControl:", "Checking DDC Control Options......:");
+                if (brightnessInfo.current != -1 )
+                {
+                    Logger.Instance().Log("DDCControl:", "Monitor appears to support: Current Brightness:"+brightnessInfo.current +" Current Contrast:"+contrastInfo.current);
+
+                }
                 
                 System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
                 string sPath2Icon = Path.Combine(Helper.AppPath, "Yatse2.ico");
@@ -1768,21 +1784,28 @@ namespace FrontView
                             Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
                             keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                             stbDimmingShow.Begin(this);
-
-                            SetBrightnessContrast(false);
-
-
-
-
+                            
                         }
-                        // Attempts to turn off Monitor Completely Begin here
-                        // 
 
                     }
-                }
+                    else //if grd_Dimming.Visibility equals visible/already set as above
+                    {
+                        // if current monitor setting not the minimum set it to minimum
+                        // what if never run before?  if so will equal -1 which additional check for.
+                        if  (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
+                        {
+                            SetBrightnessContrast(false);
+                        }
+                    }
+                 }
                 Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 2", _timer);
                 ResetTimer();
             }
+
+            //try to delay when screen dims 10 seconds after dimming finished is goal
+
+
+
 
             if (!nowPlaying.IsPaused && !nowPlaying.IsPlaying )
             {
@@ -1837,7 +1860,7 @@ namespace FrontView
                             stbDimmingShow.Begin(this);
                         Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Paused undim ",true);
                         Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 3", _timer);
-                    SetBrightnessContrast(true);
+                        SetBrightnessContrast(true);
                         ResetTimer();
                    }
 
@@ -1910,6 +1933,11 @@ namespace FrontView
         public void SetBrightnessContrast(bool turnonoff)
         {
             
+            if (_config.UseDDCControl == false)
+            {
+                return;
+            }
+
             try
             {
                 Window window = Window.GetWindow(this);
@@ -1931,8 +1959,8 @@ namespace FrontView
 
                     if (brightnessControl != null)
                     {
-                        brightnessControl.SetBrightness(1, 0);
-                        brightnessControl.SetContrast(1, 0);
+                        brightnessControl.SetBrightness((short)brightnessInfo.minimum, 0);
+                        brightnessControl.SetContrast((short)brightnessInfo.minimum, 0);
                     }
 
                 }

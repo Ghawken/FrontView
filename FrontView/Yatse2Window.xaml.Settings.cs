@@ -164,6 +164,8 @@ namespace FrontView
             chk_Settings_UseReceiver.IsChecked = _config.UseReceiverIPforVolume;
             chk_Settings_HttpUseDigest.IsChecked = _config.HttpUseDigest;
 
+            chk_Settings_UseDDCControl.IsChecked = _config.UseDDCControl;
+
             chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
 
             LoadSettingsResolutions();
@@ -204,6 +206,8 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
+
+            
 
             lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
 
@@ -279,6 +283,8 @@ namespace FrontView
             lst_Settings_Displays.Items.Clear();
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
+
+            
 
             lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
 
@@ -382,6 +388,9 @@ namespace FrontView
                 _config.CoverArt = (bool)chk_Settings_CoverArt.IsChecked;
                 _config.HttpSend = (bool)chk_Settings_HttpSend.IsChecked;
                 _config.UseReceiverIPforVolume = (bool)chk_Settings_UseReceiver.IsChecked;
+
+                _config.UseDDCControl = (bool)chk_Settings_UseDDCControl.IsChecked;
+
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
                 // ReSharper restore PossibleInvalidOperationException
                 _config.TVOrderbyNewEpsiodes = (bool)chk_Settings_TVOrderbyNewEpisodes.IsChecked;

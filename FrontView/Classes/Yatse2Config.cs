@@ -143,6 +143,8 @@ namespace FrontView.Classes
 
         public bool UseReceiverIPforVolume { get; set; }
 
+        public bool UseDDCControl { get; set; }
+
         public string ReceiverIP { get; set; }
 
         public int ReceiverPort { get; set; }
@@ -240,8 +242,10 @@ namespace FrontView.Classes
             SemiCircleOpacity = 0.65;
             HttpUser = "";
             HttpPassword = "";
+            UseReceiverIPforVolume = false;
             ReceiverIP = "";
             ReceiverPort = 23;
+            UseDDCControl = false;
         }
 
         public bool Load(string configFile)
@@ -368,6 +372,7 @@ namespace FrontView.Classes
             StartWithWindows = config.StartWithWindows;
             StartFrontViewServer = config.StartFrontViewServer;
             UseReceiverIPforVolume = config.UseReceiverIPforVolume;
+            UseDDCControl = config.UseDDCControl;
             DefaultPlayMode = config.DefaultPlayMode;
             LongKeyPress = config.LongKeyPress;
             DiaporamaMode = config.DiaporamaMode;

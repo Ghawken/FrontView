@@ -166,7 +166,10 @@ namespace Remote.Emby.Api
                         var deserializer = new JavaScriptSerializer();
                         var ItemData = deserializer.Deserialize<SystemProperties.Rootobject>(json);
                         Trace("Emby System Properties Version:" + ItemData.Version + "  Server OS: " + ItemData.OperatingSystem);
-                        return ItemData.Version + Environment.NewLine+ "OS:" + ItemData.OperatingSystem;
+                        
+                        var ShortVersion = ItemData.Version.Substring(0, 3);
+                        Trace("Emby System Properties Version: Passing Shorten Version:" + ShortVersion);
+                        return ShortVersion + Environment.NewLine+ "OS:" + ItemData.OperatingSystem;
                     }
                 }
                 else
