@@ -21,6 +21,9 @@ using System.Collections;
 using System.Globalization;
 using Jayrock.Json;
 using Plugin;
+using System.Linq;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
 
 namespace Remote.XBMC.Krypton.Api
 {
@@ -151,6 +154,7 @@ namespace Remote.XBMC.Krypton.Api
                                             "tvshowid",
                                             "albumartist",
                                             "duration",
+                                            "streamdetails",
                                             //"id",
                                             "album",
                                             //"votes",
@@ -314,9 +318,12 @@ namespace Remote.XBMC.Krypton.Api
                     if (_nowPlaying.MediaType == "video")
                     {
                         _nowPlaying.MediaType = result2["type"].ToString() == "episode" ? "TvShow" : "Movie";
-                        
 
-                        
+                        JsonObject streamdetails = (JsonObject)result2["streamdetails"];
+                        List<string> MovieIcons = new List<string>();
+                        MovieIcons = GetMovieIcons(streamdetails);
+
+
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
                         _nowPlaying.Title = result2["label"].ToString();
                         _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
@@ -334,6 +341,166 @@ namespace Remote.XBMC.Krypton.Api
                     }
                 }
             }
+        }
+        public List<string> GetMovieIcons(JsonObject streamdetails)
+        {
+
+
+
+            List<string> MovieIcons = new List<string>();
+            _parent.Trace("MovieIcons Generating List:");
+
+            // Make sure not null; 
+            MovieIcons.Add("");
+
+            try
+            {
+
+
+                var stringJsonResults = Jayrock.Json.Conversion.JsonConvert.ExportToString(streamdetails);
+
+                _parent.Trace("MovieIcons" + stringJsonResults);
+                var deserializer = new JavaScriptSerializer();
+                StreamDetails.Rootobject ItemData = deserializer.Deserialize<StreamDetails.Rootobject>(stringJsonResults);
+
+
+
+
+
+                //Container
+                if (ItemData != null)
+                {
+
+
+                    if (ItemData.audio != null)
+                    {
+
+
+                        //Sorry Non-English Speakers defaults to English stream
+
+                        int CountStreams = ItemData.audio.Where(i => i.language == "eng").Count();
+                        _parent.Trace("MovieIcons CountStreams : " + CountStreams.ToString());
+
+                        if (CountStreams > 0)
+                        {
+                            var isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == "eng");
+
+                            // added check - make sure is default stream being checked
+                            // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+
+                            try
+                            {
+
+                                var MovieCodec = isDefaultMediaStream.codec;
+
+                                if (MovieCodec != null && !string.IsNullOrEmpty(MovieCodec))
+                                {
+                                    if (MovieCodec.Equals("dca") == true || MovieCodec.Equals("dts"))
+                                    {
+                                        MovieIcons.Add("DTS");
+                                        _parent.Trace("MovieIcons adding DTS Profile: DTS :  Codecequals" + MovieCodec.ToUpper().ToString());
+                                    }
+                                    else if (MovieCodec.Contains("dts") && !MovieCodec.Equals("dts"))
+                                    {
+                                        string Profile = MovieCodec.ToString();
+                                        Profile = Profile.Replace("dts", "dst");
+                                        MovieIcons.Add(Profile.ToUpper());
+                                        _parent.Trace("MovieIcons dca adding DST Plus Profile:" + Profile.ToUpper());
+                                    }
+                                    else
+                                    {
+                                        MovieIcons.Add(MovieCodec.ToString());
+                                        _parent.Trace("MovieIcons Adding Codec:" + MovieCodec.ToString());
+                                    }
+                                }
+
+                                var Channels = ItemData.audio.Where(i => i.language == "eng").FirstOrDefault().channels;
+                                if (Channels > 0)
+                                {
+                                    MovieIcons.Add("Channels" + Channels.ToString());
+                                    _parent.Trace("MovieIcons Adding Channels:" + Channels.ToString());
+                                }
+
+
+                            }
+                            catch (Exception ex)
+                            {
+                                _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+                                return MovieIcons;
+                            }
+
+                        }
+
+
+                        var VideoInfo = ItemData.video.FirstOrDefault();
+
+                        if (VideoInfo != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(VideoInfo.codec))
+                            {
+                                MovieIcons.Add("codec" + VideoInfo.codec.ToString());
+                                _parent.Trace("MovieIcons Adding codec" + VideoInfo.codec.ToString());
+
+                            }
+                            if (VideoInfo.aspect > 0)
+                            {
+
+                                if (VideoInfo.aspect > 0)
+                                {
+                                    MovieIcons.Add(VideoInfo.aspect.ToString("0.00") + ":1");
+                                    _parent.Trace("MovieIcons Adding Ratio:" + VideoInfo.aspect.ToString("0.00") + ":1");
+                                }
+
+                            }
+
+                            if (VideoInfo.width.HasValue)
+                            {
+                                if (VideoInfo.width > 3800)
+                                {
+                                    MovieIcons.Add("4K");
+                                    _parent.Trace("MoviesIcons Adding 4K");
+                                }
+                                else if (VideoInfo.width >= 1900)
+                                {
+                                    MovieIcons.Add("1080p");
+                                    _parent.Trace("MoviesIcons Adding 1080p");
+                                }
+                                else if (VideoInfo.width >= 1270)
+                                {
+                                    MovieIcons.Add("720p");
+                                    _parent.Trace("MoviesIcons Adding 720p");
+                                }
+                                else if (VideoInfo.width >= 700)
+                                {
+                                    MovieIcons.Add("480P");
+                                    _parent.Trace("MoviesIcons Adding 480p");
+                                }
+                                else
+                                {
+                                    MovieIcons.Add("SD");
+                                    _parent.Trace("MoviesIcons Adding SD");
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _parent.Trace("MovieIcons Exception Caught Within VideoInfo Codec Check:" + ex);
+                return MovieIcons;
+            }
+
+
+
+
+            return MovieIcons;
+
+
+
         }
 
         public ApiCurrently NowPlaying(bool checkNewMedia)

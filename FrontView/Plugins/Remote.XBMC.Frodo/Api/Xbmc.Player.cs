@@ -323,6 +323,7 @@ namespace Remote.XBMC.Frodo.Api
                         JsonObject streamdetails = (JsonObject)result2["streamdetails"];
                         List<string> MovieIcons = new List<string>();
                         MovieIcons = GetMovieIcons(streamdetails);
+
                         _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
                         _nowPlaying.Title = result2["label"].ToString();
