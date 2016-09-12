@@ -11,7 +11,7 @@ Enables FrontView to completely lower brightness and contrast during playback - 
 Add MediaIcons to NowPlaying Movie Screen:
 Very limited screen real estate.  Happy to take suggestions for placement
 Todo:  Add checkbox to remove displaying icons
-
+Fix Disable MediaIcons in NowPlaying MovieDetails Screen
 
 
 Version 1.195b

@@ -513,7 +513,7 @@
                         </Grid>
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="Visible">
+        			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                         <!--
                          <Grid Margin="0"
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
@@ -732,7 +732,7 @@
                             </Grid.RenderTransform>
 
 
-                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="1">
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="1" Visibility="{Binding Currently.IsNotMovieDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                                 <WrapPanel.Resources>
                                     <Style TargetType="Rectangle">
                                         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
@@ -1565,7 +1565,7 @@
         								Text="If Screen has DDC controls should dim on press and then undim on release.  If no response likely no DDC Control possible:" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,159,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="46" />
 
                                             <TextBlock  FontSize="12" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="If Screens supports it this will drop contrast/brightness of screen to minimum values, after FrontView dim is completed.  Removing blank, but some some brightness screen.  Very dependant on screen support ?USB-screens unsupported" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,210,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="72" />
+        								Text="If Screens supports it this will drop contrast/brightness of screen to minimum values, after FrontView dim is completed.  Missing blank but still with backlight screen.  Very dependant on screen support ?USB-screens unsupported" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,210,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="72" />
 
                                             <Button Width="251" Height="26" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,170,348,0" VerticalAlignment="Top"
         					Content="Press to Test/Release to Return" PreviewMouseDown="DDCBrightness_MouseDown" PreviewMouseUp="DDCBrightness_MouseUp"/>
