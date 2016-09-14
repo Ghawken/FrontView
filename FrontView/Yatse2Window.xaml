@@ -384,7 +384,7 @@
                 </Grid>
 
 
-                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden">
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Visible">
 
 
                     <!-- Fanart For all Now Playing Screens -->
@@ -513,12 +513,12 @@
                         </Grid>
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
+        			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
                         <!--
                          <Grid Margin="0"
         			Visibility="{Binding Currently.IsMovie, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
                         Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}" -->
-                        <Border x:Name="brd_Current_Movie_Header" Margin="257,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}">
+                        <Border x:Name="brd_Current_Movie_Header" Margin="257,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
 
                             <Grid Margin="0" >
                                 <!--  <Image Source="{Binding Currently.Logo, Source={StaticResource Yatse2Properties}}"></Image>   Visibility="{Binding UseLogo, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=boolinvert, Source={StaticResource Yatse2Properties}}"    -->
@@ -561,7 +561,7 @@
 
                         </Border>
 
-                        <Border x:Name="brd_Current_Movie" BorderBrush="Black" BorderThickness="0" Background="#BF000000" Height="150" VerticalAlignment="Bottom">
+                        <Border x:Name="brd_Current_Movie" BorderBrush="Black" BorderThickness="0" Background="#BF000000" Height="150" VerticalAlignment="Bottom" d:IsHidden="True">
 
                             <Grid Margin="0" >
                                 <Slider x:Name="sld_Current_Movie_Progress" Margin="260,10,69,0" Style="{DynamicResource Slider}" VerticalAlignment="Top" Height="20" Maximum="100" Background="White" 
@@ -630,7 +630,7 @@
 
 
 
-                        <Border >
+                        <Border d:IsHidden="True" >
 
                             <Rectangle x:Name="rct_Current_Movie_Image" StrokeThickness="0" RadiusX="10" Margin="{Binding Skin_Extra, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=margincover, Source={StaticResource Yatse2Properties}}" RadiusY="10" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="240" MaxWidth="350" HorizontalAlignment="Left" Width="160" MouseDown="txb_Current_Movie_ToggleDetail_MouseDown">
 
@@ -677,7 +677,7 @@
                                 </LinearGradientBrush>
                             </Border.OpacityMask>
                         </Border>
-                        <Grid x:Name="grd_Current_Movie_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000">
+                        <Grid x:Name="grd_Current_Movie_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000" d:IsHidden="True">
                             <TextBlock Margin="381,0,8,8" VerticalAlignment="Bottom" Height="166" FontSize="160" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
         					Text="{Binding Currently.MovieYear, Source={StaticResource Yatse2Properties}}" Opacity="0.2" d:IsHidden="True" />
                             <TextBlock Margin="338,0,256,15.2" VerticalAlignment="Bottom" Height="21" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
@@ -721,7 +721,7 @@
 
                         </Grid>
 
-                        <Grid  Margin="{Binding Path=Margin, ElementName=rct_Current_Movie_Details_Image }" Width="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" x:Name="CIconPanel" Height="Auto" VerticalAlignment="Bottom">
+                        <Grid  Margin="{Binding Path=Margin, ElementName=rct_Current_Movie_Details_Image }" Width="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" x:Name="CIconPanel" Height="Auto" VerticalAlignment="Bottom" d:IsHidden="True">
                             <Grid.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -731,8 +731,25 @@
                                 </TransformGroup>
                             </Grid.RenderTransform>
 
+                            <!-- Visibility="{Binding Currently.IsNotMovieDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"-->
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="1" >
+                                <WrapPanel.Style>
+                                    <Style>
+                                        <Setter Property="WrapPanel.Visibility" Value="Hidden"/>
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding UseNowPlayingMediaIcons, Source={StaticResource Yatse2Properties}}" Value="true"/>
+                                                    <Condition Binding="{Binding Currently.IsNotMovieDetails, Source={StaticResource Yatse2Properties}}" Value="true"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="WrapPanel.Visibility" Value="Visible"/>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
 
-                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top" Margin="1" Visibility="{Binding Currently.IsNotMovieDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
+                                    </Style>
+                                </WrapPanel.Style>
+
+
                                 <WrapPanel.Resources>
                                     <Style TargetType="Rectangle">
                                         <Setter Property="HorizontalAlignment" Value="Left"></Setter>
@@ -893,7 +910,7 @@
 
                     </Grid>
                     <Grid Margin="0"
-        			Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
+        			Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" >
                         <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
                             <Grid Margin="0" d:IsHidden="True">
                                 <TextBlock Margin="0,0,40,0" TextWrapping="Wrap"  FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=titlesize, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
@@ -984,28 +1001,28 @@
                                 </LinearGradientBrush>
                             </Border.OpacityMask>
                         </Border>
-                        <Grid x:Name="grd_Current_Tv_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000" d:IsHidden="True">
+                        <Grid x:Name="grd_Current_Tv_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000">
                             <TextBlock Margin="381,0,8,8" VerticalAlignment="Bottom" Height="166" FontSize="160" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{Binding Currently.TvYear, Source={StaticResource Yatse2Properties}}" Opacity="0.2" d:IsHidden="True" />
+        					Text="{Binding Currently.TvYear, Source={StaticResource Yatse2Properties}}" Opacity="0.2" />
 
                             <TextBlock HorizontalAlignment="Right" Margin="0,14,8,0" VerticalAlignment="Top" Width="131" Height="21" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="18.667"
-        					Text="{Binding Currently.TvAired, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.TvAired, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock Margin="294,47,8,141" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        					Text="{Binding Currently.TvPlot, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.TvPlot, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock HorizontalAlignment="Right" Margin="0,0,19,36.6" VerticalAlignment="Bottom" Width="31" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        					Text="/10" d:IsHidden="True" />
+        					Text="/10" />
                             <TextBlock HorizontalAlignment="Right" Margin="0,18,143,0" VerticalAlignment="Top" Width="79" Height="20" FontSize="13.333" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{DynamicResource Localized_79}" d:IsHidden="True" />
+        					Text="{DynamicResource Localized_79}" />
                             <TextBlock HorizontalAlignment="Right" Margin="0,0,61,34.6" VerticalAlignment="Bottom" Width="78" Height="50.4" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{Binding Currently.TvNote, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.TvNote, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock HorizontalAlignment="Right" Margin="0,0,23,14.2" VerticalAlignment="Bottom" Width="109" Height="15.4" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{Binding Currently.TvVotes, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
-                            <Rectangle x:Name="rct_Current_Tv_Details_Image" Stroke="Black" RadiusX="20" RadiusY="20" Margin="38,112,0,128" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="215"  MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" d:IsHidden="True">
+        					Text="{Binding Currently.TvVotes, Source={StaticResource Yatse2Properties}}" />
+                            <Rectangle x:Name="rct_Current_Tv_Details_Image" Stroke="Black" RadiusX="20" RadiusY="20" Margin="38,112,0,128" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="215"  MouseDown="txb_Current_Tv_ToggleDetail_MouseDown">
                                 <Rectangle.Fill>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Border RenderTransformOrigin="0.5,0.5" Width="215" Margin="38,0,0,-47" Height="160" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
+                            <Border RenderTransformOrigin="0.5,0.5" Width="215" Margin="38,0,0,-47" Height="160" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                                 <Border.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleY="-1"/>
@@ -1025,13 +1042,188 @@
                                 </Border.OpacityMask>
                             </Border>
                             <TextBlock  HorizontalAlignment="Left" Margin="38,76,0,0" VerticalAlignment="Top" Width="215" Height="21" FontSize="18.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Center"
-        					Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" />
                             <Image  HorizontalAlignment="Left" Margin="67,0,0,8" VerticalAlignment="Bottom" Width="161" Height="109"
-        					Source="{Binding Currently.TvStudio, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
+        					Source="{Binding Currently.TvStudio, Source={StaticResource Yatse2Properties}}"/>
                             <TextBlock  Margin="377,0,169,32" VerticalAlignment="Bottom" Height="20" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        					Text="{Binding Currently.TvDirector, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.TvDirector, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock HorizontalAlignment="Left" Margin="294,0,0,32" VerticalAlignment="Bottom" Width="79" Height="18" FontSize="13.333" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{DynamicResource Localized_81}" d:IsHidden="True" />
+        					Text="{DynamicResource Localized_81}" />
+
+                            <Grid  Margin="0,-88,0,0" Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" Width="300" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Left" x:Name="CIconPanel2" VerticalAlignment="Top" >
+
+                                <WrapPanel Orientation="Horizontal" VerticalAlignment="Bottom" Visibility="Visible" Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}" Margin="0,0,0,4" HorizontalAlignment="Left" Width="300">
+                                    <WrapPanel.Style>
+                                        <Style>
+                                            <Setter Property="WrapPanel.Visibility" Value="Hidden"/>
+                                            <Style.Triggers>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding UseNowPlayingMediaIcons, Source={StaticResource Yatse2Properties}}" Value="true"/>
+                                                        <Condition Binding="{Binding Currently.IsNotTVDetails, Source={StaticResource Yatse2Properties}}" Value="true"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="WrapPanel.Visibility" Value="Visible"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+
+                                        </Style>
+                                    </WrapPanel.Style>
+
+
+                                    <WrapPanel.Resources>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                                            <Setter Property="Margin" Value="0"></Setter>
+                                            <Setter Property="Width"  Value="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"></Setter>
+                                        </Style>
+
+                                    </WrapPanel.Resources>
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=media_mkv, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=mkv, Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle Fill="{Binding Skin, ConverterParameter=media_mp4, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=mp4,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle Fill="{Binding Skin, ConverterParameter=media_wmv, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=wmv,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=media_iso, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=iso,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=media_asf, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=asf,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=media_bluray, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=bluray,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=media_dvd, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=dvd,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=media_avi, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=avi,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=media_m2ts, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=m2ts,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_h264, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codech264,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=codec_h262, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codech262,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_vc1, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecvc1,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=codec_mpegvideo-2, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecmpeg2video,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_mpeg4visual, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecmpeg4,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_dts, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=DTS,  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_dts_hd_ma, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DST-HD MA', Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_dts_hd_ma, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DSTHD_MA',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=codec_dts_hd_hra, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DST-HD HRA',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=codec_dts_hd_hra, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DSTHD_HRA',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Fill="{Binding Skin, ConverterParameter=codec_dts_es, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='DST-ES',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_ac3, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='ac3',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=codec_ddtruehd, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='truehd',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_240, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='2.40:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='16:9',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.77:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_150, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.50:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_177, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.78:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_185, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.85:1', Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_235, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='2.35:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_276, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='2.76:1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_133, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='4:3',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_133, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1.33:1', Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=aspect_276, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1:2.7',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle  Height="{Binding MediaIconSize, Source={StaticResource Yatse2Properties}}"  Fill="{Binding Skin, ConverterParameter=hdtype_1080p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='1080p',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=hdtype_720p, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='720p',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_1, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels1',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_2, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels2',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_3, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels3',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_4, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels4',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_5, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels5',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_6, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels6',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_7, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels7', Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+                                    <Rectangle   Fill="{Binding Skin, ConverterParameter=channels_8, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding Currently.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter='Channels8',  Source={StaticResource Yatse2Properties}}" >
+                                    </Rectangle>
+
+
+
+
+                                </WrapPanel>
+                            </Grid>
+
 
                         </Grid>
                     </Grid>
@@ -1207,6 +1399,9 @@
                                             <CheckBox x:Name="chk_Settings_UseLogo" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Use Logo" Padding="5,0,0,0" Canvas.Left="484" Canvas.Top="165" Width="123" />
 
+                                            <CheckBox x:Name="chk_Settings_UseNowPlayingMediaIcons" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+        								Content="Use MediaIcons" Padding="5,0,0,0" Canvas.Left="470" Canvas.Top="191" Width="137" RenderTransformOrigin="0.431,0.579" />
+
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
         								Text="Logo Size:" Canvas.Left="357" Canvas.Top="137"/>
 
@@ -1219,13 +1414,13 @@
                                             <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" />
 
-                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="429" Canvas.Top="217" Width="116"/>
+                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="260" Canvas.Top="205" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="402" Canvas.Top="198" Width="191"/>
+        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="233" Canvas.Top="186" Width="191"/>
 
-                                            <ComboBox x:Name="lst_Settings_DimTime" Height="22" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="429" Canvas.Top="268" Width="116"/>
+                                            <ComboBox x:Name="lst_Settings_DimTime" Height="22" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="260" Canvas.Top="256" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="422" Canvas.Top="249" Width="191"/>
+        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="253" Canvas.Top="237" Width="191"/>
                                         </Canvas>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">

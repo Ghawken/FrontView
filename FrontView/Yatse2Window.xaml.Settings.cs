@@ -92,6 +92,8 @@ namespace FrontView
             chk_Settings_HideCursor.IsChecked = _config.HideCursor;
             chk_Settings_UseLogo.IsChecked = _config.UseLogo;
 
+            chk_Settings_UseNowPlayingMediaIcons.IsChecked = _config.UseNowPlayingMediaIcons;
+
             chk_Settings_UseBanner.IsChecked = _config.UseBanner;
             chk_Settings_ShowOverlay.IsChecked = _config.ShowOverlay;
             chk_Settings_ShowEmptyMusicGenre.IsChecked = _config.ShowEmptyMusicGenre;
@@ -360,6 +362,7 @@ namespace FrontView
                 
                 _config.Currently = (bool)chk_Settings_Currently.IsChecked;
                 _config.CurrentlyMovie = (bool)chk_Settings_CurrentlyMovie.IsChecked;
+                _config.UseNowPlayingMediaIcons = (bool)chk_Settings_UseNowPlayingMediaIcons.IsChecked;
                 _config.HideCursor = (bool)chk_Settings_HideCursor.IsChecked;
                 _config.UseLogo = (bool)chk_Settings_UseLogo.IsChecked;
                 _config.UseBanner = (bool)chk_Settings_UseBanner.IsChecked;
@@ -497,6 +500,7 @@ namespace FrontView
             _yatse2Properties.Skin_Extra = _config.Skin_Extra;
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
             _yatse2Properties.Skin_Extra_Logo = _config.Skin_Extra_Logo;
+            _yatse2Properties.UseNowPlayingMediaIcons = _config.UseNowPlayingMediaIcons;
             _yatse2Properties.UseLogo = _config.UseLogo;
             RefreshDictionaries();
 

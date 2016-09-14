@@ -82,6 +82,7 @@ namespace FrontView.Classes
         public bool CurrentlyMovie { get; set; }
         public bool HideCursor { get; set; }
         public bool UseLogo { get; set; }
+        public bool UseNowPlayingMediaIcons { get; set; }
         public bool UseBanner { get; set; }
         public bool ShowOverlay { get; set; } // TODO : Use this
         public bool ShowEmptyMusicGenre { get; set; }
@@ -178,6 +179,7 @@ namespace FrontView.Classes
             CurrentlyMovie = true;
             HideCursor = false;
             UseLogo = true;
+            UseNowPlayingMediaIcons = true;
             UseBanner = false;
             ShowOverlay = true;
             ShowEmptyMusicGenre = false;
@@ -315,6 +317,7 @@ namespace FrontView.Classes
             Currently = config.Currently;
             CurrentlyMovie = config.CurrentlyMovie;
             HideCursor = config.HideCursor;
+            UseNowPlayingMediaIcons = config.UseNowPlayingMediaIcons;
             UseLogo = config.UseLogo;
             UseBanner = config.UseBanner;
             ShowOverlay = config.ShowOverlay;

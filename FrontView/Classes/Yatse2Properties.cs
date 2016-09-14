@@ -152,6 +152,14 @@ DependencyProperty.Register("UseLogo", typeof(bool), typeof(Yatse2Properties));
             set { SetValue(UseLogoProperty, value); }
         }
 
+        public static readonly DependencyProperty UseNowPlayingMediaIconsProperty =
+DependencyProperty.Register("UseNowPlayingMediaIcons", typeof(bool), typeof(Yatse2Properties));
+
+        public bool UseNowPlayingMediaIcons
+        {
+            get { return (bool)GetValue(UseNowPlayingMediaIconsProperty); }
+            set { SetValue(UseNowPlayingMediaIconsProperty, value); }
+        }
 
         public static readonly DependencyProperty Skin_Extra_LogoProperty =
 DependencyProperty.Register("Skin_Extra_Logo", typeof(string), typeof(Yatse2Properties));
