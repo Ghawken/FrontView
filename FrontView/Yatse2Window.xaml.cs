@@ -140,7 +140,7 @@ namespace FrontView
                 //brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
                 //contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
-                if (brightnessControl != null)
+                if (brightnessControl != null && brightnessInfo.current != -1)
                 {
                     brightnessControl.SetBrightness((short)brightnessInfo.minimum, 0);
                     brightnessControl.SetContrast((short)brightnessInfo.minimum, 0);
@@ -164,7 +164,7 @@ namespace FrontView
 
 
 
-                if (brightnessControl != null)
+                if (brightnessControl != null && brightnessInfo.current != -1)
                 {
                     brightnessControl.SetBrightness((short)brightnessInfo.current, 0);
                     brightnessControl.SetContrast((short)brightnessInfo.current, 0);

@@ -351,6 +351,26 @@ namespace FrontView
 
         }
 
+        private void InitDDCControl()
+        {
+            Window window = Window.GetWindow(this);
+            var wih = new WindowInteropHelper(window);
+            IntPtr hWnd = wih.Handle;
+            brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
+            brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+            contrastInfo = brightnessControl.GetContrastCapabilities(0);
+
+            Logger.Instance().Log("DDCControl:", "Checking DDC Control Options......:");
+            if (brightnessInfo.current != -1)
+            {
+                Logger.Instance().Log("DDCControl:", "Monitor appears to support: Current Brightness:" + brightnessInfo.current + " Current Contrast:" + contrastInfo.current);
+
+            }
+
+
+        }
+
+
         private void InitTimer()
         {
             Logger.Instance().Log("FrontView+", "Init Timer");
@@ -751,19 +771,7 @@ namespace FrontView
                 // Should run both once to check can connect and not -1
 
 
-                Window window = Window.GetWindow(this);
-                var wih = new WindowInteropHelper(window);
-                IntPtr hWnd = wih.Handle;
-                brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
-                brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
-                contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
-                Logger.Instance().Log("DDCControl:", "Checking DDC Control Options......:");
-                if (brightnessInfo.current != -1 )
-                {
-                    Logger.Instance().Log("DDCControl:", "Monitor appears to support: Current Brightness:"+brightnessInfo.current +" Current Contrast:"+contrastInfo.current);
-
-                }
                 
                 System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
                 string sPath2Icon = Path.Combine(Helper.AppPath, "Yatse2.ico");
@@ -811,7 +819,8 @@ namespace FrontView
                 }
                 HttpisStopped = true;
 
-                CheckSilentUpdate();
+                //Disable why figure out best update path
+                //CheckSilentUpdate();
 
 
                 if (_config.HttpSend == true && _config.HttpPoweron != "")
@@ -838,9 +847,10 @@ namespace FrontView
                         Logger.Instance().Log("RECEIVER FAIL", "Exception in attempted connection " + e);
                     }
 
-
-
                 }
+
+                InitDDCControl();
+
 
             }
             catch (Exception e)
@@ -859,6 +869,8 @@ namespace FrontView
 
         //load Kodi Source xml and populate values to be checked against
         //working
+
+
 
         public void CheckSilentUpdate()
         {
@@ -1939,6 +1951,15 @@ namespace FrontView
             {
                 return;
             }
+            Logger.Instance().Trace("DDCControl", "brightnessInfo Before Check:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
+
+            if (brightnessInfo.maximum == -1  )
+            {
+                Logger.Instance().Trace("DDCControl", "Maximum equals -1 : can't be set : try now to set " );
+                Logger.Instance().Trace("DDCControl", "brightnessInfo:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
+                InitDDCControl();
+            }
+
 
             try
             {
@@ -1957,9 +1978,9 @@ namespace FrontView
                  //   contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
                     Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
+                    Logger.Instance().Trace("DDCControl", "brightnessInfo:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
 
-
-                    if (brightnessControl != null)
+                    if (brightnessControl != null && brightnessInfo.minimum != -1)
                     {
                         brightnessControl.SetBrightness((short)brightnessInfo.minimum, 0);
                         brightnessControl.SetContrast((short)brightnessInfo.minimum, 0);
@@ -1972,9 +1993,9 @@ namespace FrontView
                 {
 
                     Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
+                    Logger.Instance().Trace("DDCControl", "brightnessInfo:"+brightnessInfo.current +" maximum:"+brightnessInfo.maximum+" minimum:"+brightnessInfo.minimum);
 
-
-                    if (brightnessControl != null)
+                    if (brightnessControl != null && brightnessInfo.current != -1)
                     {
                         brightnessControl.SetBrightness((short)brightnessInfo.current, 0);
                         brightnessControl.SetContrast((short)contrastInfo.current, 0);
