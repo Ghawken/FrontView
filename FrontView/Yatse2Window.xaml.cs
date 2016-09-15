@@ -136,8 +136,9 @@ namespace FrontView
                 IntPtr hWnd = wih.Handle;
                 brightnessControl = new FrontView.Libs.DDCControl.BrightnessControl(hWnd);
 
-                brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
-                contrastInfo = brightnessControl.GetContrastCapabilities(0);
+                // AGain Change just gets levels at startup.
+                //brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                //contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
                 if (brightnessControl != null)
                 {
