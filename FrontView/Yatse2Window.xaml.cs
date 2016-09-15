@@ -54,7 +54,10 @@ namespace FrontView
             _fanartCurrentImage = 0;
             var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
             if (stbDiaporamaHide != null)
+            {
                 stbDiaporamaHide.Begin(this);
+                SetBrightnessContrast(true);
+            }
         }
 
         private void grd_Dimming_MouseDown(object sender, MouseButtonEventArgs e)
@@ -64,7 +67,10 @@ namespace FrontView
             ResetTimer();
             var stbDimmingHide = (Storyboard)TryFindResource("stb_HideDimming");
             if (stbDimmingHide != null)
+            {
                 stbDimmingHide.Begin(this);
+                SetBrightnessContrast(true);
+            }
         }
 
         private void rct_Header_Weather_MouseDown(object sender, MouseButtonEventArgs e)

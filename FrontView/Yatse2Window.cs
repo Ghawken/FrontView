@@ -2189,9 +2189,15 @@ namespace FrontView
                         Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
                         keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
-
-
-
+                    }
+                    else //if grd_Dimming.Visibility equals visible/already set as above
+                    {
+                        // if current monitor setting not the minimum set it to minimum
+                        // what if never run before?  if so will equal -1 which additional check for.
+                        if (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
+                        {
+                            SetBrightnessContrast(false);
+                        }
 
                     }
                 }
