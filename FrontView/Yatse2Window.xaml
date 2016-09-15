@@ -1763,7 +1763,7 @@
         								Text="If Screens supports it this will drop contrast/brightness of screen to minimum values, after FrontView dim is completed.  Missing blank but still with backlight screen.  Very dependant on screen support ?USB-screens unsupported" TextWrapping="Wrap" Padding="5,0,0,0" Margin="294,210,28,0" VerticalAlignment="Top" RenderTransformOrigin="0.508,4.842" Height="72" />
 
                                             <Button Width="251" Height="26" Style="{DynamicResource Button}" FontSize="16" Panel.ZIndex="5" Padding="5,0,0,0" HorizontalAlignment="Right" Margin="0,170,348,0" VerticalAlignment="Top"
-        					Content="Press to Test/Release to Return" PreviewMouseDown="DDCBrightness_MouseDown" PreviewMouseUp="DDCBrightness_MouseUp"/>
+        					Content="Press to Test/Release to Return" PreviewMouseDown="DDCBrightness_MouseDown" PreviewMouseUp="DDCBrightness_MouseUp" PreviewTouchDown="DDCBrightness_MouseDown" PreviewTouchUp="DDCBrightness_MouseUp"/>
 
                                             <CheckBox x:Name="chk_Settings_UseDDCControl" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="Enable DDC Monitor Control" Padding="5,0,0,0" Margin="21,210,172,0" VerticalAlignment="Top"  />

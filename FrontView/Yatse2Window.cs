@@ -1789,10 +1789,11 @@ namespace FrontView
                         }
 
                     }
-                    else //if grd_Dimming.Visibility equals visible/already set as above
+                    else if (grd_Dimming.Visibility == Visibility.Visible)   //if grd_Dimming.Visibility equals visible/already set as above
                     {
                         // if current monitor setting not the minimum set it to minimum
                         // what if never run before?  if so will equal -1 which additional check for.
+                        Logger.Instance().Trace("DDC/CI", "About to Call SetBrightness - 1");
                         if  (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
                         {
                             SetBrightnessContrast(false);
@@ -1951,9 +1952,9 @@ namespace FrontView
                 if (turnonoff == false)
                 {
                     
-
-                    brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
-                    contrastInfo = brightnessControl.GetContrastCapabilities(0);
+                   // Change here - don't get Current Levels to confusing/just get current levels at start of FrontView and use those until restart.
+                   // brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                 //   contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
                     Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
 
@@ -2190,10 +2191,11 @@ namespace FrontView
                         keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                         stbDimmingShow.Begin(this);
                     }
-                    else //if grd_Dimming.Visibility equals visible/already set as above
+                    else if (grd_Dimming.Visibility == Visibility.Visible)  //if grd_Dimming.Visibility equals visible/already set as above
                     {
                         // if current monitor setting not the minimum set it to minimum
                         // what if never run before?  if so will equal -1 which additional check for.
+                        Logger.Instance().Trace("DDC/CI", "About to Call SetBrightness - 2");
                         if (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
                         {
                             SetBrightnessContrast(false);

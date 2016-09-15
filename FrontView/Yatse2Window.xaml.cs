@@ -127,7 +127,7 @@ namespace FrontView
         }
 
 
-        private void DDCBrightness_MouseDown(object sender, MouseButtonEventArgs e)
+        private void DDCBrightness_MouseDown(object sender, EventArgs e)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace FrontView
             }
         }
 
-        private void DDCBrightness_MouseUp(object sender, MouseButtonEventArgs e)
+        private void DDCBrightness_MouseUp(object sender, EventArgs e)
         {
             try
             {
@@ -174,6 +174,7 @@ namespace FrontView
 
             }
         }
+
 
 
         private void LogoSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
