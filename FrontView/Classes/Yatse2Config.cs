@@ -212,7 +212,7 @@ namespace FrontView.Classes
             DiaporamaTimer = 10;
             FanartTimer = 5;
             DimmingTimer = 15;
-            Skin_Extra = "";
+            Skin_Extra = "Large NowPlaying";
             Skin_Extra_Text = "Large";
             Skin_Extra_Logo = "Large";
             DisableScreenPositioning = false;
@@ -248,6 +248,9 @@ namespace FrontView.Classes
             ReceiverIP = "";
             ReceiverPort = 23;
             UseDDCControl = false;
+
+           // Skin_Extra_Text = ;
+           // Skin_Extra_Logo = ;
         }
 
         public bool Load(string configFile)

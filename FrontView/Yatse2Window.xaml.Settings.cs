@@ -435,19 +435,24 @@ namespace FrontView
                     _config.Homepage = en.Key.ToString();
             }
 
-            _config.DimAmount = Convert.ToDouble(lst_Settings_DimAmount.SelectedItem);
+             _config.DimAmount = Convert.ToDouble(lst_Settings_DimAmount.SelectedItem);
 
             _config.DimTime = Convert.ToInt32(lst_Settings_DimTime.SelectedItem);
 
-            _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
+            if (lst_Settings_Skin_extra.SelectedItem != null)
+            {
+                _config.Skin_Extra = lst_Settings_Skin_extra.SelectedItem.ToString();
+            }
 
             _config.LogoSize = lst_Settings_LogoSize.Value;
 
             _config.MediaIconSize = lst_Settings_MediaIconSize.Value;
 
-          //  _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
-
-            _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
+            //  _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();
+            if (lst_Settings_Skin_Extra_Text.SelectedItem != null)
+            {
+                _config.Skin_Extra_Text = lst_Settings_Skin_Extra_Text.SelectedItem.ToString();
+            }
 
             en = _yatse2PlayModes.GetEnumerator();
             while (en.MoveNext())
