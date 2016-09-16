@@ -4640,7 +4640,7 @@
     <Resource Include="Skin\Internal\Images\Empty.png" />
   </ItemGroup>
   <ItemGroup>
-    <SplashScreen Include="Skin\Internal\Images\Splash.png" />
+    <None Include="Skin\Internal\Images\Splash.png" />
     <Resource Include="Skin\Internal\Images\Yatse2.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -5405,6 +5405,16 @@
     <Resource Include="Skin\Default\Interface\Icon_Kodi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Skin\Default\Interface\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Skin\Default\Interface\Splash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

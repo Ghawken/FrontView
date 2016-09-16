@@ -83,6 +83,20 @@ namespace FrontView
             e.Handled = true;
         }
 
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            return;
+            var path = Helper.SkinPath + @"Default\Interface\Splash.png";
+            Uri uri = new Uri(path);
+
+
+            if (File.Exists(path))
+            {
+                SplashScreen screen = new SplashScreen(path);
+                screen.Show(true);
+            }
+        }
+
         public void Application_Exit(object sender, ExitEventArgs e)
         {
            Logger.Instance().Log("FrontViewApp", "EXIT CALLED", true);

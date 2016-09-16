@@ -681,13 +681,13 @@ namespace FrontView
 
                 Logger.Instance().Log("FrontView+", "Starting version :" + ver.Major +"." + ver.Minor, true);
                 Logger.Instance().Log("FrontView+","Starting build : " + ver.Build,true);
+                Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
-
-             //   Logger.Instance().Log("FrontView+", "Starting Major : " + ver.Major, true);
-             //   Logger.Instance().Log("FrontView+", "Starting MajorRevision : " + ver.MajorRevision, true);
-             //   Logger.Instance().Log("FrontView+", "Starting Minor : " + ver.Minor, true);
-             //   Logger.Instance().Log("FrontView+", "Starting MinorRevision : " + ver.MinorRevision, true);
-             //   Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
+                //   Logger.Instance().Log("FrontView+", "Starting Major : " + ver.Major, true);
+                //   Logger.Instance().Log("FrontView+", "Starting MajorRevision : " + ver.MajorRevision, true);
+                //   Logger.Instance().Log("FrontView+", "Starting Minor : " + ver.Minor, true);
+                //   Logger.Instance().Log("FrontView+", "Starting MinorRevision : " + ver.MinorRevision, true);
+                //   Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
                 Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name, true);
                 Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
@@ -2246,7 +2246,7 @@ namespace FrontView
 
         private void Change_Display_Settings(object sender, EventArgs e)
         {
-            Logger.Instance().Log("FrontView+", "Dispay settings changed");
+            Logger.Instance().Log("FrontView+", "Display settings changed");
             Topmost = _config.Topmost;
             WindowStartupLocation = WindowStartupLocation.Manual;
             //REMOVE OR CHANGE ACTIVATE()
@@ -2264,6 +2264,7 @@ namespace FrontView
                 }
             }
             var screens = System.Windows.Forms.Screen.AllScreens;
+
             Logger.Instance().LogDump("Var Screens", true);
     //        ni.BalloonTipTitle = "Minimise Setting";
     //        ni.BalloonTipText = " Minimise Always On";
@@ -2277,20 +2278,31 @@ namespace FrontView
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
 
+           
+
             int screenDisplayNumber = 1;
             //bit of a hack - use dIsplay1/2/3 etc remove the number, subtract by one to get devNum hopefully holds true above 2 screens
             if (_config.SelectedDisplay != null && _config.SelectedDisplay != "")
             {
                 screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
             }
+            // eg. Display1 and Display6 - screens.Length =2, screenDisplayNumber 1 or 6
+            // eg. Display1 and Display2 - screens.Lenght =2, screenDisplayNumber 1 or 2
 
-
+            Logger.Instance().LogDump("Screens Resultsr:" + screens.Length + " and screen.Length", screens.Length);
             //fix for no SelectedDisplay setting being set if upgrading
-
+            if (screenDisplayNumber > screens.Length)
+            {
+                //if Display numbers wrong select last screen.  
+                Logger.Instance().LogDump("ScreenDisplayNumber to large for screen length: Using screen:  screenDisplayNumber:" + screenDisplayNumber +" and screen.Length",screens.Length);
+                screenDisplayNumber = screens.Length;
+                Logger.Instance().LogDump("ScreenDisplayNumber to large for screen length: RESET screenDisplayNumber : " , screenDisplayNumber);
+            }
           
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
             screenDisplayNumber = screenDisplayNumber - 1;
             Logger.Instance().LogDump("Selected devNum Screen Number from Display Name: Subtract one equals:", screenDisplayNumber);
+
 
 
 

@@ -1,7 +1,12 @@
 ﻿Changelog:
 
+Version 1.200
+Fix for Save Settings if Blank Items.
+Fixes for DDC when slow to prove connection possible.
+Add Checkbox box to disable nowPlaying MediaIcons
+Installed changes to make Frontview+.exe as HPIDPIAWARE
 
-Version 1.99
+Version 1.199
 Change to remote Version numbers Emby - just use first 3 digits (eg. 3.1 etc)
 Addition of DDC/CI Monitor Settings Control:
 Under DDC/Amp in Settings - will only work with monitors that support DDC (and unsure re USB Monitors)
