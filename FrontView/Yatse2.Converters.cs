@@ -855,6 +855,10 @@ namespace FrontView
                 {
                     return 50;
                 }
+                if (param == "newtitlesize")
+                {
+                    return 110;
+                }
                 if (param == "logosize")
                 {
                     return 200;
@@ -878,13 +882,17 @@ namespace FrontView
                 {
                     return 40;
                 }
+                if (param == "newtitlesize")
+                {
+                    return 70;
+                }
                 if (param == "logosize")
                 {
                     return 150;
                 }
                 if (param == "boxsize")
                 {
-                    return 60;
+                    return 80;
                 }
                 if (param == "TVS00E00")
                 {
@@ -907,6 +915,10 @@ namespace FrontView
                 if (param == "titlesize")
                 {
                     return 22;
+                }
+                if (param == "newtitlesize")
+                {
+                    return 35;
                 }
                 if (param == "logosize")
                 {

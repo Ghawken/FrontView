@@ -2277,33 +2277,29 @@ namespace FrontView
         //            this.WindowState = WindowState.Normal;
         // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
+            int screenDisplayNumber = -1;
+            //Check Device Name against each screen - when matched set - ScreenDisplayNumber to that
 
-           
-
-            int screenDisplayNumber = 1;
-            //bit of a hack - use dIsplay1/2/3 etc remove the number, subtract by one to get devNum hopefully holds true above 2 screens
-            if (_config.SelectedDisplay != null && _config.SelectedDisplay != "")
+            for (int i=0; i < screens.Length; i++)
             {
-                screenDisplayNumber = Convert.ToInt32(_config.SelectedDisplay.Substring(_config.SelectedDisplay.Length - 1));
+                Logger.Instance().LogDump("Screens Compare:  Checking all Screens for DeviceName: i =",i);
+                var DeviceName = ScreenResolution.GetDeviceName(i);
+                if (DeviceName == _config.SelectedDisplay)
+                {
+                    screenDisplayNumber = i;
+                    Logger.Instance().LogDump("Screens Compare:  DeviceName Found: " +DeviceName+"  & ScreenDisplayNumber Set to:", i);
+                    break;
+                }
+            
             }
-            // eg. Display1 and Display6 - screens.Length =2, screenDisplayNumber 1 or 6
-            // eg. Display1 and Display2 - screens.Lenght =2, screenDisplayNumber 1 or 2
 
-            Logger.Instance().LogDump("Screens Resultsr:" + screens.Length + " and screen.Length", screens.Length);
-            //fix for no SelectedDisplay setting being set if upgrading
-            if (screenDisplayNumber > screens.Length)
+                        
+            if (screenDisplayNumber == -1)
             {
-                //if Display numbers wrong select last screen.  
-                Logger.Instance().LogDump("ScreenDisplayNumber to large for screen length: Using screen:  screenDisplayNumber:" + screenDisplayNumber +" and screen.Length",screens.Length);
-                screenDisplayNumber = screens.Length;
-                Logger.Instance().LogDump("ScreenDisplayNumber to large for screen length: RESET screenDisplayNumber : " , screenDisplayNumber);
+                Logger.Instance().LogDump("Screens Compare:  ERR: screenDisplayNumber still -1: ", screenDisplayNumber);
+                screenDisplayNumber = 0;
+
             }
-          
-            Logger.Instance().LogDump("Selected devNum Screen Number from Display Name:", screenDisplayNumber);
-            screenDisplayNumber = screenDisplayNumber - 1;
-            Logger.Instance().LogDump("Selected devNum Screen Number from Display Name: Subtract one equals:", screenDisplayNumber);
-
-
 
 
             if (screens.Length == 1 )
@@ -2339,30 +2335,28 @@ namespace FrontView
                     }
                 }
                
-                screens = System.Windows.Forms.Screen.AllScreens;
+                //screens = System.Windows.Forms.Screen.AllScreens;
 
-               /** 
+                
+
                 foreach (var scr in screens)
                 {
-                                        
-                    Top = scr.Bounds.Top / dy;
-                    Left = scr.Bounds.Left / dx;
-                    Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
-                    Logger.Instance().LogDump("Another Screen Details", ScreenResolution.GetDevmode(1,-1));
+                    Logger.Instance().LogDump("All Screen Details: Scr.Primary:", scr.Primary);
+                    Logger.Instance().LogDump("Screen Device Names:", scr.DeviceName);
+                    Logger.Instance().LogDump("Another Screen Details:", ScreenResolution.GetDevmode(1,-1));
 
-                    break;
                 }
-    */
+
 
                 foreach (var scr in screens)
                 {
-                    Top = scr.Bounds.Top / dy;
-                    Left = scr.Bounds.Left / dx;
-
-                if (_config.SelectedDisplay == scr.DeviceName)
+                    if (_config.SelectedDisplay == scr.DeviceName)
                     {
-                        Logger.Instance().LogDump("Screen Device Name", scr.DeviceName);
-                        Logger.Instance().LogDump("Screen Details", ScreenResolution.GetDevmode(1, -1));
+                        Top = scr.Bounds.Top / dy;
+                        Left = scr.Bounds.Left / dx;
+
+                        Logger.Instance().LogDump("Screen Selected Device Name", scr.DeviceName);
+                        Logger.Instance().LogDump("Screen Selected Details", ScreenResolution.GetDevmode(1, -1));
 
                         break;
                     }

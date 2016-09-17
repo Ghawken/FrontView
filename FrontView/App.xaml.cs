@@ -63,6 +63,11 @@ namespace FrontView
 
 
             Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
+
+            SplashScreen screen = new SplashScreen("Skin/Internal/Images/Splash.png");
+
+
+
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(
@@ -72,9 +77,37 @@ namespace FrontView
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += AssemblyLoader;
 
+            // Check for CommandLine arguments - check for nosplashscreen
+            string[] args = Environment.GetCommandLineArgs();
+
+            int pos = Array.IndexOf(args, "nosplashscreen");
+
+            if (pos == -1)
+            {
+                screen.Show(true);
+            }
+
             InitLog();
 
+            /**
+            Logger.Instance().LogDump("Checking Command Line Args:" + args.Length, true);
+
+            for (int index =1;index < args.Length; index +=2)
+            {
+                Logger.Instance().LogDump("Command Line Args:" + args[index], true);
+            }
+    **/
+
+
             base.OnStartup(e);
+
+            TimeSpan time = new TimeSpan(0, 0, 5);
+
+            if (pos == -1)
+            {
+                screen.Close(time);
+            }
+         
         }
 
         static void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -85,16 +118,9 @@ namespace FrontView
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+
             return;
-            var path = Helper.SkinPath + @"Default\Interface\Splash.png";
-            Uri uri = new Uri(path);
-
-
-            if (File.Exists(path))
-            {
-                SplashScreen screen = new SplashScreen(path);
-                screen.Show(true);
-            }
+            
         }
 
         public void Application_Exit(object sender, ExitEventArgs e)

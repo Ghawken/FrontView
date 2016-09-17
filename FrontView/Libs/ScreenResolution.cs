@@ -222,7 +222,7 @@ namespace FrontView.Libs
         public static void ChangeResolution(int devNum, int modeNum)
         {
             var d = GetDevmode(devNum, modeNum);
-
+           
             if (d.DMBitsPerPel != 0 && d.DMPelsWidth != 0 && d.DMPelsHeight != 0)
             {
                 var result = NativeMethods.ChangeDisplaySettingsEx(GetDeviceName(devNum), ref d, IntPtr.Zero, 0, IntPtr.Zero);
@@ -348,6 +348,7 @@ namespace FrontView.Libs
         {
             var d = new DisplayDevice(0);
             var result = NativeMethods.EnumDisplayDevices(IntPtr.Zero, devNum, ref d, 0);
+            
             return (result ? d.DeviceName.Trim() : "#error#");
         }
 
@@ -355,6 +356,7 @@ namespace FrontView.Libs
         {
             var d = new DisplayDevice(0);
             var result = NativeMethods.EnumDisplayDevices(IntPtr.Zero, devNum, ref d, 0);
+            
             return (result ? d.DeviceString.Trim() : "#error#");
         }
         

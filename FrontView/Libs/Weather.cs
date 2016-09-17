@@ -385,7 +385,7 @@ namespace FrontView.Libs
                         }
                         catch (WebException ex)
                         {
-                            Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                            Logger.Instance().Trace("Weather:", "No Data File Found:" + ex);
                             return null;
                         }
                     }

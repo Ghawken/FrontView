@@ -41,7 +41,7 @@ namespace FrontView
 
         private static void WebSite()
         {
-            const string url = @"https://github.com/Ghawken/FrontView";
+            const string url = @"https://github.com/Ghawken/FrontView/releases";
             Process.Start(new ProcessStartInfo(url));
         }
 
@@ -147,12 +147,13 @@ namespace FrontView
 
             txt_Settings_VersionNo.Text =  "Version "+ ver.Major +"." + ver.Minor + " Build:" + ver.Build;
 
+            /**
             if (UpdateAvailable == true)
             {
                 txt_Settings_VersionNo.Foreground = System.Windows.Media.Brushes.White;
                 txt_Settings_VersionNo.Text = "*** Update Available *** Click --->";
             }
-
+    **/
             chk_Settings_MouseMode.IsChecked = _config.MouseMode;
 
             chk_Settings_DebugTrace.IsChecked = _config.DebugTrace;
@@ -476,6 +477,7 @@ namespace FrontView
 
         private void btn_Settings_CheckforUpdates_Click(object sender, RoutedEventArgs e)
         {
+            WebSite();
             //Process.Start(new ProcessStartInfo(Helper.AppPath + @"\WyUpdate.exe"));
             //Disbale WyUpdate.exe
 

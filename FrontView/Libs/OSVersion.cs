@@ -404,14 +404,26 @@ namespace FrontView.Libs
                                         }
                                         break;
                                     case 6:
-                                        switch (productType)
+                                        switch (minorVersion)
                                         {
                                             case 1:
-                                                name = minorVersion == 0 ? "Windows Vista" : "Windows 7";
+                                                name = "Windows 7";
+                                                break;
+                                            case 2:
+                                                name = "Windows 8";
                                                 break;
                                             case 3:
-                                                name = minorVersion == 0 ? "Windows Server 2008" : "Windows 2008 R2";
+                                                name = "Windows 8.1";
                                                 break;
+                                        }
+                                        break;
+                                    case 10:
+                                        switch (minorVersion)
+                                        {
+                                            case 0:
+                                                name = "Windows 10";
+                                                break;
+
                                         }
                                         break;
                                 }

@@ -4640,7 +4640,7 @@
     <Resource Include="Skin\Internal\Images\Empty.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Skin\Internal\Images\Splash.png" />
+    <Resource Include="Skin\Internal\Images\Splash.png" />
     <Resource Include="Skin\Internal\Images\Yatse2.ico" />
   </ItemGroup>
   <ItemGroup>
