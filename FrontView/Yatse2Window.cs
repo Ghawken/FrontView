@@ -1481,17 +1481,20 @@ namespace FrontView
 
         private void CheckFanArt()
         {
-            var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-            var FanartAlways = _config.FanartAlways;
-            //_config.FanartDirectory = null;
-            int numberofdirectoriesdeep = _config.FanartNumberDirectories;
-            var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+
+                var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
+                var FanartAlways = _config.FanartAlways;
+                //_config.FanartDirectory = null;
+                int numberofdirectoriesdeep = _config.FanartNumberDirectories;
+                var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
 
 
-            Logger.Instance().LogDump("FrontView FANART    : Check FanART Run & Current Menu prior", nowPlaying2.CurrentMenuLabel, true);
-
-            Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
+            if (nowPlaying2 != null)
+            {
+                Logger.Instance().LogDump("FrontView FANART    : Check FanART Run & Current Menu prior", nowPlaying2.CurrentMenuLabel, true);
+                Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
+            }
 
             if (_remote.GetOS()=="Emby" && FanartAlways == true)
             {
@@ -2282,8 +2285,10 @@ namespace FrontView
 
             for (int i=0; i < screens.Length; i++)
             {
-                Logger.Instance().LogDump("Screens Compare:  Checking all Screens for DeviceName: i =",i);
                 var DeviceName = ScreenResolution.GetDeviceName(i);
+                Logger.Instance().LogDump("Screens Compare:  Checking all Screens for DeviceName: i ="+i +":DeviceName equals:",DeviceName);
+                
+
                 if (DeviceName == _config.SelectedDisplay)
                 {
                     screenDisplayNumber = i;
