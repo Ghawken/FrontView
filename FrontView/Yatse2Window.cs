@@ -2257,19 +2257,21 @@ namespace FrontView
             var dx = 1.0;
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);
-            /**
+            
 
             if (temp != null)
             {
                 if (temp.CompositionTarget != null)
                 {
                     var m = temp.CompositionTarget.TransformToDevice;
+                    Logger.Instance().LogDump("Screens DPI:  Changing dx and dy:", true);
                     dx = m.M11;
                     dy = m.M22;
+                    Logger.Instance().LogDump("Screens DPI:  Dx:"+dx+" and Dy:"+dy, true);
                 }
             }
 
-            **/
+            
             var screens = System.Windows.Forms.Screen.AllScreens;
 
             Logger.Instance().LogDump("Var Screens", true);

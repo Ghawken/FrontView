@@ -508,7 +508,7 @@ namespace FrontView
 
                     _yatse2Properties.Currently.Thumb = GetVideoThumbPath(nowPlaying.ThumbURL);
                     Logger.Instance().LogDump("FrontView PVR:", "Thumb Set to " + _yatse2Properties.Currently.Thumb, true);
-                    _yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
+                    _yatse2Properties.Currently.Logo = GetVideoLogoPath(nowPlaying.LogoURL); 
                     _yatse2Properties.Currently.IsMovie = true;
                     _yatse2Properties.Currently.MovieTitle = nowPlaying.Title;
                     nowPlaying.FileName = nowPlaying.Title;
