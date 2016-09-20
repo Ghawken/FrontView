@@ -2257,6 +2257,8 @@ namespace FrontView
             var dx = 1.0;
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);
+            /**
+
             if (temp != null)
             {
                 if (temp.CompositionTarget != null)
@@ -2266,6 +2268,8 @@ namespace FrontView
                     dy = m.M22;
                 }
             }
+
+            **/
             var screens = System.Windows.Forms.Screen.AllScreens;
 
             Logger.Instance().LogDump("Var Screens", true);
