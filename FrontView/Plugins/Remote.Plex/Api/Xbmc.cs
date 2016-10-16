@@ -225,11 +225,43 @@ namespace Remote.Plex.Api
                 string url = GetJsonPath() + "/clients";
                 // PMS Server Clients Page - to connect to and see whether local player is in effect.
 
+
+
+
                 try
                 {
 
-                    var request = WebRequest.Create(url);
+                    var request = WebRequest.CreateHttp(url);
+
                     request.Headers.Add("X-Plex-Token", PlexAuthToken);
+
+                    Log("CheckConnection: PlexToken Equals:" + PlexAuthToken);
+                    
+
+                    request.Method = "get";
+                    request.Timeout = 5000;
+                    request.ContentType = "application/json; charset=utf-8";
+
+                    request.Accept = "application/json; charset=utf-8";
+
+                    request.Host = IP + ":" + Port;
+                    request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
+
+
+
+                    var values = new NameValueCollection();
+
+                    values["X-Plex-Client-Identifier"] = "FrontView+";
+                    values["X-Plex-Product"] = "FrontView+";
+                    values["X-Plex-Version"] = "1.181";
+                    values["Origin"] = IP + ":" + Port;
+                    values["X-Plex-Username"] = UserName;
+                    values["Upgrade-Insecure-Requests"] = "1";
+
+                    request.Headers.Add(values);
+
+
+
                     var response = request.GetResponse();
 
                     if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
@@ -281,7 +313,7 @@ namespace Remote.Plex.Api
                 }
                 catch (Exception ex)
                 {
-                    Log("Cannot connect is server details right " + ex);
+                    Log("Cannot connect are server details right " + ex);
                     return false;
                 }
             }
@@ -342,7 +374,7 @@ namespace Remote.Plex.Api
                 request.Method = "get";
                 request.Timeout = 5000;
                 request.ContentType = "application/json; charset=utf-8";
-                
+             
                 request.Accept = "application/json; charset=utf-8";
                 
                 request.Host = IP + ":" + Port;
@@ -530,6 +562,11 @@ namespace Remote.Plex.Api
             UserName = user;
             Password = password;
             _configured = true;
+
+            if (String.IsNullOrEmpty(PlexAuthToken))
+            {
+                PlexAuthToken = GetPlexAuthToken(ip, port, user, password);
+            }
 
             if (_checkTimer == null)
             {

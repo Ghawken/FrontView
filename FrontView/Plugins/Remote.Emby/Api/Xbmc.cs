@@ -238,7 +238,7 @@ namespace Remote.Emby.Api
 
         public override bool IsConnected()
         {
-           // return CheckConnection();
+           //return CheckConnection();
             return _isConnected;
         }
 
