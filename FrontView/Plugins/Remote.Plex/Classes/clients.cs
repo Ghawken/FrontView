@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Remote.Plex.Api.Clients
 {
 
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
@@ -18,6 +19,7 @@ namespace Remote.Plex.Api.Clients
         private byte sizeField;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Server")]
         public MediaContainerServer[] Server
         {
             get
@@ -226,6 +228,7 @@ namespace Remote.Plex.Api.Clients
             }
         }
     }
+
 
 
 }

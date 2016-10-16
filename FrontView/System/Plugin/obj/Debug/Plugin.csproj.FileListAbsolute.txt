@@ -18,3 +18,8 @@ C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\bin\x86\Debug\System\Plugin
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\System\Plugin\obj\Debug\Plugin.csprojResolveAssemblyReference.cache
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\System\Plugin\obj\Debug\Plugin.dll
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\System\Plugin\obj\Debug\Plugin.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\System\Plugin.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\System\Plugin.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Plugin\obj\Debug\Plugin.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Plugin\obj\Debug\Plugin.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Plugin\obj\Debug\Plugin.pdb

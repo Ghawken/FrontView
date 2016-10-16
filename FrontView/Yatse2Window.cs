@@ -2363,8 +2363,8 @@ namespace FrontView
                 {
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
-                        Top = scr.Bounds.Top / dy;
-                        Left = scr.Bounds.Left / dx;
+                        Top = scr.WorkingArea.Top;
+                        Left = scr.WorkingArea.Left;
 
                         Logger.Instance().LogDump("Screen Selected Device Name", scr.DeviceName);
                         Logger.Instance().LogDump("Screen Selected Details", ScreenResolution.GetDevmode(1, -1));
@@ -2379,8 +2379,8 @@ namespace FrontView
             }
             if (_config.Resolution.DMPelsWidth > 0)
             {
-                Width = _config.Resolution.DMPelsWidth / dx;
-                Height = _config.Resolution.DMPelsHeight / dy;
+                Width = _config.Resolution.DMPelsWidth ;
+                Height = _config.Resolution.DMPelsHeight ;
                 Logger.Instance().LogDump("Screens Width", Width);
                 Logger.Instance().LogDump("Screens Height", Height);
             }

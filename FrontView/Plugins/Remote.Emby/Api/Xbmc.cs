@@ -148,8 +148,24 @@ namespace Remote.Emby.Api
 
                 request.Method = "get";
                 request.Timeout = 5000;
-                request.ContentType = "application/json; charset=utf-8";
-                request.Accept = "application/json; charset=utf-8";
+          //      request.ContentType = "application/json; charset=utf-8";
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+                request.Host = IP + ":" + Port;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
+                request.Connection = "Keep-alive";
+                
+
+                var values = new NameValueCollection();
+               // values["Authorization"] = "Basic " + auth;
+                values["X-Plex-Client-Identifier"] = "FrontView+";
+                values["X-Plex-Product"] = "FrontView+";
+                values["X-Plex-Version"] = "1.181";
+                values["Origin"] = IP + ":" + Port;
+                values["X-Plex-Username"] = UserName;
+                values["Accept-Encoding"] = "gzip, deflate, sdch";
+                values["Accept-Language"] = "en-US,en;q=0.8";
+                values["Upgrade-Insecure-Requests"] = "1";
+                request.Headers.Add(values);
 
                 var response = request.GetResponse();
 

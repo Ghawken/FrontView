@@ -18,3 +18,8 @@ C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\bin\x86\Debug\Plugins\Remot
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.csprojResolveAssemblyReference.cache
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.dll
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\Plugins\Remote.Plex.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\Plugins\Remote.Plex.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Plex\obj\Debug\Remote.Plex.pdb

@@ -16,3 +16,8 @@ C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\bin\net-2.0\debug\Jayrock.J
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.csprojResolveAssemblyReference.cache
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.dll
 C:\Users\hawke\Source\Repos\FrontView1.200\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\net-2.0\debug\Jayrock.Json.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\net-2.0\debug\Jayrock.Json.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.csprojResolveAssemblyReference.cache
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Jayrock.Json\obj\Debug\Jayrock.Json.pdb

@@ -324,7 +324,7 @@ namespace Remote.Plex.Api
 
             if (String.IsNullOrEmpty(PlexAuthToken))
             {
-                Log("Not Plex Token - Not checking for clients.");
+                Log("No Plex Token - Not checking for clients.");
                 return 0;
                 // Not Connected - failed Setup.
                 //Still need to check local player there - rather than internet server which gives Auth
@@ -336,8 +336,32 @@ namespace Remote.Plex.Api
             try
             {
 
-                var request = WebRequest.Create(url);
+                var request = WebRequest.CreateHttp(url);
                 request.Headers.Add("X-Plex-Token", PlexAuthToken);
+
+                request.Method = "get";
+                request.Timeout = 5000;
+                request.ContentType = "application/json; charset=utf-8";
+                
+                request.Accept = "application/json; charset=utf-8";
+                
+                request.Host = IP + ":" + Port;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
+             
+
+
+                var values = new NameValueCollection();
+                
+                values["X-Plex-Client-Identifier"] = "FrontView+";
+                values["X-Plex-Product"] = "FrontView+";
+                values["X-Plex-Version"] = "1.181";
+                values["Origin"] = IP + ":" + Port;
+                values["X-Plex-Username"] = UserName;
+               
+                values["Upgrade-Insecure-Requests"] = "1";
+                request.Headers.Add(values);
+
+
                 var response = request.GetResponse();
 
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
@@ -346,15 +370,21 @@ namespace Remote.Plex.Api
                     // Get the stream containing content returned by the server.
                     System.IO.Stream dataStream = response.GetResponseStream();
                     // Open the stream using a StreamReader.
+
+
                     System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
+                  //  string json = reader.ReadToEnd().ToString();
+                    //Log("Plex Returned:" + json);   
 
 
                     XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients.MediaContainer));
                     Remote.Plex.Api.Clients.MediaContainer deserialized = (Remote.Plex.Api.Clients.MediaContainer)serializer.Deserialize(reader);
 
+
                     string json = reader.ReadToEnd().ToString();
-                    Log("TestConnection Plex:" + json);
+                    Log("Testing Client URL:" + url);
+                    Log("TestConnection Plex: ip:"+ip+":Port:"+port+" Result:" + json);
 
                     if (deserialized.size == 0)
                     {
