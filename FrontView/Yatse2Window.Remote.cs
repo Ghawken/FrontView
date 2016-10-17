@@ -283,7 +283,7 @@ namespace FrontView
             _isPlaying = true;
             //SupportsRemoteControl Changes - Check Below:
             UpdateButtonVisibility();
-            Logger.Instance().LogDump("Yatse PVR", "MediaType equals:" + nowPlaying.MediaType, true);
+            Logger.Instance().LogDump("Frontview PVR", "MediaType equals:" + nowPlaying.MediaType, true);
             
             
             switch (nowPlaying.MediaType)
@@ -531,7 +531,7 @@ namespace FrontView
             
             var nowPlaying = _remote.Player.NowPlaying(true);
 
-            Logger.Instance().LogDump("FrontView PVR:", "nowPlaying.Filename is : " + nowPlaying.FileName +" nowPlaying.IsPlaying = " +nowPlaying.IsPlaying + " isPlaying " + _isPlaying + " isNewMedia?" +nowPlaying.IsNewMedia , true);
+            Logger.Instance().LogDump("FrontView PVR:", "nowPlaying.Filename is : " + nowPlaying.FileName +" nowPlaying.IsPlaying = " +nowPlaying.IsPlaying + " isPlaying " + _isPlaying + " isNewMedia:" +nowPlaying.IsNewMedia , true);
 
             if (nowPlaying.IsNewMedia && (nowPlaying.IsPlaying || nowPlaying.IsPaused) && !String.IsNullOrEmpty(nowPlaying.FileName) && !nowPlaying.FileName.EndsWith("theme.mp3"))
             {

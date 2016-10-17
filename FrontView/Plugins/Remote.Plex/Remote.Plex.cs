@@ -51,10 +51,10 @@ namespace Remote.Plex
         {
             return new ApiSupportedFunctions
                        {
-                           MovieLibrary = true,
-                           AudioLibrary = true,
-                           TvShowLibrary = true,
-                           PictureLibrary = true,
+                           MovieLibrary = false,
+                           AudioLibrary = false,
+                           TvShowLibrary = false,
+                           PictureLibrary = false,
                            SupportsRemoteControl = false
                        };
         }

@@ -322,8 +322,8 @@ namespace Remote.Plex.Api
                             // Open the stream using a StreamReader.
                             System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
-
-                           
+                        
+                                                     
 
                             XmlSerializer serializer = new XmlSerializer(typeof(MediaContainer));
                             MediaContainer deserialized = (MediaContainer)serializer.Deserialize(reader);
@@ -340,6 +340,7 @@ namespace Remote.Plex.Api
                                 _nowPlaying.IsPlaying = false;
                                 _nowPlaying.IsPaused = false;
                                 _nowPlaying.IsPlaying = false;
+                                _nowPlaying.IsNewMedia = false;
                                 _parent.Log("Plex Log: Nothing is Playing");
                                 return;
                             }
@@ -359,15 +360,20 @@ namespace Remote.Plex.Api
                                 {
                                     
                                     _parent.Log("Plex: Found Local Playback");
+
                                     _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.art;
                                     _parent.Log("Plex: Fanart URL sorting Out:  " + _parent.IP + ":" + _parent.ServerPort + server.art);
                                     //Console.WriteLine("Grandparent art is {0} and Players is {1}", server.grandparentArt, server.Player);
-                                    _nowPlaying.Title = server.title; 
+
+                                    _parent.Log("Plex:NP NowPlaying.title:" + server.title);
+
+                                    _nowPlaying.Title = server.title;
                                     //    Console.WriteLine("" + server.art);
                                     //    Console.WriteLine("" + server.chapterSource);
                                     //_nowPlaying.Director = server.Director.tag;
                                     //     Console.WriteLine("" + server.duration);
                                     //    Console.WriteLine("" + server.grandparentArt);
+                                    _parent.Log("Plex:NP NowPlaying.Showtitle:" + server.grandparentTitle);
                                     _nowPlaying.ShowTitle = server.grandparentTitle;
                                     //     Console.WriteLine("" + server.grandparentThumb);
                                     /*     Console.WriteLine("" + server.guid);
@@ -379,19 +385,43 @@ namespace Remote.Plex.Api
                                      //    Console.WriteLine("" + server.Media.Part.duration);
                                    // */
                                     //     Console.WriteLine("Player Product: " + server.Player.product);
+
+                                    _parent.Log("Plex:NP NowPlaying.Plot:" + server.summary);
+
                                     _nowPlaying.Plot = server.summary;
+
+                                    _parent.Log("Plex:NP NowPlaying.ThumbURL:" + @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb);
+
                                     _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
+
+                                    _parent.Log("Plex:NP NowPlaying.FileName:" + server.Media.Part.file);
+
                                     _nowPlaying.FileName = server.Media.Part.file;
-                                    //_nowPlaying.Title = server.title;
+
+                                    _parent.Log("Plex:NP NowPlaying.Title:" + server.title);
+
+                                    _nowPlaying.Title = server.title;
 
                                     _nowPlaying.MediaType = server.type == "episode" ? "TvShow" : "Movie";
+
+                                    _parent.Log("Plex:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
+
                                     _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(server.Media.duration));
+
+                                    _parent.Log("Plex:NP server.Media.Duration:" + server.Media.duration +":  _nowPlaying.Duration (calculated) :"+_nowPlaying.Duration);
+
                                     _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(server.viewOffset) / 1000, 0);
+
+                                    _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + "Calcuated on server.viewOffset:"+server.viewOffset);
 
                                     var percent = Math.Floor(100.0 * Convert.ToInt32("0" + server.viewOffset, CultureInfo.InvariantCulture) / Convert.ToInt32("0" + server.Media.duration, CultureInfo.InvariantCulture));
                                     if (Double.IsNaN(percent))
+                                    {
                                         percent = 0;
+                                    }
                                     _nowPlaying.Progress = (int)percent;
+
+                                    _parent.Log("Plex:NP NowPlaying.Progress:" + _nowPlaying.Progress);
 
                                     //_nowPlaying.FirstAired = server.originallyAvailableAt;
 
@@ -403,6 +433,9 @@ namespace Remote.Plex.Api
 
                                     }
 
+                                    _parent.Log("Plex:NP server.Player.state:" + server.Player.state);
+
+
                                     if (server.Player.state == "paused")
                                     {
                                         _nowPlaying.IsPaused = true;
@@ -413,7 +446,20 @@ namespace Remote.Plex.Api
                                         _nowPlaying.IsPaused = false;
                                         _nowPlaying.IsPlaying = true;
                                     }
+
+                                    if (server.Player.state == "buffering")
+                                    {
+                                        _nowPlaying.IsPaused = false;
+                                        _nowPlaying.IsPlaying = true;
+                                    }
+
+                                    _nowPlaying.LogoURL = "";
+                                    _nowPlaying.MovieIcons = "";
+
                                     _parent.Log("Plex Remote:  Filename" + _nowPlaying.FileName + " IsPlaying :" + _nowPlaying.IsPlaying + " IsPaused :" + _nowPlaying.IsPaused + " MediaType :" + _nowPlaying.MediaType);
+
+
+
 
                                     return;
                                 }
@@ -424,7 +470,8 @@ namespace Remote.Plex.Api
                                 _nowPlaying.IsPlaying = false;
                                 _nowPlaying.IsPaused = false;
                                 _nowPlaying.IsPlaying = false;
-                                _parent.Log("Plex Log: Nothing is Playing");
+                                _nowPlaying.IsNewMedia = false;
+                                _parent.Log("Plex Log 2nd: Nothing is Playing");
                                 return;
 
                             }

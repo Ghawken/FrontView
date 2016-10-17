@@ -53,11 +53,13 @@ namespace Remote.Plex.Api
 
         private MediaContainerVideoMedia mediaField;
 
+        private MediaContainerVideoDirector directorField;
+
+        private MediaContainerVideoWriter[] writerField;
+
         private MediaContainerVideoUser userField;
 
         private MediaContainerVideoPlayer playerField;
-
-        private MediaContainerVideoTranscodeSession transcodeSessionField;
 
         private uint addedAtField;
 
@@ -65,13 +67,41 @@ namespace Remote.Plex.Api
 
         private string chapterSourceField;
 
+        private string contentRatingField;
+
         private uint durationField;
+
+        private string grandparentArtField;
+
+        private string grandparentKeyField;
+
+        private ushort grandparentRatingKeyField;
+
+        private string grandparentThumbField;
+
+        private string grandparentTitleField;
 
         private string guidField;
 
+        private byte indexField;
+
         private string keyField;
 
+        private uint lastViewedAtField;
+
+        private bool lastViewedAtFieldSpecified;
+
         private byte librarySectionIDField;
+
+        private System.DateTime originallyAvailableAtField;
+
+        private byte parentIndexField;
+
+        private string parentKeyField;
+
+        private ushort parentRatingKeyField;
+
+        private string parentThumbField;
 
         private ushort ratingKeyField;
 
@@ -87,49 +117,11 @@ namespace Remote.Plex.Api
 
         private uint updatedAtField;
 
-        private ushort viewOffsetField;
+        private uint viewOffsetField;
 
         private ushort yearField;
 
-        private bool yearFieldSpecified;
-
-        private string contentRatingField;
-
-        private string grandparentArtField;
-
-        private string grandparentKeyField;
-
-        private ushort grandparentRatingKeyField;
-
-        private bool grandparentRatingKeyFieldSpecified;
-
-        private string grandparentThumbField;
-
-        private string grandparentTitleField;
-
-        private byte indexField;
-
-        private bool indexFieldSpecified;
-
-        private uint lastViewedAtField;
-
-        private bool lastViewedAtFieldSpecified;
-
-        private byte parentIndexField;
-
-        private bool parentIndexFieldSpecified;
-
-        private string parentKeyField;
-
-        private ushort parentRatingKeyField;
-
-        private bool parentRatingKeyFieldSpecified;
-
-        private string parentThumbField;
-
-        private byte viewCountField;
-
-        private bool viewCountFieldSpecified;
+        private string titleSortField;
 
         /// <remarks/>
         public MediaContainerVideoMedia Media
@@ -141,6 +133,33 @@ namespace Remote.Plex.Api
             set
             {
                 this.mediaField = value;
+            }
+        }
+
+        /// <remarks/>
+        public MediaContainerVideoDirector Director
+        {
+            get
+            {
+                return this.directorField;
+            }
+            set
+            {
+                this.directorField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Writer")]
+        public MediaContainerVideoWriter[] Writer
+        {
+            get
+            {
+                return this.writerField;
+            }
+            set
+            {
+                this.writerField = value;
             }
         }
 
@@ -167,19 +186,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.playerField = value;
-            }
-        }
-
-        /// <remarks/>
-        public MediaContainerVideoTranscodeSession TranscodeSession
-        {
-            get
-            {
-                return this.transcodeSessionField;
-            }
-            set
-            {
-                this.transcodeSessionField = value;
             }
         }
 
@@ -227,6 +233,20 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string contentRating
+        {
+            get
+            {
+                return this.contentRatingField;
+            }
+            set
+            {
+                this.contentRatingField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public uint duration
         {
             get
@@ -236,6 +256,76 @@ namespace Remote.Plex.Api
             set
             {
                 this.durationField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string grandparentArt
+        {
+            get
+            {
+                return this.grandparentArtField;
+            }
+            set
+            {
+                this.grandparentArtField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string grandparentKey
+        {
+            get
+            {
+                return this.grandparentKeyField;
+            }
+            set
+            {
+                this.grandparentKeyField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort grandparentRatingKey
+        {
+            get
+            {
+                return this.grandparentRatingKeyField;
+            }
+            set
+            {
+                this.grandparentRatingKeyField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string grandparentThumb
+        {
+            get
+            {
+                return this.grandparentThumbField;
+            }
+            set
+            {
+                this.grandparentThumbField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string grandparentTitle
+        {
+            get
+            {
+                return this.grandparentTitleField;
+            }
+            set
+            {
+                this.grandparentTitleField = value;
             }
         }
 
@@ -255,6 +345,20 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte index
+        {
+            get
+            {
+                return this.indexField;
+            }
+            set
+            {
+                this.indexField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public string key
         {
             get
@@ -269,6 +373,34 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public uint lastViewedAt
+        {
+            get
+            {
+                return this.lastViewedAtField;
+            }
+            set
+            {
+                this.lastViewedAtField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool lastViewedAtSpecified
+        {
+            get
+            {
+                return this.lastViewedAtFieldSpecified;
+            }
+            set
+            {
+                this.lastViewedAtFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public byte librarySectionID
         {
             get
@@ -278,6 +410,76 @@ namespace Remote.Plex.Api
             set
             {
                 this.librarySectionIDField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "date")]
+        public System.DateTime originallyAvailableAt
+        {
+            get
+            {
+                return this.originallyAvailableAtField;
+            }
+            set
+            {
+                this.originallyAvailableAtField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte parentIndex
+        {
+            get
+            {
+                return this.parentIndexField;
+            }
+            set
+            {
+                this.parentIndexField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string parentKey
+        {
+            get
+            {
+                return this.parentKeyField;
+            }
+            set
+            {
+                this.parentKeyField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort parentRatingKey
+        {
+            get
+            {
+                return this.parentRatingKeyField;
+            }
+            set
+            {
+                this.parentRatingKeyField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string parentThumb
+        {
+            get
+            {
+                return this.parentThumbField;
+            }
+            set
+            {
+                this.parentThumbField = value;
             }
         }
 
@@ -381,7 +583,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort viewOffset
+        public uint viewOffset
         {
             get
             {
@@ -408,282 +610,16 @@ namespace Remote.Plex.Api
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool yearSpecified
-        {
-            get
-            {
-                return this.yearFieldSpecified;
-            }
-            set
-            {
-                this.yearFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string contentRating
+        public string titleSort
         {
             get
             {
-                return this.contentRatingField;
+                return this.titleSortField;
             }
             set
             {
-                this.contentRatingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string grandparentArt
-        {
-            get
-            {
-                return this.grandparentArtField;
-            }
-            set
-            {
-                this.grandparentArtField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string grandparentKey
-        {
-            get
-            {
-                return this.grandparentKeyField;
-            }
-            set
-            {
-                this.grandparentKeyField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort grandparentRatingKey
-        {
-            get
-            {
-                return this.grandparentRatingKeyField;
-            }
-            set
-            {
-                this.grandparentRatingKeyField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool grandparentRatingKeySpecified
-        {
-            get
-            {
-                return this.grandparentRatingKeyFieldSpecified;
-            }
-            set
-            {
-                this.grandparentRatingKeyFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string grandparentThumb
-        {
-            get
-            {
-                return this.grandparentThumbField;
-            }
-            set
-            {
-                this.grandparentThumbField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string grandparentTitle
-        {
-            get
-            {
-                return this.grandparentTitleField;
-            }
-            set
-            {
-                this.grandparentTitleField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte index
-        {
-            get
-            {
-                return this.indexField;
-            }
-            set
-            {
-                this.indexField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool indexSpecified
-        {
-            get
-            {
-                return this.indexFieldSpecified;
-            }
-            set
-            {
-                this.indexFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint lastViewedAt
-        {
-            get
-            {
-                return this.lastViewedAtField;
-            }
-            set
-            {
-                this.lastViewedAtField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool lastViewedAtSpecified
-        {
-            get
-            {
-                return this.lastViewedAtFieldSpecified;
-            }
-            set
-            {
-                this.lastViewedAtFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte parentIndex
-        {
-            get
-            {
-                return this.parentIndexField;
-            }
-            set
-            {
-                this.parentIndexField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool parentIndexSpecified
-        {
-            get
-            {
-                return this.parentIndexFieldSpecified;
-            }
-            set
-            {
-                this.parentIndexFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string parentKey
-        {
-            get
-            {
-                return this.parentKeyField;
-            }
-            set
-            {
-                this.parentKeyField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort parentRatingKey
-        {
-            get
-            {
-                return this.parentRatingKeyField;
-            }
-            set
-            {
-                this.parentRatingKeyField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool parentRatingKeySpecified
-        {
-            get
-            {
-                return this.parentRatingKeyFieldSpecified;
-            }
-            set
-            {
-                this.parentRatingKeyFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string parentThumb
-        {
-            get
-            {
-                return this.parentThumbField;
-            }
-            set
-            {
-                this.parentThumbField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte viewCount
-        {
-            get
-            {
-                return this.viewCountField;
-            }
-            set
-            {
-                this.viewCountField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool viewCountSpecified
-        {
-            get
-            {
-                return this.viewCountFieldSpecified;
-            }
-            set
-            {
-                this.viewCountFieldSpecified = value;
+                this.titleSortField = value;
             }
         }
     }
@@ -700,8 +636,6 @@ namespace Remote.Plex.Api
         private byte audioChannelsField;
 
         private string audioCodecField;
-
-        private string audioProfileField;
 
         private ushort bitrateField;
 
@@ -775,20 +709,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.audioCodecField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string audioProfile
-        {
-            get
-            {
-                return this.audioProfileField;
-            }
-            set
-            {
-                this.audioProfileField = value;
             }
         }
 
@@ -940,8 +860,6 @@ namespace Remote.Plex.Api
 
         private MediaContainerVideoMediaPartStream[] streamField;
 
-        private string audioProfileField;
-
         private string containerField;
 
         private uint durationField;
@@ -952,7 +870,7 @@ namespace Remote.Plex.Api
 
         private string keyField;
 
-        private ulong sizeField;
+        private UInt64 sizeField;
 
         private string videoProfileField;
 
@@ -967,20 +885,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.streamField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string audioProfile
-        {
-            get
-            {
-                return this.audioProfileField;
-            }
-            set
-            {
-                this.audioProfileField = value;
             }
         }
 
@@ -1056,7 +960,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ulong size
+        public UInt64 size
         {
             get
             {
@@ -1090,11 +994,7 @@ namespace Remote.Plex.Api
 
         private byte bitDepthField;
 
-        private bool bitDepthFieldSpecified;
-
         private ushort bitrateField;
-
-        private bool bitrateFieldSpecified;
 
         private byte cabacField;
 
@@ -1108,11 +1008,7 @@ namespace Remote.Plex.Api
 
         private byte defaultField;
 
-        private bool defaultFieldSpecified;
-
         private uint durationField;
-
-        private bool durationFieldSpecified;
 
         private decimal frameRateField;
 
@@ -1131,8 +1027,6 @@ namespace Remote.Plex.Api
         private ushort idField;
 
         private byte indexField;
-
-        private bool indexFieldSpecified;
 
         private string languageField;
 
@@ -1166,6 +1060,10 @@ namespace Remote.Plex.Api
 
         private bool channelsFieldSpecified;
 
+        private sbyte dialogNormField;
+
+        private bool dialogNormFieldSpecified;
+
         private ushort samplingRateField;
 
         private bool samplingRateFieldSpecified;
@@ -1173,18 +1071,6 @@ namespace Remote.Plex.Api
         private byte selectedField;
 
         private bool selectedFieldSpecified;
-
-        private string formatField;
-
-        private string keyField;
-
-        private string colorRangeField;
-
-        private string colorSpaceField;
-
-        private sbyte dialogNormField;
-
-        private bool dialogNormFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1201,20 +1087,6 @@ namespace Remote.Plex.Api
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool bitDepthSpecified
-        {
-            get
-            {
-                return this.bitDepthFieldSpecified;
-            }
-            set
-            {
-                this.bitDepthFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public ushort bitrate
         {
@@ -1225,20 +1097,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.bitrateField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool bitrateSpecified
-        {
-            get
-            {
-                return this.bitrateFieldSpecified;
-            }
-            set
-            {
-                this.bitrateFieldSpecified = value;
             }
         }
 
@@ -1327,20 +1185,6 @@ namespace Remote.Plex.Api
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool defaultSpecified
-        {
-            get
-            {
-                return this.defaultFieldSpecified;
-            }
-            set
-            {
-                this.defaultFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public uint duration
         {
@@ -1351,20 +1195,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.durationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool durationSpecified
-        {
-            get
-            {
-                return this.durationFieldSpecified;
-            }
-            set
-            {
-                this.durationFieldSpecified = value;
             }
         }
 
@@ -1491,20 +1321,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.indexField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool indexSpecified
-        {
-            get
-            {
-                return this.indexFieldSpecified;
-            }
-            set
-            {
-                this.indexFieldSpecified = value;
             }
         }
 
@@ -1734,6 +1550,34 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        public sbyte dialogNorm
+        {
+            get
+            {
+                return this.dialogNormField;
+            }
+            set
+            {
+                this.dialogNormField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool dialogNormSpecified
+        {
+            get
+            {
+                return this.dialogNormFieldSpecified;
+            }
+            set
+            {
+                this.dialogNormFieldSpecified = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
         public ushort samplingRate
         {
             get
@@ -1787,88 +1631,80 @@ namespace Remote.Plex.Api
                 this.selectedFieldSpecified = value;
             }
         }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class MediaContainerVideoDirector
+    {
+
+        private ushort idField;
+
+        private string tagField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string format
+        public ushort id
         {
             get
             {
-                return this.formatField;
+                return this.idField;
             }
             set
             {
-                this.formatField = value;
+                this.idField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string key
+        public string tag
         {
             get
             {
-                return this.keyField;
+                return this.tagField;
             }
             set
             {
-                this.keyField = value;
+                this.tagField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class MediaContainerVideoWriter
+    {
+
+        private ushort idField;
+
+        private string tagField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public ushort id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
             }
         }
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string colorRange
+        public string tag
         {
             get
             {
-                return this.colorRangeField;
+                return this.tagField;
             }
             set
             {
-                this.colorRangeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string colorSpace
-        {
-            get
-            {
-                return this.colorSpaceField;
-            }
-            set
-            {
-                this.colorSpaceField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public sbyte dialogNorm
-        {
-            get
-            {
-                return this.dialogNormField;
-            }
-            set
-            {
-                this.dialogNormField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool dialogNormSpecified
-        {
-            get
-            {
-                return this.dialogNormFieldSpecified;
-            }
-            set
-            {
-                this.dialogNormFieldSpecified = value;
+                this.tagField = value;
             }
         }
     }
@@ -1879,8 +1715,6 @@ namespace Remote.Plex.Api
     {
 
         private byte idField;
-
-        private bool idFieldSpecified;
 
         private string thumbField;
 
@@ -1897,20 +1731,6 @@ namespace Remote.Plex.Api
             set
             {
                 this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idSpecified
-        {
-            get
-            {
-                return this.idFieldSpecified;
-            }
-            set
-            {
-                this.idFieldSpecified = value;
             }
         }
 
@@ -2141,283 +1961,6 @@ namespace Remote.Plex.Api
         }
     }
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class MediaContainerVideoTranscodeSession
-    {
-
-        private string keyField;
-
-        private byte throttledField;
-
-        private byte completeField;
-
-        private decimal progressField;
-
-        private byte speedField;
-
-        private uint durationField;
-
-        private ushort remainingField;
-
-        private string contextField;
-
-        private string videoDecisionField;
-
-        private string audioDecisionField;
-
-        private string protocolField;
-
-        private string containerField;
-
-        private string videoCodecField;
-
-        private string audioCodecField;
-
-        private byte audioChannelsField;
-
-        private ushort widthField;
-
-        private ushort heightField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string key
-        {
-            get
-            {
-                return this.keyField;
-            }
-            set
-            {
-                this.keyField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte throttled
-        {
-            get
-            {
-                return this.throttledField;
-            }
-            set
-            {
-                this.throttledField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte complete
-        {
-            get
-            {
-                return this.completeField;
-            }
-            set
-            {
-                this.completeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal progress
-        {
-            get
-            {
-                return this.progressField;
-            }
-            set
-            {
-                this.progressField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte speed
-        {
-            get
-            {
-                return this.speedField;
-            }
-            set
-            {
-                this.speedField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
-        {
-            get
-            {
-                return this.durationField;
-            }
-            set
-            {
-                this.durationField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort remaining
-        {
-            get
-            {
-                return this.remainingField;
-            }
-            set
-            {
-                this.remainingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string context
-        {
-            get
-            {
-                return this.contextField;
-            }
-            set
-            {
-                this.contextField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string videoDecision
-        {
-            get
-            {
-                return this.videoDecisionField;
-            }
-            set
-            {
-                this.videoDecisionField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string audioDecision
-        {
-            get
-            {
-                return this.audioDecisionField;
-            }
-            set
-            {
-                this.audioDecisionField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string protocol
-        {
-            get
-            {
-                return this.protocolField;
-            }
-            set
-            {
-                this.protocolField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string container
-        {
-            get
-            {
-                return this.containerField;
-            }
-            set
-            {
-                this.containerField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string videoCodec
-        {
-            get
-            {
-                return this.videoCodecField;
-            }
-            set
-            {
-                this.videoCodecField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string audioCodec
-        {
-            get
-            {
-                return this.audioCodecField;
-            }
-            set
-            {
-                this.audioCodecField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte audioChannels
-        {
-            get
-            {
-                return this.audioChannelsField;
-            }
-            set
-            {
-                this.audioChannelsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort width
-        {
-            get
-            {
-                return this.widthField;
-            }
-            set
-            {
-                this.widthField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort height
-        {
-            get
-            {
-                return this.heightField;
-            }
-            set
-            {
-                this.heightField = value;
-            }
-        }
-    }
 
 
 
