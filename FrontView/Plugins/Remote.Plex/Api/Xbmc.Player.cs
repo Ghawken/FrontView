@@ -323,12 +323,12 @@ namespace Remote.Plex.Api
                             System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
                         
-                                                     
+                                                                                 
 
                             XmlSerializer serializer = new XmlSerializer(typeof(MediaContainer));
                             MediaContainer deserialized = (MediaContainer)serializer.Deserialize(reader);
 
-                             _parent.Log("status/sessions: " + reader.ReadToEnd().ToString());
+                            _parent.Log("status/sessions: " + reader.ReadToEnd().ToString()); 
                            
                             var length = deserialized.size;
                             _parent.Log("Number of playing Videos: " + length);
@@ -365,16 +365,23 @@ namespace Remote.Plex.Api
                                     _parent.Log("Plex: Fanart URL sorting Out:  " + _parent.IP + ":" + _parent.ServerPort + server.art);
                                     //Console.WriteLine("Grandparent art is {0} and Players is {1}", server.grandparentArt, server.Player);
 
-                                    _parent.Log("Plex:NP NowPlaying.title:" + server.title);
+                                    
 
-                                    _nowPlaying.Title = server.title;
+                                    _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "Blank" : server.title;
+
+                                    _parent.Log("Plex:NP NowPlaying.title:" + _nowPlaying.Title);
+
+
                                     //    Console.WriteLine("" + server.art);
                                     //    Console.WriteLine("" + server.chapterSource);
                                     //_nowPlaying.Director = server.Director.tag;
                                     //     Console.WriteLine("" + server.duration);
                                     //    Console.WriteLine("" + server.grandparentArt);
-                                    _parent.Log("Plex:NP NowPlaying.Showtitle:" + server.grandparentTitle);
-                                    _nowPlaying.ShowTitle = server.grandparentTitle;
+
+                                    
+                                    _nowPlaying.ShowTitle = String.IsNullOrEmpty(server.grandparentTitle) ? "Blank" : server.grandparentTitle;
+                                    _parent.Log("Plex:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
+
                                     //     Console.WriteLine("" + server.grandparentThumb);
                                     /*     Console.WriteLine("" + server.guid);
                                          Console.WriteLine("" + server.index);
@@ -386,27 +393,38 @@ namespace Remote.Plex.Api
                                    // */
                                     //     Console.WriteLine("Player Product: " + server.Player.product);
 
-                                    _parent.Log("Plex:NP NowPlaying.Plot:" + server.summary);
+                                    
 
-                                    _nowPlaying.Plot = server.summary;
+                                    _nowPlaying.Plot = String.IsNullOrEmpty(server.summary) ? "" : server.summary;
+                                    _parent.Log("Plex:NP NowPlaying.Plot:" + _nowPlaying.Plot);
 
                                     _parent.Log("Plex:NP NowPlaying.ThumbURL:" + @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb);
 
+
                                     _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
 
-                                    _parent.Log("Plex:NP NowPlaying.FileName:" + server.Media.Part.file);
 
-                                    _nowPlaying.FileName = server.Media.Part.file;
+                                    
 
-                                    _parent.Log("Plex:NP NowPlaying.Title:" + server.title);
+                                    _nowPlaying.FileName =String.IsNullOrEmpty(server.Media.Part.file) ? "NotGiven" : server.Media.Part.file;
+                                    _parent.Log("Plex:NP NowPlaying.FileName:" +_nowPlaying.FileName);
 
-                                    _nowPlaying.Title = server.title;
+
+                                    
+
+                                    _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "" : server.title;
+                                     _parent.Log("Plex:NP NowPlaying.Title:" + _nowPlaying.Title);
+
+
 
                                     _nowPlaying.MediaType = server.type == "episode" ? "TvShow" : "Movie";
 
                                     _parent.Log("Plex:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
-                                    _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(server.Media.duration));
+                                    if (server.Media.duration > 0)
+                                    {
+                                        _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(server.Media.duration));
+                                    }
 
                                     _parent.Log("Plex:NP server.Media.Duration:" + server.Media.duration +":  _nowPlaying.Duration (calculated) :"+_nowPlaying.Duration);
 

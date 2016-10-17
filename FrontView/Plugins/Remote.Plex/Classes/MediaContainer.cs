@@ -653,7 +653,7 @@ namespace Remote.Plex.Api
 
         private string videoProfileField;
 
-        private ushort videoResolutionField;
+        private string videoResolutionField;
 
         private ushort widthField;
 
@@ -826,7 +826,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort videoResolution
+        public string videoResolution
         {
             get
             {
