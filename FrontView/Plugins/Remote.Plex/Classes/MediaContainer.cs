@@ -75,7 +75,7 @@ namespace Remote.Plex.Api
 
         private string grandparentKeyField;
 
-        private ushort grandparentRatingKeyField;
+        private uint grandparentRatingKeyField;
 
         private string grandparentThumbField;
 
@@ -99,11 +99,11 @@ namespace Remote.Plex.Api
 
         private string parentKeyField;
 
-        private ushort parentRatingKeyField;
+        private uint parentRatingKeyField;
 
         private string parentThumbField;
 
-        private ushort ratingKeyField;
+        private uint ratingKeyField;
 
         private byte sessionKeyField;
 
@@ -119,7 +119,7 @@ namespace Remote.Plex.Api
 
         private uint viewOffsetField;
 
-        private ushort yearField;
+        private uint yearField;
 
         private string titleSortField;
 
@@ -289,7 +289,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort grandparentRatingKey
+        public uint grandparentRatingKey
         {
             get
             {
@@ -457,7 +457,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort parentRatingKey
+        public uint parentRatingKey
         {
             get
             {
@@ -485,7 +485,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort ratingKey
+        public uint ratingKey
         {
             get
             {
@@ -597,7 +597,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort year
+        public uint year
         {
             get
             {
@@ -645,7 +645,7 @@ namespace Remote.Plex.Api
 
         private ushort heightField;
 
-        private ushort idField;
+        private uint idField;
 
         private string videoCodecField;
 
@@ -770,7 +770,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        public uint id
         {
             get
             {
@@ -866,7 +866,7 @@ namespace Remote.Plex.Api
 
         private string fileField;
 
-        private ushort idField;
+        private uint idField;
 
         private string keyField;
 
@@ -932,7 +932,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        public uint id
         {
             get
             {
@@ -1024,7 +1024,7 @@ namespace Remote.Plex.Api
 
         private bool heightFieldSpecified;
 
-        private ushort idField;
+        private uint idField;
 
         private byte indexField;
 
@@ -1064,7 +1064,7 @@ namespace Remote.Plex.Api
 
         private bool dialogNormFieldSpecified;
 
-        private ushort samplingRateField;
+        private uint samplingRateField;
 
         private bool samplingRateFieldSpecified;
 
@@ -1298,7 +1298,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        public uint id
         {
             get
             {
@@ -1578,7 +1578,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort samplingRate
+        public uint samplingRate
         {
             get
             {
@@ -1638,13 +1638,13 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoDirector
     {
 
-        private ushort idField;
+        private uint idField;
 
         private string tagField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        public uint id
         {
             get
             {
@@ -1676,13 +1676,13 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoWriter
     {
 
-        private ushort idField;
+        private uint idField;
 
         private string tagField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        public uint id
         {
             get
             {
