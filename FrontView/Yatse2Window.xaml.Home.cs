@@ -406,14 +406,26 @@ namespace FrontView
 
         private void btn_Home_Reboot_Click(object sender, RoutedEventArgs e)
         {
-            Logger.Instance().Log("FrontView+", "Reboot", true);
-            Process.Start("shutdown.exe", "-r -t 01");
+            //Close running Remote Program.
+
+            var selitem = (Yatse2Remote)lst_Remotes.SelectedItem;
+                if (selitem == null) return;
+
+                var remote = ApiHelper.Instance().GetRemoteByApi(selitem.Api);
+                remote.Configure(selitem.IP, selitem.Port, selitem.Login, selitem.Password);
+                remote.SystemRunning.Quit();
+                remote.Close(); 
+            
+          //  Logger.Instance().Log("FrontView+", "Reboot", true);
+          //  Process.Start("shutdown.exe", "-r -t 01");
         }
 
         private void btn_Home_Hibernate_Click(object sender, RoutedEventArgs e)
         {
-            Logger.Instance().Log("FrontView+", "Hibernate", true);
-            Process.Start("shutdown.exe", "-h -t 01");
+              Logger.Instance().Log("FrontView+", "Reboot", true);
+              Process.Start("shutdown.exe", "-s -t 01");
+
+
         }
 
         private void btn_Home_Diaporama_Click(object sender, RoutedEventArgs e)

@@ -19,3 +19,4 @@ C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\Syst
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\System\Setup.pdb
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Setup\obj\Debug\Setup.dll
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Setup\obj\Debug\Setup.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Setup\obj\Debug\Setup.csprojResolveAssemblyReference.cache

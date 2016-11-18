@@ -371,7 +371,7 @@
                             <Button x:Name="btn_Home_Reboot" Width="60" Content="" Height="60" Style="{DynamicResource Remote_Button}" Cursor="Hand" Click="btn_Home_Reboot_Click"
         					Background="{Binding Skin, ConverterParameter=Menu_Reboot, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="476" Canvas.Top="180" d:IsHidden="True"/>
                             <Button x:Name="btn_Home_Hibernate" Width="60" Content="Button" Height="60" Style="{DynamicResource Remote_Button}" Cursor="Hand" Click="btn_Home_Hibernate_Click"
-        					Background="{Binding Skin, ConverterParameter=Menu_Hibernate, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="65" Canvas.Top="180" d:IsHidden="True"/>
+        					Background="{Binding Skin, ConverterParameter=Menu_Quit, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="65" Canvas.Top="180" d:IsHidden="True"/>
                             <Button x:Name="btn_Home_Close" Width="60" Content="" Height="60" Style="{DynamicResource Remote_Button}" Cursor="Hand" Click="btn_Home_Close_Click"
         					Background="{Binding Skin, ConverterParameter=Menu_Close, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="264" Canvas.Top="180" d:IsHidden="True" />
                         </Canvas>

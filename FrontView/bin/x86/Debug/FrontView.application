@@ -7,14 +7,14 @@
     <framework targetVersion="4.5.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="FrontView.exe.manifest" size="8695">
+    <dependentAssembly dependencyType="install" codebase="FrontView.exe.manifest" size="8693">
       <assemblyIdentity name="FrontView.exe" version="3.1.10.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UwJWz494PaeA5TqVvrjdh/Ok6PtACzLQoD8G07W+GuM=</dsig:DigestValue>
+        <dsig:DigestValue>fvAS+ZiAEYknDD4PIFSQ95QgY970xAFa6eygwzW1QRY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
