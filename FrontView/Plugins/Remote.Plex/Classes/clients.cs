@@ -16,7 +16,7 @@ namespace Remote.Plex.Api.Clients
 
         private MediaContainerServer[] serverField;
 
-        private byte sizeField;
+        private int sizeField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Server")]
@@ -34,7 +34,7 @@ namespace Remote.Plex.Api.Clients
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte size
+        public int size
         {
             get
             {
@@ -70,7 +70,7 @@ namespace Remote.Plex.Api.Clients
 
         private string deviceClassField;
 
-        private byte protocolVersionField;
+        private int protocolVersionField;
 
         private string protocolCapabilitiesField;
 
@@ -202,7 +202,7 @@ namespace Remote.Plex.Api.Clients
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte protocolVersion
+        public int protocolVersion
         {
             get
             {
