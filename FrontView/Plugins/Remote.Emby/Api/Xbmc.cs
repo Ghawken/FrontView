@@ -149,21 +149,21 @@ namespace Remote.Emby.Api
                 request.Method = "get";
                 request.Timeout = 5000;
           //      request.ContentType = "application/json; charset=utf-8";
-                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+         //       request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
                 request.Host = IP + ":" + Port;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
-                request.Connection = "Keep-alive";
+               // request.Connection = "Keep-alive";
                 
 
                 var values = new NameValueCollection();
                // values["Authorization"] = "Basic " + auth;
-                values["X-Plex-Client-Identifier"] = "FrontView+";
-                values["X-Plex-Product"] = "FrontView+";
-                values["X-Plex-Version"] = "1.181";
+         //       values["X-Plex-Client-Identifier"] = "FrontView+";
+       //         values["X-Plex-Product"] = "FrontView+";
+       //         values["X-Plex-Version"] = "1.181";
                 values["Origin"] = IP + ":" + Port;
-                values["X-Plex-Username"] = UserName;
-                values["Accept-Encoding"] = "gzip, deflate, sdch";
-                values["Accept-Language"] = "en-US,en;q=0.8";
+          //      values["X-Plex-Username"] = UserName;
+       //         values["Accept-Encoding"] = "gzip, deflate, sdch";
+      //          values["Accept-Language"] = "en-US,en;q=0.8";
                 values["Upgrade-Insecure-Requests"] = "1";
                 request.Headers.Add(values);
 
@@ -726,7 +726,7 @@ namespace Remote.Emby.Api
                 request.Headers.Add("X-Emby-Authorization", authString);
                 request.ContentType = "application/json; charset=utf-8";
                 request.ContentLength = postArg.Length;
-                request.Accept = "application/xml";
+          //      request.Accept = "application/xml";
 
                 var response3 = request.GetRequestStream();
                 response3.Write(data, 0, data.Length);
@@ -749,32 +749,36 @@ namespace Remote.Emby.Api
                     System.IO.Stream dataStream = response.GetResponseStream();
                     // Open the stream using a StreamReader.
                     System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+//Delete these two
+                    string json = reader.ReadToEnd();
+                    Log("--------------GETTING Authenication ID JSON------" + json);
 
-                    //string json = reader.ReadToEnd();
-                    //Log("--------------GETTING Authenication ID JSON------" + json);
+                    var deserializer = new JavaScriptSerializer();
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(AuthenicateByUser.Root.AuthenticationResult));
+                    var results = deserializer.Deserialize<AuthenicateByUser.Root.AuthenticationResult>(json);
+
+                //    XmlSerializer serializer = new XmlSerializer(typeof(AuthenicateByUser.Root.AuthenticationResult));
 
 
-                    AuthenicateByUser.Root.AuthenticationResult deserialized = (AuthenicateByUser.Root.AuthenticationResult)serializer.Deserialize(reader);
+//                    AuthenicateByUser.Root.AuthenticationResult deserialized = (AuthenicateByUser.Root.AuthenticationResult)serializer.Deserialize(reader);
 
-                    Log("-------------- EMBY Access Token:" + deserialized.AccessToken);
+                    Log("-------------- EMBY Access Token:" + results.AccessToken);
                     Log("-------------- EMBY User ID: " + CurrentUserID);
                    // Log("-------------- EMBY Supports Remote Control: " + deserialized.SessionInfo.SupportsRemoteControl);
-                    Log("-------------- EMBY Sessions ID: " + deserialized.SessionInfo.Id);
+                    Log("-------------- EMBY Sessions ID: " + results.SessionInfo.Id);
 
 
-                    if (!String.IsNullOrEmpty(deserialized.AccessToken))
+                    if (!String.IsNullOrEmpty(results.AccessToken))
                     {
-                        Log("------------------ EMBY ACCESS TOKEN FOUND:" + deserialized.AccessToken);
-                        Log("------------------- Emby Sessions ID Set:" + deserialized.SessionInfo.Id);
+                        Log("------------------ EMBY ACCESS TOKEN FOUND:" + results.AccessToken);
+                        Log("------------------- Emby Sessions ID Set:" + results.SessionInfo.Id);
                         //Log("------------------- Emby Client Supports Remote:" + deserialized.SessionInfo.SupportsRemoteControl);
-                        Globals.EmbyAuthToken = deserialized.AccessToken;
-                        Globals.SessionID = deserialized.SessionInfo.Id;
+                        Globals.EmbyAuthToken = results.AccessToken;
+                        Globals.SessionID = results.SessionInfo.Id;
                         _isConnected = true;
                         MpcLoaded = true;
                      //   Globals.ClientSupportsRemoteControl = deserialized.SessionInfo.SupportsRemoteControl;
-                        return deserialized.AccessToken ;
+                        return results.AccessToken ;
                     }
                 }
 
