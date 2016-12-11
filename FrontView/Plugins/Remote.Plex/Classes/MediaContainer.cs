@@ -1060,7 +1060,7 @@ namespace Remote.Plex.Api
 
         private bool channelsFieldSpecified;
 
-        private sbyte dialogNormField;
+        private int dialogNormField;
 
         private bool dialogNormFieldSpecified;
 
@@ -1550,7 +1550,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public sbyte dialogNorm
+        public int dialogNorm
         {
             get
             {

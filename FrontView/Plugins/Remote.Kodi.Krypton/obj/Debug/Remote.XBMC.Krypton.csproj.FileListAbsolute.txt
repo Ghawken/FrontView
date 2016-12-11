@@ -13,3 +13,8 @@ C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\Plug
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.dll
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.pdb
+C:\Users\ghawken\Source\Repos\FrontView3\FrontView\bin\x86\Debug\Plugins\Remote.XBMC.Krypton.dll
+C:\Users\ghawken\Source\Repos\FrontView3\FrontView\bin\x86\Debug\Plugins\Remote.XBMC.Krypton.pdb
+C:\Users\ghawken\Source\Repos\FrontView3\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.csprojResolveAssemblyReference.cache
+C:\Users\ghawken\Source\Repos\FrontView3\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.dll
+C:\Users\ghawken\Source\Repos\FrontView3\FrontView\Plugins\Remote.Kodi.Krypton\obj\Debug\Remote.XBMC.Krypton.pdb
