@@ -808,6 +808,7 @@ namespace FrontView
                 if (!_config.DisableResolutionDetection && !_config.MinimiseAlways)
                 {
                     Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Change_Display_Settings;
+                    Microsoft.Win32.SystemEvents.PowerModeChanged += OnPowerModeChange;
                 }
                 
                 Change_Display_Settings(null, null);
@@ -870,7 +871,13 @@ namespace FrontView
         //load Kodi Source xml and populate values to be checked against
         //working
 
-
+        private void OnPowerModeChange(object s, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            if (e.Mode== Microsoft.Win32.PowerModes.Resume)
+            {
+                Change_Display_Settings(null, null);
+            }
+        }
 
         public void CheckSilentUpdate()
         {
@@ -1467,6 +1474,8 @@ namespace FrontView
 
            // Change to kodiMusic.Source Usage
            //var ArtistExtrafanart = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
+
+
             Logger.Instance().LogDump("MUSIC", "Fanart File Artist Name:  " + nowPlaying2.Artist, true);
             Logger.Instance().LogDump("MUSIC", "Fanart File   " + ArtistExtrafanart, true);
             _config.FanartDirectory = ArtistExtrafanart;

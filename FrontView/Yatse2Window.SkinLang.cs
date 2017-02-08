@@ -182,11 +182,13 @@ namespace FrontView
                     ex is NullReferenceException)
                 {
                     Logger.Instance().Log("FrontView+", "GetRandomImagePath : no images in " + path);
-                    if (File.Exists(Helper.SkinPath + _config.Skin + @"\Interface\Default_Diaporama.png"))
-                        return Helper.SkinPath + _config.Skin + @"\Interface\Default_Diaporama.png";
-
-                    Logger.Instance().Log("FrontView+", @"Missing skin image : \Interface\Default_Diaporama.png", true);
-                    return null;
+                    if (File.Exists(Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png")))
+                    {
+             
+                        return Helper.SkinorDefault(Helper.SkinPath , _config.Skin, @"\Interface\Default_Diaporama.png");
+                    }
+                    Logger.Instance().Log("FrontView+", @"Missing skin image :"+ Helper.SkinPath + _config.Skin + @"\Interface\Default_Diaporama.png", true);
+                    return "";
                 }
                 throw;
             }

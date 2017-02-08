@@ -305,9 +305,12 @@ namespace FrontView
                     Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart equals:" + _yatse2Properties.Currently.Fanart, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "Config GetMusicFanartPath equals:" + GetMusicFanartPath(nowPlaying.FanartURL), true);
 
+                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Artist Equals:" + nowPlaying.Artist + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicArtist, true);
+                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Album quals:" + nowPlaying.Album + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicAlbum, true);
+                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Song Equals:" + nowPlaying.Title + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicSong, true);
 
-                   var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\"; 
-                   
+                    var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\"; 
+              
                    foreach (var musicsource in KodiSourceData.KodiMusicSources)
                    {
                             if (musicsource != null)
@@ -324,13 +327,13 @@ namespace FrontView
                         
                     
                     }
-
-                    //var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
+                    
+                     //var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
                     Logger.Instance().LogDump("UpdateAUDIO", "testfanart equals:" + testaudiofanart, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + GetRandomImagePath(testaudiofanart), true);
 
-
-                    if (!_config.MusicFanartRotation && GetRandomImagePath(testaudiofanart)!=null)
+                    
+                    if (!_config.MusicFanartRotation && GetRandomImagePath(testaudiofanart) != Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png"))
                     {
                         Logger.Instance().LogDump("UpdateAUDIO", "Currently.Fanart set to testaudiofanart:" , true);
                         var FanartPathFilename = GetRandomImagePath(testaudiofanart);
@@ -345,11 +348,11 @@ namespace FrontView
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is locked/using Default", true);
                             _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
-                        }
-
-                        
-                        
+                        }                     
+                  
                     }
+
+   
                        
 
                     Logger.Instance().LogDump("UpdateAUDIO", "nowPlaying FanartURL:" + nowPlaying.FanartURL, true);

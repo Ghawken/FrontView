@@ -288,8 +288,25 @@ namespace Remote.XBMC.Krypton.Api
                         _nowPlaying.MediaType = "Audio";
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
                         _nowPlaying.Title = result2["label"].ToString();
-                        _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
-                        _nowPlaying.Track = Convert.ToInt32("0" + result2["track"]);
+
+                        if (_nowPlaying.Track > 0)
+                        {
+                            _nowPlaying.Track = Convert.ToInt32("0" + result2["track"]);
+                        }
+                        else
+                        {
+                            _nowPlaying.Track = 0;
+                        }
+
+                        if (_nowPlaying.Year > 0)
+                        {
+                            _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
+                        }
+                        else
+                        {
+                            _nowPlaying.Year = 0;
+                        }
+
                         _nowPlaying.Artist = _parent.JsonArrayToString((JsonArray)result2["artist"]);
                         _nowPlaying.Album = result2["album"].ToString();
                         _nowPlaying.ThumbURL = result2["thumbnail"].ToString();

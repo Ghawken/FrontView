@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+1.205
+Add ChangeDisplaySettings checking after Resume
+Fixes for MusicFanart (better checks for empty fields)
+Possible fix for Google Music Fanart
+
 Version 1.200
 Fix for Save Settings if Blank Items.
 Fixes for DDC when slow to prove connection possible.
