@@ -2355,7 +2355,7 @@ namespace FrontView
                     }
                 }
                
-                //screens = System.Windows.Forms.Screen.AllScreens;
+                screens = System.Windows.Forms.Screen.AllScreens;
 
                 
 
