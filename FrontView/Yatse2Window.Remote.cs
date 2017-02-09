@@ -332,8 +332,8 @@ namespace FrontView
                     Logger.Instance().LogDump("UpdateAUDIO", "testfanart equals:" + testaudiofanart, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + GetRandomImagePath(testaudiofanart), true);
 
-                    
-                    if (!_config.MusicFanartRotation && GetRandomImagePath(testaudiofanart) != Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png"))
+// check for extrafanart -- if no images found will not run and default should apply
+                    if (!_config.MusicFanartRotation && GetRandomImagePath(testaudiofanart) != Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png") )
                     {
                         Logger.Instance().LogDump("UpdateAUDIO", "Currently.Fanart set to testaudiofanart:" , true);
                         var FanartPathFilename = GetRandomImagePath(testaudiofanart);
@@ -379,6 +379,7 @@ namespace FrontView
                             Logger.Instance().LogDump("Thumb Exception", "Thumbnail Exception Caught" +ex, true); 
                     }
                    
+
                     //Change Thumb if using Google play - recognise googleusercontent in string
                     
                     try
@@ -388,18 +389,25 @@ namespace FrontView
                         if (pathfilename.Contains("googleusercontent"))
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Update to Skin Thumb", true);
-                            
-                            if (File.Exists(Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png")))
+                            if (_yatse2Properties.Currently.Thumb == Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Music-Thumbs.png"))
                             {
-                                _yatse2Properties.Currently.Thumb = Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png");
-                                Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Changing to Google Thumb" + _yatse2Properties.Currently.Thumb, true);
+                                 if (File.Exists(Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png")) )
+                                {
+                                    _yatse2Properties.Currently.Thumb = Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png");
+                                    Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Changing to Google Thumb" + _yatse2Properties.Currently.Thumb, true);
+                                }
                             }
                         }
+
+
                     }
                     catch (Exception ex)
                     {
                         Logger.Instance().LogDump("Thumb Exception", "Thumbnail Exception Caught" + ex, true);
                     }
+
+
+
 
                     var songinfo = _database.GetAudioSongFromFile(_remoteInfo.Id, nowPlaying.FileName);
                     if (songinfo.Count > 0)
