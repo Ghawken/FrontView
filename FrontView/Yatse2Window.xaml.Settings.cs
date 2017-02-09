@@ -307,14 +307,14 @@ namespace FrontView
             else
                 Logger.Instance().Log("FrontView+", "Detected screen resolutions : " + modes.Length);
 
-            Logger.Instance().TraceDump("Yatse2", modes);
+            Logger.Instance().TraceDump("FrontView+", modes);
 
             lst_Settings_Resolution.Items.Clear();
 
             foreach (var mode in modes.Where(mode => mode.DMBitsPerPel >= _config.MinDMBitsPerPel && mode.DMPelsWidth >= _config.MinDMPelsWidth))
             {
                 var index = lst_Settings_Resolution.Items.Add(new ScreenRes(mode));
-                Logger.Instance().Trace("Yatse2", "Detected resolution : " + lst_Settings_Resolution.Items[index]);
+                Logger.Instance().Trace("FrontView+", "Detected resolution : " + lst_Settings_Resolution.Items[index]);
                 if (mode == _config.Resolution)
                 {
                     lst_Settings_Resolution.SelectedIndex = index;

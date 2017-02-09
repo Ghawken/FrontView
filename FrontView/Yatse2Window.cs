@@ -2374,9 +2374,13 @@ namespace FrontView
                     {
                         Top = scr.WorkingArea.Top;
                         Left = scr.WorkingArea.Left;
-
-                        Logger.Instance().LogDump("Screen Selected Device Name", scr.DeviceName);
-                        Logger.Instance().LogDump("Screen Selected Details", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Top:", scr.WorkingArea.Top);
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Left:", scr.WorkingArea.Left);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Top:", scr.Bounds.Top);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Left:", scr.Bounds.Left);
+                        Logger.Instance().LogDump("Screen Selection:  _config.SelectedDisplay:", _config.SelectedDisplay);
+                        Logger.Instance().LogDump("Screen Selected Device Name:", scr.DeviceName);
+                        Logger.Instance().LogDump("Screen Selected Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
 
                         break;
                     }
