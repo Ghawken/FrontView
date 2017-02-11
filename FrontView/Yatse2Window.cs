@@ -1451,29 +1451,42 @@ namespace FrontView
             }
 
 
+            /**
+                        var ArtistExtrafanart = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
 
-            var ArtistExtrafanart = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
+                        foreach (var musicsource in KodiSourceData.KodiMusicSources)
+                        {
+                            if (musicsource != null)
+                            {
+                                var testaudiofanartcheck = musicsource + nowPlaying2.Artist + @"\extrafanart\";
+                                Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
+                                if (System.IO.Directory.Exists(testaudiofanartcheck))
+                                {
+                                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                                    ArtistExtrafanart = testaudiofanartcheck;
+                                    break;
+                                }
+                            }
 
-            foreach (var musicsource in KodiSourceData.KodiMusicSources)
+
+                        }
+               **/
+
+            // Change to checking first Kodi Audio source for extrafanart artist fanart - rather than all which time consuming
+            var ArtistExtrafanart = "";
+            if (KodiSourceData.KodiMusicSources[0] != null || KodiSourceData.KodiMusicSources[0] != "")
             {
-                if (musicsource != null)
+                var testaudiofanartcheck = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
+                Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
+                if (System.IO.Directory.Exists(testaudiofanartcheck))
                 {
-                    var testaudiofanartcheck = musicsource + nowPlaying2.Artist + @"\extrafanart\";
-                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
-                    if (System.IO.Directory.Exists(testaudiofanartcheck))
-                    {
-                        Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
-                        ArtistExtrafanart = testaudiofanartcheck;
-                        break;
-                    }
+                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                    ArtistExtrafanart = testaudiofanartcheck;
                 }
-
-
             }
-            
 
-           // Change to kodiMusic.Source Usage
-           //var ArtistExtrafanart = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
+            // Change to kodiMusic.Source Usage
+            //var ArtistExtrafanart = KodiSourceData.KodiMusicSources[0] + nowPlaying2.Artist + @"\extrafanart\";
 
 
             Logger.Instance().LogDump("MUSIC", "Fanart File Artist Name:  " + nowPlaying2.Artist, true);
@@ -1899,13 +1912,13 @@ namespace FrontView
                StartFanart();
                Logger.Instance().LogDump("AUDIO", "nowPlaying playing Audio Starting fanart " + nowPlaying.MediaType, true);
            }
-
+           /**
            if (nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && nowPlaying.FileName.Contains("googleusercontent")&& (_yatse2Properties.Currently.Fanart == Helper.SkinorDefault(Helper.SkinPath,  _config.Skin,  @"\Interface\Default_Diaporama.png")) && (_timer % _config.FanartTimer) == 0)
            {
                Logger.Instance().LogDump("GOOGLEPLAY", "Playing, Media type is AUdio, googlesusercontent filename, Currently Fanart equals" + _yatse2Properties.Currently.Fanart, true);
                UpdateCurrently(nowPlaying);
            }
-            
+            **/
           if (nowPlaying.IsMuted)
           {
                     if (grd_Dimming.Visibility == Visibility.Visible)

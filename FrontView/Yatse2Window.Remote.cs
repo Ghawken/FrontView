@@ -292,6 +292,9 @@ namespace FrontView
                     Logger.Instance().Log("FrontView+", "New Music Media : " + nowPlaying.FileName);
                     bool DefaultThumb = false;
                     bool usingExtrafanart = false;
+                    // Add below to reset Thumb and Fanart when new file starts
+                    _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
+                    _yatse2Properties.Currently.Thumb =  Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Music-Thumbs.png");
                     _yatse2Properties.Currently.IsMusic = true;
                     _yatse2Properties.Currently.MusicAlbum = nowPlaying.Album;
                     _yatse2Properties.Currently.MusicSong = nowPlaying.Title;
@@ -385,20 +388,23 @@ namespace FrontView
 
 
                     var NowPlayingFile = SortOutPath(nowPlaying.FileName);
-                    try
+
+                    if (!NowPlayingFile.Contains("googleusercontent"))
                     {
+                        try
+                        {
                             var pathfilename = Path.GetDirectoryName(NowPlayingFile);
-                            Logger.Instance().LogDump("UpdateAUDIO", "Thumbnail:  Nowplaying Get DirectoryName" +pathfilename, true);
-                            if (File.Exists(pathfilename+@"\cdart.png"))
+                            Logger.Instance().LogDump("UpdateAUDIO", "Thumbnail:  Nowplaying Get DirectoryName" + pathfilename, true);
+                            if (File.Exists(pathfilename + @"\cdart.png"))
                             {
-                                _yatse2Properties.Currently.Thumb = pathfilename+@"\cdart.png";
+                                _yatse2Properties.Currently.Thumb = pathfilename + @"\cdart.png";
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Instance().LogDump("Thumb Exception", "Thumbnail Exception Caught" + ex, true);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                            Logger.Instance().LogDump("Thumb Exception", "Thumbnail Exception Caught" +ex, true); 
-                    }
-                   
 
                     //Change Thumb if using Google play - recognise googleusercontent in string
                     
@@ -439,10 +445,12 @@ namespace FrontView
                             _yatse2Properties.Currently.Fanart = artistinfo.Count > 0 ? GetMusicFanartPath(artistinfo[0].Fanart) : "";
                         Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart equals:" + _yatse2Properties.Currently.Fanart, true);
                     }
+
                     AudioStarting();
 
                     break;
-                
+
+
                 case "TvShow":
                     Logger.Instance().Log("FrontView+", "New TvShow Media : " + nowPlaying.FileName);
                     _yatse2Properties.Currently.IsTv = true;
