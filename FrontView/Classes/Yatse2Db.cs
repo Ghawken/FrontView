@@ -1131,7 +1131,7 @@ namespace FrontView.Classes
                    
                     };
                     tvShows.Add(movie);
-                    Log("SQL DATA::: Title:" + GetString(sqldReader, "Title") + "ID" + GetLong(sqldReader, "IdShow") + "Premiere:"+ GetString(sqldReader, "Premiered") +"Date: "+GetString(sqldReader, "Date"));
+                    //Log("SQL DATA::: Title:" + GetString(sqldReader, "Title") + "ID" + GetLong(sqldReader, "IdShow") + "Premiere:"+ GetString(sqldReader, "Premiered") +"Date: "+GetString(sqldReader, "Date"));
                 }
                 sqldReader.Dispose();
                 query.Dispose();

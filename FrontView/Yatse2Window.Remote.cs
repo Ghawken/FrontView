@@ -290,6 +290,8 @@ namespace FrontView
             {
                 case "Audio":
                     Logger.Instance().Log("FrontView+", "New Music Media : " + nowPlaying.FileName);
+                    bool DefaultThumb = false;
+                    bool usingExtrafanart = false;
                     _yatse2Properties.Currently.IsMusic = true;
                     _yatse2Properties.Currently.MusicAlbum = nowPlaying.Album;
                     _yatse2Properties.Currently.MusicSong = nowPlaying.Title;
@@ -309,8 +311,22 @@ namespace FrontView
                     Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Album quals:" + nowPlaying.Album + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicAlbum, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Song Equals:" + nowPlaying.Title + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicSong, true);
 
-                    var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\"; 
-              
+                    var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
+
+                    // Change to checking first Kodi Audio source for extrafanart artist fanart - rather than all which time consuming
+
+                    if (KodiSourceData.KodiMusicSources[0] != null || KodiSourceData.KodiMusicSources[0] != "")
+                    {
+                        var testaudiofanartcheck = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
+                        Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
+                        if (System.IO.Directory.Exists(testaudiofanartcheck))
+                        {
+                            Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                            testaudiofanart = testaudiofanartcheck;
+                        }
+                    }
+
+/**
                    foreach (var musicsource in KodiSourceData.KodiMusicSources)
                    {
                             if (musicsource != null)
@@ -324,30 +340,34 @@ namespace FrontView
                                  break;
                                 }
                             }    
-                        
+                       
                     
                     }
-                    
+**/
+                    string resultextrafanart = GetRandomImagePath(testaudiofanart);
+
                      //var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
                     Logger.Instance().LogDump("UpdateAUDIO", "testfanart equals:" + testaudiofanart, true);
-                    Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + GetRandomImagePath(testaudiofanart), true);
+                    Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + resultextrafanart, true);
 
 // check for extrafanart -- if no images found will not run and default should apply
-                    if (!_config.MusicFanartRotation && GetRandomImagePath(testaudiofanart) != Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png") )
+                    if (!_config.MusicFanartRotation && !resultextrafanart.EndsWith("Default_Diaporama.png")  )
                     {
                         Logger.Instance().LogDump("UpdateAUDIO", "Currently.Fanart set to testaudiofanart:" , true);
-                        var FanartPathFilename = GetRandomImagePath(testaudiofanart);
+                        var FanartPathFilename = resultextrafanart;
                         var FanartisLocked = true;
                         FanartisLocked = IsFileLocked(FanartPathFilename);
                         if ( FanartisLocked == false)
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is not locked using "+ FanartPathFilename, true); 
                             _yatse2Properties.Currently.Fanart = FanartPathFilename;
+                            usingExtrafanart = true;
                         }
                         if (FanartisLocked == true)
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is locked/using Default", true);
                             _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
+                            usingExtrafanart = false;
                         }                     
                   
                     }
@@ -389,7 +409,7 @@ namespace FrontView
                         if (pathfilename.Contains("googleusercontent"))
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Update to Skin Thumb", true);
-                            if (_yatse2Properties.Currently.Thumb == Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Music-Thumbs.png"))
+                            if (_yatse2Properties.Currently.Thumb.EndsWith("Default_Music-Thumbs.png"))
                             {
                                  if (File.Exists(Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png")) )
                                 {

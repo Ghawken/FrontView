@@ -2359,13 +2359,13 @@ namespace FrontView
 
                 
 
-                foreach (var scr in screens)
-                {
-                    Logger.Instance().LogDump("All Screen Details: Scr.Primary:", scr.Primary);
-                    Logger.Instance().LogDump("Screen Device Names:", scr.DeviceName);
-                    Logger.Instance().LogDump("Another Screen Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
-
-                }
+               // foreach (var scr in screens)
+               // {
+               //     Logger.Instance().LogDump("All Screen Details: Scr.Primary:", scr.Primary);
+               //     Logger.Instance().LogDump("Screen Device Names:", scr.DeviceName);
+               //     Logger.Instance().LogDump("Another Screen Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
+                //
+               // }
 
 
                 foreach (var scr in screens)

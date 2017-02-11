@@ -85,7 +85,7 @@ namespace FrontView
 
             if (String.IsNullOrWhiteSpace(check))
             {
-                Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for: " + check + ":param:" + param);
+                //Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for: " + check + ":param:" + param);
                 return Visibility.Collapsed;
             }
 
@@ -148,7 +148,7 @@ namespace FrontView
             
             if (!File.Exists(path))
             {
-                Logger.Instance().Trace("C_SkinImgPath","Missing skin image : " + path + " Using Default Skin:");
+                //Logger.Instance().Trace("C_SkinImgPath","Missing skin image : " + path + " Using Default Skin:");
                 path = Helper.SkinPath + "Default" + @"\Interface\" + (string)parameter + ".png";
                 if (!File.Exists(path))
                 {
@@ -195,7 +195,7 @@ namespace FrontView
             {
                 // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
 
-                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                //Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
                 path = Helper.SkinPath + "Default" + @"\Icons\" + param + ".png";
                 if (!File.Exists(path))
                 {
@@ -273,7 +273,7 @@ namespace FrontView
             {
             // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
                 
-                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                //Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
                 path = Helper.SkinPath + "Default" + @"\Interface\" + param + ".png";
                 if (!File.Exists(path))
                 {
