@@ -409,6 +409,7 @@ namespace FrontView
                         if (pathfilename.Contains("googleusercontent"))
                         {
                             Logger.Instance().LogDump("UpdateAUDIO", "Thumb GooglePlay:  Update to Skin Thumb", true);
+                          
                             if (_yatse2Properties.Currently.Thumb.EndsWith("Default_Music-Thumbs.png"))
                             {
                                  if (File.Exists(Helper.SkinorDefault(Helper.SkinPath , _config.Skin , @"\Interface\Default_Music-ThumbGoogle.png")) )

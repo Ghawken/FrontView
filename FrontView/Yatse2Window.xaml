@@ -230,7 +230,7 @@
     <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
 
         <!-- Binded -->
-        <Grid x:Name="grd_Contener">
+        <Grid x:Name="grd_Contener" d:IsHidden="True" >
             <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
 
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden" d:IsHidden="True"/>
@@ -241,7 +241,7 @@
                 <Image x:Name="img_Diaporama2" Opacity="0" Stretch="Uniform"
                    Source="{Binding DiaporamaImage2, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
             </Grid>
-            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" >
+            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
                 <!-- Binded -->
                 <Grid x:Name="grd_Weather" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
@@ -384,7 +384,7 @@
                 </Grid>
 
 
-                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden">
+                <Grid x:Name="grd_Currently" Background="#EE000000"  OpacityMask="Black" Visibility="Hidden" d:IsHidden="True">
 
 
                     <!-- Fanart For all Now Playing Screens -->
@@ -443,8 +443,10 @@
         						Text="{Binding Currently.MusicSong, Source={StaticResource Yatse2Properties}}" FontStyle="Italic" d:IsHidden="True" />
                                 <Button  HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_Mute, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Mute_Click" d:IsHidden="True"/>
+                               <!--
                                 <TextBlock  Margin="25,0,0,7" FontSize="48" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="53"
-        						Text="{Binding Currently.MusicYear, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Left" Width="185" TextAlignment="Center" Opacity="0.9" d:IsHidden="True" />
+        						Text="{Binding Currently.MusicYear, Source={StaticResource Yatse2Properties}}" HorizontalAlignment="Left" Width="185" TextAlignment="Center" Opacity="0.9" />
+                                -->
                             </Grid>
                         </Border>
                         <Rectangle x:Name="rct_Current_Music_Image" Stroke="Black" StrokeThickness="0" RadiusX="20" RadiusY="20" Margin="25,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="185" MaxWidth="350" HorizontalAlignment="Left" Width="185" MouseDown="txb_Current_Music_ToggleDetail_MouseDown" d:IsHidden="True" >
@@ -909,11 +911,11 @@
 
 <!--Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=boxsize, Source={StaticResource Yatse2Properties}}"    -->
                     </Grid>
-                    <Grid Margin="0" Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"
+                    <Grid Margin="0" Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"
         			 >
-                        <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0"  >
-                            <Grid Margin="0" >
-                                <Viewbox Margin="20,0,40,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=newtitlesize, Source={StaticResource Yatse2Properties}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+                        <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True"  >
+                            <Grid Margin="0" d:IsHidden="True" >
+                                <Viewbox Margin="20,0,40,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=newtitlesize, Source={StaticResource Yatse2Properties}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform" d:IsHidden="True">
                                     <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
         						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center" />
                                 </Viewbox>
