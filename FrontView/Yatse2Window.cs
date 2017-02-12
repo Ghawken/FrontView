@@ -1573,6 +1573,8 @@ namespace FrontView
                            Logger.Instance().LogDump("SERVER", "Video Directory Socket returned path - CurrentPath2 equals  " + @CurrentPath2, true);
 
                            string CurrentPath3 = GetFanartDirectory(CurrentPath2);
+
+
                            _config.FanartDirectory = @CurrentPath3 + @"extrafanart\";
                            Logger.Instance().LogDump("SERVER", "FanartDirectory Performed and equals:" + _config.FanartDirectory, true);
                        }
