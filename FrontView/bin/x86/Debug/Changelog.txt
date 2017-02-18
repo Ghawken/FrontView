@@ -1,9 +1,20 @@
 ﻿Changelog:
 
+1.210
+Add Time/Weather Screen - selectable as home screen
+Click FrontView Icon/Image Top Left to return to this screen
+Add Option - to "Stay on Home Screen" in Settings/Other
+(stops changing to remote selection screen after 20 seconds if no remote connected)
+(Still connects automatic when Kodi player up and running)
+
+1.208
+Some changes for Music extrafanart (checks 1st Kodi Source Music directory only)
+Some bug fixes/optimisations
+
 1.205
 Add ChangeDisplaySettings checking after Resume
 Fixes for MusicFanart (better checks for empty fields)
-Possible fix for Google Music Fanart
+Ffix for Google Music Fanart
 
 Version 1.200
 Fix for Save Settings if Blank Items.
