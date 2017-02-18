@@ -724,7 +724,7 @@ namespace FrontView
                 }
             }
 
-            if (!_remoteConnected && !_showRemoteSelect && _config.IsConfigured && _config.DefaultRemote != 0)
+            if (!_remoteConnected && !_showRemoteSelect && _config.IsConfigured && _config.DefaultRemote != 0 && !_config.DisableRemoteCheck)
             {
                 if (_timer > 20)
                 {

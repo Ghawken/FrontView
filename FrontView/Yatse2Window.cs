@@ -94,6 +94,7 @@ namespace FrontView
         private readonly Hashtable _yatse2Pages = new Hashtable
                             {
                                 {"Home", "grd_Home"},
+                                {"Time/Weather","grd_Time" },
                                 {"Movies", "grd_Movies"},
                                 {"Tv Shows", "grd_TvShows"},
                                 {"Music Artists", "grd_AudioArtists"},
@@ -2592,6 +2593,7 @@ namespace FrontView
             grd_TvShows_Details.Visibility = Visibility.Hidden;
             grd_AudioAlbums_Details.Visibility = Visibility.Hidden;
             grd_Remote.Visibility = Visibility.Hidden;
+            grd_Time.Visibility = Visibility.Hidden;
 
             _yatse2Properties.ShowHomeButton = newGrid.Name != "grd_Home";
 

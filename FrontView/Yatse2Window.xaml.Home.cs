@@ -427,6 +427,11 @@ namespace FrontView
 
 
         }
+        
+        private void btn_Time_Click(object sender, RoutedEventArgs e)
+        {
+            ShowGrid(grd_Time);
+        }
 
         private void btn_Home_Diaporama_Click(object sender, RoutedEventArgs e)
         {
