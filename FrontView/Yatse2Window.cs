@@ -147,6 +147,7 @@ namespace FrontView
         private long _timer;
         //private Array KodiDirectories;
         private long _timerHeader;
+        private long _timerWeather;
         private bool _isScreenSaver;
         private bool _isfanart;
         private int _diaporamaCurrentImage;
@@ -767,13 +768,13 @@ namespace FrontView
                 RefreshRemotes();
 
                 RefreshHeader();
-
+                RefreshWeatherCurrentData();
                 // Not sure about this - may be need to check DDCEnable settings.
                 // Should run both once to check can connect and not -1
 
 
 
-                
+
                 System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
                 string sPath2Icon = Path.Combine(Helper.AppPath, "Yatse2.ico");
 
@@ -1712,6 +1713,7 @@ namespace FrontView
         {
             _timerHeader++;
             _timer++;
+            _timerWeather++;
             Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
             
             UpdateRemote();
@@ -1736,6 +1738,16 @@ namespace FrontView
                 RefreshHeader();
                 _timerHeader = 0;
             }
+
+
+// Change timing of Weather Data to enable Backdrops to change a bit more slowly.
+
+            if (_timerWeather > 120)
+            {
+                RefreshWeatherCurrentData();
+                _timerWeather = 0;
+            }
+
             var nowPlaying = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
             var GlennMinimise = (_config.MinimiseAlways);
 
@@ -2637,7 +2649,8 @@ namespace FrontView
             var now = DateTime.Now;
             _yatse2Properties.Date = now.ToString("dd MMMM yyy", CultureInfo.CurrentUICulture.DateTimeFormat);
             _yatse2Properties.Time = now.ToShortTimeString();
-            
+
+            /**
             var weatherData = _weather.GetWeatherData(_config.WeatherLoc);
             
             
@@ -2649,7 +2662,25 @@ namespace FrontView
             
             if (String.IsNullOrEmpty(_yatse2Properties.Weather.Day1Name))
                 RefreshWeather();
+
             _yatse2Properties.Weather.LoadCurrentData(weatherData,_yatse2Properties.Skin);
+    **/
+
+        }
+
+        private void  RefreshWeatherCurrentData()
+        {
+            var weatherData = _weather.GetWeatherData(_config.WeatherLoc);
+            if (weatherData == null)
+            {
+                Logger.Instance().Log("FrontView+", "RefreshWeatherCurrentData : No weather data");
+                return;
+            }
+
+            if (String.IsNullOrEmpty(_yatse2Properties.Weather.Day1Name))
+                RefreshWeather();
+
+            _yatse2Properties.Weather.LoadCurrentData(weatherData, _yatse2Properties.Skin);
         }
 
         public void Dispose()

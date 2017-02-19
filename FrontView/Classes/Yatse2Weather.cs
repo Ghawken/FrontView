@@ -19,6 +19,7 @@
 using System;
 using System.Globalization;
 using System.Windows;
+using System.IO;
 using FrontView.Libs;
 
 namespace FrontView.Classes
@@ -284,13 +285,77 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
     public void LoadCurrentData(WeatherData data, string skin)
     {
       if (data == null) return;
+
+            var weatherArray = new string[50];
+            weatherArray[46] = "chanceflurries";
+            weatherArray[39] = "chancerain";
+            weatherArray[6] = "chancesleet";
+            weatherArray[41] = "chancesnow";
+            weatherArray[39] = "chancerain";
+            weatherArray[6] = "chancesleet";
+            weatherArray[38] = "chancetstorms";
+            weatherArray[32] = "clear";
+            weatherArray[26] = "cloudy";
+            weatherArray[13] = "flurries";
+            weatherArray[20] = "fog";
+            weatherArray[21] = "hazy";
+            weatherArray[28] = "mostlycloudy";
+            weatherArray[34] = "mostlysunny";
+            weatherArray[30] = "partlycloudly";
+            weatherArray[34] = "partlysunny";
+            weatherArray[18] = "sleet";
+            weatherArray[11] = "rain";
+            weatherArray[42] = "snow";
+            weatherArray[32] = "sunny";
+            weatherArray[38] = "tstorms";
+            weatherArray[46] = "nt_chanceflurries";
+            weatherArray[45] = "nt_chancerain";
+            weatherArray[47] = "nt_chancetstorms";
+            weatherArray[31] = "nt_clear";
+            weatherArray[27] = "nt_cloudy";
+            weatherArray[20] = "nt_fog";
+            weatherArray[21] = "nt_hazy";
+            weatherArray[27] = "nt_mostlycloudy";
+            weatherArray[33] = "nt_mostlysunny";
+            weatherArray[29] = "nt_partlycloudy";
+            weatherArray[33] = "nt_partlysunny";
+           
+
+
       Location = data.LocationName;
       CurrentIcon = Helper.SkinorDefault(Helper.SkinPath, skin,  @"\Weather\Icons\" + data.Today.Icon + ".png");
-      
-
-      CurrentBackground = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Backgrounds\" + data.Today.Icon + ".jpg");
-      
       CurrentTemp = data.GetTemp(data.Today.Temperature);
+            CurrentBackground = "";
+            try
+            {
+                int weathernumber = Array.IndexOf(weatherArray, data.Today.Icon);
+
+                if (Directory.Exists(Helper.SkinPath + @"Default\Weather\Backgrounds\" + weathernumber.ToString()) )
+                {
+                    var rand = new Random();
+                    var files = Directory.GetFiles(Helper.SkinPath + @"\Default\Weather\Backgrounds\" + weathernumber.ToString(), "*.jpg");
+                    CurrentBackground = files[rand.Next(files.Length)];
+                }
+
+            }
+            catch (Exception ex)
+            {
+                    CurrentBackground = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Backgrounds\" + data.Today.Icon + ".jpg");
+            }
+
+            if (CurrentBackground == "")
+            {
+                CurrentBackground = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Backgrounds\" + data.Today.Icon + ".jpg");
+            }
+
+            if (CurrentBackground == "")
+            {
+                int pos = Array.IndexOf(weatherArray, data.Today.Icon);
+                CurrentBackground = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Weather\Backgrounds\" + pos.ToString() + ".jpg");
+            }
+   
+
+      
     }
 
     public void LoadForecastData(WeatherData data, string skin)

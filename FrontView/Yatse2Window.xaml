@@ -230,7 +230,7 @@
     <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
 
         <!-- Binded -->
-        <Grid x:Name="grd_Contener">
+        <Grid x:Name="grd_Contener" d:IsHidden="True">
             <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
 
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden" d:IsHidden="True"/>
@@ -241,7 +241,7 @@
                 <Image x:Name="img_Diaporama2" Opacity="0" Stretch="Uniform"
                    Source="{Binding DiaporamaImage2, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
             </Grid>
-            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" >
+            <Controls:TransitionPresenter x:Name="trp_Transition" Transition="{DynamicResource GridTransition}" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" d:LayoutOverrides="GridBox" Visibility="Visible" RenderTransformOrigin="0.5,0.5" d:IsHidden="True" >
                 <!-- Binded -->
                 <Grid x:Name="grd_Weather" Visibility="Hidden" d:IsHidden="True">
                     <Grid.Background>
@@ -2037,7 +2037,7 @@
 
                 </Grid>
 
-                <Grid x:Name="grd_Time" Visibility="Visible">
+                <Grid x:Name="grd_Time" Visibility="Visible" d:IsHidden="True">
 
                     <Grid.Background>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Weather.CurrentBackground, Source={StaticResource Yatse2Properties}}"/>
@@ -2070,7 +2070,6 @@
 
 
                     </Canvas>
-
 
 
                 </Grid>

@@ -516,6 +516,7 @@ namespace FrontView
             Helper.Instance.UseCoverArt = (bool)_config.CoverArt;
 
             RefreshHeader();
+            RefreshWeatherCurrentData();
 
             if (_config.DefaultRemote < 1)
             {

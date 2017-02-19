@@ -1,5 +1,30 @@
 ﻿Changelog:
 
+1.211
+Change WeatherFanart to be more compatible
+Will check for Wunderground icon condition ie. mostlycloudy.jpg image - if not found will also check
+numbered condition i.e 31.jpg as well
+
+Added support for Multiple Weather Backdrop Fanarts:
+Same format as Kodi - download Weather Fanart Backdrops.   Multiple numbered folders ie folder 0, folder 42 etc
+Add these to %appdata% Skin/Default/Weather/Backgrounds/
+Only checks Default skin location for these folder, multiple fanarts.
+If folders exists - will default to using these - if doesn't exist back to single images
+
+Adds support for multiple weather fanart Backdrops (based on current conditions!)
+Uses the included and downloaded Kodi ones (thanks)
+
+The attached zip file of Directories 0-41 needs to be extracted into
+
+%appdata%\FrontView+\Skin\Default\Weather\Backgrounds\
+
+eg:  Directory 40:
+C:\Users\testuser\AppData\Roaming\FrontView+\Skin\Default\Weather\Backgrounds\40\
+
+FrontView+ will then use these directories (for ever skin selection) for the background of the Weather screen and also background of Time/Weather screen.  
+It will cycle through them all every 2 minutes or so 
+
+
 1.210
 Add Time/Weather Screen - selectable as home screen
 Click FrontView Icon/Image Top Left to return to this screen
