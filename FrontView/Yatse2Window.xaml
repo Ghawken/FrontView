@@ -377,7 +377,7 @@
         					Background="{Binding Skin, ConverterParameter=Menu_Close, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Canvas.Left="264" Canvas.Top="180" d:IsHidden="True" />
                         </Canvas>
                     </Border>
-                    <Image HorizontalAlignment="Left" Height="90" Margin="8,8,0,0" VerticalAlignment="Top" Width="250" MouseDown="btn_Time_Click" Source="{Binding ConverterParameter=Logo, Path=Skin, Source={StaticResource Yatse2Properties}, Converter={x:Static Yatse2:SkinImagePathConverter.Instance}}"
+                    <Image HorizontalAlignment="Left" Height="90" Margin="8,8,0,0" VerticalAlignment="Top" Width="250" MouseDown="btn_Time_Click" Source="{Binding ConverterParameter=Logo, Path=Skin, Source={StaticResource Yatse2Properties}, Converter={x:Static Yatse2:SkinImagePathConverter.Instance}}" d:IsHidden="True"
                            />
 
                     <Button Content="Button" HorizontalAlignment="Right" Height="48" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="48" Style="{DynamicResource Remote_Button}"
@@ -1443,6 +1443,8 @@
         								Text="{DynamicResource Localized_138}" Margin="8,0,0,90.277" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="214" d:IsHidden="True"/>
                                             <CheckBox x:Name="chk_Settings_DisableRemoteCheck" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
                                                 Content="Stay on HomeScreen" Padding="5,0,0,0" Margin="0,54,10,0" VerticalAlignment="Top" Height="19" HorizontalAlignment="Right" Width="269" d:IsHidden="True" />
+                                            <CheckBox x:Name="chk_Settings_NoHomeScreenFanart" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
+                                                Content="No Fanart on Main Menu (Kodi)" Padding="5,0,0,0" Margin="0,95,10,0" VerticalAlignment="Top" Height="19" HorizontalAlignment="Right" Width="269" d:IsHidden="True" />
                                         </Grid>
                                     </TabItem>
                                     <TabItem Header="{DynamicResource Localized_133}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
@@ -2042,31 +2044,31 @@
                     <Grid.Background>
                         <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Weather.CurrentBackground, Source={StaticResource Yatse2Properties}}"/>
                     </Grid.Background>
-                    <Canvas Margin="118,138,532,112" HorizontalAlignment="Center" Width="150" RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Height="350" VerticalAlignment="Center" >
-                        <Border BorderBrush="Black" BorderThickness="1" Height="35.5" Width="150" CornerRadius="20,20,0,0" Background="{DynamicResource Weather_Forecast_Fill}"/>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="250.5" Canvas.Top="99.5" Width="150" CornerRadius="0,0,20,20" Background="{DynamicResource Weather_Forecast_Fill}" Canvas.Left="-0.667" />
-                        <Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56" />
-                        <Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56"/>
+                    <Canvas Margin="118,138,532,112" HorizontalAlignment="Center" Width="150" RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Height="350" VerticalAlignment="Center" d:IsHidden="True" >
+                        <Border BorderBrush="Black" BorderThickness="1" Height="35.5" Width="150" CornerRadius="20,20,0,0" Background="{DynamicResource Weather_Forecast_Fill}" d:IsHidden="True"/>
+                        <Border BorderBrush="Black" BorderThickness="1" Height="250.5" Canvas.Top="99.5" Width="150" CornerRadius="0,0,20,20" Background="{DynamicResource Weather_Forecast_Fill}" Canvas.Left="-0.667" d:IsHidden="True" />
+                        <Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="0" Canvas.Top="39.5" Width="72" Height="56" d:IsHidden="True" />
+                        <Rectangle Fill="{DynamicResource Weather_Forecast_Fill}" Stroke="{DynamicResource Weather_Forecast_Stroke}" Canvas.Left="77.333" Canvas.Top="39.5" Width="72" Height="56" d:IsHidden="True"/>
                         <Image Height="90" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" Canvas.Left="29" Canvas.Top="129" 
-        				Source="{Binding Weather.CurrentIcon, Source={StaticResource Yatse2Properties}}"/>
+        				Source="{Binding Weather.CurrentIcon, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                         <TextBlock Width="134" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Center" TextWrapping="Wrap" Height="19" Canvas.Left="8" Canvas.Top="8"
-        				Text="{DynamicResource Localized_103}" FontSize="16" />
+        				Text="{DynamicResource Localized_103}" FontSize="16" d:IsHidden="True" />
                         <TextBlock Height="24.75" Canvas.Left="8" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
-        				Text="{Binding Weather.Day0MaxTemp, Source={StaticResource Yatse2Properties}}" />
+        				Text="{Binding Weather.Day0MaxTemp, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
                         <TextBlock Height="24.75" Canvas.Left="84.667" TextWrapping="Wrap" Canvas.Top="56.417" Width="57.333" FontSize="21.333" Foreground="{DynamicResource Default_Font_Color}" FontStyle="Italic" TextAlignment="Center"
-        				Text="{Binding Weather.Day0MinTemp, Source={StaticResource Yatse2Properties}}" />
+        				Text="{Binding Weather.Day0MinTemp, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
                         <TextBlock HorizontalAlignment="Right" Width="110" Foreground="{DynamicResource Default_Font_Color}" FontSize="21.333" TextAlignment="Center" TextWrapping="Wrap"  FontStyle="Italic" VerticalAlignment="Bottom"
-                       Text="{Binding Weather.CurrentTemp, Source={StaticResource Yatse2Properties}}" Canvas.Left="19" Canvas.Top="252" Height="65" />
+                       Text="{Binding Weather.CurrentTemp, Source={StaticResource Yatse2Properties}}" Canvas.Left="19" Canvas.Top="252" Height="65" d:IsHidden="True" />
 
                     </Canvas>
 
-                    <Canvas Margin="286,194,52,224" Width="462" HorizontalAlignment="Center" RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Height="182" VerticalAlignment="Center" >
-                        <Border BorderThickness="0" Height="182" Width="462" VerticalAlignment="Center" Background="#A5000000" CornerRadius="20,20,20,20"  RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Canvas.Top="-10"  HorizontalAlignment="Center" Canvas.Left="1"/>
-                            <TextBlock FontSize="38" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Left"
-                       Text="{Binding Date, Source={StaticResource Yatse2Properties}}"  Width="308" VerticalAlignment="Center"  Canvas.Left="26" Canvas.Top="108"/>
+                    <Canvas Margin="286,194,52,224" Width="462" HorizontalAlignment="Center" RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Height="182" VerticalAlignment="Center" d:IsHidden="True" >
+                        <Border BorderThickness="0" Height="182" Width="462" VerticalAlignment="Center" Background="#A5000000" CornerRadius="20,20,20,20"  RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Canvas.Top="-10"  HorizontalAlignment="Center" Canvas.Left="1" d:IsHidden="True"/>
+                        <TextBlock FontSize="38" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Left"
+                       Text="{Binding Date, Source={StaticResource Yatse2Properties}}"  Width="308" VerticalAlignment="Center"  Canvas.Left="26" Canvas.Top="108" d:IsHidden="True"/>
 
-                            <TextBlock Height="70" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Left" TextWrapping="Wrap" FontSize="45" VerticalAlignment="Center" Width="259"
-                       Text="{Binding Time, Source={StaticResource Yatse2Properties}}" Canvas.Left="26" Canvas.Top="10" />
+                        <TextBlock Height="70" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Left" TextWrapping="Wrap" FontSize="45" VerticalAlignment="Center" Width="259"
+                       Text="{Binding Time, Source={StaticResource Yatse2Properties}}" Canvas.Left="26" Canvas.Top="10" d:IsHidden="True" />
 
 
                     </Canvas>

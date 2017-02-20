@@ -169,6 +169,7 @@ namespace FrontView
 
             chk_Settings_UseDDCControl.IsChecked = _config.UseDDCControl;
             chk_Settings_DisableRemoteCheck.IsChecked = _config.DisableRemoteCheck;
+            chk_Settings_NoHomeScreenFanart.IsChecked = _config.NoHomeScreenFanart;
             chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
 
             LoadSettingsResolutions();
@@ -395,6 +396,7 @@ namespace FrontView
 
                 _config.UseDDCControl = (bool)chk_Settings_UseDDCControl.IsChecked;
                 _config.DisableRemoteCheck = (bool)chk_Settings_DisableRemoteCheck.IsChecked;
+                _config.NoHomeScreenFanart = (bool)chk_Settings_NoHomeScreenFanart.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
                 // ReSharper restore PossibleInvalidOperationException
                 _config.TVOrderbyNewEpsiodes = (bool)chk_Settings_TVOrderbyNewEpisodes.IsChecked;

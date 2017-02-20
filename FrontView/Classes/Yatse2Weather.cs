@@ -287,14 +287,14 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
       if (data == null) return;
 
             var weatherArray = new string[50];
-            weatherArray[46] = "chanceflurries";
+            weatherArray[14] = "chanceflurries";
             weatherArray[39] = "chancerain";
             weatherArray[6] = "chancesleet";
             weatherArray[41] = "chancesnow";
             weatherArray[39] = "chancerain";
             weatherArray[6] = "chancesleet";
             weatherArray[38] = "chancetstorms";
-            weatherArray[32] = "clear";
+           // weatherArray[32] = "clear";
             weatherArray[26] = "cloudy";
             weatherArray[13] = "flurries";
             weatherArray[20] = "fog";
@@ -319,15 +319,70 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
             weatherArray[33] = "nt_mostlysunny";
             weatherArray[29] = "nt_partlycloudy";
             weatherArray[33] = "nt_partlysunny";
-           
+
+            /**  Kodi Fanart Directory Structure
+00 Rain/Lightning
+01 Windy/Rain
+02 Same as 01 (In Weather Fanart Pack: same as 01)
+03 Same as 00 (In Weather Fanart Pack: same as 00)
+04 Same as 00 (In Weather Fanart Pack: same as 00)
+05 Cloudy/Snow-Rain Mix
+06 Hail
+07 Icy/Clouds Rain-Snow
+08 Icy/Haze Rain (In Weather Fanart Pack: same as 39)
+09 Haze/Rain
+10 Icy/Rain
+11 Light Rain (In Weather Fanart Pack: same as 39)
+12 Moderate Rain (In Weather Fanart Pack: same as 39)
+13 Cloudy/Flurries
+14 Same as 13 (In Weather Fanart Pack: same as 13)
+15 Flurries (In Weather Fanart Pack: same as 13)
+16 Same as 13 (In Weather Fanart Pack: same as 13)
+17 Same as 00 (In Weather Fanart Pack: same as 00)
+18 Same as 00 (In Weather Fanart Pack: same as 00)
+19 Dust
+20 Fog
+21 Haze
+22 Smoke
+23 Windy
+24 Same as 23 (In Weather Fanart Pack: same as 23)
+25 Frigid
+26 Mostly Cloudy
+27 Mostly Cloudy/Night
+28 Mostly Cloudy/Sunny (In Weather Fanart Pack: same as 26)
+29 Partly Cloudy/Night
+30 Partly Cloudy/Day
+31 Clear/Night
+32 Clear/Day
+33 Hazy/Night
+34 Hazy/Day (In Weather Fanart Pack: same as 21)
+35 Same as 00 (In Weather Fanart Pack: same as 00)
+36 Hot!
+37 Lightning/Day (In Weather Fanart Pack: same as 00)
+38 Lightning (In Weather Fanart Pack: same as 00)
+39 Rain/Day
+40 Rain (In Weather Fanart Pack: Same as 39)
+41 Snow
+42 Same as 41 (In Weather Fanart Pack: same as 41)
+43 Windy/Snow
+44 Same as 30 (In Weather Fanart Pack: same as 30)
+45 Rain/Night
+46 Snow/Night
+47 Thunder Showers/Night
+          **/
 
 
-      Location = data.LocationName;
+            Location = data.LocationName;
       CurrentIcon = Helper.SkinorDefault(Helper.SkinPath, skin,  @"\Weather\Icons\" + data.Today.Icon + ".png");
       CurrentTemp = data.GetTemp(data.Today.Temperature);
             CurrentBackground = "";
             try
             {
+                if (data.Today.Icon=="clear")
+                {
+                    data.Today.Icon = "sunny";
+                }
+
                 int weathernumber = Array.IndexOf(weatherArray, data.Today.Icon);
 
                 if (Directory.Exists(Helper.SkinPath + @"Default\Weather\Backgrounds\" + weathernumber.ToString()) )

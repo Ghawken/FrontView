@@ -1538,12 +1538,18 @@ namespace FrontView
             }
 
 
-            if (grd_Diaporama.Visibility == Visibility.Hidden && nowPlaying2.CurrentMenuID != "10004")
+            if (grd_Diaporama.Visibility == Visibility.Hidden)  //  && nowPlaying2.CurrentMenuID != "10004" ) ||  (grd_Diaporama.Visibility == Visibility.Hidden && nowPlaying2.CurrentMenuID != "10000" && !_config.NoHomeScreenFanart) ||  )
             {
-                var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
-                if (stbDiaporamaShow != null)
+                if (nowPlaying2.CurrentMenuID != "10004")
                 {
-                    stbDiaporamaShow.Begin(this);
+                    if ((nowPlaying2.CurrentMenuID != "10000") || (nowPlaying2.CurrentMenuID == "10000" && !_config.NoHomeScreenFanart) )
+                    {
+                        var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
+                        if (stbDiaporamaShow != null)
+                        {
+                            stbDiaporamaShow.Begin(this);
+                        }
+                    }
                 }
             }
 
@@ -1663,8 +1669,8 @@ namespace FrontView
 
 
                 
-            if (nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden)
-            {
+            if  ((nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden) || (nowPlaying2.CurrentMenuID == "10000" && _config.NoHomeScreenFanart && grd_Diaporama.Visibility != Visibility.Hidden) )
+            { 
 
                     var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
                     if (stbDiaporamaHide != null)

@@ -1,5 +1,13 @@
 ﻿Changelog:
 
+1.212
+Add Other/Settings - No Fanart on HomeScreen setting for Kodi
+This disables Fanart display if on the main menu within Kodi
+(other deeper menus eg. Tv/Movies will display relevanat fanart)
+(needs Kodi frontview service running)
+
+Enables - Time/Weather display to remain unless browsing deeper menus.
+
 1.211
 Change WeatherFanart to be more compatible
 Will check for Wunderground icon condition ie. mostlycloudy.jpg image - if not found will also check
