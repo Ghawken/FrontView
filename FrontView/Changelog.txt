@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+1.213
+Fix bug related to visibility of time/weather
+Add Super Lge - size for Time/Duration
+(will move to slider when have time)
+
 1.212
 Add Other/Settings - No Fanart on HomeScreen setting for Kodi
 This disables Fanart display if on the main menu within Kodi

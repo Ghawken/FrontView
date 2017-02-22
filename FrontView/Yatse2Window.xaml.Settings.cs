@@ -204,6 +204,7 @@ namespace FrontView
             lst_Settings_Skin_extra.SelectedItem = _config.Skin_Extra;
 
             lst_Settings_Skin_Extra_Text.Items.Clear();
+            lst_Settings_Skin_Extra_Text.Items.Add("Super Lge");
             lst_Settings_Skin_Extra_Text.Items.Add("V Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Large");
             lst_Settings_Skin_Extra_Text.Items.Add("Small");
