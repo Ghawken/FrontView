@@ -175,7 +175,20 @@ namespace FrontView
 
             }
         }
+        private void TimeSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            {
+                // ... Get Slider reference.
+                var slider = sender as Slider;
+                // ... Get Value.
+                double value = Math.Round(slider.Value, 0);
+                // ... Set Window Title.
 
+                _config.TimeSize = value;
+                _yatse2Properties.TimeSize = value;
+
+            }
+        }
 
 
         private void LogoSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -380,5 +393,9 @@ namespace FrontView
             grd_PlayMenu.Visibility = Visibility.Hidden;
         }
 
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

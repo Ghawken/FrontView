@@ -80,7 +80,18 @@ namespace FrontView.Classes
 
             }
         }
+        public static readonly DependencyProperty TimeSizeProperty =
+    DependencyProperty.Register("TimeSize", typeof(double), typeof(Yatse2Properties));
 
+        public double TimeSize
+        {
+            get { return (double)GetValue(TimeSizeProperty); }
+            set
+            {
+                SetValue(TimeSizeProperty, value);
+
+            }
+        }
 
         public static readonly DependencyProperty MediaIconSizeProperty =
     DependencyProperty.Register("MediaIconSize", typeof(double), typeof(Yatse2Properties));

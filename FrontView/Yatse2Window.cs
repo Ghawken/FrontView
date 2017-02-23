@@ -743,6 +743,7 @@ namespace FrontView
                     _yatse2Properties.DimAmount = _config.DimAmount;
                     _yatse2Properties.FanArtOpacity = _config.FanArtOpacity;
                     _yatse2Properties.LogoSize = _config.LogoSize;
+                    _yatse2Properties.TimeSize = _config.TimeSize;
                     _yatse2Properties.MediaIconSize = _config.MediaIconSize;
                     _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
                     _yatse2Properties.Skin_Extra = _config.Skin_Extra;

@@ -211,8 +211,8 @@ namespace FrontView
             lst_Settings_Skin_Extra_Text.SelectedItem = _config.Skin_Extra_Text;
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
+            lst_Settings_TimeSize.Value = _config.TimeSize;
 
-            
 
             lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
 
@@ -288,8 +288,8 @@ namespace FrontView
             lst_Settings_Displays.Items.Clear();
 
             lst_Settings_LogoSize.Value = _config.LogoSize;
+            lst_Settings_TimeSize.Value = _config.TimeSize;
 
-            
 
             lst_Settings_MediaIconSize.Value = _config.MediaIconSize;
 
@@ -449,7 +449,7 @@ namespace FrontView
             }
 
             _config.LogoSize = lst_Settings_LogoSize.Value;
-
+            _config.TimeSize = lst_Settings_TimeSize.Value;
             _config.MediaIconSize = lst_Settings_MediaIconSize.Value;
 
             //  _config.Skin_Extra_Logo = lst_Settings_Skin_Extra_Logo.SelectedItem.ToString();

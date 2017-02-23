@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Skin\Internal\Images\Yatse2.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="FrontView" version="1.0.213.1" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="FrontView" version="1.0.214.1" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
     <commandLine file="FrontView.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -82,14 +82,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="869376">
-      <assemblyIdentity name="FrontView" version="1.0.213.1" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FrontView.exe" size="870912">
+      <assemblyIdentity name="FrontView" version="1.0.214.1" publicKeyToken="0F0D9DFCE2B396A2" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>wIemLDKgLcvdbJ/0+YZfK/tzvjSglI/jvh+WVHfvYHA=</dsig:DigestValue>
+        <dsig:DigestValue>rUAupyyb1FKgdfW6CzKLW3IzBGh7lHUBGxFvrB8p840=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
