@@ -168,6 +168,7 @@ namespace FrontView
             chk_Settings_HttpUseDigest.IsChecked = _config.HttpUseDigest;
 
             chk_Settings_UseDDCControl.IsChecked = _config.UseDDCControl;
+            chk_Settings_TurnOffDDCControl.IsChecked = _config.TurnOffDDCControl;
             chk_Settings_DisableRemoteCheck.IsChecked = _config.DisableRemoteCheck;
             chk_Settings_NoHomeScreenFanart.IsChecked = _config.NoHomeScreenFanart;
             chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
@@ -396,6 +397,7 @@ namespace FrontView
                 _config.UseReceiverIPforVolume = (bool)chk_Settings_UseReceiver.IsChecked;
 
                 _config.UseDDCControl = (bool)chk_Settings_UseDDCControl.IsChecked;
+                _config.TurnOffDDCControl = (bool)chk_Settings_TurnOffDDCControl.IsChecked;
                 _config.DisableRemoteCheck = (bool)chk_Settings_DisableRemoteCheck.IsChecked;
                 _config.NoHomeScreenFanart = (bool)chk_Settings_NoHomeScreenFanart.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;

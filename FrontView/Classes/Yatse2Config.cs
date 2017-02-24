@@ -146,6 +146,7 @@ namespace FrontView.Classes
         public bool UseReceiverIPforVolume { get; set; }
 
         public bool UseDDCControl { get; set; }
+        public bool TurnOffDDCControl { get; set; }
         public bool DisableRemoteCheck { get; set; }
         public bool NoHomeScreenFanart { get; set; }
         public string ReceiverIP { get; set; }
@@ -251,6 +252,7 @@ namespace FrontView.Classes
             ReceiverIP = "";
             ReceiverPort = 23;
             UseDDCControl = false;
+            TurnOffDDCControl = false;
             DisableRemoteCheck = false;
             NoHomeScreenFanart = false;
            // Skin_Extra_Text = ;
@@ -384,6 +386,7 @@ namespace FrontView.Classes
             StartFrontViewServer = config.StartFrontViewServer;
             UseReceiverIPforVolume = config.UseReceiverIPforVolume;
             UseDDCControl = config.UseDDCControl;
+            TurnOffDDCControl = config.TurnOffDDCControl;
             DisableRemoteCheck = config.DisableRemoteCheck;
             NoHomeScreenFanart = config.NoHomeScreenFanart;
             DefaultPlayMode = config.DefaultPlayMode;

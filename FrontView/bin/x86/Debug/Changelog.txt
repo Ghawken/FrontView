@@ -1,5 +1,19 @@
 ﻿Changelog:
 
+1.215
+Fix settings comestic lines (defining NowPlayng Screen)
+Add Turn OFF Screen with DDC Control Setting
+(this wil turn off screen completely - yah completely dark
+but will turn off ALL screens (limitation of DDC)
+Obviously only useful when using Tablet or standalone computer for FrontView+
+as otherwise video screen will turn off.)
+
+
+1.214
+Change Duration/Time on NowPlaying Screen size to slider
+Settings/Display/Now Playing Section - Time Size
+(will not suit all screen sizes and will need to be adjusted for each)
+
 1.213
 Fix bug related to visibility of time/weather
 Add Super Lge - size for Time/Duration
