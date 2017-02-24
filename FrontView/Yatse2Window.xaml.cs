@@ -129,6 +129,15 @@ namespace FrontView
 
         private void DDCBrightness_MouseDown(object sender, EventArgs e)
         {
+            
+            if (_config.TurnOffDDCControl == true)
+            {
+                   // Turn Monitor Off Completely
+                SetMonitorState(2);
+                return;
+            }
+
+      
             try
             {
                 Window window = Window.GetWindow(this);
@@ -154,6 +163,18 @@ namespace FrontView
 
         private void DDCBrightness_MouseUp(object sender, EventArgs e)
         {
+
+            Setup.Logger.Instance().LogDump("DDCControl", "DDCBrightness Mouse Up Called");
+            if (_config.TurnOffDDCControl == true)
+            {
+                
+                SetMonitorState(-1);
+                SetMonitorWake();
+                return;
+
+            }
+
+
             try
             {
 
@@ -397,5 +418,6 @@ namespace FrontView
         {
 
         }
+
     }
 }

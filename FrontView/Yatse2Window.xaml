@@ -230,7 +230,7 @@
     <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
 
         <!-- Binded -->
-        <Grid x:Name="grd_Contener">
+        <Grid x:Name="grd_Contener" d:IsHidden="True">
             <!-- Attempting to resize all the other controls for someones tiny screen given have spent this long -->
 
             <Grid x:Name="grd_Dimming" Opacity="0.9" Background="Black" Panel.ZIndex="100" MouseDown="grd_Dimming_MouseDown" Visibility="Hidden"/>
@@ -2788,7 +2788,7 @@
             </Grid>
 
         </Grid>
-        <Yatse2:ModalDialog x:Name="ModalDialog" Panel.ZIndex="200"/>
+        <Yatse2:ModalDialog x:Name="ModalDialog" Panel.ZIndex="200" d:IsHidden="True"/>
     </Grid>
 
 </Window>
