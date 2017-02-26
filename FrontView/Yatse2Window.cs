@@ -588,7 +588,7 @@ namespace FrontView
                     // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
 
                     Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
-
+                    Logger.Instance().LogDump("SERVER", dataReceived, true);
 
                     // Receive data from Kodi thread to deal with theme.mp3
                     // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
@@ -603,7 +603,10 @@ namespace FrontView
                     if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
                     {
                         Logger.Instance().LogDump("SERVER", "NOT Playback Started Event - change Fanart as required", true);
-                        _config.FanartCurrentPath = dataReceived;
+                        if (dataReceived != "" && dataReceived != null)
+                        {
+                            _config.FanartCurrentPath = dataReceived;
+                        }
                     }
 
 

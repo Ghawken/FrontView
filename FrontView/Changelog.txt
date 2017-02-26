@@ -1,5 +1,9 @@
 ﻿Changelog:
 
+
+1.233
+Fix for Fanart Server thread - occasionally would show wrong fanart (when received blank replies)
+
 1.232
 Fix Kodi Krypton MovieIcon remote issue
 Add UDP fanart server error catch
