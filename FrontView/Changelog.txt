@@ -1,5 +1,35 @@
 ﻿Changelog:
 
+1.232
+Fix Kodi Krypton MovieIcon remote issue
+Add UDP fanart server error catch
+Kodi 16/17 Remote - MovieIcons more compatible with non-english language (uses system language as default)
+
+1.231
+Add ability to use local %appdata% FrontView sources.xml in preference to kodi directory one.
+To use fanart copy kodi sources.xml to %appdata%/FrontView+
+
+1.230
+Change to UDP Fanart Client/Server
+(better for slightly dicey connections; wifi Tablets etc)
+Updates Kodi Frontview.Service addon to v2 UDP
+
+Correctly turns off and turns on - screens if option selected
+This does seem dependant on windows version/updates - currently functioning on my windows 10 tablet
+
+
+Useful for standalone tablet usage - dims and then screen off
+(if playback stopped, or paused - screen should turn back on again)
+
+To avoid going to the lock screen in windows 10 - need to follow some instructions as below:
+https://www.cnet.com/au/how-to/how-to-disable-the-windows-10-lock-screen/
+
+Change to .net .4.6.1
+
+1.216
+Fix partlycloudy weather backdrops
+Enable turn off screen setting (beta currently)
+
 1.215
 Fix settings comestic lines (defining NowPlayng Screen)
 Add Turn OFF Screen with DDC Control Setting

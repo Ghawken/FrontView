@@ -301,7 +301,7 @@ DependencyProperty.Register("Day1MinTemp", typeof(string), typeof(Yatse2Weather)
             weatherArray[21] = "hazy";
             weatherArray[28] = "mostlycloudy";
             weatherArray[34] = "mostlysunny";
-            weatherArray[30] = "partlycloudly";
+            weatherArray[30] = "partlycloudy";
             weatherArray[34] = "partlysunny";
             weatherArray[18] = "sleet";
             weatherArray[11] = "rain";

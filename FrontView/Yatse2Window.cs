@@ -193,6 +193,7 @@ namespace FrontView
 
         private void SetMonitorWake()
         {
+            Logger.Instance().LogDump("NativeControl", "Send Message On SetMonitorWake ...", true);
             mouse_event(MOUSEEVENTF_MOVE, 0, 1, 0, UIntPtr.Zero);
             Thread.Sleep(40);
             mouse_event(MOUSEEVENTF_MOVE, 0, -1, 0, UIntPtr.Zero);
@@ -200,15 +201,16 @@ namespace FrontView
 
 
         [DllImport("user32.dll")]
-        static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        static extern IntPtr SendMessage(IntPtr hWnd, IntPtr Msg, IntPtr wParam, IntPtr lParam);
         private void SetMonitorState(int onoff)
         {
             Form frm = new Form();
             Window window = Window.GetWindow(this);
             var wih = new WindowInteropHelper(window);
-            IntPtr hWnd = wih.Handle;
-
-            SendMessage(wih.Handle, 0x0112, 0xF170, onoff);
+            // IntPtr hWnd = wih.Handle;
+            Logger.Instance().LogDump("NativeControl", "Send Message  sending...", true);
+            IntPtr HWND_BROADCAST = new IntPtr(0xffff);
+            SendMessage(HWND_BROADCAST, (IntPtr)0x0112, (IntPtr)0xF170, (IntPtr)onoff);
 
         }
         
@@ -551,7 +553,7 @@ namespace FrontView
         
         private void StartServer()
         { 
-            Logger.Instance().Log("SERVER", "STARTSERVER - Starting Server Thread... ", true);
+            Logger.Instance().Log("SERVER", "STARTSERVER - Starting UDP Server Thread... ", true);
             //Logger.Instance().LogDump("SERVER THREAD    : Attempting to start new Thread ", true);
             Thread t = new Thread(NewThread) { IsBackground = true };
             t.IsBackground = true;
@@ -563,48 +565,65 @@ namespace FrontView
         private void NewThread()
         {
 
-            IPAddress localAdd = IPAddress.Parse(_config.IPAddress);
-            TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
-            Logger.Instance().Log("SERVER", "Within New Thread running Listener... ", true);
-            listener.Start();
-           // _config.FanartCurrentPath = null;
-
-            while (true)
+            try
             {
-                TcpClient client = listener.AcceptTcpClient();
-                NetworkStream nwStream = client.GetStream();
-                byte[] buffer = new byte[client.ReceiveBufferSize];
-                int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
-                string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-               // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
-                
-                Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
-                
+                IPAddress localAdd = IPAddress.Parse(_config.IPAddress);
+                // TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
+                Logger.Instance().Log("SERVER", "Within New Thread running Listener... ", true);
+                // listener.Start();
+                // _config.FanartCurrentPath = null;
 
-                // Receive data from Kodi thread to deal with theme.mp3
-                // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
-                // occurs on every playback - but when theme started - stops sending ListItem.Path info and sends
-                // playback info for theme.
-                // At Remote End Kodi ignores theme files so no NowPlaying screen for them
-                // BUT - resorts to generic fanart as the Fanart Path info that was sent is no longer sent
-                // This change basically ignores sent info from Kodi via Plugin -- if a onstartplayback event noted
-                // Phew.
-                // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
-               
-                if (!dataReceived.Contains(@"<event>onplaybackstarted</event>")) 
+                UdpClient client = new UdpClient(_config.IPPort);
+
+                while (true)
                 {
-                    Logger.Instance().LogDump("SERVER","NOT Playback Started Event - change Fanart as required", true);
-                    _config.FanartCurrentPath = dataReceived;
+
+                    //NetworkStream nwStream = client.GetStream();
+
+                    IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 0);
+
+                    byte[] buffer = client.Receive(ref groupEP);
+                    // int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
+                    string dataReceived = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                    // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
+
+                    Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
+
+
+                    // Receive data from Kodi thread to deal with theme.mp3
+                    // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
+                    // occurs on every playback - but when theme started - stops sending ListItem.Path info and sends
+                    // playback info for theme.
+                    // At Remote End Kodi ignores theme files so no NowPlaying screen for them
+                    // BUT - resorts to generic fanart as the Fanart Path info that was sent is no longer sent
+                    // This change basically ignores sent info from Kodi via Plugin -- if a onstartplayback event noted
+                    // Phew.
+                    // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
+
+                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
+                    {
+                        Logger.Instance().LogDump("SERVER", "NOT Playback Started Event - change Fanart as required", true);
+                        _config.FanartCurrentPath = dataReceived;
+                    }
+
+
+
+                    //  onfig.FanartCurrentPath = dataReceived;
+                    // Console.WriteLine("The resulting messages on the server" + dataReceived);
+                    //  nwStream.Write(buffer, 0, bytesRead);
+                    // Console.WriteLine("\n");
+                    //client.Close();
                 }
-                
-                
-                
-                //  onfig.FanartCurrentPath = dataReceived;
-                // Console.WriteLine("The resulting messages on the server" + dataReceived);
-                //  nwStream.Write(buffer, 0, bytesRead);
-               // Console.WriteLine("\n");
-                client.Close();
             }
+            catch (Exception ex)
+            {
+                Logger.Instance().Log("SERVER", "Proper Exception Caught:"+ex, true);
+               
+                
+            }
+            
+            NewThread();
+            
             //   listener.Stop();
         }
 
@@ -935,11 +954,31 @@ namespace FrontView
               
             try
             {
+                // try Frontview appdata location first
+
+
+
 
                 Logger.Instance().Log("Kodi Source", "Checking for LOCAL LOCAL LOCAL Kodi Source xml file", true);
                 var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
                 XmlDocument kodisource = new XmlDocument();
-                kodisource.Load(@appdatadirectory + @"\Kodi\userdata\sources.xml");
+
+                var sourcelocation = "";
+
+                if (File.Exists(@appdatadirectory + @"\FrontView+\sources.xml"))
+                {
+                    //Logger.Instance().Trace("Kodi Source: Using Frontview sources.xml.",sourcelocation);
+                    sourcelocation = @appdatadirectory +@"\FrontView+\sources.xml";
+                    Logger.Instance().Trace("Kodi Source: Using Frontview sources.xml : Sources.xml file: ", sourcelocation);
+                }
+                else
+                {
+                    sourcelocation = @appdatadirectory + @"\Kodi\userdata\sources.xml";
+                    Logger.Instance().Trace("Kodi Source: Using Kodi sources.xml  : Sources.xml file:", sourcelocation);
+                }
+
+                kodisource.Load(sourcelocation);
                 XmlNodeList KodiDirectories = kodisource.GetElementsByTagName("path");
                 //string[] KodiSources = new string[20];
                 
@@ -1873,6 +1912,10 @@ namespace FrontView
                         {
                             SetBrightnessContrast(false);
                         }
+                        if (_config.TurnOffDDCControl == true)
+                        {
+                            SetScreenOff(false);  //false equals turn off
+                        }
                     }
                  }
                 Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 2", _timer);
@@ -1937,6 +1980,7 @@ namespace FrontView
                             stbDimmingShow.Begin(this);
                         Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Paused undim ",true);
                         Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 3", _timer);
+
                         SetBrightnessContrast(true);
                         ResetTimer();
                    }
@@ -2007,32 +2051,66 @@ namespace FrontView
           
         }
 
-        public void SetBrightnessContrast(bool turnonoff)
+        public void SetScreenOff(bool turnonoff)
         {
-            
-            if (_config.UseDDCControl == false)
+            if (_config.UseDDCControl == false && _config.TurnOffDDCControl == false)
             {
                 return;
             }
-            Logger.Instance().Trace("DDCControl", "brightnessInfo Before Check:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
+
 
             if (_config.TurnOffDDCControl == true)
             {
-               if (turnonoff == false)
+                if (turnonoff == false)
                 {
                     // Turn Monitor Off Completely
+                    Logger.Instance().Trace("NativeControl", "TurnOffDDC True and About to run SetMonitorState(2)");
                     SetMonitorState(2);
-                } 
-               if (turnonoff == true)
+                }
+                if (turnonoff == true)
                 {
                     // turn back on
+                    Logger.Instance().Trace("NativeControl", "TurnOffDDC True and About to run SetMonitorState(-1) ON and SetMonitorWake");
                     SetMonitorState(-1);
                     SetMonitorWake();
                 }
                 return;
             }
 
+        }
 
+
+        public void SetBrightnessContrast(bool turnonoff)
+        {
+            
+            // Turn On/Off not DDC Control but control within here
+
+
+            if (_config.UseDDCControl == false && _config.TurnOffDDCControl == false)
+            {
+                return;
+            }
+            
+
+            if (_config.TurnOffDDCControl == true)
+            {
+               if (turnonoff == false)
+                {
+                    // Turn Monitor Off Completely
+                    Logger.Instance().Trace("DDCControl", "TurnOffDDC True and About to run SetMonitorState(2)");
+                    SetMonitorState(2);
+                } 
+               if (turnonoff == true)
+                {
+                    // turn back on
+                    Logger.Instance().Trace("DDCControl", "TurnOffDDC True and About to run SetMonitorState(-1) ON and SetMonitorWake");
+                    SetMonitorState(-1);
+                    SetMonitorWake();
+                }
+                return;
+            }
+
+            Logger.Instance().Trace("DDCControl", "brightnessInfo Before Check:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
             if (brightnessInfo.maximum == -1  )
             {
                 Logger.Instance().Trace("DDCControl", "Maximum equals -1 : can't be set : try now to set " );
@@ -2301,6 +2379,11 @@ namespace FrontView
                         {
                             SetBrightnessContrast(false);
                         }
+                        if (_config.TurnOffDDCControl == true)
+                        {
+                            SetScreenOff(false);  //false equals turn off
+                        }
+
 
                     }
                 }

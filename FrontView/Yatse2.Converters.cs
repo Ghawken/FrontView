@@ -78,6 +78,8 @@ namespace FrontView
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            Logger.Instance().Trace("IconVisibility2:", "check for: " + (string)value + ":param:" + (string)parameter);
+
             if (value == DependencyProperty.UnsetValue) return false;
 
             var param = (string)parameter;
@@ -85,7 +87,7 @@ namespace FrontView
 
             if (String.IsNullOrWhiteSpace(check))
             {
-                //Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for: " + check + ":param:" + param);
+                Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for, check: " + check + ":param:" + param);
                 return Visibility.Collapsed;
             }
 
@@ -189,13 +191,15 @@ namespace FrontView
             }
 
             var path = Helper.SkinPath + (string)value + @"\Icons\" + param + ".png";
+            Logger.Instance().Trace("C_SkinBrush", "Skin image : " + path );
+
 
 
             if (!File.Exists(path))
             {
                 // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
 
-                //Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
                 path = Helper.SkinPath + "Default" + @"\Icons\" + param + ".png";
                 if (!File.Exists(path))
                 {

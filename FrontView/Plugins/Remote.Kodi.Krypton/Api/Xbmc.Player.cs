@@ -338,9 +338,10 @@ namespace Remote.XBMC.Krypton.Api
 
                         JsonObject streamdetails = (JsonObject)result2["streamdetails"];
                         List<string> MovieIcons = new List<string>();
+
                         MovieIcons = GetMovieIcons(streamdetails);
 
-
+                        _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
                         _nowPlaying.Title = result2["label"].ToString();
                         _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
@@ -392,21 +393,36 @@ namespace Remote.XBMC.Krypton.Api
                     if (ItemData.audio != null)
                     {
 
+                        var isDefaultMediaStream = ItemData.audio.FirstOrDefault();
 
                         //Sorry Non-English Speakers defaults to English stream
+                        // Check for Default Language for system - and uses that...
 
-                        int CountStreams = ItemData.audio.Where(i => i.language == "eng").Count();
+                        CultureInfo ci = System.Globalization.CultureInfo.InstalledUICulture;
+                        var DefaultLanguage = ci.TwoLetterISOLanguageName.ToString();
+
+                        _parent.Trace("MovieIcons : Default System language:" + DefaultLanguage);
+                        int CountStreams = ItemData.audio.Where(i => i.language == DefaultLanguage).Count();
+
                         _parent.Trace("MovieIcons CountStreams : " + CountStreams.ToString());
-
-                        if (CountStreams > 0)
+                        
+                        try
                         {
-                            var isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == "eng");
 
-                            // added check - make sure is default stream being checked
-                            // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+                                if (CountStreams > 0)   //if default language stream use this
+                                {
 
-                            try
-                            {
+                                    isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == DefaultLanguage);
+                                    // added check - make sure is default stream being checked
+                                    // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+                                }
+                                else if (CountStreams == 0)  //if no default language - often tv - use firstordefault stream...
+                                {
+                                    isDefaultMediaStream = ItemData.audio.FirstOrDefault();
+                                }
+
+
+                            
 
                                 var MovieCodec = isDefaultMediaStream.codec;
 
@@ -431,7 +447,7 @@ namespace Remote.XBMC.Krypton.Api
                                     }
                                 }
 
-                                var Channels = ItemData.audio.Where(i => i.language == "eng").FirstOrDefault().channels;
+                                var Channels = isDefaultMediaStream.channels;
                                 if (Channels > 0)
                                 {
                                     MovieIcons.Add("Channels" + Channels.ToString());
@@ -439,20 +455,22 @@ namespace Remote.XBMC.Krypton.Api
                                 }
 
 
-                            }
-                            catch (Exception ex)
-                            {
-                                _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
-                                return MovieIcons;
-                            }
-
+                          
+                        }
+                        catch (Exception ex)
+                        {
+                           _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+                                // Don't return here - carry on for video icons...
+                                //return MovieIcons;
                         }
 
+                  }
 
-                        var VideoInfo = ItemData.video.FirstOrDefault();
 
-                        if (VideoInfo != null)
-                        {
+                  var VideoInfo = ItemData.video.FirstOrDefault();
+
+                  if (VideoInfo != null)
+                  {
                             if (!string.IsNullOrWhiteSpace(VideoInfo.codec))
                             {
                                 MovieIcons.Add("codec" + VideoInfo.codec.ToString());
@@ -498,12 +516,14 @@ namespace Remote.XBMC.Krypton.Api
                                     _parent.Trace("MoviesIcons Adding SD");
                                 }
                             }
-                        }
-                    }
-
-
-
                 }
+
+
+          }
+
+
+
+                
             }
             catch (Exception ex)
             {

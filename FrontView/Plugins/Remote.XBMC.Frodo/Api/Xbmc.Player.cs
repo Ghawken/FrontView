@@ -341,6 +341,7 @@ namespace Remote.XBMC.Frodo.Api
 
                         JsonObject streamdetails = (JsonObject)result2["streamdetails"];
                         List<string> MovieIcons = new List<string>();
+
                         MovieIcons = GetMovieIcons(streamdetails);
 
                         _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
@@ -362,7 +363,6 @@ namespace Remote.XBMC.Frodo.Api
                 }
             }
         }
-
         public List<string> GetMovieIcons(JsonObject streamdetails)
         {
 
@@ -396,118 +396,137 @@ namespace Remote.XBMC.Frodo.Api
                     if (ItemData.audio != null)
                     {
 
+                        var isDefaultMediaStream = ItemData.audio.FirstOrDefault();
 
                         //Sorry Non-English Speakers defaults to English stream
+                        // Check for Default Language for system - and uses that...
 
-                        int CountStreams = ItemData.audio.Where(i => i.language == "eng").Count();
+                        CultureInfo ci = System.Globalization.CultureInfo.InstalledUICulture;
+                        var DefaultLanguage = ci.TwoLetterISOLanguageName.ToString();
+
+                        _parent.Trace("MovieIcons : Default System language:" + DefaultLanguage);
+                        int CountStreams = ItemData.audio.Where(i => i.language == DefaultLanguage).Count();
+
                         _parent.Trace("MovieIcons CountStreams : " + CountStreams.ToString());
 
-                        if (CountStreams > 0)
+                        try
                         {
-                            var isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == "eng");
 
-                            // added check - make sure is default stream being checked
-                            // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
-
-                            try
+                            if (CountStreams > 0)   //if default language stream use this
                             {
 
-                                var MovieCodec = isDefaultMediaStream.codec;
-
-                                if (MovieCodec != null && !string.IsNullOrEmpty(MovieCodec))
-                                {
-                                    if (MovieCodec.Equals("dca") == true || MovieCodec.Equals("dts"))
-                                    {
-                                        MovieIcons.Add("DTS");
-                                        _parent.Trace("MovieIcons adding DTS Profile: DTS :  Codecequals" + MovieCodec.ToUpper().ToString());
-                                    }
-                                    else if (MovieCodec.Contains("dts") && !MovieCodec.Equals("dts"))
-                                    {
-                                        string Profile = MovieCodec.ToString();
-                                        Profile = Profile.Replace("dts", "dst");
-                                        MovieIcons.Add(Profile.ToUpper());
-                                        _parent.Trace("MovieIcons dca adding DST Plus Profile:" + Profile.ToUpper());
-                                    }
-                                    else
-                                    {
-                                        MovieIcons.Add(MovieCodec.ToString());
-                                        _parent.Trace("MovieIcons Adding Codec:" + MovieCodec.ToString());
-                                    }
-                                }
-
-                                var Channels = ItemData.audio.Where(i => i.language == "eng").FirstOrDefault().channels;
-                                if (Channels > 0)
-                                {
-                                    MovieIcons.Add("Channels" + Channels.ToString());
-                                    _parent.Trace("MovieIcons Adding Channels:" + Channels.ToString());
-                                }
-
-
+                                isDefaultMediaStream = ItemData.audio.FirstOrDefault(i => i.language == DefaultLanguage);
+                                // added check - make sure is default stream being checked
+                                // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
                             }
-                            catch (Exception ex)
+                            else if (CountStreams == 0)  //if no default language - often tv - use firstordefault stream...
                             {
-                                _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
-                                return MovieIcons;
+                                isDefaultMediaStream = ItemData.audio.FirstOrDefault();
+                            }
+
+
+
+
+                            var MovieCodec = isDefaultMediaStream.codec;
+
+                            if (MovieCodec != null && !string.IsNullOrEmpty(MovieCodec))
+                            {
+                                if (MovieCodec.Equals("dca") == true || MovieCodec.Equals("dts"))
+                                {
+                                    MovieIcons.Add("DTS");
+                                    _parent.Trace("MovieIcons adding DTS Profile: DTS :  Codecequals" + MovieCodec.ToUpper().ToString());
+                                }
+                                else if (MovieCodec.Contains("dts") && !MovieCodec.Equals("dts"))
+                                {
+                                    string Profile = MovieCodec.ToString();
+                                    Profile = Profile.Replace("dts", "dst");
+                                    MovieIcons.Add(Profile.ToUpper());
+                                    _parent.Trace("MovieIcons dca adding DST Plus Profile:" + Profile.ToUpper());
+                                }
+                                else
+                                {
+                                    MovieIcons.Add(MovieCodec.ToString());
+                                    _parent.Trace("MovieIcons Adding Codec:" + MovieCodec.ToString());
+                                }
+                            }
+
+                            var Channels = isDefaultMediaStream.channels;
+                            if (Channels > 0)
+                            {
+                                MovieIcons.Add("Channels" + Channels.ToString());
+                                _parent.Trace("MovieIcons Adding Channels:" + Channels.ToString());
+                            }
+
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+                            // Don't return here - carry on for video icons...
+                            //return MovieIcons;
+                        }
+
+                    }
+
+
+                    var VideoInfo = ItemData.video.FirstOrDefault();
+
+                    if (VideoInfo != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(VideoInfo.codec))
+                        {
+                            MovieIcons.Add("codec" + VideoInfo.codec.ToString());
+                            _parent.Trace("MovieIcons Adding codec" + VideoInfo.codec.ToString());
+
+                        }
+                        if (VideoInfo.aspect > 0)
+                        {
+
+                            if (VideoInfo.aspect > 0)
+                            {
+                                MovieIcons.Add(VideoInfo.aspect.ToString("0.00") + ":1");
+                                _parent.Trace("MovieIcons Adding Ratio:" + VideoInfo.aspect.ToString("0.00") + ":1");
                             }
 
                         }
 
-
-                        var VideoInfo = ItemData.video.FirstOrDefault();
-
-                        if (VideoInfo != null)
+                        if (VideoInfo.width.HasValue)
                         {
-                            if (!string.IsNullOrWhiteSpace(VideoInfo.codec))
+                            if (VideoInfo.width > 3800)
                             {
-                                MovieIcons.Add("codec" + VideoInfo.codec.ToString());
-                                _parent.Trace("MovieIcons Adding codec" + VideoInfo.codec.ToString());
-
+                                MovieIcons.Add("4K");
+                                _parent.Trace("MoviesIcons Adding 4K");
                             }
-                            if (VideoInfo.aspect > 0)
+                            else if (VideoInfo.width >= 1900)
                             {
-
-                                if (VideoInfo.aspect > 0)
-                                {
-                                    MovieIcons.Add(VideoInfo.aspect.ToString("0.00") + ":1");
-                                    _parent.Trace("MovieIcons Adding Ratio:" + VideoInfo.aspect.ToString("0.00") + ":1");
-                                }
-
+                                MovieIcons.Add("1080p");
+                                _parent.Trace("MoviesIcons Adding 1080p");
                             }
-
-                            if (VideoInfo.width.HasValue)
+                            else if (VideoInfo.width >= 1270)
                             {
-                                if (VideoInfo.width > 3800)
-                                {
-                                    MovieIcons.Add("4K");
-                                    _parent.Trace("MoviesIcons Adding 4K");
-                                }
-                                else if (VideoInfo.width >= 1900)
-                                {
-                                    MovieIcons.Add("1080p");
-                                    _parent.Trace("MoviesIcons Adding 1080p");
-                                }
-                                else if (VideoInfo.width >= 1270)
-                                {
-                                    MovieIcons.Add("720p");
-                                    _parent.Trace("MoviesIcons Adding 720p");
-                                }
-                                else if (VideoInfo.width >= 700)
-                                {
-                                    MovieIcons.Add("480P");
-                                    _parent.Trace("MoviesIcons Adding 480p");
-                                }
-                                else
-                                {
-                                    MovieIcons.Add("SD");
-                                    _parent.Trace("MoviesIcons Adding SD");
-                                }
+                                MovieIcons.Add("720p");
+                                _parent.Trace("MoviesIcons Adding 720p");
+                            }
+                            else if (VideoInfo.width >= 700)
+                            {
+                                MovieIcons.Add("480P");
+                                _parent.Trace("MoviesIcons Adding 480p");
+                            }
+                            else
+                            {
+                                MovieIcons.Add("SD");
+                                _parent.Trace("MoviesIcons Adding SD");
                             }
                         }
                     }
 
 
-
                 }
+
+
+
+
             }
             catch (Exception ex)
             {
@@ -523,6 +542,7 @@ namespace Remote.XBMC.Frodo.Api
 
 
         }
+
 
 
 

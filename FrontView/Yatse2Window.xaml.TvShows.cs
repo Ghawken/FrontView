@@ -79,6 +79,7 @@ namespace FrontView
         private void grd_TvShows_CurrentLetter_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             _startLetterDrag = false;
+            
             ResetTimer();
         }
 
