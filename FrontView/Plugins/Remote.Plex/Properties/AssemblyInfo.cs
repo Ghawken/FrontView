@@ -12,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ghawken")]
 [assembly: AssemblyProduct("Remote.Plex.Api")]
-[assembly: AssemblyCopyright("Copyright © Tolriq 2013")]
+[assembly: AssemblyCopyright("Copyright Ghawken")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,6 +35,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.145")]
-[assembly: AssemblyFileVersion("1.0.145.0")]
+[assembly: AssemblyVersion("1.0.160")]
+[assembly: AssemblyFileVersion("1.0.160.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

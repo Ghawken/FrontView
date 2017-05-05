@@ -84,6 +84,7 @@
     <Compile Include="Api\Writer.cs" />
     <Compile Include="Classes\clients - Copy.cs" />
     <Compile Include="Classes\clients.cs" />
+    <Compile Include="Classes\MediaContainer - Copy.cs" />
     <Compile Include="Classes\MediaContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Remote.Plex.cs" />

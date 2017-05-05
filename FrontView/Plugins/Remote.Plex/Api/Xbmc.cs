@@ -406,7 +406,7 @@ namespace Remote.Plex.Api
 
                     System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
-                  //  string json = reader.ReadToEnd().ToString();
+                    //string json = reader.ReadToEnd().ToString();
                     //Log("Plex Returned:" + json);   
 
 
