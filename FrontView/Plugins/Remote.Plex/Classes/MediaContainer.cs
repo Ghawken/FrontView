@@ -16,7 +16,7 @@ namespace Remote.Plex.Api
 
         private MediaContainerVideo[] videoField;
 
-        private int sizeField;
+        private string sizeField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Video")]
@@ -34,7 +34,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int size
+        public string size
         {
             get
             {
@@ -74,19 +74,19 @@ namespace Remote.Plex.Api
 
         private MediaContainerVideoTranscodeSession transcodeSessionField;
 
-        private uint addedAtField;
+        private string addedAtField;
 
         private string artField;
 
         private string contentRatingField;
 
-        private uint durationField;
+        private string durationField;
 
         private string grandparentArtField;
 
         private string grandparentKeyField;
 
-        private uint grandparentRatingKeyField;
+        private string grandparentRatingKeyField;
 
         private bool grandparentRatingKeyFieldSpecified;
 
@@ -96,27 +96,27 @@ namespace Remote.Plex.Api
 
         private string guidField;
 
-        private int indexField;
+        private string indexField;
 
         private bool indexFieldSpecified;
 
         private string keyField;
 
-        private uint lastViewedAtField;
+        private string lastViewedAtField;
 
         private bool lastViewedAtFieldSpecified;
 
-        private int librarySectionIDField;
+        private string librarySectionIDField;
 
         private string librarySectionKeyField;
 
-        private int parentIndexField;
+        private string parentIndexField;
 
         private bool parentIndexFieldSpecified;
 
         private string parentKeyField;
 
-        private uint parentRatingKeyField;
+        private string parentRatingKeyField;
 
         private bool parentRatingKeyFieldSpecified;
 
@@ -124,9 +124,9 @@ namespace Remote.Plex.Api
 
         private string parentTitleField;
 
-        private uint ratingKeyField;
+        private string ratingKeyField;
 
-        private uint sessionKeyField;
+        private string sessionKeyField;
 
         private string summaryField;
 
@@ -136,9 +136,9 @@ namespace Remote.Plex.Api
 
         private string typeField;
 
-        private uint updatedAtField;
+        private string updatedAtField;
 
-        private uint viewOffsetField;
+        private string viewOffsetField;
 
         private string chapterSourceField;
 
@@ -158,17 +158,17 @@ namespace Remote.Plex.Api
 
         private string titleSortField;
 
-        private uint yearField;
+        private string yearField;
 
         private bool yearFieldSpecified;
 
-        private int viewCountField;
+        private string viewCountField;
 
         private bool viewCountFieldSpecified;
 
         private string createdAtAccuracyField;
 
-        private uint createdAtTZOffsetField;
+        private string createdAtTZOffsetField;
 
         private bool createdAtTZOffsetFieldSpecified;
 
@@ -323,7 +323,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint addedAt
+        public string addedAt
         {
             get
             {
@@ -365,7 +365,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
+        public string duration
         {
             get
             {
@@ -407,7 +407,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint grandparentRatingKey
+        public string grandparentRatingKey
         {
             get
             {
@@ -477,7 +477,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int index
+        public string index
         {
             get
             {
@@ -519,7 +519,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint lastViewedAt
+        public string lastViewedAt
         {
             get
             {
@@ -547,7 +547,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int librarySectionID
+        public string librarySectionID
         {
             get
             {
@@ -575,7 +575,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int parentIndex
+        public string parentIndex
         {
             get
             {
@@ -617,7 +617,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint parentRatingKey
+        public string parentRatingKey
         {
             get
             {
@@ -673,7 +673,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint ratingKey
+        public string ratingKey
         {
             get
             {
@@ -687,7 +687,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint sessionKey
+        public string sessionKey
         {
             get
             {
@@ -757,7 +757,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint updatedAt
+        public string updatedAt
         {
             get
             {
@@ -771,7 +771,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint viewOffset
+        public string viewOffset
         {
             get
             {
@@ -911,7 +911,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint year
+        public string year
         {
             get
             {
@@ -939,7 +939,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int viewCount
+        public string viewCount
         {
             get
             {
@@ -981,7 +981,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint createdAtTZOffset
+        public string createdAtTZOffset
         {
             get
             {
@@ -1019,19 +1019,19 @@ namespace Remote.Plex.Api
 
         private bool aspectRatioFieldSpecified;
 
-        private int audioChannelsField;
+        private string audioChannelsField;
 
         private string audioCodecField;
 
-        private uint bitrateField;
+        private string bitrateField;
 
         private string containerField;
 
-        private uint durationField;
+        private string durationField;
 
-        private uint heightField;
+        private string heightField;
 
-        private uint idField;
+        private string idField;
 
         private string videoCodecField;
 
@@ -1041,9 +1041,9 @@ namespace Remote.Plex.Api
 
         private string videoResolutionField;
 
-        private uint widthField;
+        private string widthField;
 
-        private int selectedField;
+        private string selectedField;
 
         private string audioProfileField;
 
@@ -1090,7 +1090,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int audioChannels
+        public string audioChannels
         {
             get
             {
@@ -1118,7 +1118,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint bitrate
+        public string bitrate
         {
             get
             {
@@ -1146,7 +1146,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
+        public string duration
         {
             get
             {
@@ -1160,7 +1160,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint height
+        public string height
         {
             get
             {
@@ -1174,7 +1174,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -1244,7 +1244,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint width
+        public string width
         {
             get
             {
@@ -1258,7 +1258,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int selected
+        public string selected
         {
             get
             {
@@ -1294,15 +1294,15 @@ namespace Remote.Plex.Api
 
         private string containerField;
 
-        private uint durationField;
+        private string durationField;
 
         private string fileField;
 
-        private uint idField;
+        private string idField;
 
         private string keyField;
 
-        private uint sizeField;
+        private string sizeField;
 
         private bool sizeFieldSpecified;
 
@@ -1310,23 +1310,23 @@ namespace Remote.Plex.Api
 
         private string decisionField;
 
-        private int selectedField;
+        private string selectedField;
 
         private string audioProfileField;
 
-        private uint bitrateField;
+        private string bitrateField;
 
         private bool bitrateFieldSpecified;
 
-        private uint heightField;
+        private string heightField;
 
         private bool heightFieldSpecified;
 
-        private uint widthField;
+        private string widthField;
 
         private bool widthFieldSpecified;
 
-        private int packetLengthField;
+        private string packetLengthField;
 
         private bool packetLengthFieldSpecified;
 
@@ -1360,7 +1360,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
+        public string duration
         {
             get
             {
@@ -1388,7 +1388,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -1416,7 +1416,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint size
+        public string size
         {
             get
             {
@@ -1472,7 +1472,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int selected
+        public string selected
         {
             get
             {
@@ -1500,7 +1500,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint bitrate
+        public string bitrate
         {
             get
             {
@@ -1528,7 +1528,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint height
+        public string height
         {
             get
             {
@@ -1556,7 +1556,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint width
+        public string width
         {
             get
             {
@@ -1584,7 +1584,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int packetLength
+        public string packetLength
         {
             get
             {
@@ -1616,15 +1616,15 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoMediaPartStream
     {
 
-        private int bitDepthField;
+        private string bitDepthField;
 
         private bool bitDepthFieldSpecified;
 
-        private uint bitrateField;
+        private string bitrateField;
 
         private bool bitrateFieldSpecified;
 
-        private int cabacField;
+        private string cabacField;
 
         private bool cabacFieldSpecified;
 
@@ -1634,11 +1634,11 @@ namespace Remote.Plex.Api
 
         private string codecIDField;
 
-        private int defaultField;
+        private string defaultField;
 
         private bool defaultFieldSpecified;
 
-        private uint durationField;
+        private string durationField;
 
         private bool durationFieldSpecified;
 
@@ -1648,17 +1648,17 @@ namespace Remote.Plex.Api
 
         private string frameRateModeField;
 
-        private int hasScalingMatrixField;
+        private string hasScalingMatrixField;
 
         private bool hasScalingMatrixFieldSpecified;
 
-        private uint heightField;
+        private string heightField;
 
         private bool heightFieldSpecified;
 
-        private uint idField;
+        private string idField;
 
-        private int indexField;
+        private string indexField;
 
         private bool indexFieldSpecified;
 
@@ -1666,7 +1666,7 @@ namespace Remote.Plex.Api
 
         private string languageCodeField;
 
-        private int levelField;
+        private string levelField;
 
         private bool levelFieldSpecified;
 
@@ -1674,15 +1674,15 @@ namespace Remote.Plex.Api
 
         private string profileField;
 
-        private int refFramesField;
+        private string refFramesField;
 
         private bool refFramesFieldSpecified;
 
         private string scanTypeField;
 
-        private int streamTypeField;
+        private string streamTypeField;
 
-        private uint widthField;
+        private string widthField;
 
         private bool widthFieldSpecified;
 
@@ -1690,19 +1690,19 @@ namespace Remote.Plex.Api
 
         private string bitrateModeField;
 
-        private int channelsField;
+        private string channelsField;
 
         private bool channelsFieldSpecified;
 
-        private int dialogNormField;
+        private string dialogNormField;
 
         private bool dialogNormFieldSpecified;
 
-        private uint samplingRateField;
+        private string samplingRateField;
 
         private bool samplingRateFieldSpecified;
 
-        private int selectedField;
+        private string selectedField;
 
         private bool selectedFieldSpecified;
 
@@ -1712,13 +1712,13 @@ namespace Remote.Plex.Api
 
         private string colorSpaceField;
 
-        private uint streamIdentifierField;
+        private string streamIdentifierField;
 
         private bool streamIdentifierFieldSpecified;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int bitDepth
+        public string bitDepth
         {
             get
             {
@@ -1746,7 +1746,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint bitrate
+        public string bitrate
         {
             get
             {
@@ -1774,7 +1774,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int cabac
+        public string cabac
         {
             get
             {
@@ -1844,7 +1844,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int @default
+        public string @default
         {
             get
             {
@@ -1872,7 +1872,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
+        public string duration
         {
             get
             {
@@ -1942,7 +1942,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int hasScalingMatrix
+        public string hasScalingMatrix
         {
             get
             {
@@ -1970,7 +1970,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint height
+        public string height
         {
             get
             {
@@ -1998,7 +1998,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2012,7 +2012,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int index
+        public string index
         {
             get
             {
@@ -2068,7 +2068,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int level
+        public string level
         {
             get
             {
@@ -2124,7 +2124,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int refFrames
+        public string refFrames
         {
             get
             {
@@ -2166,7 +2166,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int streamType
+        public string streamType
         {
             get
             {
@@ -2180,7 +2180,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint width
+        public string width
         {
             get
             {
@@ -2236,7 +2236,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int channels
+        public string channels
         {
             get
             {
@@ -2264,7 +2264,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int dialogNorm
+        public string dialogNorm
         {
             get
             {
@@ -2292,7 +2292,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint samplingRate
+        public string samplingRate
         {
             get
             {
@@ -2320,7 +2320,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int selected
+        public string selected
         {
             get
             {
@@ -2390,7 +2390,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint streamIdentifier
+        public string streamIdentifier
         {
             get
             {
@@ -2422,17 +2422,17 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoGenre
     {
 
-        private uint countField;
+        private string countField;
 
         private string filterField;
 
-        private uint idField;
+        private string idField;
 
         private string tagField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint count
+        public string count
         {
             get
             {
@@ -2460,7 +2460,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2492,19 +2492,19 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoDirector
     {
 
-        private int countField;
+        private string countField;
 
         private bool countFieldSpecified;
 
         private string filterField;
 
-        private uint idField;
+        private string idField;
 
         private string tagField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int count
+        public string count
         {
             get
             {
@@ -2546,7 +2546,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2580,7 +2580,7 @@ namespace Remote.Plex.Api
 
         private string filterField;
 
-        private uint idField;
+        private string idField;
 
         private string tagField;
 
@@ -2600,7 +2600,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2634,11 +2634,11 @@ namespace Remote.Plex.Api
 
         private string filterField;
 
-        private uint idField;
+        private string idField;
 
         private string tagField;
 
-        private int countField;
+        private string countField;
 
         private bool countFieldSpecified;
 
@@ -2658,7 +2658,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2686,7 +2686,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int count
+        public string count
         {
             get
             {
@@ -2720,7 +2720,7 @@ namespace Remote.Plex.Api
 
         private string filterField;
 
-        private uint idField;
+        private string idField;
 
         private string tagField;
 
@@ -2740,7 +2740,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        public string id
         {
             get
             {
@@ -2772,13 +2772,13 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoField
     {
 
-        private int lockedField;
+        private string lockedField;
 
         private string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int locked
+        public string locked
         {
             get
             {
@@ -2810,7 +2810,7 @@ namespace Remote.Plex.Api
     public partial class MediaContainerVideoUser
     {
 
-        private int idField;
+        private string idField;
 
         private string thumbField;
 
@@ -2818,7 +2818,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int id
+        public string id
         {
             get
             {
@@ -2890,9 +2890,9 @@ namespace Remote.Plex.Api
 
         private string versionField;
 
-        private int localField;
+        private string localField;
 
-        private int userIDField;
+        private string userIDField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -3078,7 +3078,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int local
+        public string local
         {
             get
             {
@@ -3092,7 +3092,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int userID
+        public string userID
         {
             get
             {
@@ -3112,7 +3112,7 @@ namespace Remote.Plex.Api
 
         private string idField;
 
-        private uint bandwidthField;
+        private string bandwidthField;
 
         private string locationField;
 
@@ -3132,7 +3132,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint bandwidth
+        public string bandwidth
         {
             get
             {
@@ -3166,17 +3166,17 @@ namespace Remote.Plex.Api
 
         private string keyField;
 
-        private int throttledField;
+        private string throttledField;
 
-        private int completeField;
+        private string completeField;
 
         private decimal progressField;
 
         private decimal speedField;
 
-        private uint durationField;
+        private string durationField;
 
-        private uint remainingField;
+        private string remainingField;
 
         private string contextField;
 
@@ -3196,11 +3196,11 @@ namespace Remote.Plex.Api
 
         private string audioCodecField;
 
-        private int audioChannelsField;
+        private string audioChannelsField;
 
-        private int transcodeHwRequestedField;
+        private string transcodeHwRequestedField;
 
-        private int transcodeHwFullPipelineField;
+        private string transcodeHwFullPipelineField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -3218,7 +3218,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int throttled
+        public string throttled
         {
             get
             {
@@ -3232,7 +3232,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int complete
+        public string complete
         {
             get
             {
@@ -3274,7 +3274,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint duration
+        public string duration
         {
             get
             {
@@ -3288,7 +3288,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint remaining
+        public string remaining
         {
             get
             {
@@ -3428,7 +3428,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int audioChannels
+        public string audioChannels
         {
             get
             {
@@ -3442,7 +3442,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int transcodeHwRequested
+        public string transcodeHwRequested
         {
             get
             {
@@ -3456,7 +3456,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public int transcodeHwFullPipeline
+        public string transcodeHwFullPipeline
         {
             get
             {

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Remote.Plex</RootNamespace>
     <AssemblyName>Remote.Plex</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -24,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\Yatse2.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

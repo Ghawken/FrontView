@@ -330,7 +330,7 @@ namespace Remote.Plex.Api
 
                             _parent.Log("status/sessions: " + reader.ReadToEnd().ToString()); 
                            
-                            var length = deserialized.size;
+                            var length = Convert.ToInt32(deserialized.size);
                             _parent.Log("Number of playing Videos: " + length);
 
                             if (length == 0)
@@ -421,14 +421,20 @@ namespace Remote.Plex.Api
 
                                     _parent.Log("Plex:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
-                                    if (server.Media.duration > 0)
+                                    if (Convert.ToUInt64(server.Media.duration) > 0)
                                     {
-                                        _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(server.Media.duration));
+                                        // duration for Plex given in millseconds - convert to seconds and round
+                                        // Convert Duration to Timespan with seconds only
+                                        var RoundSeconds = Math.Round(Convert.ToInt64(server.Media.duration) / 1000.00, 1);
+
+                                        _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(RoundSeconds));
                                     }
 
                                     _parent.Log("Plex:NP server.Media.Duration:" + server.Media.duration +":  _nowPlaying.Duration (calculated) :"+_nowPlaying.Duration);
 
-                                    _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(server.viewOffset) / 1000, 0);
+                                    var RoundOffset = Math.Round(Convert.ToInt64(server.viewOffset) /1000.00,1);
+
+                                    _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(server.viewOffset));
 
                                     _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + "Calcuated on server.viewOffset:"+server.viewOffset);
 
@@ -445,8 +451,8 @@ namespace Remote.Plex.Api
 
                                     if (server.type=="episode")
                                     {
-                                        _nowPlaying.EpisodeNumber = server.index;
-                                        _nowPlaying.SeasonNumber = server.parentIndex;
+                                        _nowPlaying.EpisodeNumber = Convert.ToInt32(server.index);
+                                        _nowPlaying.SeasonNumber = Convert.ToInt32(server.parentIndex);
 
 
                                     }

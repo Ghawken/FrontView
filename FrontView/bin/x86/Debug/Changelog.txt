@@ -1,5 +1,7 @@
 ﻿Changelog:
 
+1.235
+Plex Remote updates
 
 1.233
 Fix for Fanart Server thread - occasionally would show wrong fanart (when received blank replies)

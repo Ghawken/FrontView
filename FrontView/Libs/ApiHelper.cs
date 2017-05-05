@@ -88,7 +88,8 @@ namespace FrontView.Libs
                 catch (Exception ex)
                 {
                     Logger.Instance().Log("FrontView-Plugs", "Plugin : " + plugin + " refused to load.",true);
-                    Logger.Instance().Trace("Yatse2-Plugs", ex.Message);
+                    Logger.Instance().Log("FrontView-Plugs", ex.Message,true);
+                   // Logger.Instance().Log("FrontView-Plugs", string(ex.Data., true);
                 }
             }
         }
