@@ -365,14 +365,23 @@ namespace Remote.Plex.Api
 
                                     _parent.Log("Plex: server.Art EQUALS ===========" + server.art);
 
-                                    if (server.art.StartsWith("http:"))
+                                    if (!String.IsNullOrEmpty(server.art))
                                     {
-                                        _nowPlaying.FanartURL = server.art;
+                                        if (server.art.StartsWith("http:"))
+                                        {
+                                            _nowPlaying.FanartURL = server.art;
+                                        }
+                                        else
+                                        {
+                                            _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.art;
+                                        }
                                     }
                                     else
                                     {
-                                        _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.art;
+                                        // If no fanart url use Thumb for background as well
+                                        _nowPlaying.FanartURL = String.IsNullOrEmpty(server.thumb) ? "" : @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
                                     }
+
 
 
                                     _parent.Log("Plex: Fanart URL sorting Out:  " + _parent.IP + ":" + _parent.ServerPort + server.art);
@@ -419,7 +428,7 @@ namespace Remote.Plex.Api
                                     _parent.Log("Plex:NP NowPlaying.ThumbURL:" + @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb);
 
 
-                                    _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
+                                    _nowPlaying.ThumbURL = String.IsNullOrEmpty(server.thumb)? "" : @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
 
 
 
@@ -530,8 +539,15 @@ namespace Remote.Plex.Api
                                                 _nowPlaying.SeasonNumber = Convert.ToInt32(match.Groups["season"].Value);
                                                 _nowPlaying.EpisodeNumber = Convert.ToInt32(match.Groups["episode"].Value);
                                                 _parent.Log("Plex Remote: Regex TV Conversion: From :" + server.title);
-                                                //string replacement = "$1";
-                                                string newtitle = regex.Replace(server.title,"");
+
+
+                                                //string replacement = "`$``";
+                                                //string newtitle = replacement;
+                                                // string newtitle = regex.Replace(server.title, replacement);
+
+                                                string[] lines = Regex.Split(server.title, @"[Ss](?<season>\d{1,2})[Ee](?<episode>\d{1,2})");
+                                                string title1 = lines[0];
+                                                string newtitle = title1.Replace(".", " ");
                                                 _parent.Log("Plex Remote:  New title equals :" + newtitle);
                                                 //_nowPlaying.ShowTitle = newtitle;
                                                 _nowPlaying.Title = newtitle;
