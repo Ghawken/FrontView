@@ -148,7 +148,7 @@ namespace Remote.Plex.Api
 
         private bool originallyAvailableAtFieldSpecified;
 
-        private decimal ratingField;
+        private string ratingField;
 
         private bool ratingFieldSpecified;
 
@@ -841,7 +841,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal rating
+        public string rating
         {
             get
             {
@@ -1015,7 +1015,7 @@ namespace Remote.Plex.Api
 
         private MediaContainerVideoMediaPart partField;
 
-        private decimal aspectRatioField;
+        private string aspectRatioField;
 
         private bool aspectRatioFieldSpecified;
 
@@ -1062,7 +1062,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal aspectRatio
+        public string aspectRatio
         {
             get
             {
@@ -1642,7 +1642,7 @@ namespace Remote.Plex.Api
 
         private bool durationFieldSpecified;
 
-        private decimal frameRateField;
+        private string frameRateField;
 
         private bool frameRateFieldSpecified;
 
@@ -1900,7 +1900,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal frameRate
+        public string frameRate
         {
             get
             {
@@ -3170,9 +3170,9 @@ namespace Remote.Plex.Api
 
         private string completeField;
 
-        private decimal progressField;
+        private string progressField;
 
-        private decimal speedField;
+        private string speedField;
 
         private string durationField;
 
@@ -3246,7 +3246,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal progress
+        public string progress
         {
             get
             {
@@ -3260,7 +3260,7 @@ namespace Remote.Plex.Api
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public decimal speed
+        public string speed
         {
             get
             {

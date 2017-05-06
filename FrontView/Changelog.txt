@@ -1,7 +1,10 @@
 ﻿Changelog:
 
-1.235
-Plex Remote updates
+1.236
+Plex Remote updates/fixes
+Fix Movie Title overlap/resizes correctly (if not using logos)
+Check filename for S00E01 type data - if present - change type to TvShow/Fill correct show/episode data and edit title
+
 
 1.233
 Fix for Fanart Server thread - occasionally would show wrong fanart (when received blank replies)

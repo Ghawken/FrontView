@@ -77,7 +77,7 @@ namespace Remote.Plex.Api
 
                 bool res = false;
 
-                if (apiImageDownloadInfo.Source.Contains(_parent.IP))
+                if (apiImageDownloadInfo.Source.Contains(_parent.IP) || apiImageDownloadInfo.Source.Contains("http") )
                 {
                     _parent.Trace("----------DOWNLOAD IMAGES OKAY checking for presence of Server IP Address in source to select DOwnload Method - Server IP Found");
                     res = DownloadRemoteImageFile(apiImageDownloadInfo.Source, apiImageDownloadInfo.Destination);

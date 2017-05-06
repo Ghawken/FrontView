@@ -178,7 +178,6 @@ C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Yatse2
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Yatse2Setup.exe
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Yatse2Setup.pdb
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Setup.dll
-C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Setup.pdb
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\obj\x86\Debug\Yatse2Setup.csprojResolveAssemblyReference.cache
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\obj\x86\Debug\Langs\Norwegian.baml
 C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\obj\x86\Debug\Langs\Dutch.baml
@@ -218,3 +217,4 @@ C:\Users\ghawken\Source\Repos\FrontView3\Yatse2Setup\obj\x86\Debug\Yatse2Setup.P
 C:\Users\ghawken\Source\Repos\FrontView3\Yatse2Setup\obj\x86\Debug\Yatse2Setup.csproj.GenerateResource.Cache
 C:\Users\ghawken\Source\Repos\FrontView3\Yatse2Setup\obj\x86\Debug\Yatse2Setup.exe
 C:\Users\ghawken\Source\Repos\FrontView3\Yatse2Setup\obj\x86\Debug\Yatse2Setup.pdb
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\Yatse2Setup\bin\Debug\Setup.pdb

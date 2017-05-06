@@ -25,6 +25,7 @@ using System.Web.Script.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Net;
+using System.Text.RegularExpressions;
 using Setup;
 
 namespace Remote.Plex.Api
@@ -355,17 +356,34 @@ namespace Remote.Plex.Api
                             foreach (var server in deserialized.Video)
                             {
                                 _parent.Log("Checking against Local Playback only Client IP: " + _parent.ClientIPAddress);
+                                _parent.Log("IP Address Playing now are:" + server.Player.address);
 
                                 if (server.Player.address == _parent.ClientIPAddress)
                                 {
-                                    
+
                                     _parent.Log("Plex: Found Local Playback");
 
-                                    _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.art;
-                                    _parent.Log("Plex: Fanart URL sorting Out:  " + _parent.IP + ":" + _parent.ServerPort + server.art);
-                                    //Console.WriteLine("Grandparent art is {0} and Players is {1}", server.grandparentArt, server.Player);
+                                    _parent.Log("Plex: server.Art EQUALS ===========" + server.art);
 
-                                    
+                                    if (server.art.StartsWith("http:"))
+                                    {
+                                        _nowPlaying.FanartURL = server.art;
+                                    }
+                                    else
+                                    {
+                                        _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.art;
+                                    }
+
+
+                                    _parent.Log("Plex: Fanart URL sorting Out:  " + _parent.IP + ":" + _parent.ServerPort + server.art);
+                                    _parent.Log("Plex:  nowPlaying Fanart equals:" + _nowPlaying.FanartURL);
+
+
+
+
+                                        //Console.WriteLine("Grandparent art is {0} and Players is {1}", server.grandparentArt, server.Player);
+
+
 
                                     _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "Blank" : server.title;
 
@@ -378,7 +396,7 @@ namespace Remote.Plex.Api
                                     //     Console.WriteLine("" + server.duration);
                                     //    Console.WriteLine("" + server.grandparentArt);
 
-                                    
+
                                     _nowPlaying.ShowTitle = String.IsNullOrEmpty(server.grandparentTitle) ? "Blank" : server.grandparentTitle;
                                     _parent.Log("Plex:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
 
@@ -393,7 +411,7 @@ namespace Remote.Plex.Api
                                    // */
                                     //     Console.WriteLine("Player Product: " + server.Player.product);
 
-                                    
+
 
                                     _nowPlaying.Plot = String.IsNullOrEmpty(server.summary) ? "" : server.summary;
                                     _parent.Log("Plex:NP NowPlaying.Plot:" + _nowPlaying.Plot);
@@ -404,22 +422,28 @@ namespace Remote.Plex.Api
                                     _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.ServerPort + server.thumb;
 
 
-                                    
-
-                                    _nowPlaying.FileName =String.IsNullOrEmpty(server.Media.Part.file) ? "NotGiven" : server.Media.Part.file;
-                                    _parent.Log("Plex:NP NowPlaying.FileName:" +_nowPlaying.FileName);
 
 
-                                    
+                                    _nowPlaying.FileName = String.IsNullOrEmpty(server.Media.Part.file) ? "NotGiven" : server.Media.Part.file;
+                                    _parent.Log("Plex:NP NowPlaying.FileName:" + _nowPlaying.FileName);
+
+
+
 
                                     _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "" : server.title;
-                                     _parent.Log("Plex:NP NowPlaying.Title:" + _nowPlaying.Title);
+                                    _parent.Log("Plex:NP NowPlaying.Title:" + _nowPlaying.Title);
+
+
+                                    // Make changes here to recognise ts recordings as TV and use regex to populate season/episode data
 
 
 
                                     _nowPlaying.MediaType = server.type == "episode" ? "TvShow" : "Movie";
-
                                     _parent.Log("Plex:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
+
+
+
+
 
                                     if (Convert.ToUInt64(server.Media.duration) > 0)
                                     {
@@ -430,13 +454,12 @@ namespace Remote.Plex.Api
                                         _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(RoundSeconds));
                                     }
 
-                                    _parent.Log("Plex:NP server.Media.Duration:" + server.Media.duration +":  _nowPlaying.Duration (calculated) :"+_nowPlaying.Duration);
+                                    _parent.Log("Plex:NP server.Media.Duration:" + server.Media.duration + ":  _nowPlaying.Duration (calculated) :" + _nowPlaying.Duration);
 
-                                    var RoundOffset = Math.Round(Convert.ToInt64(server.viewOffset) /1000.00,1);
+                                    var RoundOffset = Math.Round(Convert.ToInt64(server.viewOffset) / 1000.00, 1);
+                                    _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundOffset));
 
-                                    _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(server.viewOffset));
-
-                                    _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + "Calcuated on server.viewOffset:"+server.viewOffset);
+                                    _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + "Calcuated on server.viewOffset:" + server.viewOffset);
 
                                     var percent = Math.Floor(100.0 * Convert.ToInt32("0" + server.viewOffset, CultureInfo.InvariantCulture) / Convert.ToInt32("0" + server.Media.duration, CultureInfo.InvariantCulture));
                                     if (Double.IsNaN(percent))
@@ -449,7 +472,7 @@ namespace Remote.Plex.Api
 
                                     //_nowPlaying.FirstAired = server.originallyAvailableAt;
 
-                                    if (server.type=="episode")
+                                    if (server.type == "episode")
                                     {
                                         _nowPlaying.EpisodeNumber = Convert.ToInt32(server.index);
                                         _nowPlaying.SeasonNumber = Convert.ToInt32(server.parentIndex);
@@ -482,12 +505,47 @@ namespace Remote.Plex.Api
 
                                     _parent.Log("Plex Remote:  Filename" + _nowPlaying.FileName + " IsPlaying :" + _nowPlaying.IsPlaying + " IsPaused :" + _nowPlaying.IsPaused + " MediaType :" + _nowPlaying.MediaType);
 
+                                    // check for endwith ts filename
+                                    // actually check for mpegts
+                                    // may be recorded movies in mpegts format as well.....
+                                    // check for regex s00e00 contents - and when both present swap
+
+                                    // Change of plans - run for all files regardless of type and regardless of mediacontainer
+                                    
+
+                                    if (1==1)     //(server.Media.container == "mpegts" && server.type == "movie")
+                                    {
+                                        _parent.Log("Plex Remote:  New changing recorded TV to TV Shows and extracting season/episode data");
+
+                                        Regex regex = new Regex(@"[Ss](?<season>\d{1,2})[Ee](?<episode>\d{1,2})");
+
+                                        _parent.Log("Plex Remote:  Server Title Equals:" + server.title);
+
+                                        if (server.title != null)
+                                        {
+                                            Match match = regex.Match(server.title);
+                                            if (match.Success)
+                                            {
+                                                _nowPlaying.MediaType = "TvShow";
+                                                _nowPlaying.SeasonNumber = Convert.ToInt32(match.Groups["season"].Value);
+                                                _nowPlaying.EpisodeNumber = Convert.ToInt32(match.Groups["episode"].Value);
+                                                _parent.Log("Plex Remote: Regex TV Conversion: From :" + server.title);
+                                                //string replacement = "$1";
+                                                string newtitle = regex.Replace(server.title,"");
+                                                _parent.Log("Plex Remote:  New title equals :" + newtitle);
+                                                //_nowPlaying.ShowTitle = newtitle;
+                                                _nowPlaying.Title = newtitle;
+                                            }
+
+                                        }
+                                    }
 
 
 
                                     return;
                                 }
 
+                            }
                                 // if no local Client Playback then nothing Playing
                                 _nowPlaying.FileName = "";
                                 _nowPlaying.Title = "";
@@ -500,7 +558,7 @@ namespace Remote.Plex.Api
 
                             }
 
-                        }
+                       
                     }
                     catch (Exception ex)
                     {
