@@ -330,6 +330,11 @@ namespace FrontView
                 }
             }*/
             
+            if (_config.FanartSwitch == false)
+            {
+                return;
+            }
+
             if (_fanartCurrentImage == 1)
             {
                 _fanartCurrentImage = 2;
@@ -600,7 +605,7 @@ namespace FrontView
                     // Phew.
                     // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
 
-                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
+                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>") )
                     {
                         Logger.Instance().LogDump("SERVER", "NOT Playback Started Event - change Fanart as required", true);
                         if (dataReceived != "" && dataReceived != null)
@@ -609,8 +614,24 @@ namespace FrontView
                         }
                     }
 
+                    /**
+                    if (dataReceived.Contains("FrontViewConsoleCommand ON"))
+                    {
+                        Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON - change Fanart", true);
+                        string[] arguments = dataReceived.Split(',');
 
+                        Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:"+arguments[0]+" "+arguments[1], true);
+                        if (dataReceived != "" && dataReceived != null)
+                        {
+                            _config.FanartCurrentPath = arguments[1];
+                            CheckFanArt();
+                            SwitchFanart();
+                            _config.FanartSwitch = false;
+                        }
 
+                    }
+
+                    **/
                     //  onfig.FanartCurrentPath = dataReceived;
                     // Console.WriteLine("The resulting messages on the server" + dataReceived);
                     //  nwStream.Write(buffer, 0, bytesRead);
@@ -1038,6 +1059,8 @@ namespace FrontView
         {
             try
             {
+
+
                 if (String.IsNullOrEmpty(path))
                 {
                     Logger.Instance().LogDump("SortOUT", "path Empty set to null  " + path, true);
@@ -1562,7 +1585,7 @@ namespace FrontView
 
        }
 
-        private void CheckFanArt()
+        private void CheckFanArt(bool forceCheck)
         {
 
                 var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
@@ -1613,7 +1636,7 @@ namespace FrontView
             }
 
             
-            if (FanartAlways == true)
+            if (FanartAlways == true || forceCheck ==true)
             {
                 
                 if (nowPlaying2.FileName=="IGNORE")
@@ -1621,6 +1644,10 @@ namespace FrontView
                     Logger.Instance().LogDump("IGNORE", "IGNORE given ignoring Fanart Socket", true);
                     return;
                 }
+
+
+
+
                 string CurrentPath = SortOutPath(_config.FanartCurrentPath);
                 CurrentPath = cleanPath(CurrentPath, string.Empty);
 
@@ -1784,12 +1811,53 @@ namespace FrontView
             UpdateRemote();
             
             Window glennwindow = Window.GetWindow(this);
-            
+
+            // Add check here - ever second or so...
+
+            if (_config.FanartCurrentPath.Contains("FrontViewConsoleCommand"))
+            {
+                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived - change Fanart", true);
+                string[] arguments = _config.FanartCurrentPath.Split(',');
+                Logger.Instance().LogDump("SERVER", "arguments.Length:" + arguments.Length);
+                //Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:" + arguments[0] + " " + arguments[1], true);
+
+                if (arguments[0] == "FrontViewConsoleCommand ON" && arguments.Length >= 2)
+                {
+                    _config.FanartCurrentPath = arguments[1];
+                    _config.FanartDirectory = arguments[1];
+                    _yatse2Properties.DiaporamaImage1 = GetRandomImagePathNew(_config.FanartDirectory);
+                    _fanartCurrentImage = 1;
+                    var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
+                    if (stbDiaporamaShow != null)
+                    {
+                        stbDiaporamaShow.Begin(this);
+                        _isfanart = true;
+                        _isScreenSaver = true;
+                    }
+                    _config.FanartSwitch = false;
+                    
+                }
+                if (arguments[0] == "FrontViewConsoleCommand OFF")
+                {
+                    _config.FanartSwitch = true;
+                    _config.FanartCurrentPath = "";
+                    var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
+                    if (stbDiaporamaHide != null)
+                    {
+                        stbDiaporamaHide.Begin(this);
+                        _isfanart = false;
+                        _isScreenSaver = false;
+                    }
+                }
+
+            }
+
+
 
             //if (_config.CheckForUpdate && !_updatecheck)
             //{
-             //   _updatecheck = true;
-              //  CheckUpdate(false);
+            //   _updatecheck = true;
+            //  CheckUpdate(false);
             //}
 
             if (!_showHomePage)
@@ -1963,7 +2031,7 @@ namespace FrontView
                     if (!_isfanart && GlennMinimise == false && _config.FanartAlways == true && nowPlaying.CurrentMenuID != "10004" && !nowPlaying.IsPaused && !nowPlaying.IsPlaying && ( _timer % _config.FanartTimer) == 0 ) 
                     {
                          Logger.Instance().LogDump("FrontView FANART    : StartFanART Run & Fanart Timer result", _timer);
-                         CheckFanArt();
+                         CheckFanArt(false);
                          StartFanart();
                          Logger.Instance().LogDump("FrontView FANART    : StartFanART Finsihed & _timer result", _timer);
                          //Fanart Routine shoudl go here
@@ -2033,7 +2101,8 @@ namespace FrontView
           
           if (glennwindow.WindowState == WindowState.Normal && _isfanart && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && !nowPlaying.IsPlaying)
           {
-                    CheckFanArt();
+                    CheckFanArt(false);
+                    
                     SwitchFanart();
                     _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL);
           }

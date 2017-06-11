@@ -1,5 +1,15 @@
 ﻿Changelog:
 
+1.240
+Add ability to send Socket Commands (using existing Frontview server - but must be enabled)
+Separate Console App can send commands ON/OFF
+FrontViewConsoleCommand.exe 5000 ON c:\path\to\the\photos
+Format - Port being used for FrontView Server (Default 5000), On or Off, and the local path to background wish to display
+& 
+FrontviewConsoleCommand.exe 5000 OFF
+to return to normal Fanart Display.
+
+
 1.236
 Plex Remote updates/fixes
 Fix Movie Title overlap/resizes correctly (if not using logos)

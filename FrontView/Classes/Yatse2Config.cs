@@ -127,6 +127,7 @@ namespace FrontView.Classes
         public string FanartDirectoryMusic { get; set; }
         public string Language { get; set; }
         public string FanartDirectoryMyImages { get; set; }
+        public bool FanartSwitch { get; set; }
 
         public int IPPort { get; set; }
         public string IPAddress { get; set; }
@@ -230,6 +231,7 @@ namespace FrontView.Classes
             LongKeyPress = 500;
             DiaporamaMode = 1;
             DisableResolutionDetection = false;
+            FanartSwitch = true;
             FanartDirectory = @"addon_data\script.artworkorganizer\MovieFanart\";
             FanartDirectoryTV = @"addon_data\script.artworkorganizer\TVShowFanart\";
             FanartDirectoryWeather = @"addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";
@@ -342,6 +344,7 @@ namespace FrontView.Classes
             ImageDirectory = config.ImageDirectory;
             FanartCurrentPath = "";  // config.FanartCurrentPath;
             FanartDirectory = config.FanartDirectory;
+            //FanartSwitch = config.FanartSwitch;
             FanartDirectoryTV = config.FanartDirectoryTV;
             FanartDirectoryMovie = config.FanartDirectoryMovie;
             FanartDirectoryWeather = config.FanartDirectoryWeather;
