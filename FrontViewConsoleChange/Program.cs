@@ -49,7 +49,7 @@ namespace FrontViewConsoleChange
             for (int i = 0; i < count; i++)
             {
                 server.SendTo(data, data.Length, SocketFlags.None, RemoteEndPoint);
-                System.Threading.Thread.Sleep(200);
+                System.Threading.Thread.Sleep(250);
             }
         }
 
