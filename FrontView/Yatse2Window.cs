@@ -65,6 +65,19 @@ namespace FrontView
             Angular = 1,
             Raw = 2,
         }
+
+        public enum ProcessDPIAwareness
+        {
+            ProcessDPIUnaware = 0,
+            ProcessSystemDPIAware = 1,
+            ProcessPerMonitorDPIAware = 2
+        }
+
+        [DllImport("shcore.dll")]
+        public static extern int SetProcessDpiAwareness(ProcessDPIAwareness value);
+
+
+
     }
 
 
@@ -2511,6 +2524,20 @@ namespace FrontView
         private void Change_Display_Settings(object sender, EventArgs e)
         {
             Logger.Instance().Log("FrontView+", "Display settings changed");
+
+
+            try
+            {
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
+                    Logger.Instance().Log("FrontView+", "Display settings: Major >6 Settings PerMonitor DPI Aware");
+                }
+            }
+            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+            {
+            }
+
             Topmost = _config.Topmost;
             WindowStartupLocation = WindowStartupLocation.Manual;
             //REMOVE OR CHANGE ACTIVATE()
@@ -2519,11 +2546,15 @@ namespace FrontView
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);
 
+            // Getting DPI scaling factor from System.Drawing.Graphics - works for some settings but seemingly not all
+            // Below:
             System.Drawing.Graphics graphics = new System.Windows.Forms.Form().CreateGraphics();
             Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
             Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
 
 
+            // Below using CompositionTarget to get dpi settings m2.M11 and m2.M22 resulting settings
+            // Like above works on some windows/settings but not all
 
 
             if (temp != null)
@@ -2639,6 +2670,23 @@ namespace FrontView
 
                 foreach (var scr in screens)
                 {
+                    // Third way to get per-monitor DPI settings - likely best for windows 8.1 and above
+                    // Gets DPI results for each screen
+                    // Issue still is screen name and screen number does not necessarily help with screen layout/left/right/top/bottom/etc
+                    // Seems Dpi.Type Effective is the preferred/best result
+
+                    var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left + 1, scr.Bounds.Top + 1), 2 /* MONITOR_DEFAULTTONEAREST */);                
+                    uint dpiX, dpiY;
+                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
+                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+
+                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Angular, out dpiX, out dpiY);
+                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Angular:"+scr.DeviceName +" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+
+                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Raw, out dpiX, out dpiY);
+                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Raw:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+                    
+
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
                         if (_config.ScreenPositionX != 0 || _config.ScreenPositionY != 0)
@@ -2651,17 +2699,6 @@ namespace FrontView
                             Top = scr.WorkingArea.Top;
                             Left = scr.WorkingArea.Left;
                         }
-
-                        var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left+1, scr.Bounds.Top+1), 2 /* MONITOR_DEFAULTTONEAREST */);
-                        uint dpiX, dpiY;
-                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
-                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-
-                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Angular, out dpiX, out dpiY);
-                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Angular: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-
-                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Raw, out dpiX, out dpiY);
-                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Raw: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
 
 
                         Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Top:", scr.WorkingArea.Top);
