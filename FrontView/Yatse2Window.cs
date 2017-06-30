@@ -49,6 +49,23 @@ using System.Windows.Forms;
 namespace FrontView
 {
 
+    public static class ScreenExtensions
+    {
+        [DllImport("User32.dll")]
+        public static extern IntPtr MonitorFromPoint([In]System.Drawing.Point pt, [In]uint dwFlags);
+
+        //https://msdn.microsoft.com/en-us/library/windows/desktop/dn280510(v=vs.85).aspx
+        [DllImport("Shcore.dll")]
+        public static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
+
+        //https://msdn.microsoft.com/en-us/library/windows/desktop/dn280511(v=vs.85).aspx
+        public enum DpiType
+        {
+            Effective = 0,
+            Angular = 1,
+            Raw = 2,
+        }
+    }
 
 
     public static class RestoreWindowNoActivateExtension
@@ -65,6 +82,7 @@ namespace FrontView
             ShowWindow(winHelper.Handle, SW_SHOWNOACTIVATE);
         }
     }
+
     public static class KodiSourceData
     {
         public static string[] KodiSources = new string[20];
@@ -1209,6 +1227,8 @@ namespace FrontView
         private void PositionScreen()
         {
 
+            Logger.Instance().LogDump("Position Screen Called:", true);
+
             if (!_setPov)
             {
 
@@ -1232,6 +1252,11 @@ namespace FrontView
             if (_config.DisableScreenPositioning)
                 return;
 
+            if (_config.ScreenPositionX != 0 || _config.ScreenPositionY != 0)
+            {
+                return;
+            }
+
             if (_config.MouseMode)
                 return;
 
@@ -1244,8 +1269,10 @@ namespace FrontView
                 if (temp.CompositionTarget != null)
                 {
                     var m = temp.CompositionTarget.TransformToDevice;
+                    Logger.Instance().LogDump("Screens Positioning Prior:  Dx:" + dx + " and Dy:" + dy, true);
                     dx = m.M11;
                     dy = m.M22;
+                    Logger.Instance().LogDump("Screens Positioning:  Dx:" + dx + " and Dy:" + dy, true);
                 }
             }
             var screens = System.Windows.Forms.Screen.AllScreens;
@@ -1267,8 +1294,10 @@ namespace FrontView
                     // Probably jumping screens issues found.
                     if (scr.DeviceName == _config.SelectedDisplay)
                     {
+                        Logger.Instance().LogDump("Screens Positioning:  Top/Left: Before" + Top + " and Dy:" + Left, true);
                         Top = scr.Bounds.Top / dy;
                         Left = scr.Bounds.Left / dx;
+                        Logger.Instance().LogDump("Screens Positioning:  Top/Left:" + Top + " and Dy:" + Left, true);
                         break;
                     }
                 }
@@ -2489,17 +2518,34 @@ namespace FrontView
             var dx = 1.0;
             var dy = 1.0;
             var temp = PresentationSource.FromVisual(this);
-            
+
+            System.Drawing.Graphics graphics = new System.Windows.Forms.Form().CreateGraphics();
+            Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
+            Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
+
+
+
 
             if (temp != null)
             {
                 if (temp.CompositionTarget != null)
                 {
-                    var m = temp.CompositionTarget.TransformToDevice;
+                    var m2 = temp.CompositionTarget.TransformToDevice;
                     Logger.Instance().LogDump("Screens DPI:  Changing dx and dy:", true);
-                    dx = m.M11;
-                    dy = m.M22;
+                    dx = m2.M11;
+                    dy = m2.M22;
                     Logger.Instance().LogDump("Screens DPI:  Dx:"+dx+" and Dy:"+dy, true);
+                }
+            }
+            else
+            {
+                using (var src = new HwndSource(new HwndSourceParameters()))
+                {
+                    var m3 = src.CompositionTarget.TransformToDevice;
+                    Logger.Instance().LogDump("Screens DPI ELSE:  Changing dx and dy:", true);
+                    dx = m3.M11;
+                    dy = m3.M22;
+                    Logger.Instance().LogDump("Screens DPI ELSE after:  Dx:" + dx + " and Dy:" + dy, true);
                 }
             }
 
@@ -2595,12 +2641,42 @@ namespace FrontView
                 {
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
-                        Top = scr.WorkingArea.Top;
-                        Left = scr.WorkingArea.Left;
+                        if (_config.ScreenPositionX != 0 || _config.ScreenPositionY != 0)
+                        {
+                            Top = _config.ScreenPositionY;
+                            Left = _config.ScreenPositionX;
+                        }
+                        else
+                        {
+                            Top = scr.WorkingArea.Top;
+                            Left = scr.WorkingArea.Left;
+                        }
+
+                        var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left+1, scr.Bounds.Top+1), 2 /* MONITOR_DEFAULTTONEAREST */);
+                        uint dpiX, dpiY;
+                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
+                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+
+                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Angular, out dpiX, out dpiY);
+                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Angular: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+
+                        ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Raw, out dpiX, out dpiY);
+                        Logger.Instance().LogDump("DPI GetDPIforMonitor:Raw: dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+
+
                         Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Top:", scr.WorkingArea.Top);
                         Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Left:", scr.WorkingArea.Left);
                         Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Top:", scr.Bounds.Top);
                         Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Left:", scr.Bounds.Left);
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Width:", scr.WorkingArea.Width);
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Height:", scr.WorkingArea.Height);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Width:", scr.Bounds.Width);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Height:", scr.Bounds.Height);
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.X:", scr.WorkingArea.X);
+                        Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Y:", scr.WorkingArea.Y);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Size:", scr.Bounds.Size);
+
+
                         Logger.Instance().LogDump("Screen Selection:  _config.SelectedDisplay:", _config.SelectedDisplay);
                         Logger.Instance().LogDump("Screen Selected Device Name:", scr.DeviceName);
                         Logger.Instance().LogDump("Screen Selected Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));

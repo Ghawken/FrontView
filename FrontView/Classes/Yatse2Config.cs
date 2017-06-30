@@ -65,6 +65,8 @@ namespace FrontView.Classes
         public bool Topmost { get; set; }
         public bool KeepFocus { get; set; }
         public bool ForceResolution { get; set; }
+        public int ScreenPositionX { get; set; }
+        public int ScreenPositionY { get; set; }
         public bool Diaporama { get; set; }
         public bool Dimming { get; set; }
         public double DimAmount { get; set; }
@@ -219,6 +221,8 @@ namespace FrontView.Classes
             Skin_Extra = "Large NowPlaying";
             Skin_Extra_Text = "Large";
             Skin_Extra_Logo = "Large";
+            ScreenPositionX = 0;
+            ScreenPositionY = 0;
             DisableScreenPositioning = false;
             MouseMode = false;
             CropCacheImage = true;
@@ -314,6 +318,8 @@ namespace FrontView.Classes
             // Shouldnt need to save others
             FanartAlways = config.FanartAlways;
             Topmost = config.Topmost;
+            ScreenPositionX = config.ScreenPositionX;
+            ScreenPositionY = config.ScreenPositionY;
             KeepFocus = config.KeepFocus;
             ForceResolution = config.ForceResolution;
             Diaporama = config.Diaporama;
