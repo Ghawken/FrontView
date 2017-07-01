@@ -3,8 +3,7 @@
   <assemblyIdentity version="1.0.0.0" name="FrontView.app" />
   <asmv1:application>
     <asmv1:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">
-      <dpiAware>true/PM</dpiAware>
-      <dpiAwareness>PerMonitor,PerMonitor</dpiAwareness>
+      <dpiaware>False</dpiaware>
     </asmv1:windowsSettings>
   </asmv1:application>
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">

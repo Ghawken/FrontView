@@ -76,6 +76,8 @@ namespace FrontView
         [DllImport("shcore.dll")]
         public static extern int SetProcessDpiAwareness(ProcessDPIAwareness value);
 
+        [DllImport("Shcore.dll")]
+        public static extern int GetProcessDpiAwareness(IntPtr hprocess, out ProcessDPIAwareness value);
 
 
     }
@@ -555,6 +557,10 @@ namespace FrontView
             Directory.CreateDirectory(Helper.CachePath + @"Music\Thumbs");
             Directory.CreateDirectory(Helper.CachePath + @"Music\Artists");
             Directory.CreateDirectory(Helper.CachePath + @"Music\Fanarts");
+
+
+
+
         }
 
         private void StartReceiverServer()
@@ -762,14 +768,44 @@ namespace FrontView
                 */
                 
                 Logger.Instance().Log("SERVER", "Starting Server Thread... ",true);
-                
+
+                try
+                {
+                    if (Environment.OSVersion.Version.Major >= 6)
+                    {
+                        Logger.Instance().Log("FrontView+", "Display settings: Major >6 Settings PerMonitor DPI Aware",true);
+
+                        ScreenExtensions.ProcessDPIAwareness awareness;
+                        ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
+                        
+                        Logger.Instance().Log("DPI", "DPI Awareness equals: " + awareness.ToString(), true);
+
+                        ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
 
 
+                    }
+                }
+                catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+                {
+                    Logger.Instance().Log("Dpiaware", "OS does not support",true);
+                }
+
+                ScreenExtensions.ProcessDPIAwareness awareness2;
+                try
+                {
+
+                    ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
+                    Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
+                }
+                catch
+                {
+
+                }
                 var assem = Assembly.GetEntryAssembly();
                 var assemName = assem.GetName();
                 var ver = assemName.Version;
 
-
+                
 
                 Logger.Instance().Log("FrontView+", "Starting version :" + ver.Major +"." + ver.Minor, true);
                 Logger.Instance().Log("FrontView+","Starting build : " + ver.Build,true);
@@ -782,6 +818,13 @@ namespace FrontView
                 //   Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
                 Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name, true);
+
+                Logger.Instance().Log("OSInfo", "OsVersion.Platform = " + Environment.OSVersion.Platform, true);
+                Logger.Instance().Log("OSInfo", "OsVersion.Version.Major = " + Environment.OSVersion.Version.Major, true);
+                Logger.Instance().Log("OSInfo", "OsVersion.VersionString = " + Environment.OSVersion.VersionString, true);
+                Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
+
+
                 Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
                 Logger.Instance().Log("OSInfo", "Service Pack =" + OSInfo.ServicePack, true);
                 Logger.Instance().Log("OSInfo", "Version = " + OSInfo.VersionString, true);
@@ -1897,9 +1940,9 @@ namespace FrontView
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived Exception:"+e, true);
+                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived Exception:"+ex, true);
             }
 
             //if (_config.CheckForUpdate && !_updatecheck)
@@ -2532,17 +2575,6 @@ namespace FrontView
             Logger.Instance().Log("FrontView+", "Display settings changed");
 
 
-            try
-            {
-                if (Environment.OSVersion.Version.Major >= 6)
-                {
-                    ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
-                    Logger.Instance().Log("FrontView+", "Display settings: Major >6 Settings PerMonitor DPI Aware");
-                }
-            }
-            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
-            {
-            }
 
             Topmost = _config.Topmost;
             WindowStartupLocation = WindowStartupLocation.Manual;
@@ -2673,6 +2705,17 @@ namespace FrontView
                 //
                // }
 
+                foreach (var scr in screens)
+                {
+                    var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left , scr.Bounds.Top ), 2 /* MONITOR_DEFAULTTONEAREST */);                
+                    uint dpiX, dpiY;
+                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
+                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
+                    Logger.Instance().LogDump("Screen Selection:  scr.Bounds:", scr.Bounds);
+
+
+                }
+
 
                 foreach (var scr in screens)
                 {
@@ -2681,11 +2724,6 @@ namespace FrontView
                     // Issue still is screen name and screen number does not necessarily help with screen layout/left/right/top/bottom/etc
                     // Seems Dpi.Type Effective is the preferred/best result
 
-                    var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left + 1, scr.Bounds.Top + 1), 2 /* MONITOR_DEFAULTTONEAREST */);                
-                    uint dpiX, dpiY;
-                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
-                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-                    Logger.Instance().LogDump("Screen Selection:  scr.Bounds:", scr.Bounds);
 
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {

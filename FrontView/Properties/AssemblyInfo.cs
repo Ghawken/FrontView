@@ -2,6 +2,7 @@
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Media;
 
 
 // Les informations générales relatives à un assembly dépendent de 
@@ -15,7 +16,7 @@ using System.Windows;
 [assembly: AssemblyCopyright("Copyright © Tolriq 2010/11/12/13 GH 2015/16")]
 [assembly: AssemblyTrademark("FrontView")]
 [assembly: AssemblyCulture("")]
-
+[assembly: DisableDpiAwareness]
 
 // L'affectation de la valeur false à ComVisible rend les types invisibles dans cet assembly 
 // aux composants COM. Si vous devez accéder à un type dans cet assembly à partir de 
