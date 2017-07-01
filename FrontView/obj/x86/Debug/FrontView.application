@@ -4,7 +4,7 @@
   <description asmv2:publisher="FrontView" asmv2:product="FrontView" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.6.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.6" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
     <dependentAssembly dependencyType="install" codebase="FrontView.exe.manifest" size="8693">
@@ -14,7 +14,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VMB0XRspZK5wD8SCko7y9mwO7aQrR/MbW0kmgC5+Z0c=</dsig:DigestValue>
+        <dsig:DigestValue>jLOgJjsr3sjT8aTJsjFge0HgkJsqWRIXoeEOMAXM6JI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

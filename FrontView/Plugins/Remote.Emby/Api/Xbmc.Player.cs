@@ -660,7 +660,7 @@ namespace Remote.Emby.Api
 
 
                     
-                    if (Movieitem.VideoHeight !=null)
+                    if (Movieitem.VideoHeight !=null && Movieitem.VideoHeight != "")
                     {
 
 

@@ -11,6 +11,7 @@
 
 using FluidKit.Controls;
 using FrontView;
+using FrontView.Classes;
 using System;
 using System.Diagnostics;
 using System.Windows;

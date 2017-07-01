@@ -269,6 +269,12 @@ namespace FrontView
                 Logger.Instance().LogDump("FileLOCK", "Locked and exception equals :" + ex, true);
                 return true;
             }
+            catch (Exception e)
+            { 
+            // other error of access
+                Logger.Instance().LogDump("FileLOCK", "Another exception " + e, true);
+            return true;
+            }
             finally
             {
                 if (stream != null)
@@ -579,7 +585,7 @@ namespace FrontView
                 Window glennwindow = Window.GetWindow(this);
                 if (glennwindow.WindowState != WindowState.Normal)
                 {
-                    Logger.Instance().Log("Yatse 2 NEW DEBUG", "Window State Miniminsed Restore as Playing " + nowPlaying.FileName);
+                    Logger.Instance().Log("FrontView 2 NEW DEBUG", "Window State Miniminsed Restore as Playing " + nowPlaying.FileName);
                     //glennwindow.Visibility = Visibility.Visible;
                     //Restore with no activation or focus
                     RestoreWindowNoActivateExtension.RestoreNoActivate(glennwindow);

@@ -1261,7 +1261,6 @@ namespace FrontView
                 _setPov = true;
             }
 
-
             if (_config.DisableScreenPositioning)
                 return;
 
@@ -1855,46 +1854,53 @@ namespace FrontView
             Window glennwindow = Window.GetWindow(this);
 
             // Add check here - ever second or so...
-
-            if (_config.FanartCurrentPath.Contains("FrontViewConsoleCommand"))
+            try
             {
-                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived - change Fanart", true);
-                string[] arguments = _config.FanartCurrentPath.Split(',');
-                Logger.Instance().LogDump("SERVER", "arguments.Length:" + arguments.Length);
-                //Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:" + arguments[0] + " " + arguments[1], true);
-
-                if (arguments[0] == "FrontViewConsoleCommand ON" && arguments.Length >= 2)
+                if (_config.FanartCurrentPath != null)
                 {
-                    _config.FanartCurrentPath = arguments[1];
-                    _config.FanartDirectory = arguments[1];
-                    _yatse2Properties.DiaporamaImage1 = GetRandomImagePathNew(_config.FanartDirectory);
-                    _fanartCurrentImage = 1;
-                    var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
-                    if (stbDiaporamaShow != null)
+                    if (_config.FanartCurrentPath.Contains("FrontViewConsoleCommand"))
                     {
-                        stbDiaporamaShow.Begin(this);
-                        _isfanart = true;
-                        _isScreenSaver = true;
-                    }
-                    _config.FanartSwitch = false;
-                    
-                }
-                if (arguments[0] == "FrontViewConsoleCommand OFF")
-                {
-                    _config.FanartSwitch = true;
-                    _config.FanartCurrentPath = "";
-                    var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
-                    if (stbDiaporamaHide != null)
-                    {
-                        stbDiaporamaHide.Begin(this);
-                        _isfanart = false;
-                        _isScreenSaver = false;
-                    }
-                }
+                        Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived - change Fanart", true);
+                        string[] arguments = _config.FanartCurrentPath.Split(',');
+                        Logger.Instance().LogDump("SERVER", "arguments.Length:" + arguments.Length);
+                        //Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:" + arguments[0] + " " + arguments[1], true);
 
+                        if (arguments[0] == "FrontViewConsoleCommand ON" && arguments.Length >= 2)
+                        {
+                            _config.FanartCurrentPath = arguments[1];
+                            _config.FanartDirectory = arguments[1];
+                            _yatse2Properties.DiaporamaImage1 = GetRandomImagePathNew(_config.FanartDirectory);
+                            _fanartCurrentImage = 1;
+                            var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
+                            if (stbDiaporamaShow != null)
+                            {
+                                stbDiaporamaShow.Begin(this);
+                                _isfanart = true;
+                                _isScreenSaver = true;
+                            }
+                            _config.FanartSwitch = false;
+
+                        }
+                        if (arguments[0] == "FrontViewConsoleCommand OFF")
+                        {
+                            _config.FanartSwitch = true;
+                            _config.FanartCurrentPath = "";
+                            var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
+                            if (stbDiaporamaHide != null)
+                            {
+                                stbDiaporamaHide.Begin(this);
+                                _isfanart = false;
+                                _isScreenSaver = false;
+                            }
+                        }
+
+                    }
+                }
             }
-
-
+            catch (Exception e)
+            {
+                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived Exception:"+e, true);
+            }
 
             //if (_config.CheckForUpdate && !_updatecheck)
             //{
@@ -2679,13 +2685,7 @@ namespace FrontView
                     uint dpiX, dpiY;
                     ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
                     Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-
-                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Angular, out dpiX, out dpiY);
-                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Angular:"+scr.DeviceName +" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-
-                    ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Raw, out dpiX, out dpiY);
-                    Logger.Instance().LogDump("DPI GetDPIforMonitor:Raw:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
-                    
+                    Logger.Instance().LogDump("Screen Selection:  scr.Bounds:", scr.Bounds);
 
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
@@ -2696,8 +2696,8 @@ namespace FrontView
                         }
                         else
                         {
-                            Top = scr.WorkingArea.Top;
-                            Left = scr.WorkingArea.Left;
+                            Top = scr.Bounds.Location.X;
+                            Left = scr.Bounds.Location.Y;
                         }
 
 
@@ -2711,8 +2711,8 @@ namespace FrontView
                         Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Height:", scr.Bounds.Height);
                         Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.X:", scr.WorkingArea.X);
                         Logger.Instance().LogDump("Screen Selection:  scr.WorkingArea.Y:", scr.WorkingArea.Y);
-                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Size:", scr.Bounds.Size);
-
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Location.X:", scr.Bounds.Location.X);
+                        Logger.Instance().LogDump("Screen Selection:  scr.Bounds.Location.Y:", scr.Bounds.Location.Y);
 
                         Logger.Instance().LogDump("Screen Selection:  _config.SelectedDisplay:", _config.SelectedDisplay);
                         Logger.Instance().LogDump("Screen Selected Device Name:", scr.DeviceName);
