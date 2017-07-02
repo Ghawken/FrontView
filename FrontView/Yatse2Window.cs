@@ -58,7 +58,7 @@ namespace FrontView
                 ScaleTransform dpiTransform = new ScaleTransform(1 / m.M11, 1 / m.M22);
                 if (dpiTransform.CanFreeze)
                     dpiTransform.Freeze();
-                this.LayoutTransform = dpiTransform;
+                //this.LayoutTransform = dpiTransform;
                 Logger.Instance().LogDump("DPI", "Decorator RUN :" + m.M11 + ": M22:" + m.M22);
             };
         }
@@ -2798,8 +2798,8 @@ namespace FrontView
 
             if (_config.Resolution.DMPelsWidth > 0)
             {
-                Width = _config.Resolution.DMPelsWidth ;
-                Height = _config.Resolution.DMPelsHeight ;
+                Width = _config.Resolution.DMPelsWidth /dx;  // add dpi adjustment here - yep all good.
+                Height = _config.Resolution.DMPelsHeight /dy;
                 Logger.Instance().LogDump("Screens Width", Width);
                 Logger.Instance().LogDump("Screens Height", Height);
             }
