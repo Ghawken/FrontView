@@ -1312,6 +1312,8 @@ namespace FrontView
 
             Logger.Instance().LogDump("Position Screen Called:", true);
 
+            
+
             if (!_setPov)
             {
 
@@ -1351,7 +1353,7 @@ namespace FrontView
                 if (temp.CompositionTarget != null)
                 {
                     var m = temp.CompositionTarget.TransformToDevice;
-                    Logger.Instance().LogDump("Screens Positioning Prior:  Dx:" + dx + " and Dy:" + dy, true);
+                    //Logger.Instance().LogDump("Screens Positioning Prior:  Dx:" + dx + " and Dy:" + dy, true);
                     dx = m.M11;
                     dy = m.M22;
                     Logger.Instance().LogDump("Screens Positioning:  Dx:" + dx + " and Dy:" + dy, true);
@@ -1376,10 +1378,10 @@ namespace FrontView
                     // Probably jumping screens issues found.
                     if (scr.DeviceName == _config.SelectedDisplay)
                     {
-                        Logger.Instance().LogDump("Screens Positioning:  Top/Left: Before" + Top + " and Dy:" + Left, true);
+                        Logger.Instance().LogDump("Screens Positioning:  Top/Left: Before:  Top: " + Top + " and Left:" + Left, true);
                         Top = scr.Bounds.Top / dy;
                         Left = scr.Bounds.Left / dx;
-                        Logger.Instance().LogDump("Screens Positioning:  Top/Left:" + Top + " and Dy:" + Left, true);
+                        Logger.Instance().LogDump("Screens Positioning:  Top:" + Top + " and Left:" + Left, true);
                         break;
                     }
                 }
@@ -2613,9 +2615,11 @@ namespace FrontView
 
             // Getting DPI scaling factor from System.Drawing.Graphics - works for some settings but seemingly not all
             // Below:
-            System.Drawing.Graphics graphics = new System.Windows.Forms.Form().CreateGraphics();
-            Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
-            Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
+           // Don't use this:
+            
+            // System.Drawing.Graphics graphics = new System.Windows.Forms.Form().CreateGraphics();
+           // Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
+           // Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
 
 
             // Below using CompositionTarget to get dpi settings m2.M11 and m2.M22 resulting settings
@@ -2720,6 +2724,8 @@ namespace FrontView
                     }
                 }
                
+                // without this here - fails - likely delay to screen coming back up after resolution change with out rechecking - doesn't see screen
+
                 screens = System.Windows.Forms.Screen.AllScreens;
 
                 
@@ -2732,28 +2738,29 @@ namespace FrontView
                 //
                // }
 
+                /*   Below: Accurate and works - but presently so does M11 and M12 and easier to use in DPIDecorator class
+                 *   So remove for the moment
+
                 foreach (var scr in screens)
                 {
-                    var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left , scr.Bounds.Top ), 2 /* MONITOR_DEFAULTTONEAREST */);                
+                    var hmon = ScreenExtensions.MonitorFromPoint(new System.Drawing.Point(scr.Bounds.Left , scr.Bounds.Top ), 2 );                
                     uint dpiX, dpiY;
                     ScreenExtensions.GetDpiForMonitor(hmon, ScreenExtensions.DpiType.Effective, out dpiX, out dpiY);
                     Logger.Instance().LogDump("DPI GetDPIforMonitor:Effective:"+scr.DeviceName+" dpiX:" + dpiX + ": dpiY:" + dpiY, true);
                     Logger.Instance().LogDump("Screen Selection:  scr.Bounds:", scr.Bounds);
-
-
                 }
-
+            */
 
                 foreach (var scr in screens)
                 {
-                    // Third way to get per-monitor DPI settings - likely best for windows 8.1 and above
-                    // Gets DPI results for each screen
-                    // Issue still is screen name and screen number does not necessarily help with screen layout/left/right/top/bottom/etc
-                    // Seems Dpi.Type Effective is the preferred/best result
 
-
+                    
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
+
+                        // if NOT Zero in ScreenPositionX and Y will use this for positioning
+                        // will be an issue if want to override and need 0 and 0.  likely need to use -1, 1 etc instead
+
                         if (_config.ScreenPositionX != 0 || _config.ScreenPositionY != 0)
                         {
                             Top = _config.ScreenPositionY;
@@ -2763,8 +2770,8 @@ namespace FrontView
                         {
                             // should be divided by dx and dy
 
-                            Top = scr.Bounds.Location.X/dx;
-                            Left = scr.Bounds.Location.Y/dy;
+                            Top = scr.Bounds.Location.Y/dy;
+                            Left = scr.Bounds.Location.X / dx;
                         }
 
 
