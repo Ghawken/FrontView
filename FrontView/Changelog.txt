@@ -1,5 +1,10 @@
 ﻿Changelog:
 
+1.260
+Changes for Windows 8.1/10 DPI Scaling
+Frontview becomes DPI aware and should rescale and position appropriately
+
+
 1.240
 Add ability to send Socket Commands (using existing Frontview server - but must be enabled)
 Separate Console App can send commands ON/OFF

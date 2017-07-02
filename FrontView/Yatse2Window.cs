@@ -844,16 +844,20 @@ namespace FrontView
                 //   Logger.Instance().Log("FrontView+", "Starting MinorRevision : " + ver.MinorRevision, true);
                 //   Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
-                Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name, true);
+                Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name + " Build :"+Environment.OSVersion.Version.Build, true);
 
-                Logger.Instance().Log("OSInfo", "OsVersion.Platform = " + Environment.OSVersion.Platform, true);
-                Logger.Instance().Log("OSInfo", "OsVersion.Version.Major = " + Environment.OSVersion.Version.Major, true);
-                Logger.Instance().Log("OSInfo", "OsVersion.VersionString = " + Environment.OSVersion.VersionString, true);
-                Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
+             //   Logger.Instance().Log("OSInfo", "OsVersion.Platform = " + Environment.OSVersion.Platform, true);
+          //      Logger.Instance().Log("OSInfo", "OsVersion.Version.Major = " + Environment.OSVersion.Version.Major, true);
+            //    Logger.Instance().Log("OSInfo", "OsVersion.Version.MajorRevision = " + Environment.OSVersion.Version.MajorRevision, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Minor = " + Environment.OSVersion.Version.Minor, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.MinorRevision = " + Environment.OSVersion.Version.MinorRevision, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.VersionString = " + Environment.OSVersion.VersionString, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Revision = " + Environment.OSVersion.Version.Revision, true);
+           //     Logger.Instance().Log("OSInfo", "OsVersion.Prodcut = " + Environment.OSVersion, true);
 
-
-                Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
-                Logger.Instance().Log("OSInfo", "Service Pack =" + OSInfo.ServicePack, true);
+           //     Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
+                Logger.Instance().Log("OSInfo", "Service Pack Build =" + Environment.OSVersion.Version.Build, true);
                 Logger.Instance().Log("OSInfo", "Version = " + OSInfo.VersionString, true);
                 Logger.Instance().Log("OSInfo", "Bits = " + OSInfo.RealBits, true);
                 Logger.Instance().Log("OSInfo", "Culture = " + Thread.CurrentThread.CurrentCulture.Name, true);
