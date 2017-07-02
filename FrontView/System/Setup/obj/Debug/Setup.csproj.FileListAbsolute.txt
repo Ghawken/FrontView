@@ -24,4 +24,3 @@ C:\Users\ghawken\Source\Repos\FrontView3\FrontView\bin\x86\Debug\System\Setup.pd
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\System\Setup\obj\Debug\Setup.csprojResolveAssemblyReference.cache
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\System\Setup\obj\Debug\Setup.dll
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\System\Setup\obj\Debug\Setup.pdb
-C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\System\Setup\obj\Debug\Setup.csprojResolveAssemblyReference.cache

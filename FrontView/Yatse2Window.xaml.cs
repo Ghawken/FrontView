@@ -23,14 +23,21 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using FrontView.Libs;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace FrontView
 {
+
+
     public partial class Yatse2Window
     {
+
         public Yatse2Window()
         {
             InitializeComponent();
+
+
+
             ModalDialog.SetParent(grd_Contener);
             Init();
             ModalDialog.SetButtons(GetLocalizedString(125), GetLocalizedString(126), GetLocalizedString(127));

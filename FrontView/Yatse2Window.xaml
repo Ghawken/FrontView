@@ -29,7 +29,8 @@
     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ResizeMode="CanMinimize" 
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-    <Window.Resources>
+        
+        <Window.Resources>
 
 
 
@@ -227,7 +228,8 @@
 
 
     </Window.Resources>
-    <Grid Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
+    <Yatse2:DpiDecorator> 
+        <Grid x:Name="Whole" Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
 
         <!-- Binded -->
         <Grid x:Name="grd_Contener">
@@ -2799,5 +2801,7 @@
         </Grid>
         <Yatse2:ModalDialog x:Name="ModalDialog" Panel.ZIndex="200" d:IsHidden="True"/>
     </Grid>
-
+</Yatse2:DpiDecorator>
 </Window>
+
+    

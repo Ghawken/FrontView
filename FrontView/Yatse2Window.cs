@@ -48,6 +48,22 @@ using System.Windows.Forms;
 
 namespace FrontView
 {
+    public class DpiDecorator : Decorator
+    {
+        public DpiDecorator()
+        {
+            this.Loaded += (s, e) =>
+            {
+                Matrix m = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
+                ScaleTransform dpiTransform = new ScaleTransform(1 / m.M11, 1 / m.M22);
+                if (dpiTransform.CanFreeze)
+                    dpiTransform.Freeze();
+                this.LayoutTransform = dpiTransform;
+                Logger.Instance().LogDump("DPI", "Decorator RUN :" + m.M11 + ": M22:" + m.M22);
+            };
+        }
+    }
+
 
     public static class ScreenExtensions
     {
@@ -2618,7 +2634,7 @@ namespace FrontView
                 }
             }
 
-            
+
             var screens = System.Windows.Forms.Screen.AllScreens;
 
             Logger.Instance().LogDump("Var Screens", true);
@@ -2734,8 +2750,10 @@ namespace FrontView
                         }
                         else
                         {
-                            Top = scr.Bounds.Location.X;
-                            Left = scr.Bounds.Location.Y;
+                            // should be divided by dx and dy
+
+                            Top = scr.Bounds.Location.X/dx;
+                            Left = scr.Bounds.Location.Y/dy;
                         }
 
 
@@ -2764,6 +2782,20 @@ namespace FrontView
 
 
             }
+
+            //attempt to scale down the whole container
+            // Correctly scales down the internal - but not the whole viewbox
+            // Name background to Whole.
+
+          //  double DpiWidthFactor = dx;
+         //   double DpiHeightFactor = dy;
+
+         //   double scalex = 1 / DpiWidthFactor;
+         //   double scaley = 1 / DpiHeightFactor;
+
+          //  WholeCompleteWindow.LayoutTransform = new ScaleTransform(scalex, scaley);
+
+
             if (_config.Resolution.DMPelsWidth > 0)
             {
                 Width = _config.Resolution.DMPelsWidth ;
