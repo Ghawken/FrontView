@@ -34,9 +34,11 @@ namespace FrontView
 
         public Yatse2Window()
         {
+            SetDPIState();
+
             InitializeComponent();
 
-
+            
 
             ModalDialog.SetParent(grd_Contener);
             Init();

@@ -58,7 +58,7 @@ namespace FrontView
                 ScaleTransform dpiTransform = new ScaleTransform(1 / m.M11, 1 / m.M22);
                 if (dpiTransform.CanFreeze)
                     dpiTransform.Freeze();
-                //this.LayoutTransform = dpiTransform;
+                this.LayoutTransform = dpiTransform;
                 Logger.Instance().LogDump("DPI", "Decorator RUN :" + m.M11 + ": M22:" + m.M22);
             };
         }
@@ -555,6 +555,48 @@ namespace FrontView
             return ModalDialog.ShowYesNoDialog(message);
         }
         
+
+        private static void SetDPIState()
+        {
+            // do this early to avoid changing the image popup
+
+            try
+            {
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    Logger.Instance().Log("DPI Awareness", "Display settings: Major >6 Settings PerMonitor DPI Aware", true);
+
+                    ScreenExtensions.ProcessDPIAwareness awareness;
+                    ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
+
+                    Logger.Instance().Log("DPI", "DPI Awareness equals: " + awareness.ToString(), true);
+
+                    ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
+
+
+                }
+            }
+            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+            {
+                Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings", true);
+            }
+
+            ScreenExtensions.ProcessDPIAwareness awareness2;
+            try
+            {
+
+                ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
+                Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
+            }
+            catch
+            {
+
+            }
+
+
+
+        }
+
         private static void PreInit()
         {
             ServicePointManager.CheckCertificateRevocationList = false;
@@ -785,38 +827,7 @@ namespace FrontView
                 
                 Logger.Instance().Log("SERVER", "Starting Server Thread... ",true);
 
-                try
-                {
-                    if (Environment.OSVersion.Version.Major >= 6)
-                    {
-                        Logger.Instance().Log("FrontView+", "Display settings: Major >6 Settings PerMonitor DPI Aware",true);
 
-                        ScreenExtensions.ProcessDPIAwareness awareness;
-                        ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
-                        
-                        Logger.Instance().Log("DPI", "DPI Awareness equals: " + awareness.ToString(), true);
-
-                        ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
-
-
-                    }
-                }
-                catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
-                {
-                    Logger.Instance().Log("Dpiaware", "OS does not support",true);
-                }
-
-                ScreenExtensions.ProcessDPIAwareness awareness2;
-                try
-                {
-
-                    ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
-                    Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
-                }
-                catch
-                {
-
-                }
                 var assem = Assembly.GetEntryAssembly();
                 var assemName = assem.GetName();
                 var ver = assemName.Version;
@@ -2783,25 +2794,15 @@ namespace FrontView
 
             }
 
-            //attempt to scale down the whole container
-            // Correctly scales down the internal - but not the whole viewbox
-            // Name background to Whole.
-
-          //  double DpiWidthFactor = dx;
-         //   double DpiHeightFactor = dy;
-
-         //   double scalex = 1 / DpiWidthFactor;
-         //   double scaley = 1 / DpiHeightFactor;
-
-          //  WholeCompleteWindow.LayoutTransform = new ScaleTransform(scalex, scaley);
-
 
             if (_config.Resolution.DMPelsWidth > 0)
             {
                 Width = _config.Resolution.DMPelsWidth /dx;  // add dpi adjustment here - yep all good.
                 Height = _config.Resolution.DMPelsHeight /dy;
-                Logger.Instance().LogDump("Screens Width", Width);
-                Logger.Instance().LogDump("Screens Height", Height);
+
+
+                Logger.Instance().LogDump("Screens Width DPI Adjusted:", Width);
+                Logger.Instance().LogDump("Screens Height DPI Adjusted:", Height);
             }
 
             if (_config.Resolution.DMPelsHeight == 480)
@@ -2817,8 +2818,8 @@ namespace FrontView
                 
                 grd_Settings.ClipToBounds = false;
                 ScaleTransform myScaleTransform = new ScaleTransform();
-                myScaleTransform.ScaleX = 0.85;
-                myScaleTransform.ScaleY = 0.85;
+                myScaleTransform.ScaleX = 0.8;  //remove DPI scaling here - DPI Decorator class will do it
+                myScaleTransform.ScaleY = 0.8;
             //    grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
                 grd_Settings.RenderTransform = myScaleTransform;
 
@@ -2830,9 +2831,9 @@ namespace FrontView
                 brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 390, 100, 0);
 
-                grd_Settings.ClipToBounds = true;
+                grd_Settings.ClipToBounds = false;
                 ScaleTransform myScaleTransform = new ScaleTransform();
-                myScaleTransform.ScaleX = 1.0;
+                myScaleTransform.ScaleX = 1.0;  //DPI scaling shouldnt be needed here as well - the DPI Decorator will do all this
                 myScaleTransform.ScaleY = 1.0;
              //   grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
                 grd_Settings.RenderTransform = myScaleTransform;
