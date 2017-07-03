@@ -556,46 +556,7 @@ namespace FrontView
         }
         
 
-        private static void SetDPIState()
-        {
-            // do this early to avoid changing the image popup
 
-            try
-            {
-                if (Environment.OSVersion.Version.Major >= 6)
-                {
-                    Logger.Instance().Log("DPI Awareness", "Display settings: Major >6 Settings PerMonitor DPI Aware", true);
-
-                    ScreenExtensions.ProcessDPIAwareness awareness;
-                    ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
-
-                    Logger.Instance().Log("DPI", "DPI Awareness equals: " + awareness.ToString(), true);
-
-                    ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
-
-
-                }
-            }
-            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
-            {
-                Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings", true);
-            }
-
-            ScreenExtensions.ProcessDPIAwareness awareness2;
-            try
-            {
-
-                ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
-                Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
-            }
-            catch
-            {
-
-            }
-
-
-
-        }
 
         private static void PreInit()
         {

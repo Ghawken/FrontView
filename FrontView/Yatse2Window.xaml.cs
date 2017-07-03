@@ -34,7 +34,7 @@ namespace FrontView
 
         public Yatse2Window()
         {
-            SetDPIState();
+            //SetDPIState();
 
             InitializeComponent();
 

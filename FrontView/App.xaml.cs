@@ -64,10 +64,10 @@ namespace FrontView
 
             Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
 
+            
+
+
             SplashScreen screen = new SplashScreen("Skin/Internal/Images/Splash.png");
-
-
-
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(
@@ -76,6 +76,12 @@ namespace FrontView
 
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += AssemblyLoader;
+
+            InitLog();
+
+            SetDPIState();
+
+
 
             // Check for CommandLine arguments - check for nosplashscreen
             string[] args = Environment.GetCommandLineArgs();
@@ -87,7 +93,7 @@ namespace FrontView
                 screen.Show(true);
             }
 
-            InitLog();
+            
 
             /**
             Logger.Instance().LogDump("Checking Command Line Args:" + args.Length, true);
@@ -110,9 +116,43 @@ namespace FrontView
          
         }
 
+        private static void SetDPIState()
+        {
+            // do this early to avoid changing the image popup
+            try
+            {
+                if (Environment.OSVersion.Version.Major >= 6)
+                {
+                    Logger.Instance().Log("DPI Awareness", "Display settings: Major >6 Settings PerMonitor DPI Aware", true);
+                    ScreenExtensions.ProcessDPIAwareness awareness;
+                    ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness);
+                    Logger.Instance().Log("DPI", "DPI Awareness equals: " + awareness.ToString(), true);
+                    ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
+                }
+            }
+            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+            {
+                Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings", true);
+            }
+
+            ScreenExtensions.ProcessDPIAwareness awareness2;
+            try
+            {
+
+                ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
+                Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
+            }
+            catch
+            {
+
+            }
+        }
+
+
+
         static void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            Logger.Instance().LogException("YatseApp", e.Exception );
+            Logger.Instance().LogException("FrontViewApp", e.Exception );
             e.Handled = true;
         }
 
