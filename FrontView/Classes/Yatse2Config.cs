@@ -79,6 +79,7 @@ namespace FrontView.Classes
         public double FanArtOpacity { get; set; }
         public double LogoSize { get; set; }
         public double TimeSize { get; set; }
+        public double EverythingSize { get; set; }
         public double MediaIconSize { get; set; }
         public double SemiCircleOpacity { get; set; }
         public bool Currently { get; set; }
@@ -249,6 +250,7 @@ namespace FrontView.Classes
             HttpUseDigest = false;
             LogoSize = 100.0;
             TimeSize = 22;
+            EverythingSize = 1.0;
             MediaIconSize = 50;
             FanArtOpacity = 1.0;
             SemiCircleOpacity = 0.65;
@@ -297,6 +299,7 @@ namespace FrontView.Classes
             HttpUseDigest = config.HttpUseDigest;
             LogoSize = config.LogoSize;
             TimeSize = config.TimeSize;
+            EverythingSize = config.EverythingSize;
             MediaIconSize = config.MediaIconSize;
             FanArtOpacity = config.FanArtOpacity;
             SemiCircleOpacity = config.SemiCircleOpacity;

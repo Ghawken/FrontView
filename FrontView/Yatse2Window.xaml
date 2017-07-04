@@ -25,6 +25,7 @@
     xmlns:Yatse2="clr-namespace:FrontView"
     mc:Ignorable="d"
     x:Class="FrontView.Yatse2Window"
+    x:Name="ALL"
     Title="FrontView" Height="600" Width="800" WindowStyle="None" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ResizeMode="CanMinimize" 
     Background="#FF414141" FontFamily="{DynamicResource Default_Font}" PreviewMouseUp="Window_PreviewMouseUp" PreviewMouseDown="Window_PreviewMouseDown" MouseLeftButtonDown="Window_MouseLeftButtonDown">
@@ -228,7 +229,7 @@
 
 
     </Window.Resources>
-    <Yatse2:DpiDecorator> 
+    <Yatse2:DpiDecorator x:Name="Everything"> 
         <Grid x:Name="Whole" Background="{Binding Skin, ConverterParameter=Background/Fill, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" RenderTransformOrigin="0.5,0.5">
 
         <!-- Binded -->
@@ -394,26 +395,28 @@
 
 
 
-                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" d:IsHidden="True" >
+                    <Rectangle Margin="0" Grid.ColumnSpan="2" Grid.RowSpan="3" >
                         <Rectangle.Fill>
                             <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Fanart, Source={StaticResource Yatse2Properties}}" Opacity="{Binding FanArtOpacity, Source={StaticResource Yatse2Properties}}"/>
                         </Rectangle.Fill>
                     </Rectangle>
 
-                    <Grid Margin="0" Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" d:IsHidden="True">
-                        <Border x:Name="brd_Current_Music_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Height="25" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
-                            <Grid Margin="0" d:IsHidden="True">
-                                <TextBlock Margin="0,0,40,0" TextWrapping="Wrap" FontSize="18.667" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
-        						Text="{Binding Currently.MusicArtist, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Music_ToggleDetail_MouseDown" d:IsHidden="True"/>
-                                <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
+                    <Grid Margin="0" Visibility="{Binding Currently.IsMusic, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}">
+                        <Border x:Name="brd_Current_Music_Header" Margin="235,0,0,150" VerticalAlignment="Bottom" Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0" d:IsHidden="True">
+                            <Grid Margin="0">
+                                    <Viewbox Margin="20,0,40,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=newtitlesize, Source={StaticResource Yatse2Properties}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform" d:IsHidden="True">
+                                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+        						Text="{Binding Currently.MusicArtist, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" VerticalAlignment="Center" MouseDown="txb_Current_Music_ToggleDetail_MouseDown"/>
+                                    </Viewbox>
+                                    <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsNotMusicDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_ShowDetails_Click" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsNotMusicDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_ShowDetails_Click"/>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_HideDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsMusicDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_HideDetails_Click" d:LayoutOverrides="GridBox" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsMusicDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_HideDetails_Click" d:LayoutOverrides="GridBox"/>
                                 <Button HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Width="25" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_HideDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsMusicDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_HideDetails_Click" d:LayoutOverrides="GridBox" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsMusicDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_HideDetails_Click" d:LayoutOverrides="GridBox"/>
                             </Grid>
                         </Border>
                         <Border x:Name="brd_Current_Music" VerticalAlignment="Bottom" 
@@ -436,9 +439,9 @@
                                     <Button HorizontalAlignment="Center" Margin="150,0,0,0" VerticalAlignment="Center" Width="48" Height="48" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Next, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Next_Click" d:IsHidden="True"/>
                                 </Grid>
-                                <TextBlock HorizontalAlignment="Left" Margin="260,35,0,74" Width="125" TextWrapping="Wrap" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}"
+                                    <TextBlock HorizontalAlignment="Left" Margin="260,35,0,74"  TextWrapping="Wrap"  FontSize="{Binding TimeSize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}"
         						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
-                                <TextBlock  HorizontalAlignment="Right" Margin="0,35,69,0" Width="125" FontSize="{DynamicResource Currently_TextSize}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
+                                    <TextBlock  HorizontalAlignment="Right" Margin="0,35,69,0"  FontSize="{Binding TimeSize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" Height="38" VerticalAlignment="Top" d:IsHidden="True" />
                                 <TextBlock  Margin="235,0,295,40" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="20"
         						Text="{Binding Currently.MusicAlbum, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" d:IsHidden="True" />
@@ -452,12 +455,12 @@
                                 -->
                             </Grid>
                         </Border>
-                        <Rectangle x:Name="rct_Current_Music_Image" Stroke="Black" StrokeThickness="0" RadiusX="20" RadiusY="20" Margin="25,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="185" MaxWidth="350" HorizontalAlignment="Left" Width="185" MouseDown="txb_Current_Music_ToggleDetail_MouseDown" d:IsHidden="True" >
+                        <Rectangle x:Name="rct_Current_Music_Image" Stroke="Black" StrokeThickness="0" RadiusX="20" RadiusY="20" Margin="25,0,0,90" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Bottom" Height="185" MaxWidth="350" HorizontalAlignment="Left" Width="185" MouseDown="txb_Current_Music_ToggleDetail_MouseDown" >
                             <Rectangle.Fill>
                                 <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Border x:Name="brd_Current_Music_Image_Reflexion" RenderTransformOrigin="0.5,0.5" Width="185" Margin="25,0,0,-99" Height="173" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
+                        <Border x:Name="brd_Current_Music_Image_Reflexion" RenderTransformOrigin="0.5,0.5" Width="185" Margin="25,0,0,-99" Height="173" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                             <Border.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleY="-1"/>
@@ -476,21 +479,21 @@
                                 </LinearGradientBrush>
                             </Border.OpacityMask>
                         </Border>
-                        <Grid x:Name="grd_Current_Music_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000" d:IsHidden="True">
+                        <Grid x:Name="grd_Current_Music_Details" Margin="0,0,0,-400" VerticalAlignment="Bottom" Height="400" Background="#BF000000">
                             <TextBlock HorizontalAlignment="Left" Margin="45,13,0,0" VerticalAlignment="Top" Width="200" Height="94" FontSize="85" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Center"
-        					Text="{Binding Currently.MusicYear, Source={StaticResource Yatse2Properties}}" Opacity="0.35" d:IsHidden="True" />
+        					Text="{Binding Currently.MusicYear, Source={StaticResource Yatse2Properties}}" Opacity="0.35" />
                             <TextBlock HorizontalAlignment="Left" Margin="128,10,0,0" VerticalAlignment="Top" Width="117" Height="21" TextWrapping="Wrap" Foreground="{DynamicResource Default_Font_Color}" FontSize="18.667"
-        					Text="{Binding Currently.MusicTrack, Source={StaticResource Yatse2Properties}}" d:IsHidden="True" />
+        					Text="{Binding Currently.MusicTrack, Source={StaticResource Yatse2Properties}}" />
                             <TextBlock Margin="294,34,8,102" FontSize="14.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        					Text="{Binding Currently.MusicBiography, Source={StaticResource Yatse2Properties}}" TextAlignment="Justify" d:IsHidden="True" />
+        					Text="{Binding Currently.MusicBiography, Source={StaticResource Yatse2Properties}}" TextAlignment="Justify" />
                             <TextBlock HorizontalAlignment="Left" Margin="45,13,0,0" VerticalAlignment="Top" Width="79" Height="15" FontSize="13.333" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Right"
-        					Text="{DynamicResource Localized_80}" d:IsHidden="True" />
-                            <Rectangle Stroke="Black" RadiusX="20" RadiusY="20" Margin="45,111,0,89" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="200" Height="200" MouseDown="txb_Current_Music_ToggleDetail_MouseDown" d:IsHidden="True">
+        					Text="{DynamicResource Localized_80}" />
+                            <Rectangle Stroke="Black" RadiusX="20" RadiusY="20" Margin="45,111,0,89" ScrollViewer.VerticalScrollBarVisibility="Disabled" MaxWidth="350" HorizontalAlignment="Left" Width="200" Height="200" MouseDown="txb_Current_Music_ToggleDetail_MouseDown">
                                 <Rectangle.Fill>
                                     <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Currently.Thumb, Source={StaticResource Yatse2Properties}}" />
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <Border RenderTransformOrigin="0.5,0.5" Width="200" Margin="45,0,0,-132" Height="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:IsHidden="True" >
+                            <Border RenderTransformOrigin="0.5,0.5" Width="200" Margin="45,0,0,-132" Height="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                                 <Border.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleY="-1"/>
@@ -510,7 +513,7 @@
                                 </Border.OpacityMask>
                             </Border>
                             <TextBlock Margin="294,0,8,61" VerticalAlignment="Bottom" Height="26" FontSize="18.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        					Text="{Binding Currently.MusicAlbum, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" d:IsHidden="True" />
+        					Text="{Binding Currently.MusicAlbum, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" />
                             <TextBlock Margin="294,0,8,31" VerticalAlignment="Bottom" Height="26" FontSize="18.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
         					Text="{Binding Currently.MusicSong, Source={StaticResource Yatse2Properties}}" FontStyle="Italic" d:IsHidden="True" />
                             <TextBlock HorizontalAlignment="Left" Margin="8,0,0,22.6" VerticalAlignment="Bottom" Width="263" Height="24" FontSize="18.667" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap" TextAlignment="Center"
@@ -878,68 +881,68 @@
                     <Grid Margin="0" Visibility="{Binding Currently.IsTv, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"
         			 >
                         <Border x:Name="brd_Current_Tv_Header" Margin="235,0,0,150" VerticalAlignment="Bottom"  Background="#BF000000" BorderThickness="0" CornerRadius="50,0,0,0"  >
-                            <Grid Margin="0" d:IsHidden="True" >
-                                <Viewbox Margin="20,0,40,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=newtitlesize, Source={StaticResource Yatse2Properties}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform" d:IsHidden="True">
-                                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
-        						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center" d:IsHidden="True" />
+                            <Grid Margin="0" >
+                                <Viewbox Margin="20,0,40,0" Height="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=newtitlesize, Source={StaticResource Yatse2Properties}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="{DynamicResource Default_Font_Color}" Padding="0,2,0,0"
+        						Text="{Binding Currently.TvTitle, Source={StaticResource Yatse2Properties}}" FontWeight="Bold" MouseDown="txb_Current_Tv_ToggleDetail_MouseDown" VerticalAlignment="Center" />
                                 </Viewbox>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_ShowDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsNotTvDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_ShowDetails_Click" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsNotTvDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_ShowDetails_Click"/>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="36" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_HideDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsTvDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_HideDetails_Click" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsTvDetails, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_HideDetails_Click"/>
                                 <Button HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Top" Width="25" Height="25" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_HideDetails, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        						Visibility="{Binding Currently.IsTvDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_HideDetails_Click" d:IsHidden="True"/>
+        						Visibility="{Binding Currently.IsTvDetails480, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Tv_HideDetails_Click"/>
                             </Grid>
                         </Border>
                         <Border x:Name="brd_Current_Tv" VerticalAlignment="Bottom" 
         				Height="150" BorderBrush="Black" BorderThickness="0" Background="#BF000000">
-                            <Grid Margin="0" d:IsHidden="True">
+                            <Grid Margin="0">
                                 <Slider x:Name="sld_Current_Tv_Progress" Margin="260,10,69,0" Style="{DynamicResource Slider}" VerticalAlignment="Top" Height="20" Maximum="100" Background="White" 
-        						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp" d:IsHidden="True"/>
+        						Value="{Binding Currently.Progress, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Progress_PreviewMouseUp"/>
                                 <Slider x:Name="sld_Current_Tv_Volume" Margin="0,8,12,42" Style="{DynamicResource Slider}" Orientation="Vertical" HorizontalAlignment="Right" Width="20" Maximum="100" Background="White"
         						Value="{Binding Currently.Volume, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="sld_Current_Music_Volume_PreviewMouseUp" d:IsHidden="True"/>
                                 <TextBlock HorizontalAlignment="Left" Margin="260,35,0,0" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="{Binding TimeSize, Source={StaticResource Yatse2Properties}}"  Foreground="{DynamicResource Default_Font_Color}"
-        						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
+        						Text="{Binding Currently.Time, Source={StaticResource Yatse2Properties}}" FontWeight="{DynamicResource Currently_FontWeight}" />
                                 <TextBlock HorizontalAlignment="Right" Margin="0,35,69,0" VerticalAlignment="Top" FontSize="{Binding TimeSize, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" d:IsHidden="True" />
+        						Text="{Binding Currently.Duration, Source={StaticResource Yatse2Properties}}" TextAlignment="Right" FontWeight="{DynamicResource Currently_FontWeight}" />
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}" 
         						Background="{Binding Skin, ConverterParameter=Remote_Mute, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" 
                                 Visibility="{Binding Currently.IsMuted, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}"          
-                                Click="btn_Current_Music_Mute_Click" d:IsHidden="True"/>
+                                Click="btn_Current_Music_Mute_Click"/>
 
                                 <Button HorizontalAlignment="Right" Margin="0,0,8,8" VerticalAlignment="Bottom" Width="30" Height="30" Content="Button" Style="{DynamicResource Remote_Button}"
         						Background="{Binding Skin, ConverterParameter=Remote_VolUp, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" 
                                 Visibility="{Binding Currently.IsMuted, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=boolinvert, Source={StaticResource Yatse2Properties}}"   
-                                Click="btn_Current_Music_Mute_Click" d:IsHidden="True"/>
+                                Click="btn_Current_Music_Mute_Click"/>
 
 
 
-                                <Grid x:Name="txb_SupportsRemoteControlTv" Margin="236,0,43,0" VerticalAlignment="Bottom" Height="65" d:IsHidden="True">
+                                <Grid x:Name="txb_SupportsRemoteControlTv" Margin="236,0,43,0" VerticalAlignment="Bottom" Height="65">
                                     <Button Margin="-300,0,0,0" Content="Button" Style="{DynamicResource Remote_Button}"
-        							Background="{Binding Skin, ConverterParameter=Remote_Previous, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Previous_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48" d:IsHidden="True"/>
+        							Background="{Binding Skin, ConverterParameter=Remote_Previous, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Previous_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48"/>
 
                                     <Button Margin="-150,0,0,0" Content="Button" Style="{DynamicResource Remote_Button}"
-        							Background="{Binding Skin, ConverterParameter=Remote_Stop, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Stop_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48" d:IsHidden="True"/>
+        							Background="{Binding Skin, ConverterParameter=Remote_Stop, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Stop_Click" HorizontalAlignment="Center" Width="48" VerticalAlignment="Center" Height="48"/>
 
 
                                     <Button Margin="0" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Play, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        							Visibility="{Binding Currently.IsPaused, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Play_Click" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Center" d:IsHidden="True"/>
+        							Visibility="{Binding Currently.IsPaused, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Play_Click" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Center"/>
 
                                     <Button Margin="0" Content="Button" Style="{DynamicResource Remote_Button}"
         							Background="{Binding Skin, ConverterParameter=Remote_Pause, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}"
-        							Visibility="{Binding Currently.IsPlaying, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Pause_Click" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Center" d:IsHidden="True"/>
+        							Visibility="{Binding Currently.IsPlaying, Converter={x:Static Yatse2:VisibilityConverter.Instance}, ConverterParameter=bool, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Pause_Click" HorizontalAlignment="Center" Width="48" Height="48" VerticalAlignment="Center"/>
 
                                     <Button HorizontalAlignment="Center" Margin="150,0,0,0" Width="48" Content="Button" Style="{DynamicResource Remote_Button}"
-        							Background="{Binding Skin, ConverterParameter=Remote_Next, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Next_Click" VerticalAlignment="Center" Height="48" d:IsHidden="True"/>
+        							Background="{Binding Skin, ConverterParameter=Remote_Next, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" Click="btn_Current_Music_Next_Click" VerticalAlignment="Center" Height="48"/>
                                 </Grid>
 
                                 <TextBlock HorizontalAlignment="Left" Margin="8,0,0,15" VerticalAlignment="Bottom" Width="215" Height="23" TextWrapping="Wrap" FontSize="{Binding Skin_Extra_Text, Converter={x:Static Yatse2:SkinExtraConverter.Instance}, ConverterParameter=TVS00E00, Source={StaticResource Yatse2Properties}}" Foreground="{DynamicResource Default_Font_Color}"
-        						Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" d:IsHidden="True" />
+        						Text="{Binding Currently.TvEpisode, Source={StaticResource Yatse2Properties}}" TextAlignment="Center" />
 
 
                             </Grid>
@@ -1266,85 +1269,90 @@
         			Background="{Binding Skin, ConverterParameter=Remote_Search/Small, Converter={x:Static Yatse2:SkinBrushConverter.Instance}, Source={StaticResource Yatse2Properties}}" d:IsHidden="True"/>
                 </Grid>
 
-                <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0" d:IsHidden="True"  >
-                    <Canvas Margin="10" d:IsHidden="True">
-                        <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+                <Grid x:Name="grd_Settings" Visibility="Hidden" Margin="0,0,0,0"  >
+                    <Canvas Margin="10">
+                        <Border BorderThickness="1" Margin="0,121,0,0" CornerRadius="10" Background="#66000000" HorizontalAlignment="Center" Width="782" VerticalAlignment="Top" Height="404" RenderTransformOrigin="0.5,0.5">
 
-                            <Canvas Margin="-1" d:IsHidden="True">
-                                <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}" d:IsHidden="True">
-                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True" >
-                                        <Canvas d:IsHidden="True">
+                            <Canvas Margin="-1">
+                                <TabControl Height="302" Width="782" TabStripPlacement="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Padding="4" Canvas.Top="8" Style="{DynamicResource TabControlStyle1}">
+                                    <TabItem Header="{DynamicResource Localized_128}" Width="150" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Margin="0" Style="{DynamicResource TabItemStyle1}" >
+                                        <Canvas>
                                             <!-- remove replace with Combobox of options <CheckBox x:Name="chk_Settings_SecondScreen" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_44}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" /> -->
 
                                             <CheckBox x:Name="chk_Settings_Topmost" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_45}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="197.723" Width="368" />
 
-                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Resolution" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="68.5"/>
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="68.5" d:IsHidden="True" />
+        								Text="{DynamicResource Localized_46}" Canvas.Left="8" Canvas.Top="68.5" />
 
-                                            <ComboBox x:Name="lst_Settings_Displays" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="121.723" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Displays" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="134" Canvas.Top="121.723"/>
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Display :" Canvas.Left="8" Canvas.Top="121.723" d:IsHidden="True" />
+        								Text="Display :" Canvas.Left="8" Canvas.Top="121.723" />
 
                                             <CheckBox x:Name="chk_Settings_ForceResolution" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}" 
-        								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_47}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="161.8" />
 
                                             <TextBlock Width="122" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" d:IsHidden="True" />
+        								Text="{DynamicResource Localized_49}" Canvas.Left="8" Canvas.Top="16.723" />
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723" d:IsHidden="True"/>
+        								Text="{DynamicResource Localized_50}" Canvas.Left="361" Canvas.Top="16.723"/>
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Cover Size:" Canvas.Left="362" Canvas.Top="79" d:IsHidden="True"/>
+        								Text="Cover Size:" Canvas.Left="362" Canvas.Top="79"/>
 
-                                            <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Language" Width="223" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="13.333" Canvas.Left="134" Canvas.Top="16.723"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Skin" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="16.723" Width="158"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="78" Width="158" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Skin_extra" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="78" Width="158"/>
 
-                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Text" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="107" Width="158" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_Skin_Extra_Text" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="454" Canvas.Top="107" Width="158"/>
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Text Size:" Canvas.Left="354" Canvas.Top="106" d:IsHidden="True"/>
+        								Text="Text Size:" Canvas.Left="354" Canvas.Top="106"/>
 
                                             <!--    <ComboBox x:Name="lst_Settings_Skin_Extra_Logo" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="455" Canvas.Top="136" Width="158"/>  -->
 
-                                            <Slider x:Name="lst_Settings_LogoSize" Value="{Binding LogoSize, Source={StaticResource Yatse2Properties}}" Maximum="250.0" Minimum="20" Height="18" VerticalAlignment="Top" Canvas.Left="454" Canvas.Top="142" Width="153" d:IsHidden="True" />
+                                            <Slider x:Name="lst_Settings_LogoSize" Value="{Binding LogoSize, Source={StaticResource Yatse2Properties}}" Maximum="250.0" Minimum="20" Height="18" VerticalAlignment="Top" Canvas.Left="454" Canvas.Top="142" Width="153" />
 
                                             <CheckBox x:Name="chk_Settings_UseLogo" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="Use Logo" Padding="5,0,0,0" Canvas.Left="484" Canvas.Top="206" Width="123" d:IsHidden="True" />
+        								Content="Use Logo" Padding="5,0,0,0" Canvas.Left="484" Canvas.Top="206" Width="123" />
 
                                             <CheckBox x:Name="chk_Settings_UseNowPlayingMediaIcons" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="Use MediaIcons" Padding="5,0,0,0" Canvas.Left="470" Canvas.Top="232" Width="137" RenderTransformOrigin="0.431,0.579" d:IsHidden="True" />
+        								Content="Use MediaIcons" Padding="5,0,0,0" Canvas.Left="470" Canvas.Top="232" Width="137" RenderTransformOrigin="0.431,0.579" />
 
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-        								Text="Logo Size:" Canvas.Left="357" Canvas.Top="137" d:IsHidden="True"/>
+        								Text="Logo Size:" Canvas.Left="357" Canvas.Top="137"/>
 
                                             <TextBlock Width="156" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16" FontStyle="Oblique"
-        								Text="Now Playing Screen:" Canvas.Left="401" Canvas.Top="53" d:IsHidden="True"/>
+        								Text="Now Playing Screen:" Canvas.Left="401" Canvas.Top="53"/>
 
 
                                             <CheckBox x:Name="chk_Settings_HideCursor" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_51}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="231.6" Width="368" />
                                             <CheckBox x:Name="chk_Settings_MouseMode" Width="368" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" d:IsHidden="True" />
+        								Content="{DynamicResource Localized_124}" Padding="5,0,0,0" Canvas.Left="8" Canvas.Top="263.8" />
 
-                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="241" Canvas.Top="205" Width="116" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_DimAmount" Height="24" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="241" Canvas.Top="205" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}" TextWrapping="Wrap"
-        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="241" Canvas.Top="167" Width="115" Height="41" d:IsHidden="True"/>
+        								Text="Amount of Dim to Apply" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="241" Canvas.Top="167" Width="115" Height="41"/>
 
-                                            <ComboBox x:Name="lst_Settings_DimTime" Height="22" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="241" Canvas.Top="256" Width="116" d:IsHidden="True"/>
+                                            <ComboBox x:Name="lst_Settings_DimTime" Height="22" BorderBrush="Black" MaxDropDownHeight="150" Style="{DynamicResource ComboBox}" FontSize="16" Canvas.Left="241" Canvas.Top="256" Width="116"/>
                                             <TextBlock  FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="234" Canvas.Top="237" Width="191" d:IsHidden="True"/>
-                                            <Slider x:Name="lst_Settings_TimeSize" Value="{Binding TimeSize, Source={StaticResource Yatse2Properties}}" Maximum="120.0" Minimum="5" Height="18" VerticalAlignment="Top" Canvas.Left="454" Canvas.Top="173" Width="153" d:IsHidden="True" />
+        								Text="Dim over Seconds" Padding="5,0,0,0" HorizontalAlignment="Right" Canvas.Left="234" Canvas.Top="237" Width="191"/>
+                                            <Slider x:Name="lst_Settings_TimeSize" Value="{Binding TimeSize, Source={StaticResource Yatse2Properties}}" Maximum="120.0" Minimum="5" Height="18" VerticalAlignment="Top" Canvas.Left="454" Canvas.Top="173" Width="153" />
                                             <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
-                                                Text="Time Size:" Canvas.Left="357" Canvas.Top="173" d:IsHidden="True"/>
-                                            <Rectangle Fill="White" Height="118" StrokeThickness="3" Opacity="0.5" Canvas.Left="362" Canvas.Top="47" Width="5" d:IsHidden="True"/>
-                                            <Rectangle Fill="White" Height="246" StrokeThickness="3" Opacity="0.5" Canvas.Left="485" Canvas.Top="-73" Width="6" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+                                                Text="Time Size:" Canvas.Left="357" Canvas.Top="173"/>
+
+                                                <Slider x:Name="lst_Settings_EverythingSize" Value="{Binding EverythingSize, Source={StaticResource Yatse2Properties}}" PreviewMouseUp="EverythingSizeSlider_ValueChanged" Maximum="1.5" Minimum="0.5" Height="18" VerticalAlignment="Top" Canvas.Left="454" Canvas.Top="263" Width="153" />
+                                                <TextBlock Width="89" Height="25" TextAlignment="Right" Foreground="{DynamicResource Default_Font_Color}" FontSize="16"
+                                                Text="ALL Size:" Canvas.Left="357" Canvas.Top="263"/>
+
+                                                <Rectangle Fill="White" Height="118" StrokeThickness="3" Opacity="0.5" Canvas.Left="362" Canvas.Top="47" Width="5"/>
+                                            <Rectangle Fill="White" Height="246" StrokeThickness="3" Opacity="0.5" Canvas.Left="485" Canvas.Top="-73" Width="6" RenderTransformOrigin="0.5,0.5">
                                                 <Rectangle.RenderTransform>
                                                     <TransformGroup>
                                                         <ScaleTransform/>
@@ -1367,7 +1375,7 @@
                                             <Rectangle Fill="White" Height="130" StrokeThickness="3" Opacity="0.5" Canvas.Left="207" Canvas.Top="162" Width="5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True"/>
                                         </Canvas>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_129}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" Height="32.8" VerticalAlignment="Top">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_ShowEmptyMusicGenre" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_53}" Padding="5,0,0,0" Margin="8,127.523,185,145.277" d:LayoutOverrides="Height" d:IsHidden="True" />
@@ -1400,7 +1408,7 @@
 
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_130}" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
                                             <CheckBox x:Name="chk_Settings_Diaporama" Style="{DynamicResource CheckBox}" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
         								Content="{DynamicResource Localized_57}" Padding="5,0,0,0" Margin="8,0,162,209" VerticalAlignment="Bottom" d:IsHidden="True" />
@@ -1421,7 +1429,7 @@
         								Content="{DynamicResource Localized_70}" Padding="5,0,0,0" Margin="8,0,162,126.2" VerticalAlignment="Bottom" d:IsHidden="True" />
                                         </Grid>
                                     </TabItem>
-                                    <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}" d:IsHidden="True">
+                                    <TabItem Header="{DynamicResource Localized_131}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">
                                         <Grid d:IsHidden="True">
                                             <TextBox x:Name="txt_Settings_WeatherLocId" TextWrapping="Wrap" Style="{DynamicResource TextBox}" FontSize="16" Height="27" IsEnabled="False" Margin="239,68.723,212,0" VerticalAlignment="Top" d:IsHidden="True"/>
                                             <Button x:Name="btn_Settings_WeatherLocId" Width="200" Height="27" Style="{DynamicResource Button}" FontSize="16" Click="btn_Settings_WeatherLocId_Click"

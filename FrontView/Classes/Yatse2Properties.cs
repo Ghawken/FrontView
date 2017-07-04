@@ -93,6 +93,19 @@ namespace FrontView.Classes
             }
         }
 
+        public static readonly DependencyProperty EverythingSizeProperty =
+DependencyProperty.Register("EverythingSize", typeof(double), typeof(Yatse2Properties));
+
+        public double EverythingSize
+        {
+            get { return (double)GetValue(EverythingSizeProperty); }
+            set
+            {
+                SetValue(EverythingSizeProperty, value);
+
+            }
+        }
+
         public static readonly DependencyProperty MediaIconSizeProperty =
     DependencyProperty.Register("MediaIconSize", typeof(double), typeof(Yatse2Properties));
 

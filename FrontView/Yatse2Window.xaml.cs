@@ -219,6 +219,26 @@ namespace FrontView
 
             }
         }
+        private void EverythingSizeSlider_ValueChanged(object sender, MouseButtonEventArgs e)
+        {
+            {
+                Setup.Logger.Instance().LogDump("Everything Slider", "Slider called:",true);
+
+                // ... Get Slider reference.
+                var slider = sender as Slider;
+                // ... Get Value.
+                double value = Math.Round(slider.Value, 2);
+                // ... Set Window Title.
+
+                _config.EverythingSize = value;
+                _yatse2Properties.EverythingSize = value;
+                EverythingScale.ScaleFactor = value;
+                // Change_Display_Settings(null,null);
+                Setup.Logger.Instance().LogDump("Everything Slider", "InvalidateVisual Calling: Slider Value:"+value, true);
+                // Change_Display_Settings(null, null);
+
+            }
+        }
 
 
         private void LogoSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -427,6 +447,7 @@ namespace FrontView
         {
 
         }
+
 
     }
 }
