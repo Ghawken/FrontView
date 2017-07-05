@@ -55,14 +55,7 @@ namespace FrontView
             this.Loaded += (s, e) =>
             {
                 Matrix m = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
-                // ScaleTransform dpiTransform = new ScaleTransform(1 / m.M11, 1 / m.M22);
-
-                // see if can manual scale
-                double Scale = 1;
-                Scale = EverythingScale.ScaleFactor;
-                Logger.Instance().LogDump("DPI", "Decorator RUN :ScaleFactor" + Scale);
-
-                ScaleTransform dpiTransform = new ScaleTransform(Scale, Scale);
+                ScaleTransform dpiTransform = new ScaleTransform(1 / m.M11, 1 / m.M22);
 
                 if (dpiTransform.CanFreeze)
                     dpiTransform.Freeze();
@@ -126,11 +119,6 @@ namespace FrontView
     {
         public static string[] KodiSources = new string[20];
         public static string[] KodiMusicSources = new string[20];
-    }
-
-    public static class EverythingScale
-    {
-        public static double ScaleFactor = 1.0;
     }
 
     public partial class Yatse2Window : IDisposable
@@ -881,7 +869,6 @@ namespace FrontView
                     _yatse2Properties.LogoSize = _config.LogoSize;
                     _yatse2Properties.TimeSize = _config.TimeSize;
                     _yatse2Properties.EverythingSize = _config.EverythingSize;
-                    EverythingScale.ScaleFactor = _config.EverythingSize;
                     _yatse2Properties.MediaIconSize = _config.MediaIconSize;
                     _yatse2Properties.SemiCircleOpacity = _config.SemiCircleOpacity;
                     _yatse2Properties.Skin_Extra = _config.Skin_Extra;
@@ -2779,6 +2766,15 @@ namespace FrontView
 
             }
 
+
+            // add adjustable full window scale here:
+
+            ScaleTransform AllTransform = new ScaleTransform(_config.EverythingSize, _config.EverythingSize);
+
+            if (AllTransform.CanFreeze)
+                AllTransform.Freeze();
+            Whole.LayoutTransform = AllTransform;
+            Logger.Instance().LogDump("EverythingSize", " RUN :" + _config.EverythingSize);
 
             if (_config.Resolution.DMPelsWidth > 0)
             {

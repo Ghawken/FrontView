@@ -232,10 +232,8 @@ namespace FrontView
 
                 _config.EverythingSize = value;
                 _yatse2Properties.EverythingSize = value;
-                EverythingScale.ScaleFactor = value;
-                // Change_Display_Settings(null,null);
-                Setup.Logger.Instance().LogDump("Everything Slider", "InvalidateVisual Calling: Slider Value:"+value, true);
-                // Change_Display_Settings(null, null);
+                Change_Display_Settings(null,null);
+                
 
             }
         }
