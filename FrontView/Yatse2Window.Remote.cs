@@ -299,7 +299,8 @@ namespace FrontView
                     bool DefaultThumb = false;
                     bool usingExtrafanart = false;
                     // Add below to reset Thumb and Fanart when new file starts
-                    _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
+                    //_yatse2Properties.Currently.Fanart = nowPlaying.FanartURL;
+                        //Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
                     _yatse2Properties.Currently.Thumb =  Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Music-Thumbs.png");
                     _yatse2Properties.Currently.IsMusic = true;
                     _yatse2Properties.Currently.MusicAlbum = nowPlaying.Album;
@@ -313,7 +314,7 @@ namespace FrontView
                 // Wholesale change coming up......  Move away from DB for Currently Info, instead move to extrafanart for the artist detected....
                 // Looks good - should do the same for Video Now Playing info screen
 
-                    Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart equals:" + _yatse2Properties.Currently.Fanart, true);
+                    Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart URL equals:" + nowPlaying.FanartURL, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "Config GetMusicFanartPath equals:" + GetMusicFanartPath(nowPlaying.FanartURL), true);
 
                     Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Artist Equals:" + nowPlaying.Artist + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicArtist, true);

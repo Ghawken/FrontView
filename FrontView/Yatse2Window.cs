@@ -1576,7 +1576,7 @@ namespace FrontView
         private void CheckAudioFanart()
         {
             var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-            Logger.Instance().LogDump("theme.mp3", "NowPlaying Filename equals:" + nowPlaying2.FileName);
+            Logger.Instance().LogDump("Checing for theme.mp3", "NowPlaying Filename equals:" + nowPlaying2.FileName);
 
             var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
@@ -1585,9 +1585,9 @@ namespace FrontView
             {
                 string CurrentPath = SortOutPath(nowPlaying2.FileName);
                 CurrentPath = cleanPath(CurrentPath, string.Empty);
-                Logger.Instance().LogDump("theme.mp3 Playing", "Current Path Equals:" + CurrentPath, true);
+                Logger.Instance().LogDump("theme.mp3 IS Playing", "Current Path Equals:" + CurrentPath, true);
                 string CurrentPath2 = GetFanartDirectory(CurrentPath);
-                Logger.Instance().LogDump("theme.mp3 Playing", "CurrentPath2 now Equals:" + CurrentPath2, true);
+                Logger.Instance().LogDump("theme.mp3 IS Playing", "CurrentPath2 now Equals:" + CurrentPath2, true);
                 _config.FanartDirectory = CurrentPath2 + @"extrafanart\";
 
                 if (GetRandomImagePathNew(_config.FanartDirectory) == null)
@@ -1655,6 +1655,8 @@ namespace FrontView
             Logger.Instance().LogDump("MUSIC", "Fanart File   " + ArtistExtrafanart, true);
             _config.FanartDirectory = ArtistExtrafanart;
             Logger.Instance().LogDump("MUSIC", "Fanart location    " + _config.FanartDirectory, true);
+
+
             if (GetRandomImagePathNew(_config.FanartDirectory)==null)
             {
                Logger.Instance().LogDump("MUSIC", "CheckAudio Defaulting  " + nowPlaying2.Artist, true);
