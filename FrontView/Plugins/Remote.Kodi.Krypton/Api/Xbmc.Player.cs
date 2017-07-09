@@ -225,7 +225,9 @@ namespace Remote.XBMC.Krypton.Api
                     result2 = (JsonObject)(result2)["item"];
 
                     var clearlogo = "NONE";
+
                     var banner = "NONE";
+
                     // go through art and see.
 
                     JsonObject artresults = (JsonObject)result2["art"];
@@ -306,15 +308,40 @@ namespace Remote.XBMC.Krypton.Api
                         {
                             _nowPlaying.Year = 0;
                         }
-
+                        
                         _nowPlaying.Artist = _parent.JsonArrayToString((JsonArray)result2["artist"]);
+                        _parent.Log("KODI-Remote:nowPlaying_artist:" + _nowPlaying.Artist);
                         _nowPlaying.Album = result2["album"].ToString();
-                        _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                        _nowPlaying.FanartURL = result2["fanart"].ToString();
+                        _parent.Log("KODI-Remote:nowPlaying_album" + _nowPlaying.Album);
 
+                        _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                        _parent.Log("KODI-Remote:nowPlaying_thumbnail:" + _nowPlaying.ThumbURL);
+
+                        if (_nowPlaying.ThumbURL != "" && result2["fanart"].ToString() == "")
+                        // if thumbnail not blank  and fanart is blank
+                        {
+                            _nowPlaying.FanartURL = result2["thumbnail"].ToString();
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Modified to Thumb:" + _nowPlaying.FanartURL);
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Prior Fanart Received was::" + result2["fanart"].ToString());
+
+                        }
+                        else
+                        {
+                            _nowPlaying.FanartURL = result2["fanart"].ToString();
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Not Modified:" + _nowPlaying.FanartURL);
+                        }
+
+
+
+
+                        //_nowPlaying.FanartURL = result2["fanart"].ToString();
+
+                     //   _parent.Log("KODI-Remote:nowPlaying_fanart:" + _nowPlaying.FanartURL);
                         // add to remove theme files
-                        
-                        
+
+
+
+
                         _parent.Log("---THEME MP3 NOWPLAYING FILENAME EQUALS:" + _nowPlaying.FileName);
                         if (_nowPlaying.FileName.EndsWith("theme.mp3"))
                         {
@@ -326,9 +353,10 @@ namespace Remote.XBMC.Krypton.Api
                             _nowPlaying.IsNewMedia = false;
                             _parent.Log("Kodi Remote:   Theme.mp3 playing stopping" + _nowPlaying.FileName);
                             return;
-
-
                         }
+
+
+
                        
                     }
                     
@@ -353,8 +381,24 @@ namespace Remote.XBMC.Krypton.Api
                         _nowPlaying.Studio = _parent.JsonArrayToString((JsonArray)result2["studio"]);
                         _nowPlaying.Tagline = result2["tagline"].ToString();
                         _nowPlaying.Rating = result2["rating"].ToString();
+
                         _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                        _nowPlaying.FanartURL = result2["fanart"].ToString();
+
+                        // Change here to using Thumb if Fanart blank
+
+                        if (_nowPlaying.ThumbURL != "" && result2["fanart"].ToString() == "")
+                        // if thumbnail not blank  and fanart is blank
+                        {
+                            _nowPlaying.FanartURL = result2["thumbnail"].ToString();
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Modified to Thumb:" + _nowPlaying.FanartURL);
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Prior Fanart Received was::" + result2["fanart"].ToString());
+                        }
+                        else
+                        {
+                            _nowPlaying.FanartURL = result2["fanart"].ToString();
+                            _parent.Log("KODI-Remote:nowPlaying_fanart Not Modified:" + _nowPlaying.FanartURL);
+                        }
+
                         _nowPlaying.LogoURL = clearlogo;
                     }
                 }

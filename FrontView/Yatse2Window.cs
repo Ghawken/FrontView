@@ -1576,11 +1576,13 @@ namespace FrontView
         private void CheckAudioFanart()
         {
             var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-            Logger.Instance().LogDump("Checing for theme.mp3", "NowPlaying Filename equals:" + nowPlaying2.FileName);
+            Logger.Instance().LogDump("Checking Filename", "NowPlaying Filename equals:" + nowPlaying2.FileName);
 
             var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
             
+            // Below checks if theme is playing and if it is - ignores any change to fanart.
+
             if (nowPlaying2.FileName.EndsWith("theme.mp3"))
             {
                 string CurrentPath = SortOutPath(nowPlaying2.FileName);
@@ -1642,7 +1644,7 @@ namespace FrontView
                 Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
                 if (System.IO.Directory.Exists(testaudiofanartcheck))
                 {
-                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Using - No check for contents though :" + testaudiofanartcheck);
                     ArtistExtrafanart = testaudiofanartcheck;
                 }
             }
@@ -1652,9 +1654,11 @@ namespace FrontView
 
 
             Logger.Instance().LogDump("MUSIC", "Fanart File Artist Name:  " + nowPlaying2.Artist, true);
-            Logger.Instance().LogDump("MUSIC", "Fanart File   " + ArtistExtrafanart, true);
+            Logger.Instance().LogDump("MUSIC", "Fanart File   :" + ArtistExtrafanart, true);
+
             _config.FanartDirectory = ArtistExtrafanart;
-            Logger.Instance().LogDump("MUSIC", "Fanart location    " + _config.FanartDirectory, true);
+
+            Logger.Instance().LogDump("MUSIC", "Fanart location    :" + _config.FanartDirectory, true);
 
 
             if (GetRandomImagePathNew(_config.FanartDirectory)==null)

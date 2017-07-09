@@ -1,5 +1,29 @@
 ﻿Changelog:
 
+
+1.266
+Kodi Remote: 196
+If Fanart entry empty will use Thumb issue for Fanart as well. (Looks better than default or none on my testing)
+(Helps with spotify which doesn't send fanart info)
+
+
+1.265
+Changes for Music NowPlaying Screen
+Add Slider for ALL Size - this changes the entire size of everything within FrontView
+
+1.262
+Add resizing to music screen
+
+1.261
+Fix for Splashscreen resizing (if DPI above 1)
+Update to latest version SQL.Lite.System.dll and NewtonsoftJson.dlls
+
+
+1.260
+Changes for Windows 8.1/10 DPI Scaling
+Frontview becomes DPI aware and should rescale and position appropriately
+
+
 1.260
 Changes for Windows 8.1/10 DPI Scaling
 Frontview becomes DPI aware and should rescale and position appropriately
