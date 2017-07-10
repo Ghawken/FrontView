@@ -24,6 +24,7 @@ using Plugin;
 using System.Linq;
 using System.Web.Script.Serialization;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Remote.XBMC.Krypton.Api
 {
@@ -257,7 +258,10 @@ namespace Remote.XBMC.Krypton.Api
                             _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
                             _nowPlaying.FanartURL = result2["fanart"].ToString();
                             _nowPlaying.LogoURL = clearlogo;
-                            _nowPlaying.Title = result2["label"].ToString();
+
+                            var Title = ReplaceSquare(result2["label"].ToString());
+                            _nowPlaying.Title = Title;
+
                             _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
                             _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
                             var pvrtime = (JsonObject)result1["time"];
@@ -289,7 +293,9 @@ namespace Remote.XBMC.Krypton.Api
                     {
                         _nowPlaying.MediaType = "Audio";
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
-                        _nowPlaying.Title = result2["label"].ToString();
+
+                        var Title = ReplaceSquare(result2["label"].ToString());
+                        _nowPlaying.Title = Title;
 
                         if (_nowPlaying.Track > 0)
                         {
@@ -371,7 +377,11 @@ namespace Remote.XBMC.Krypton.Api
 
                         _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
                         _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
-                        _nowPlaying.Title = result2["label"].ToString();
+
+                        var Title = ReplaceSquare(result2["label"].ToString());
+                        _nowPlaying.Title = Title;
+
+
                         _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
                         _nowPlaying.SeasonNumber = Convert.ToInt32("0" + result2["season"].ToString().Replace("-", ""));
                         _nowPlaying.EpisodeNumber = Convert.ToInt32("0" + result2["episode"].ToString().Replace("-", ""));
@@ -434,7 +444,7 @@ namespace Remote.XBMC.Krypton.Api
                 {
 
 
-                    if (ItemData.audio != null)
+                    if (ItemData.audio != null && ItemData.audio.Length > 0)
                     {
 
                         var isDefaultMediaStream = ItemData.audio.FirstOrDefault();
@@ -446,9 +456,13 @@ namespace Remote.XBMC.Krypton.Api
                         var DefaultLanguage = ci.TwoLetterISOLanguageName.ToString();
 
                         _parent.Trace("MovieIcons : Default System language:" + DefaultLanguage);
-                        int CountStreams = ItemData.audio.Where(i => i.language == DefaultLanguage).Count();
-
-                        _parent.Trace("MovieIcons CountStreams : " + CountStreams.ToString());
+                        int CountStreams = 0;
+                        if (ItemData.audio.Length > 0 )
+                        {
+                            CountStreams = ItemData.audio.Where(i => i.language == DefaultLanguage).Count();
+                            _parent.Trace("MovieIcons ItemData.audio not null : " + CountStreams);
+                        }
+                        
                         
                         try
                         {
@@ -460,11 +474,14 @@ namespace Remote.XBMC.Krypton.Api
                                     // added check - make sure is default stream being checked
                                     // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
                                 }
-                                else if (CountStreams == 0)  //if no default language - often tv - use firstordefault stream...
+                                else // if (CountStreams <= 0)  //if no default language - often tv - use firstordefault stream...
                                 {
-                                    isDefaultMediaStream = ItemData.audio.FirstOrDefault();
+                                    if (ItemData.audio != null)
+                                    {
+                                        isDefaultMediaStream = ItemData.audio.FirstOrDefault();
+                                    }
                                 }
-
+  
 
                             
 
@@ -582,6 +599,24 @@ namespace Remote.XBMC.Krypton.Api
 
 
 
+        }
+
+        public string ReplaceSquare(string text)
+        {
+            try
+            {
+                string pattern = @"\[[^]]*\]";
+                string substitution = @"";
+                string input = text;
+
+                Regex regex = new Regex(pattern);
+                string result = regex.Replace(input, substitution);
+                return result;
+            }
+            catch
+            {
+                return text;
+            }
         }
 
         public ApiCurrently NowPlaying(bool checkNewMedia)

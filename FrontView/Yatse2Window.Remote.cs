@@ -561,8 +561,25 @@ namespace FrontView
                     nowPlaying.FileName = nowPlaying.Title;
                     _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
                     Logger.Instance().LogDump("FrontView PVR:", "nowPlaying Title: " + _yatse2Properties.Currently.MovieTitle, true);
-                    _yatse2Properties.Currently.Fanart = GetVideoThumbPath(nowPlaying.ThumbURL);
-                    Logger.Instance().LogDump("FrontView PVR:", "Fanart is : " + _yatse2Properties.Currently.Fanart, true);
+
+
+                    if (_yatse2Properties.Currently.Thumb != "" && nowPlaying.FanartURL == "")
+                    // if thumbnail not blank  and fanart is blank
+                    {
+                        _yatse2Properties.Currently.Fanart = _yatse2Properties.Currently.Thumb;
+                        Logger.Instance().LogDump("Frontview PVR","nowPlaying_fanart Modified to Thumb:" + _yatse2Properties.Currently.Fanart, true);
+                        Logger.Instance().LogDump("Frontview PVR","nowPlaying_fanart Prior Fanart Received was::" + nowPlaying.FanartURL, true);
+                    }
+                    else
+                    {
+                        _yatse2Properties.Currently.Fanart = GetVideoThumbPath(nowPlaying.FanartURL);
+                        Logger.Instance().LogDump("Frontview PVR","nowPlaying_fanart Not Modified:" + nowPlaying.FanartURL, true);
+                    }
+
+                   // _yatse2Properties.Currently.Fanart = GetVideoThumbPath(nowPlaying.ThumbURL);
+                    Logger.Instance().LogDump("FrontView PVR", "Fanart is : " + _yatse2Properties.Currently.Fanart, true);
+
+
                     VideoStarting();
                     break;
 
@@ -578,7 +595,7 @@ namespace FrontView
             
             var nowPlaying = _remote.Player.NowPlaying(true);
 
-            Logger.Instance().LogDump("FrontView PVR:", "nowPlaying.Filename is : " + nowPlaying.FileName +" nowPlaying.IsPlaying = " +nowPlaying.IsPlaying + " isPlaying " + _isPlaying + " isNewMedia:" +nowPlaying.IsNewMedia , true);
+            Logger.Instance().LogDump("FrontView ResfreshCurrently", "nowPlaying.Filename is : " + nowPlaying.FileName +" nowPlaying.IsPlaying = " +nowPlaying.IsPlaying + " isPlaying " + _isPlaying + " isNewMedia:" +nowPlaying.IsNewMedia , true);
 
             if (nowPlaying.IsNewMedia && (nowPlaying.IsPlaying || nowPlaying.IsPaused) && !String.IsNullOrEmpty(nowPlaying.FileName) && !nowPlaying.FileName.EndsWith("theme.mp3"))
             {

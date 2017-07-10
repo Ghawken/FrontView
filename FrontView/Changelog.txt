@@ -1,6 +1,9 @@
 ﻿Changelog:
 
 
+Kodi remote: 197
+Remove Square Brackets Text contents from Title
+
 1.266
 Kodi Remote: 196
 If Fanart entry empty will use Thumb issue for Fanart as well. (Looks better than default or none on my testing)
