@@ -259,8 +259,17 @@ namespace Remote.XBMC.Krypton.Api
                             _nowPlaying.FanartURL = result2["fanart"].ToString();
                             _nowPlaying.LogoURL = clearlogo;
 
-                            var Title = ReplaceSquare(result2["label"].ToString());
-                            _nowPlaying.Title = Title;
+                            if (result2["showtitle"] != null && result2["showtitle"].ToString() !="" )
+                            {
+                                var Title = ReplaceSquare(result2["showtitle"].ToString());
+                                _nowPlaying.Title = Title;
+                            }
+                            else
+                            {
+                                var Title = ReplaceSquare(result2["label"].ToString());
+                                _nowPlaying.Title = Title;                         
+                            }
+                            
 
                             _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
                             _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
