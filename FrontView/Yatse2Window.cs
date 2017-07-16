@@ -68,6 +68,8 @@ namespace FrontView
 
     public static class ScreenExtensions
     {
+
+
         [DllImport("User32.dll")]
         public static extern IntPtr MonitorFromPoint([In]System.Drawing.Point pt, [In]uint dwFlags);
 

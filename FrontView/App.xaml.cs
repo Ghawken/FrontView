@@ -121,7 +121,8 @@ namespace FrontView
             // do this early to avoid changing the image popup
             try
             {
-                if (Environment.OSVersion.Version.Major >= 6)
+                Logger.Instance().Log("Version Number:", Environment.OSVersion.Version.Major.ToString(), true);
+                if (Environment.OSVersion.Version.Major > 6)
                 {
                     Logger.Instance().Log("DPI Awareness", "Display settings: Major >6 Settings PerMonitor DPI Aware", true);
                     ScreenExtensions.ProcessDPIAwareness awareness;
