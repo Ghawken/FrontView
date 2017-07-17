@@ -121,8 +121,9 @@ namespace FrontView
             // do this early to avoid changing the image popup
             try
             {
-                Logger.Instance().Log("Version Number:", Environment.OSVersion.Version.Major.ToString(), true);
-                if (Environment.OSVersion.Version.Major > 6)
+                Logger.Instance().Log("Major Version Number:", Environment.OSVersion.Version.Major.ToString(), true);
+                Logger.Instance().Log("Minor Version Number:", Environment.OSVersion.Version.Minor.ToString(), true);
+                if (Environment.OSVersion.Version.Major > 6 || (Environment.OSVersion.Version.Major ==6 &&  Environment.OSVersion.Version.Minor >=3 ))
                 {
                     Logger.Instance().Log("DPI Awareness", "Display settings: Major >6 Settings PerMonitor DPI Aware", true);
                     ScreenExtensions.ProcessDPIAwareness awareness;
@@ -136,10 +137,10 @@ namespace FrontView
                 Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings", true);
             }
 
-            ScreenExtensions.ProcessDPIAwareness awareness2;
+            
             try
             {
-
+                ScreenExtensions.ProcessDPIAwareness awareness2;
                 ScreenExtensions.GetProcessDpiAwareness(Process.GetCurrentProcess().Handle, out awareness2);
                 Logger.Instance().Log("DPI", "DPI Awareness After Setting equals: " + awareness2.ToString(), true);
             }

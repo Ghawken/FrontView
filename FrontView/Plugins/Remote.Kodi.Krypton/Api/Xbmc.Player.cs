@@ -153,6 +153,7 @@ namespace Remote.XBMC.Krypton.Api
                                             "file",
                                             "comment",
                                             "tvshowid",
+                                            "title",
                                             "albumartist",
                                             "duration",
                                             "streamdetails",
@@ -264,11 +265,17 @@ namespace Remote.XBMC.Krypton.Api
                                 var Title = ReplaceSquare(result2["showtitle"].ToString());
                                 _nowPlaying.Title = Title;
                             }
+                            else if (result2["title"] !=null & result2["title"].ToString() != "")
+                            {
+                                var Title = ReplaceSquare(result2["title"].ToString());
+                                _nowPlaying.Title = Title;                         
+                            }
                             else
                             {
                                 var Title = ReplaceSquare(result2["label"].ToString());
-                                _nowPlaying.Title = Title;                         
+                                _nowPlaying.Title = Title;
                             }
+
                             
 
                             _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
