@@ -1171,14 +1171,13 @@ namespace FrontView
             try
             {
                 var lines = _database.GetTvShow(_remoteInfo.Id);
+                Logger.Instance().LogDump("Cache TV Height Converter", "Lines equals:" + lines.ToString());
                 int r = rnd.Next(lines.Count);
+                Logger.Instance().LogDump("Cache TV Height Converter", "Integer R equals:" + r); 
                 string pathforrandomthumb = lines[r].Thumb;
                 Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details somehow ... " + pathforrandomthumb);
-
                 var path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName(pathforrandomthumb, Helper.Instance.CurrentApi) + ".jpg";
                 Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details path of Cache Image ... " + path);
-
-
 
                 if (File.Exists(path))
                 {
@@ -1189,12 +1188,12 @@ namespace FrontView
                         height = new BitmapImage(new Uri(path)).PixelHeight;
                         ratio = (double)height / width;
 
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning setwidth : " + Math.Ceiling(setwidth));
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning rationew : " + ratio);
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Width : " + width);
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Height : " + height);
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning Width times rationew : " + setwidth * ratio);
-                        Logger.Instance().LogDump("Cache TV Hight Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning setwidth : " + Math.Ceiling(setwidth));
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning rationew : " + ratio);
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning Width : " + width);
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning Height : " + height);
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning Width times rationew : " + setwidth * ratio);
+                        Logger.Instance().LogDump("Cache TV Height Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
                         return Math.Ceiling(((double)setwidth * ratio));
 
                     }
@@ -1212,7 +1211,7 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().LogDump("Cache TV Hight Converter", "Exception: " + ex + "Returning Height of 176");
+                Logger.Instance().LogDump("Cache TV Height Converter", "Exception: " + ex + " Returning Height of 176");
 
                 return height;
             }
@@ -1977,70 +1976,70 @@ namespace FrontView
             var nowPlaying = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
             var GlennMinimise = (_config.MinimiseAlways);
 
-            //Http Send Setup
-
-            if ((_config.HttpSend))
-            
+            try
             {
-                Logger.Instance().LogDump("HttpSend", "Checking Playback Conditions isNewMedia: "+nowPlaying.IsNewMedia, true);
+                //Http Send Setup
 
-                if (nowPlaying.IsNewMedia == true)
-                {
-                    HttpisDelayed = false;
-                }
+                if ((_config.HttpSend))
 
-                if (nowPlaying.IsPlaying == true && HttpisPlaying == false)
                 {
-                    gotoHttp(_config.HttpPlaystarted, nowPlaying);
-                    HttpisPlaying = true;
-                    HttpisPaused = false;
-                    HttpisStopped = false;
-                    
+                    Logger.Instance().LogDump("HttpSend", "Checking Playback Conditions isNewMedia: " + nowPlaying.IsNewMedia, true);
+
+                    if (nowPlaying.IsNewMedia == true)
+                    {
+                        HttpisDelayed = false;
+                    }
+                    if (nowPlaying.IsPlaying == true && HttpisPlaying == false)
+                    {
+                        gotoHttp(_config.HttpPlaystarted, nowPlaying);
+                        HttpisPlaying = true;
+                        HttpisPaused = false;
+                        HttpisStopped = false;
+                    }
+                    if (nowPlaying.IsPlaying == true && (nowPlaying.Time.Seconds >= _config.HttpPlayStartedDelay) && HttpisDelayed == false)
+                    {
+                        gotoHttp(_config.HttpPlayStartedDelayed, nowPlaying);
+                        HttpisDelayed = true;
+                    }
+                    if (nowPlaying.IsPaused == true && HttpisPaused == false)
+                    {
+                        gotoHttp(_config.HttpPlaypaused, nowPlaying);
+                        HttpisPaused = true;
+                        HttpisPlaying = false;
+                        HttpisStopped = false;
+                    }
+                    if (nowPlaying.IsMuted == true && HttpisMuted == false && _config.UseReceiverIPforVolume == false)
+                    {
+                        gotoHttp(_config.HttpMute, nowPlaying);
+                        HttpisMuted = true;
+                    }
+                    if (nowPlaying.IsPaused == false && nowPlaying.IsPlaying == false && HttpisStopped == false)
+                    {
+                        gotoHttp(_config.HttpPlaystopped, nowPlaying);
+                        HttpisStopped = true;
+                        HttpisPlaying = false;
+                        HttpisPaused = false;
+                    }
+                    if (nowPlaying.IsMuted == false && HttpisMuted == true && _config.UseReceiverIPforVolume == false)
+                    {
+                        gotoHttp(_config.HttpUnmute, nowPlaying);
+                        HttpisMuted = false;
+                    }
+                    if (nowPlaying.IsNewMedia == true && nowPlaying.MediaType == "Video")
+                    {
+                        gotoHttp(_config.HttpMediatypeVideo, nowPlaying);
+                    }
+                    if (nowPlaying.IsNewMedia == true && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
+                    {
+                        gotoHttp(_config.HttpMediatypeAudio, nowPlaying);
+                    }
 
                 }
-                if (nowPlaying.IsPlaying== true && (nowPlaying.Time.Seconds >= _config.HttpPlayStartedDelay) && HttpisDelayed == false )
-                {
-                    gotoHttp(_config.HttpPlayStartedDelayed, nowPlaying);
-                    HttpisDelayed = true;
-                }
-                
-                if (nowPlaying.IsPaused == true && HttpisPaused == false)
-                {
-                    gotoHttp(_config.HttpPlaypaused, nowPlaying);
-                    HttpisPaused = true;
-                    HttpisPlaying = false;
-                    HttpisStopped = false;
-                }
-                if (nowPlaying.IsMuted == true && HttpisMuted == false && _config.UseReceiverIPforVolume== false)
-                {
-                    gotoHttp(_config.HttpMute, nowPlaying);
-                    HttpisMuted = true;
-                }
-                if (nowPlaying.IsPaused == false && nowPlaying.IsPlaying == false  && HttpisStopped == false)
-                {
-                    gotoHttp(_config.HttpPlaystopped, nowPlaying);
-                    HttpisStopped = true;
-                    HttpisPlaying = false;
-                    HttpisPaused = false;
-                }
-
-                if (nowPlaying.IsMuted == false && HttpisMuted == true && _config.UseReceiverIPforVolume == false)
-                {
-                    gotoHttp(_config.HttpUnmute, nowPlaying);
-                    HttpisMuted = false;
-                }
-
-                if (nowPlaying.IsNewMedia== true && nowPlaying.MediaType == "Video")
-                {
-                    gotoHttp(_config.HttpMediatypeVideo, nowPlaying);
-                }
-                if (nowPlaying.IsNewMedia == true && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
-                {
-                    gotoHttp(_config.HttpMediatypeAudio, nowPlaying);
-                }
-               
             }
-
+            catch
+            {
+                Logger.Instance().LogDump("FrontView+", "Error within Http Send", true);
+            }
             //Logger.Instance().Log("FrontView+", "About to CALL CheckFanARt");
            // CheckFanArt();
             //Logger.Instance().Log("FrontView+", "After CALL CheckFanARt");
@@ -2964,7 +2963,6 @@ namespace FrontView
             ResetTimer();
             if ((_currentGrid.Name == newGrid.Name) || (trp_Transition.IsTransitioning)) return false;
             Logger.Instance().Log("FrontView+", "Show Grid : " + newGrid.Name);
-
             grd_PlayMenu.Visibility = Visibility.Hidden;
             grd_Filter.Visibility = Visibility.Hidden;
             grd_Settings_Weather.Visibility = Visibility.Hidden;

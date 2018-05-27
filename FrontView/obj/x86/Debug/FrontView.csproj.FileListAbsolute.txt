@@ -9484,3 +9484,6 @@ C:\Users\ghawken\Source\Repos\FrontView3\FrontView\obj\x86\Debug\FrontView.cspro
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\obj\x86\Debug\FrontView.TrustInfo.xml
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\obj\x86\Debug\FrontView.exe.manifest
 C:\Users\ghawken\Source\Repos\FrontView3\FrontView\obj\x86\Debug\FrontView.application
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\Properties\app.manifest
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\System.Data.SQLite.dll
+C:\Users\Vwin7\Source\VisualStudio15\Oct16FrontView\FrontView\bin\x86\Debug\System.Data.SQLite.xml

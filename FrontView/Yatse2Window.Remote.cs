@@ -613,19 +613,17 @@ namespace FrontView
                 }
                 UpdateCurrently(nowPlaying);
             }
-
             
+
+
             if ((nowPlaying.IsPlaying || nowPlaying.IsPaused))
             {
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Connected_Playing");
-                _yatse2Properties.Currently.Progress = nowPlaying.Progress;
-                
+                _yatse2Properties.Currently.Progress = nowPlaying.Progress;            
                 _yatse2Properties.Currently.Time = nowPlaying.Time.ToString();
                 _yatse2Properties.Currently.Duration = nowPlaying.Duration.ToString();
                 _yatse2Properties.Currently.IsPlaying = nowPlaying.IsPlaying;
                 _yatse2Properties.Currently.IsPaused = nowPlaying.IsPaused;
-                
-                
                 if (_config.UseReceiverIPforVolume == false)
                 {
                   _yatse2Properties.Currently.Volume = nowPlaying.Volume;
@@ -635,13 +633,11 @@ namespace FrontView
                 if (_config.UseReceiverIPforVolume == true)
                 {
                     _yatse2Properties.Currently.Volume = receiver.WhatisVolume();
-
                     bool isMutedReceiver = receiver.WhatisMute();
                     _yatse2Properties.Currently.IsMuted = isMutedReceiver;
                     nowPlaying.IsMuted = isMutedReceiver;
                 }
-                
-                
+                                
                 if (nowPlaying.IsPlaying)
                 {
                     if (_config.MusicFanartRotation)

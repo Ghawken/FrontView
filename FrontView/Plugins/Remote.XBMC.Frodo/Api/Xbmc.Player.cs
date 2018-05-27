@@ -324,12 +324,9 @@ namespace Remote.XBMC.Frodo.Api
                             _nowPlaying.Title = "";
                             _nowPlaying.IsPlaying = false;
                             _nowPlaying.IsPaused = false;
-
                             _nowPlaying.IsNewMedia = false;
                             _parent.Log("Kodi Remote:   Theme.mp3 playing stopping" + _nowPlaying.FileName);
                             return;
-
-
                         }
                        
                     }

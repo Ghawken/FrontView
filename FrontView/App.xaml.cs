@@ -132,12 +132,12 @@ namespace FrontView
                     ScreenExtensions.SetProcessDpiAwareness(ScreenExtensions.ProcessDPIAwareness.ProcessPerMonitorDPIAware);
                 }
             }
-            catch (EntryPointNotFoundException)//this exception occures if OS does not implement this API, just ignore it.
+            catch (Exception e)//this exception occures if OS does not implement this API, just ignore it.
             {
-                Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings", true);
+                Logger.Instance().Log("Dpiaware", "OS does not support DPI Settings: Exception:"+e, true);
             }
 
-            
+           
             try
             {
                 ScreenExtensions.ProcessDPIAwareness awareness2;
