@@ -26,7 +26,7 @@ namespace FrontView
 
         private void InitWeather()
         {
-            _weather.Configure(Helper.CachePath + @"Weather", _config.WeatherUnit, "1170858033", "5e4459f60104f2ec", _config.WeatherAPI);
+            _weather.Configure(Helper.CachePath + @"Weather", _config.WeatherUnit, "1170858033", "5e4459f60104f2ec", _config.WeatherAPI, _config.WeatherLatitude, _config.WeatherLongitude, _config.WeatherLoc);
             _weather.AutoResfresh(_config.WeatherLoc);
         }
 

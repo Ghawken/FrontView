@@ -501,6 +501,7 @@
     <Compile Include="Libs\DDC Control.cs" />
     <Compile Include="Libs\Weather Classes\conditions.cs" />
     <Compile Include="Libs\Weather Classes\10dayForcast.cs" />
+    <Compile Include="Libs\Weather Classes\darksky.cs" />
     <Compile Include="Libs\Weather-WeatherChannel.cs" />
     <Compile Include="Libs\OSVersion.cs" />
     <Compile Include="ModalDialog.xaml.cs">

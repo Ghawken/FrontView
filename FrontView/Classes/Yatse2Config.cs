@@ -136,6 +136,8 @@ namespace FrontView.Classes
         public string IPAddress { get; set; }
         public string Skin { get; set; }
         public string WeatherLoc { get; set; }
+        public string WeatherLongitude { get; set; }
+        public string WeatherLatitude { get; set; }
 
         public string WeatherAPI { get; set; }
         public string WeatherUnit { get; set; }
@@ -205,8 +207,10 @@ namespace FrontView.Classes
             CheckForUpdate = true;
             Language = "English";
             Skin = "Default";
-            WeatherLoc = "FRXX0076";
-            WeatherUnit = "c";
+            WeatherLoc = "Unknown";
+            WeatherLatitude = "42.3601";
+            WeatherLongitude = "-71.0589";  //Default to New York
+            WeatherUnit = "auto";
             WeatherAPI = "1111";
             DefaultRemote = 0;
             Homepage = "Home";
@@ -364,6 +368,9 @@ namespace FrontView.Classes
             IPPort = config.IPPort;
             DefaultRemote = config.DefaultRemote;
             WeatherLoc = config.WeatherLoc;
+            WeatherLongitude = config.WeatherLongitude;
+            WeatherLatitude = config.WeatherLatitude;
+
             WeatherUnit = config.WeatherUnit;
             WeatherAPI = config.WeatherAPI;
             DisableAnimations = config.DisableAnimations;

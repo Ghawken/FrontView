@@ -121,6 +121,8 @@ namespace FrontView
 
 
             txt_Settings_WeatherLocId.Text = _config.WeatherLoc;
+            txt_Settings_WeatherLongitude.Text = _config.WeatherLongitude;
+            txt_Settings_WeatherLatitude.Text = _config.WeatherLatitude;
 
             txt_Settings_ReceiverIP.Text = _config.ReceiverIP;
             txt_Settings_ReceiverPort.Text = _config.ReceiverPort.ToString();
@@ -274,9 +276,11 @@ namespace FrontView
             }
 
             lst_Settings_WeatherUnit.Items.Clear();
-            lst_Settings_WeatherUnit.Items.Add("°C");
-            lst_Settings_WeatherUnit.Items.Add("°F");
-            lst_Settings_WeatherUnit.SelectedIndex = _config.WeatherUnit == "c" ? 0 : 1;
+            lst_Settings_WeatherUnit.Items.Add("auto");
+            lst_Settings_WeatherUnit.Items.Add("us");
+            lst_Settings_WeatherUnit.Items.Add("si");
+
+            //lst_Settings_WeatherUnit.SelectedIndex = _config.WeatherUnit == "c" ? 0 : 1;
 
             LoadSettingsLangs();
 
@@ -410,7 +414,9 @@ namespace FrontView
 
             _config.ImageDirectory = txt_Settings_ImagesDirectory.Text;
             _config.WeatherLoc = txt_Settings_WeatherLocId.Text;
-            
+            _config.WeatherLongitude = txt_Settings_WeatherLongitude.Text;
+            _config.WeatherLatitude = txt_Settings_WeatherLatitude.Text;
+
             _config.HttpUser = txt_Settings_HttpUser.Text;
             _config.HttpPassword = txt_Settings_HttpPassword.Text;
 
@@ -430,7 +436,7 @@ namespace FrontView
             _config.HttpPlayStartedDelay = Convert.ToInt32(txt_Settings_HttpPlayStartedDelay.Text);
             _config.WeatherAPI = txt_Settings_WeatherAPI.Text;
 
-            _config.WeatherUnit = lst_Settings_WeatherUnit.SelectedIndex == 0 ? "c" : "f";
+            _config.WeatherUnit = lst_Settings_WeatherUnit.SelectedIndex == 0 ? "auto" : "us";
             if (lst_Settings_Language.SelectedItem != null)
                 _config.Language = lst_Settings_Language.SelectedItem.ToString();
             if (lst_Settings_Skin.SelectedItem != null)
