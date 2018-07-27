@@ -1486,7 +1486,7 @@
                                                     <TextBox x:Name="txt_Settings_WeatherAPI" Style="{DynamicResource TextBox}" FontSize="16" 
                                                         Text="txt_Settings_WeatherAPI" Padding="5,0,0,0" Margin="148,168.723,185,0" VerticalAlignment="Top" />
                                                     <TextBlock Margin="198,208.723,185,0"><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" FontSize="16" Foreground="{DynamicResource Default_Font_Color}"
-                                                            NavigateUri="https://www.darksky.net/"><Run Text="Powered by DarkSky Net"/></Hyperlink></TextBlock>
+                                                            NavigateUri="https://darksky.net/poweredby/"><Run Text="Powered by DarkSky Net"/></Hyperlink></TextBlock>
                                                 </Grid>
                                             </TabItem>
                                             <TabItem Header="{DynamicResource Localized_132}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="24" Margin="0" Style="{DynamicResource TabItemStyle1}">

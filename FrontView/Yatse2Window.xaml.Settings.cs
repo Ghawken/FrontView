@@ -279,8 +279,10 @@ namespace FrontView
             lst_Settings_WeatherUnit.Items.Add("auto");
             lst_Settings_WeatherUnit.Items.Add("us");
             lst_Settings_WeatherUnit.Items.Add("si");
+            lst_Settings_WeatherUnit.Items.Add("ca");
+            lst_Settings_WeatherUnit.Items.Add("uk2");
 
-            //lst_Settings_WeatherUnit.SelectedIndex = _config.WeatherUnit == "c" ? 0 : 1;
+            lst_Settings_WeatherUnit.SelectedItem = _config.WeatherUnit;
 
             LoadSettingsLangs();
 
@@ -436,7 +438,8 @@ namespace FrontView
             _config.HttpPlayStartedDelay = Convert.ToInt32(txt_Settings_HttpPlayStartedDelay.Text);
             _config.WeatherAPI = txt_Settings_WeatherAPI.Text;
 
-            _config.WeatherUnit = lst_Settings_WeatherUnit.SelectedIndex == 0 ? "auto" : "us";
+            _config.WeatherUnit = lst_Settings_WeatherUnit.Text; 
+
             if (lst_Settings_Language.SelectedItem != null)
                 _config.Language = lst_Settings_Language.SelectedItem.ToString();
             if (lst_Settings_Skin.SelectedItem != null)
@@ -576,7 +579,7 @@ namespace FrontView
         private void Hyperlink_RequestNavigate(object sender,
                                        System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.wunderground.com/weather/api/?apiref=8d0e3e3f8bf9e135");
+            System.Diagnostics.Process.Start("https://darksky.net/poweredby/");
         }
 
         private void btn_Settings_WeatherLocId_Click(object sender, RoutedEventArgs e)

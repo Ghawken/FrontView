@@ -1,5 +1,9 @@
 ﻿Changelog:
 
+1.285
+Change Weather API completely to DarkSky.net - Needs a DarkSKY API Key
+Add Check for Currently screen (very occasionally missed changing to it) Now checks every second if not up and should be
+Bug fix for weather path
 
 Kodi remote: 197
 Remove Square Brackets Text contents from Title

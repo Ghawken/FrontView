@@ -32,6 +32,16 @@ using Timer = System.Timers.Timer;
 
 namespace FrontView.Libs
 {
+    public static class StringExt
+    {
+        public static string Truncate(this string value, int maxLength)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+        }
+    }
+
+
     public class WeatherLocation
     {
         public string LocId { get; set; }
@@ -106,7 +116,8 @@ namespace FrontView.Libs
         }
         public string GetTemp(string temp)
         {
-            return temp + "°" + TempUnit;
+
+            return temp.Truncate(4) + "°" ;
         }
     }
 
@@ -310,7 +321,7 @@ namespace FrontView.Libs
                         }
                         catch (WebException ex)
                         {
-                            Logger.Instance().Trace("Weather:", "No Data File Found:" + ex);
+                            Logger.Instance().Trace("Weather:", "No Data File Exists:");
                             return null;
                         }
                     }
@@ -318,7 +329,7 @@ namespace FrontView.Libs
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                    Logger.Instance().Trace("Weather:", "DarkSky Error" + ex);
                     return null;
                 }
 

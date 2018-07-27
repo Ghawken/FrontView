@@ -2209,6 +2209,8 @@ namespace FrontView
 
           }
 
+
+
           PositionScreen();
 
           CheckFirstLaunch();

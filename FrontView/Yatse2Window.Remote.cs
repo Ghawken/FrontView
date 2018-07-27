@@ -613,7 +613,24 @@ namespace FrontView
                 }
                 UpdateCurrently(nowPlaying);
             }
-            
+            //////////////////////////////////////////////////////////////////////////
+            // Further Check to avoid very occasional Currently Screen not showing  //
+            //////////////////////////////////////////////////////////////////////////
+
+
+            if ( _currentGrid != grd_Currently && 
+               (nowPlaying.IsPlaying || nowPlaying.IsPaused)  
+                && !String.IsNullOrEmpty(nowPlaying.FileName )
+                && !nowPlaying.FileName.EndsWith("theme.mp3") 
+                && ( (nowPlaying.MediaType=="Audio" && _config.Currently == true) 
+                || ( nowPlaying.MediaType!="Audio" && _config.CurrentlyMovie == true )
+                ))
+            {
+                Logger.Instance().Log("Currently Check","New Check Currently Screen Called...");
+                UpdateCurrently(nowPlaying);
+            }
+
+
 
 
             if ((nowPlaying.IsPlaying || nowPlaying.IsPaused))

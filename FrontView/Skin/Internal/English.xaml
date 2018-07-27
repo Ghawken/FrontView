@@ -82,7 +82,7 @@
     <S:String x:Key="Localized_62">Select Location</S:String>
     <S:String x:Key="Localized_63">Weather temp. unit :</S:String>
     <S:String x:Key="Localized_64">Image directory :</S:String>
-    <S:String x:Key="Localized_65">Weather location ID :</S:String>
+    <S:String x:Key="Localized_65">Weather location Name :</S:String>
     <S:String x:Key="Localized_66">Debug mode</S:String>
     <S:String x:Key="Localized_67">Hide watched elements</S:String>
     <S:String x:Key="Localized_68">FULL (slow) Refresh library on connect</S:String>
