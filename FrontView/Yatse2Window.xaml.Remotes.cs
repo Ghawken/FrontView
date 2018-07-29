@@ -99,16 +99,32 @@ namespace FrontView
 
         private void btn_Remotes_Connect_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+
+            
+
+
             var selitem = (Yatse2Remote)lst_Remotes.SelectedItem;
             if (selitem == null)
                 return;
 
             if (selitem.Id == _currentRemoteId) 
                 return;
+
+            var remote = ApiHelper.Instance().GetRemoteByApi(selitem.Api);
+
+            var res = remote.TestConnection(selitem.IP, selitem.Port, selitem.Login, selitem.Password);
+            if (res !=1 )
+            { 
+                ShowOkDialog(GetLocalizedString(16));
+                return;
+            }
+
             btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Disconnected");
             _currentRemoteId = selitem.Id;
             InitRemote();
             RefreshRemotes();
+
+
         }
 
         private void btn_Remote_WOL_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
