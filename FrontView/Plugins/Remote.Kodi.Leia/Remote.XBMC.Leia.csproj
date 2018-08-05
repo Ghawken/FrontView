@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1DD1BD56-7E7B-4CD5-AA69-341D40BCCEA0}</ProjectGuid>
+    <ProjectGuid>{520FC54E-95C7-4661-B222-AD0E11308B2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Remote.XBMC.Krypton</RootNamespace>
-    <AssemblyName>Remote.XBMC.Krypton</AssemblyName>
+    <RootNamespace>Remote.XBMC.Leia</RootNamespace>
+    <AssemblyName>Remote.XBMC.Leia</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -114,7 +114,7 @@
   <ItemGroup>
     <Compile Include="Api\StreamDetails Classes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Remote.XBMC.Krypton.cs" />
+    <Compile Include="Remote.XBMC.Leia.cs" />
     <Compile Include="Api\JsonRpcClient.cs">
       <SubType>Component</SubType>
     </Compile>

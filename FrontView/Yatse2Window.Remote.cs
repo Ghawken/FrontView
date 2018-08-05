@@ -738,8 +738,13 @@ namespace FrontView
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Connected");
                 _remoteConnected = true;
 
-                //Add Startup Connection QUick Refresh
 
+
+                //Add Startup Connection QUick Refresh & Kodi Source Data change
+                if (_remoteInfo.Additional != "")
+                {
+                    UpdateKodiSource(_remoteInfo.Additional);
+                }
                 if (_config.QuickRefreshEnable == true)
                 {
                     QuickRefreshLibrary();

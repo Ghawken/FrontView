@@ -45,6 +45,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Windows.Forms;
+using System.Web.Script.Serialization;
 
 namespace FrontView
 {
@@ -123,13 +124,20 @@ namespace FrontView
         public static string[] KodiMusicSources = new string[20];
     }
 
+    public class KodiSourceJson
+    {
+        public string[] video { get; set; }
+        public string[] music { get; set; }
+    }
+
+
     public partial class Yatse2Window : IDisposable
     {
         private const string Repository = @"http://yatse.leetzone.org/repository";
         private bool _allowBeta;
 
         //changed below to public
-        
+
         public readonly FrontViewConfig _config = new FrontViewConfig();
         private readonly string _configFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\FrontView+\settings.xml";
         private readonly Yatse2DB _database = new Yatse2DB();
@@ -263,7 +271,7 @@ namespace FrontView
             SendMessage(HWND_BROADCAST, (IntPtr)0x0112, (IntPtr)0xF170, (IntPtr)onoff);
 
         }
-        
+
         private void StartDiaporama()
         {
             switch (_config.DiaporamaMode)
@@ -317,7 +325,7 @@ namespace FrontView
         }
         private void StartFanart()
         {
-            
+
             switch (_config.DiaporamaMode)
             {
                 case 0:
@@ -337,11 +345,11 @@ namespace FrontView
                     img_Diaporama2.Stretch = Stretch.Fill;
                     break;
             }
-          //  var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-          //  _config.FanartDirectory = appdatadirectory + @"\Kodi\userdata\addon_data\script.artworkorganizer\";
-         
-       //     Logger.Instance().Log("FanART DEBUG", "Fanart Directory equals " + _config.FanartDirectory, true);
-            
+            //  var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //  _config.FanartDirectory = appdatadirectory + @"\Kodi\userdata\addon_data\script.artworkorganizer\";
+
+            //     Logger.Instance().Log("FanART DEBUG", "Fanart Directory equals " + _config.FanartDirectory, true);
+
 
 
 
@@ -371,15 +379,15 @@ namespace FrontView
 
         private void SwitchFanart()
         {
-           /*( if (grd_Diaporama.Visibility == Visibility.Hidden )
-            {
-                var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
-                if (stbDiaporamaShow != null)
-                {
-                    stbDiaporamaShow.Begin(this);
-                }
-            }*/
-            
+            /*( if (grd_Diaporama.Visibility == Visibility.Hidden )
+             {
+                 var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
+                 if (stbDiaporamaShow != null)
+                 {
+                     stbDiaporamaShow.Begin(this);
+                 }
+             }*/
+
             if (_config.FanartSwitch == false)
             {
                 return;
@@ -403,10 +411,10 @@ namespace FrontView
             }
         }
         private void InitDatabase()
-        {            
+        {
             _database.SetDebug(_config.Debug);
-            _database.Open(null,_config.IgnoreSortTokens,_config.SortTokens);
-            
+            _database.Open(null, _config.IgnoreSortTokens, _config.SortTokens);
+
             var check = _database.CheckDBVersion();
             if (check == 1) return;
             if (check == 0)
@@ -416,11 +424,11 @@ namespace FrontView
                 return;
             }
             Logger.Instance().Log("FrontView+", "Database Update");
-            
-            if ( _database.UpdateDatabase() == true)
+
+            if (_database.UpdateDatabase() == true)
             {
                 Logger.Instance().Log("FrontView+", "Database Updated - Need to run Full Refresh.....");
-               // RefreshLibrary();
+                // RefreshLibrary();
                 // Not connected - so can't run this here - could set variable - but will see
             }
 
@@ -555,7 +563,7 @@ namespace FrontView
         {
             return ModalDialog.ShowYesNoDialog(message);
         }
-        
+
 
 
 
@@ -564,7 +572,7 @@ namespace FrontView
             ServicePointManager.CheckCertificateRevocationList = false;
             ServicePointManager.DnsRefreshTimeout = 4 * 3600 * 1000;
             ServicePointManager.UseNagleAlgorithm = false;
-            ServicePointManager.DefaultConnectionLimit = 10000; 
+            ServicePointManager.DefaultConnectionLimit = 10000;
             Directory.CreateDirectory(Helper.LogPath);
             Directory.CreateDirectory(Helper.CachePath);
             Directory.CreateDirectory(Helper.CachePath + @"Video");
@@ -612,15 +620,15 @@ namespace FrontView
             }
         }
 
-        
+
         private void StartServer()
-        { 
+        {
             Logger.Instance().Log("SERVER", "STARTSERVER - Starting UDP Server Thread... ", true);
             //Logger.Instance().LogDump("SERVER THREAD    : Attempting to start new Thread ", true);
             Thread t = new Thread(NewThread) { IsBackground = true };
             t.IsBackground = true;
             t.Start();
-            
+
             Logger.Instance().Log("SERVER", "STARTSERVER after thread started... ", true);
         }
 
@@ -662,7 +670,7 @@ namespace FrontView
                     // Phew.
                     // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
 
-                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>") )
+                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
                     {
                         Logger.Instance().LogDump("SERVER", "NOT Playback Started Event - change Fanart as required", true);
                         if (dataReceived != "" && dataReceived != null)
@@ -698,19 +706,19 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().Log("SERVER", "Proper Exception Caught:"+ex, true);
-               
-                
+                Logger.Instance().Log("SERVER", "Proper Exception Caught:" + ex, true);
+
+
             }
-            
+
             NewThread();
-            
+
             //   listener.Stop();
         }
 
         private void UpdateText(string message)
         {
-            Logger.Instance().Log("SERVER",message, true);
+            Logger.Instance().Log("SERVER", message, true);
         }
 
 
@@ -772,13 +780,13 @@ namespace FrontView
 
         private void Init()
         {
-            
+
             try
             {
                 PreInit();
                 // Attempting to start server socket on seperate thread
-                
-                
+
+
                 //Change refresh rate to limit CPU usage - try off
                 /*
                 Timeline.DesiredFrameRateProperty.OverrideMetadata(
@@ -786,18 +794,18 @@ namespace FrontView
                    new FrameworkPropertyMetadata { DefaultValue = 20 }
                    );
                 */
-                
-                Logger.Instance().Log("SERVER", "Starting Server Thread... ",true);
+
+                Logger.Instance().Log("SERVER", "Starting Server Thread... ", true);
 
 
                 var assem = Assembly.GetEntryAssembly();
                 var assemName = assem.GetName();
                 var ver = assemName.Version;
 
-                
 
-                Logger.Instance().Log("FrontView+", "Starting version :" + ver.Major +"." + ver.Minor, true);
-                Logger.Instance().Log("FrontView+","Starting build : " + ver.Build,true);
+
+                Logger.Instance().Log("FrontView+", "Starting version :" + ver.Major + "." + ver.Minor, true);
+                Logger.Instance().Log("FrontView+", "Starting build : " + ver.Build, true);
                 Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
                 //   Logger.Instance().Log("FrontView+", "Starting Major : " + ver.Major, true);
@@ -806,25 +814,25 @@ namespace FrontView
                 //   Logger.Instance().Log("FrontView+", "Starting MinorRevision : " + ver.MinorRevision, true);
                 //   Logger.Instance().Log("FrontView+", "Starting Revision : " + ver.Revision, true);
 
-                Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name + " Build :"+Environment.OSVersion.Version.Build, true);
+                Logger.Instance().Log("OSInfo", "Name = " + OSInfo.Name + " Build :" + Environment.OSVersion.Version.Build, true);
 
-             //   Logger.Instance().Log("OSInfo", "OsVersion.Platform = " + Environment.OSVersion.Platform, true);
-          //      Logger.Instance().Log("OSInfo", "OsVersion.Version.Major = " + Environment.OSVersion.Version.Major, true);
-            //    Logger.Instance().Log("OSInfo", "OsVersion.Version.MajorRevision = " + Environment.OSVersion.Version.MajorRevision, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Minor = " + Environment.OSVersion.Version.Minor, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.MinorRevision = " + Environment.OSVersion.Version.MinorRevision, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.VersionString = " + Environment.OSVersion.VersionString, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Revision = " + Environment.OSVersion.Version.Revision, true);
-           //     Logger.Instance().Log("OSInfo", "OsVersion.Prodcut = " + Environment.OSVersion, true);
+                //   Logger.Instance().Log("OSInfo", "OsVersion.Platform = " + Environment.OSVersion.Platform, true);
+                //      Logger.Instance().Log("OSInfo", "OsVersion.Version.Major = " + Environment.OSVersion.Version.Major, true);
+                //    Logger.Instance().Log("OSInfo", "OsVersion.Version.MajorRevision = " + Environment.OSVersion.Version.MajorRevision, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Minor = " + Environment.OSVersion.Version.Minor, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.Version.MinorRevision = " + Environment.OSVersion.Version.MinorRevision, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.VersionString = " + Environment.OSVersion.VersionString, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Revision = " + Environment.OSVersion.Version.Revision, true);
+                //     Logger.Instance().Log("OSInfo", "OsVersion.Prodcut = " + Environment.OSVersion, true);
 
-           //     Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
+                //     Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
                 Logger.Instance().Log("OSInfo", "Service Pack Build =" + Environment.OSVersion.Version.Build, true);
                 Logger.Instance().Log("OSInfo", "Version = " + OSInfo.VersionString, true);
                 Logger.Instance().Log("OSInfo", "Bits = " + OSInfo.RealBits, true);
                 Logger.Instance().Log("OSInfo", "Culture = " + Thread.CurrentThread.CurrentCulture.Name, true);
                 Logger.Instance().Log("FrontView+ Debug :", "Checking for another instance", true);
-              
+
                 if (Yatse2Window.RunningInstance() != null)
                 {
                     Logger.Instance().Log("NEW FrontView Debug:", "Duplicate FrontView+ Running Closing... ");
@@ -844,10 +852,10 @@ namespace FrontView
                 Logger.Instance().Debug = _config.Debug;
                 Logger.Instance().DebugTrace = _config.DebugTrace;
 
-                  
-                
+
+
                 Logger.Instance().Log("FrontView+", "End load config");
-                Logger.Instance().LogDump("FrontView",_config);
+                Logger.Instance().LogDump("FrontView", _config);
 
                 ApiHelper.Instance().LoadRemotePlugins(ver.Build);
 
@@ -880,11 +888,11 @@ namespace FrontView
                     _yatse2Properties.UseNowPlayingMediaIcons = _config.UseNowPlayingMediaIcons;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
-                                                        {
-                                                            IsNotMovieDetails = true,
-                                                            IsNotMusicDetails = true,
-                                                            IsNotTvDetails = true
-                                                        };
+                    {
+                        IsNotMovieDetails = true,
+                        IsNotMusicDetails = true,
+                        IsNotTvDetails = true
+                    };
                     RefreshDictionaries();
                     _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
                 }
@@ -908,7 +916,7 @@ namespace FrontView
 
                 if (_config.ShowInTaskbar == false)
                 {
-                this.ShowInTaskbar = false;
+                    this.ShowInTaskbar = false;
                 }
 
                 ni.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
@@ -920,8 +928,8 @@ namespace FrontView
 
 
                 ni.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
-                
-                Logger.Instance().Log("Taskbar:","Create new Taskbar Icon located: " + sPath2Icon);
+
+                Logger.Instance().Log("Taskbar:", "Create new Taskbar Icon located: " + sPath2Icon);
 
                 if (!_config.DisableAnimations)
                 {
@@ -940,9 +948,9 @@ namespace FrontView
                     Microsoft.Win32.SystemEvents.DisplaySettingsChanged += Change_Display_Settings;
                     Microsoft.Win32.SystemEvents.PowerModeChanged += OnPowerModeChange;
                 }
-                
+
                 Change_Display_Settings(null, null);
-                
+
 
                 if (_config.StartFrontViewServer)
                 {
@@ -986,16 +994,16 @@ namespace FrontView
             }
             catch (Exception e)
             {
-                 
-                Logger.Instance().LogException("FrontView2Init",e);
-           
+
+                Logger.Instance().LogException("FrontView2Init", e);
+
                 //System.Windows.Application.Current.Shutdown();
-                Logger.Instance().Log("FrontViewInit","Forcing close");
+                Logger.Instance().Log("FrontViewInit", "Forcing close");
                 System.Windows.Application.Current.Shutdown();
             }
 
             Logger.Instance().Log("FrontView+", "End init", true);
-           
+
         }
 
         //load Kodi Source xml and populate values to be checked against
@@ -1003,7 +1011,7 @@ namespace FrontView
 
         private void OnPowerModeChange(object s, Microsoft.Win32.PowerModeChangedEventArgs e)
         {
-            if (e.Mode== Microsoft.Win32.PowerModes.Resume)
+            if (e.Mode == Microsoft.Win32.PowerModes.Resume)
             {
                 Change_Display_Settings(null, null);
             }
@@ -1020,37 +1028,70 @@ namespace FrontView
                 psi.FileName = appPath;
                 psi.Arguments = "/quickcheck /justcheck /noerr";
                 var proc = Process.Start(psi);
-                               
+
                 proc.WaitForExit();
                 var ExitCode = proc.ExitCode;
                 Logger.Instance().Trace("FrontView+", "CheckSilent Update Returned:" + ExitCode.ToString());
-                
+
                 if (ExitCode == 2)
                 {
                     UpdateAvailable = true;
                 }
 
-            
+
             }
             catch (Exception e)
             {
                 Logger.Instance().Log("FrontView+", "Exception in Silent Update Check" + e);
             }
-            
+
         }
 
+        // Update Sources when Remotes connect.
+        // Enabling remote connection usage
+
+        private void UpdateKodiSource(string stringJson)
+        {
+            //
+            //
+            //
+            try
+            {
+                Logger.Instance().Trace("Update KodiSource: From Remote System Using Json String: ", stringJson);
+                var deserializer = new JavaScriptSerializer();
+                KodiSourceJson Sources = deserializer.Deserialize<KodiSourceJson>(stringJson);
+
+                int i = 0;
+                foreach (var video in Sources.video)
+                {
+                    Logger.Instance().Trace("Update KodiSource: Add Video Source ", video);
+                    KodiSourceData.KodiSources[i] = SortOutPath(video);
+                    Logger.Instance().Trace("Update KodiSource", "KodiSources Array " + i + "  " + KodiSourceData.KodiSources[i]);
+                    i++;
+                }
+                i = 0;
+                foreach (var music in Sources.music)
+                {
+                    Logger.Instance().Trace("Update KodiSource: Add Music Source ", music);
+                    KodiSourceData.KodiSources[i] = SortOutPath(music);
+                    Logger.Instance().Trace("Update KodiSource", "KodiSources Array " + i + "  " + KodiSourceData.KodiSources[i]);
+                    i++;
+                }
+                Logger.Instance().Trace("Update KodiSource: Complete --------------------------------------- ", "");
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Log("Update KodiSource: Error --------------------------------------- ", ex.ToString());
+            }
+
+        }
 
         private void LoadKodiSource()
         {
 
-              
             try
             {
                 // try Frontview appdata location first
-
-
-
-
                 Logger.Instance().Log("Kodi Source", "Checking for LOCAL LOCAL LOCAL Kodi Source xml file", true);
                 var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -1061,7 +1102,7 @@ namespace FrontView
                 if (File.Exists(@appdatadirectory + @"\FrontView+\sources.xml"))
                 {
                     //Logger.Instance().Trace("Kodi Source: Using Frontview sources.xml.",sourcelocation);
-                    sourcelocation = @appdatadirectory +@"\FrontView+\sources.xml";
+                    sourcelocation = @appdatadirectory + @"\FrontView+\sources.xml";
                     Logger.Instance().Trace("Kodi Source: Using Frontview sources.xml : Sources.xml file: ", sourcelocation);
                 }
                 else
@@ -1073,11 +1114,8 @@ namespace FrontView
                 kodisource.Load(sourcelocation);
                 XmlNodeList KodiDirectories = kodisource.GetElementsByTagName("path");
                 //string[] KodiSources = new string[20];
-                
-                //Changes below
-                
-                
 
+                //Changes below              
 
                 int i = 0;
                 foreach (XmlNode node in KodiDirectories)
@@ -1100,7 +1138,7 @@ namespace FrontView
                     KodiSourceData.KodiMusicSources[i] = SortOutPath(node["path"].InnerText);
                     Logger.Instance().Log("Load Kodi Music Source", "KodiSources Array " + i + "  " + KodiSourceData.KodiMusicSources[i], true);
                     i++;
-                    
+
 
                 }
 
@@ -1109,16 +1147,16 @@ namespace FrontView
             }
             catch (Exception e)
             {
-                if (e is FileNotFoundException )
+                if (e is FileNotFoundException)
                 {
-                    Logger.Instance().Trace(" Kodi Sources Not Found. "," Continue.");
+                    Logger.Instance().Trace(" Kodi Sources Not Found. ", " Continue.");
                 }
                 if (e is DirectoryNotFoundException)
                 {
                     Logger.Instance().Trace(" Kodi Directory Sources Not Found. ", " Continue.");
                 }
-                
-                Logger.Instance().Trace("Kodi Source Error:","Not important unless using Kodi :"+ e);
+
+                Logger.Instance().Trace("Kodi Source Error:", "Not important unless using Kodi :" + e);
             }
 
         }
@@ -1173,7 +1211,7 @@ namespace FrontView
                 var lines = _database.GetTvShow(_remoteInfo.Id);
                 Logger.Instance().LogDump("Cache TV Height Converter", "Lines equals:" + lines.ToString());
                 int r = rnd.Next(lines.Count);
-                Logger.Instance().LogDump("Cache TV Height Converter", "Integer R equals:" + r); 
+                Logger.Instance().LogDump("Cache TV Height Converter", "Integer R equals:" + r);
                 string pathforrandomthumb = lines[r].Thumb;
                 Logger.Instance().LogDump("Cache TV Height Converter", "Checking Cache Details somehow ... " + pathforrandomthumb);
                 var path = Helper.CachePath + @"Video\Thumbs" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName(pathforrandomthumb, Helper.Instance.CurrentApi) + ".jpg";
@@ -1203,7 +1241,7 @@ namespace FrontView
                         height = new BitmapImage(new Uri("pack://application:,,,/Skin/Internal/Images/Empty.png")).PixelHeight;
                         ratio = (double)height / width;
 
-                        Logger.Instance().LogDump("Cache TV Height -- Exception -- : "  +ex + ":Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
+                        Logger.Instance().LogDump("Cache TV Height -- Exception -- : " + ex + ":Converter", "Returning new Height:  Mail Ceiling : " + Math.Ceiling((double)setwidth * ratio));
                         return Math.Ceiling(((double)setwidth * ratio));
                     }
                 }
@@ -1220,7 +1258,7 @@ namespace FrontView
         private double getMovieCacheImageHeight(double setwidth)
         {
             double ratio = 1;
-           // double setwidth = 110;
+            // double setwidth = 110;
             int height = 176;
             int width = 104;
             try
@@ -1267,7 +1305,7 @@ namespace FrontView
             catch (Exception ex)
             {
                 Logger.Instance().LogDump("Cache Hight Converter", "Exception: " + ex + "Returning Height of 176");
-                
+
                 return height;
             }
 
@@ -1278,24 +1316,24 @@ namespace FrontView
 
             Logger.Instance().LogDump("Position Screen Called:", true);
 
-            
+
 
             if (!_setPov)
             {
 
-                
-                 
 
-                 _yatse2Properties.TvShowPosterPov = (lst_TvShows_flow.ActualWidth/lst_TvShows_flow.ActualHeight)/10*85;
 
-                _yatse2Properties.VideoPov = (lst_Movies_flow.ActualWidth/lst_Movies_flow.ActualHeight)/10*85;
 
-                _yatse2Properties.AudioGenresPov = (lst_AudioGenres_flow.ActualWidth/lst_AudioGenres_flow.ActualHeight)/
-                                                   10*85;
-                _yatse2Properties.AudioAlbumsPov = (lst_AudioAlbums_flow.ActualWidth/lst_AudioAlbums_flow.ActualHeight)/
-                                                   10*85;
-                _yatse2Properties.AudioArtistsPov = (lst_AudioArtists_flow.ActualWidth/
-                                                     lst_AudioArtists_flow.ActualHeight)/10*85;
+                _yatse2Properties.TvShowPosterPov = (lst_TvShows_flow.ActualWidth / lst_TvShows_flow.ActualHeight) / 10 * 85;
+
+                _yatse2Properties.VideoPov = (lst_Movies_flow.ActualWidth / lst_Movies_flow.ActualHeight) / 10 * 85;
+
+                _yatse2Properties.AudioGenresPov = (lst_AudioGenres_flow.ActualWidth / lst_AudioGenres_flow.ActualHeight) /
+                                                   10 * 85;
+                _yatse2Properties.AudioAlbumsPov = (lst_AudioAlbums_flow.ActualWidth / lst_AudioAlbums_flow.ActualHeight) /
+                                                   10 * 85;
+                _yatse2Properties.AudioArtistsPov = (lst_AudioArtists_flow.ActualWidth /
+                                                     lst_AudioArtists_flow.ActualHeight) / 10 * 85;
                 _setPov = true;
             }
 
@@ -1328,7 +1366,7 @@ namespace FrontView
             var screens = System.Windows.Forms.Screen.AllScreens;
 
 
-            if (screens.Length == 1 )  //|| !_config.SecondScreen)
+            if (screens.Length == 1)  //|| !_config.SecondScreen)
             {
                 if (Top != 0 || Left != 0)
                 {
@@ -1374,7 +1412,7 @@ namespace FrontView
                     ShowOkDialog(GetLocalizedString(114));
                 return;
             }
-                
+
             var result = repo.UpdateTranslations(Helper.LangPath);
             if (result)
             {
@@ -1430,7 +1468,7 @@ namespace FrontView
             }
             repo.CleanTemporary();
         }
-        
+
         private string GetFanartDirectory(string pathname)
         {
             try
@@ -1547,7 +1585,7 @@ namespace FrontView
                 Logger.Instance().LogDump("cleanPath", "Exception caught" + ex, true);
                 return toCleanPath;
             }
-        }  
+        }
 
         static bool IsFileURI(String path)
         {
@@ -1558,21 +1596,21 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().LogDump("IsFileURI", "Fails Path Test" + path , true);
+                Logger.Instance().LogDump("IsFileURI", "Fails Path Test" + path, true);
                 return false;
 
             }
         }
-            
 
-       /* Have to sort out this later - presently will not deal with none smb:\\ paths.
-        * private static string MakeValidFileName(string name)
-        {
-            string illegal = "\"M\"\\a/ry/ h**ad:>> a\\/:*?\"| li*tt|le|| la\"mb.?";
-            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-            illegal = r.Replace(illegal, "");
-        }*/
+
+        /* Have to sort out this later - presently will not deal with none smb:\\ paths.
+         * private static string MakeValidFileName(string name)
+         {
+             string illegal = "\"M\"\\a/ry/ h**ad:>> a\\/:*?\"| li*tt|le|| la\"mb.?";
+             string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+             Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+             illegal = r.Replace(illegal, "");
+         }*/
 
         private void CheckAudioFanart()
         {
@@ -1580,8 +1618,8 @@ namespace FrontView
             Logger.Instance().LogDump("Checking Filename", "NowPlaying Filename equals:" + nowPlaying2.FileName);
 
             var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
-            
+            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
+
             // Below checks if theme is playing and if it is - ignores any change to fanart.
 
             if (nowPlaying2.FileName.EndsWith("theme.mp3"))
@@ -1597,12 +1635,12 @@ namespace FrontView
                 {
                     _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
                 }
-                
-                
+
+
                 return;
             }
 
-     
+
 
             Logger.Instance().LogDump("FrontView Check AudioFanart    : Audio Playing", nowPlaying2.CurrentMenuLabel, true);
 
@@ -1662,23 +1700,23 @@ namespace FrontView
             Logger.Instance().LogDump("MUSIC", "Fanart location    :" + _config.FanartDirectory, true);
 
 
-            if (GetRandomImagePathNew(_config.FanartDirectory)==null)
+            if (GetRandomImagePathNew(_config.FanartDirectory) == null)
             {
-               Logger.Instance().LogDump("MUSIC", "CheckAudio Defaulting  " + nowPlaying2.Artist, true);
-               _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
+                Logger.Instance().LogDump("MUSIC", "CheckAudio Defaulting  " + nowPlaying2.Artist, true);
+                _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
             }
 
-       }
+        }
 
         private void CheckFanArt(bool forceCheck)
         {
 
-                var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-                var FanartAlways = _config.FanartAlways;
-                //_config.FanartDirectory = null;
-                int numberofdirectoriesdeep = _config.FanartNumberDirectories;
-                var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
+            var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
+            var FanartAlways = _config.FanartAlways;
+            //_config.FanartDirectory = null;
+            int numberofdirectoriesdeep = _config.FanartNumberDirectories;
+            var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
 
 
             if (nowPlaying2 != null)
@@ -1687,7 +1725,7 @@ namespace FrontView
                 Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
             }
 
-            if (_remote.GetOS()=="Emby" && FanartAlways == true)
+            if (_remote.GetOS() == "Emby" && FanartAlways == true)
             {
                 Logger.Instance().LogDump("Frontview FANART", "Emby is Remote Connection - Ignoring Relevant Fanart", true);
 
@@ -1695,13 +1733,13 @@ namespace FrontView
 
                 // Emby No point currently to do menu checks as will not work
                 // Need to figure out the path however - change path if not correct - enable compatiblity with both
-                if ( GetRandomImagePathNew(_config.FanartDirectory) == null  )
+                if (GetRandomImagePathNew(_config.FanartDirectory) == null)
                 {
                     _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
                     Logger.Instance().LogDump("Frontview FANART", "Default Fanart Directory is null - Add Directory", true);
-                    
+
                 }
-                
+
             }
 
 
@@ -1709,7 +1747,7 @@ namespace FrontView
             {
                 if (nowPlaying2.CurrentMenuID != "10004")
                 {
-                    if ((nowPlaying2.CurrentMenuID != "10000") || (nowPlaying2.CurrentMenuID == "10000" && !_config.NoHomeScreenFanart) )
+                    if ((nowPlaying2.CurrentMenuID != "10000") || (nowPlaying2.CurrentMenuID == "10000" && !_config.NoHomeScreenFanart))
                     {
                         var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
                         if (stbDiaporamaShow != null)
@@ -1720,11 +1758,11 @@ namespace FrontView
                 }
             }
 
-            
-            if (FanartAlways == true || forceCheck ==true)
+
+            if (FanartAlways == true || forceCheck == true)
             {
-                
-                if (nowPlaying2.FileName=="IGNORE")
+
+                if (nowPlaying2.FileName == "IGNORE")
                 {
                     Logger.Instance().LogDump("IGNORE", "IGNORE given ignoring Fanart Socket", true);
                     return;
@@ -1736,112 +1774,112 @@ namespace FrontView
                 string CurrentPath = SortOutPath(_config.FanartCurrentPath);
                 CurrentPath = cleanPath(CurrentPath, string.Empty);
 
-            //    var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            //    var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+                //    var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                //    var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
 
-               Logger.Instance().LogDump("SERVER", "Fanart Directory from Socket =:" + _config.FanartCurrentPath, true);
-               Logger.Instance().LogDump("SERVER", "Fanart Directory NORMALISED =:" + CurrentPath, true);
+                Logger.Instance().LogDump("SERVER", "Fanart Directory from Socket =:" + _config.FanartCurrentPath, true);
+                Logger.Instance().LogDump("SERVER", "Fanart Directory NORMALISED =:" + CurrentPath, true);
 
-               if (IsFileURI(CurrentPath) == true)
-               {
-                   if (nowPlaying2.CurrentMenuID == "10025")
-                   {
-                       try
-                       {
-                           string CurrentPath2 = CurrentPath;
-                           Logger.Instance().LogDump("SERVER", "Video Directory Socket returned path - CurrentPath2 equals  " + @CurrentPath2, true);
+                if (IsFileURI(CurrentPath) == true)
+                {
+                    if (nowPlaying2.CurrentMenuID == "10025")
+                    {
+                        try
+                        {
+                            string CurrentPath2 = CurrentPath;
+                            Logger.Instance().LogDump("SERVER", "Video Directory Socket returned path - CurrentPath2 equals  " + @CurrentPath2, true);
 
-                           string CurrentPath3 = GetFanartDirectory(CurrentPath2);
+                            string CurrentPath3 = GetFanartDirectory(CurrentPath2);
 
 
-                           _config.FanartDirectory = @CurrentPath3 + @"extrafanart\";
-                           Logger.Instance().LogDump("SERVER", "FanartDirectory Performed and equals:" + _config.FanartDirectory, true);
-                       }
-                       catch (Exception ex)
-                       {
-                           Logger.Instance().LogDump("SERVER", "Fanart Video Menu 10025 - Exception occured   " + ex, true);
-                           _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
-                       }
+                            _config.FanartDirectory = @CurrentPath3 + @"extrafanart\";
+                            Logger.Instance().LogDump("SERVER", "FanartDirectory Performed and equals:" + _config.FanartDirectory, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Instance().LogDump("SERVER", "Fanart Video Menu 10025 - Exception occured   " + ex, true);
+                            _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
+                        }
 
-                   }
+                    }
 
-                   if (nowPlaying2.CurrentMenuID == "10002")
-                   {
-                       try
-                       {
+                    if (nowPlaying2.CurrentMenuID == "10002")
+                    {
+                        try
+                        {
 
-                           string CurrentPath2 = CurrentPath;
-                           Logger.Instance().LogDump("SERVER", "Image Directory Selected - path equals  " + CurrentPath2, true);
-                           _config.FanartDirectory = @CurrentPath2;
-                           Logger.Instance().LogDump("SERVER", "Image Directory Selected & fanart equals  " + _config.FanartDirectory, true);
-                           if (GetRandomImagePathNew(_config.FanartDirectory) == null) //Empty directory or root etc
-                           {
-                               _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
-                               Logger.Instance().LogDump("SERVER", "Image Directory & no Images: Reset to default :" + _config.FanartDirectory, true);
-                           }
-                       }
-                       catch (Exception ex)
-                       {
-                           Logger.Instance().LogDump("SERVER", "Fanart Image - Exception occured   " + ex, true);
-                           _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages; 
-                       }
+                            string CurrentPath2 = CurrentPath;
+                            Logger.Instance().LogDump("SERVER", "Image Directory Selected - path equals  " + CurrentPath2, true);
+                            _config.FanartDirectory = @CurrentPath2;
+                            Logger.Instance().LogDump("SERVER", "Image Directory Selected & fanart equals  " + _config.FanartDirectory, true);
+                            if (GetRandomImagePathNew(_config.FanartDirectory) == null) //Empty directory or root etc
+                            {
+                                _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
+                                Logger.Instance().LogDump("SERVER", "Image Directory & no Images: Reset to default :" + _config.FanartDirectory, true);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Instance().LogDump("SERVER", "Fanart Image - Exception occured   " + ex, true);
+                            _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
+                        }
 
-                   }
-               }
+                    }
+                }
                 // if no directory or no files afte above then move to default menu based settings                
 
-             if (nowPlaying2.CurrentMenuID == "10025" && IsFileURI(CurrentPath) != true)
-             {
-                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie; // +@"MovieFanart\";
-             }
-                    
-             if (nowPlaying2.CurrentMenuID == "10501")
-             {
-                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
+                if (nowPlaying2.CurrentMenuID == "10025" && IsFileURI(CurrentPath) != true)
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie; // +@"MovieFanart\";
+                }
 
-             }
+                if (nowPlaying2.CurrentMenuID == "10501")
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
 
-             if (nowPlaying2.CurrentMenuID == "10501" )
-             {
-                         _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
+                }
 
-             }
-                
-                   
-                  //  if (nowPlaying2.CurrentMenuID == "10002")
-                  //  {
-                  //      _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages; // +@"OwnFanart\";
-                  //  }
-             if (nowPlaying2.CurrentMenuID == "12600")
-             {
-                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryWeather; // ppdatadirectory + @"\Kodi\userdata\addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";
-             
-             }
-             if (nowPlaying2.CurrentMenuID == "10000")  //Equals the home menu
-             {
-                       //
-                     _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV; 
-             }
-             if (nowPlaying2.CurrentMenuID == "10502")
-             {
-                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
+                if (nowPlaying2.CurrentMenuID == "10501")
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
 
-             }
-
-                    //If directory empty and fanart show being displayed - change to default - which is Movies
-             if (GetRandomImagePathNew(_config.FanartDirectory) == null && grd_Diaporama.Visibility != Visibility.Hidden )
-             {
-                        
-                 
-                 _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
-             }
-                
+                }
 
 
+                //  if (nowPlaying2.CurrentMenuID == "10002")
+                //  {
+                //      _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages; // +@"OwnFanart\";
+                //  }
+                if (nowPlaying2.CurrentMenuID == "12600")
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryWeather; // ppdatadirectory + @"\Kodi\userdata\addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";
 
-                
-            if  ((nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden) || (nowPlaying2.CurrentMenuID == "10000" && _config.NoHomeScreenFanart && grd_Diaporama.Visibility != Visibility.Hidden) )
-            { 
+                }
+                if (nowPlaying2.CurrentMenuID == "10000")  //Equals the home menu
+                {
+                    //
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
+                }
+                if (nowPlaying2.CurrentMenuID == "10502")
+                {
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
+
+                }
+
+                //If directory empty and fanart show being displayed - change to default - which is Movies
+                if (GetRandomImagePathNew(_config.FanartDirectory) == null && grd_Diaporama.Visibility != Visibility.Hidden)
+                {
+
+
+                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
+                }
+
+
+
+
+
+                if ((nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden) || (nowPlaying2.CurrentMenuID == "10000" && _config.NoHomeScreenFanart && grd_Diaporama.Visibility != Visibility.Hidden))
+                {
 
                     var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
                     if (stbDiaporamaHide != null)
@@ -1849,13 +1887,13 @@ namespace FrontView
                         stbDiaporamaHide.Begin(this);
                     }
 
-            }
+                }
 
             }
         }
-        
-        
-        
+
+
+
         static string BreakDirectory(string path3, int dirnumber)
         {
 
@@ -1879,7 +1917,7 @@ namespace FrontView
 
                     if (count == dirnumber)
                     {
-   
+
                         return @"\" + newEntry + @"\";
                     }
                 }
@@ -1892,9 +1930,9 @@ namespace FrontView
             _timer++;
             _timerWeather++;
             Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
-            
+
             UpdateRemote();
-            
+
             Window glennwindow = Window.GetWindow(this);
 
             // Add check here - ever second or so...
@@ -1943,7 +1981,7 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived Exception:"+ex, true);
+                Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived Exception:" + ex, true);
             }
 
             //if (_config.CheckForUpdate && !_updatecheck)
@@ -1965,7 +2003,7 @@ namespace FrontView
             }
 
 
-// Change timing of Weather Data to enable Backdrops to change a bit more slowly.
+            // Change timing of Weather Data to enable Backdrops to change a bit more slowly.
 
             if (_timerWeather > 120)
             {
@@ -2041,7 +2079,7 @@ namespace FrontView
                 Logger.Instance().LogDump("FrontView+", "Error within Http Send", true);
             }
             //Logger.Instance().Log("FrontView+", "About to CALL CheckFanARt");
-           // CheckFanArt();
+            // CheckFanArt();
             //Logger.Instance().Log("FrontView+", "After CALL CheckFanARt");
 
 
@@ -2062,7 +2100,7 @@ namespace FrontView
                             Logger.Instance().Trace("NewDim*", "Within Video Starting keyframe1:Value " + keyframe1.Value);
                             keyframe1.KeyTime = KeyTime.FromTimeSpan(new TimeSpan(0, 0, _config.DimTime));
                             stbDimmingShow.Begin(this);
-                            
+
                         }
 
                     }
@@ -2071,7 +2109,7 @@ namespace FrontView
                         // if current monitor setting not the minimum set it to minimum
                         // what if never run before?  if so will equal -1 which additional check for.
                         Logger.Instance().Trace("DDC/CI", "About to Call SetBrightness - 1");
-                        if  (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
+                        if (brightnessInfo.current != brightnessInfo.minimum && brightnessInfo.current != -1)
                         {
                             SetBrightnessContrast(false);
                         }
@@ -2080,7 +2118,7 @@ namespace FrontView
                             SetScreenOff(false);  //false equals turn off
                         }
                     }
-                 }
+                }
                 Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 2", _timer);
                 ResetTimer();
             }
@@ -2090,7 +2128,7 @@ namespace FrontView
 
 
 
-            if (!nowPlaying.IsPaused && !nowPlaying.IsPlaying )
+            if (!nowPlaying.IsPaused && !nowPlaying.IsPlaying)
             {
                 if (grd_Dimming.Visibility == Visibility.Visible && glennwindow.WindowState == WindowState.Normal)
                 {
@@ -2101,10 +2139,10 @@ namespace FrontView
                         Logger.Instance().LogDump("FrontView NEW DEBUG:", "Playback Paused or Playing - Dim on Undim");
                         SetBrightnessContrast(true);
                     }
-                    
+
                 }
-                
-                
+
+
                 if (glennwindow.WindowState == WindowState.Normal)
                 //     if (this.Visibility == Visibility.Visible)
                 {
@@ -2120,101 +2158,101 @@ namespace FrontView
                         // this.Activate();
 
                     }
-                    if (!_isfanart && GlennMinimise == false && _config.FanartAlways == true && nowPlaying.CurrentMenuID != "10004" && !nowPlaying.IsPaused && !nowPlaying.IsPlaying && ( _timer % _config.FanartTimer) == 0 ) 
+                    if (!_isfanart && GlennMinimise == false && _config.FanartAlways == true && nowPlaying.CurrentMenuID != "10004" && !nowPlaying.IsPaused && !nowPlaying.IsPlaying && (_timer % _config.FanartTimer) == 0)
                     {
-                         Logger.Instance().LogDump("FrontView FANART    : StartFanART Run & Fanart Timer result", _timer);
-                         CheckFanArt(false);
-                         StartFanart();
-                         Logger.Instance().LogDump("FrontView FANART    : StartFanART Finsihed & _timer result", _timer);
-                         //Fanart Routine shoudl go here
-                        
+                        Logger.Instance().LogDump("FrontView FANART    : StartFanART Run & Fanart Timer result", _timer);
+                        CheckFanArt(false);
+                        StartFanart();
+                        Logger.Instance().LogDump("FrontView FANART    : StartFanART Finsihed & _timer result", _timer);
+                        //Fanart Routine shoudl go here
+
                     }
 
                 }
             }
-                
+
             if (nowPlaying.IsPaused)
             {
-                    Logger.Instance().LogDump("FrontView", "nowPlaying.Paused is called");    
-                    if (grd_Dimming.Visibility == Visibility.Visible)
-                    {
-                        var stbDimmingShow = (Storyboard)TryFindResource("stb_HideDimming");
-                        if (stbDimmingShow != null)
-                            stbDimmingShow.Begin(this);
-                        Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Paused undim ",true);
-                        Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 3", _timer);
+                Logger.Instance().LogDump("FrontView", "nowPlaying.Paused is called");
+                if (grd_Dimming.Visibility == Visibility.Visible)
+                {
+                    var stbDimmingShow = (Storyboard)TryFindResource("stb_HideDimming");
+                    if (stbDimmingShow != null)
+                        stbDimmingShow.Begin(this);
+                    Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Paused undim ", true);
+                    Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from 3", _timer);
 
-                        SetBrightnessContrast(true);
-                        ResetTimer();
-                   }
+                    SetBrightnessContrast(true);
+                    ResetTimer();
+                }
 
-           }
-           
-            
-           if (_config.FanartAlways== true && _config.Currently==false && !_isfanart && nowPlaying.IsPlaying && nowPlaying.MediaType=="Audio"  &&  ( _timer % _config.FanartTimer) == 0 ) 
-           {
-               CheckAudioFanart();
-               StartFanart();
-               Logger.Instance().LogDump("AUDIO", "nowPlaying playing Audio Starting fanart " + nowPlaying.MediaType, true);
-           }
-           /**
-           if (nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && nowPlaying.FileName.Contains("googleusercontent")&& (_yatse2Properties.Currently.Fanart == Helper.SkinorDefault(Helper.SkinPath,  _config.Skin,  @"\Interface\Default_Diaporama.png")) && (_timer % _config.FanartTimer) == 0)
-           {
-               Logger.Instance().LogDump("GOOGLEPLAY", "Playing, Media type is AUdio, googlesusercontent filename, Currently Fanart equals" + _yatse2Properties.Currently.Fanart, true);
-               UpdateCurrently(nowPlaying);
-           }
-            **/
-          if (nowPlaying.IsMuted)
-          {
-                    if (grd_Dimming.Visibility == Visibility.Visible)
-                    {
-                        var stbDimmingShow = (Storyboard)TryFindResource("stb_HideDimming");
-                        if (stbDimmingShow != null)
-                            stbDimmingShow.Begin(this);
-                        Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Muted undim ",true);
-                        Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from nowPlaying.IsMuted ", _timer);
-                        SetBrightnessContrast(true);
-                        ResetTimer();
-                    }
-                    
-          }
-
-          if (_timer > _timerScreenSaver && !nowPlaying.IsPaused && _config.FanartAlways == false )
-          {
-                    Logger.Instance().LogDump("FrontView FANART    : StartScreen Saver Called", _timer);
-                    StartScreensaver();
-          }
+            }
 
 
-          if (_isScreenSaver && _diaporamaCurrentImage != 0 && (_timer % _config.DiaporamaTimer) == 0)
-          {
-                    SwitchDiaporama();
-          }
-          
-          if (glennwindow.WindowState == WindowState.Normal && _isfanart && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && !nowPlaying.IsPlaying)
-          {
-                    CheckFanArt(false);
-                    
-                    SwitchFanart();
-                    _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL);
-          }
+            if (_config.FanartAlways == true && _config.Currently == false && !_isfanart && nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && (_timer % _config.FanartTimer) == 0)
+            {
+                CheckAudioFanart();
+                StartFanart();
+                Logger.Instance().LogDump("AUDIO", "nowPlaying playing Audio Starting fanart " + nowPlaying.MediaType, true);
+            }
+            /**
+            if (nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && nowPlaying.FileName.Contains("googleusercontent")&& (_yatse2Properties.Currently.Fanart == Helper.SkinorDefault(Helper.SkinPath,  _config.Skin,  @"\Interface\Default_Diaporama.png")) && (_timer % _config.FanartTimer) == 0)
+            {
+                Logger.Instance().LogDump("GOOGLEPLAY", "Playing, Media type is AUdio, googlesusercontent filename, Currently Fanart equals" + _yatse2Properties.Currently.Fanart, true);
+                UpdateCurrently(nowPlaying);
+            }
+             **/
+            if (nowPlaying.IsMuted)
+            {
+                if (grd_Dimming.Visibility == Visibility.Visible)
+                {
+                    var stbDimmingShow = (Storyboard)TryFindResource("stb_HideDimming");
+                    if (stbDimmingShow != null)
+                        stbDimmingShow.Begin(this);
+                    Logger.Instance().LogDump("FrontView NEW Debug:", "Playback Muted undim ", true);
+                    Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from nowPlaying.IsMuted ", _timer);
+                    SetBrightnessContrast(true);
+                    ResetTimer();
+                }
+
+            }
+
+            if (_timer > _timerScreenSaver && !nowPlaying.IsPaused && _config.FanartAlways == false)
+            {
+                Logger.Instance().LogDump("FrontView FANART    : StartScreen Saver Called", _timer);
+                StartScreensaver();
+            }
 
 
-//add theme.mp3 aspect
-          if (glennwindow.WindowState == WindowState.Normal && _isfanart && _config.FanartAlways == true && _config.Currently == false && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
-          {
-              Logger.Instance().LogDump("AUDIO", "nowPlaying Switching Fanart" + nowPlaying.MediaType, true);
-              CheckAudioFanart();
-              SwitchFanart();
+            if (_isScreenSaver && _diaporamaCurrentImage != 0 && (_timer % _config.DiaporamaTimer) == 0)
+            {
+                SwitchDiaporama();
+            }
 
-          }
+            if (glennwindow.WindowState == WindowState.Normal && _isfanart && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && !nowPlaying.IsPlaying)
+            {
+                CheckFanArt(false);
+
+                SwitchFanart();
+                _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL);
+            }
+
+
+            //add theme.mp3 aspect
+            if (glennwindow.WindowState == WindowState.Normal && _isfanart && _config.FanartAlways == true && _config.Currently == false && _fanartCurrentImage != 0 && (_timer % _config.FanartTimer) == 0 && nowPlaying.IsPlaying && nowPlaying.MediaType == "Audio" && !nowPlaying.FileName.EndsWith("theme.mp3"))
+            {
+                Logger.Instance().LogDump("AUDIO", "nowPlaying Switching Fanart" + nowPlaying.MediaType, true);
+                CheckAudioFanart();
+                SwitchFanart();
+
+            }
 
 
 
-          PositionScreen();
+            PositionScreen();
 
-          CheckFirstLaunch();
-          
+            CheckFirstLaunch();
+
         }
 
         public void SetScreenOff(bool turnonoff)
@@ -2248,7 +2286,7 @@ namespace FrontView
 
         public void SetBrightnessContrast(bool turnonoff)
         {
-            
+
             // Turn On/Off not DDC Control but control within here
 
 
@@ -2256,17 +2294,17 @@ namespace FrontView
             {
                 return;
             }
-            
+
 
             if (_config.TurnOffDDCControl == true)
             {
-               if (turnonoff == false)
+                if (turnonoff == false)
                 {
                     // Turn Monitor Off Completely
                     Logger.Instance().Trace("DDCControl", "TurnOffDDC True and About to run SetMonitorState(2)");
                     SetMonitorState(2);
-                } 
-               if (turnonoff == true)
+                }
+                if (turnonoff == true)
                 {
                     // turn back on
                     Logger.Instance().Trace("DDCControl", "TurnOffDDC True and About to run SetMonitorState(-1) ON and SetMonitorWake");
@@ -2277,9 +2315,9 @@ namespace FrontView
             }
 
             Logger.Instance().Trace("DDCControl", "brightnessInfo Before Check:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
-            if (brightnessInfo.maximum == -1  )
+            if (brightnessInfo.maximum == -1)
             {
-                Logger.Instance().Trace("DDCControl", "Maximum equals -1 : can't be set : try now to set " );
+                Logger.Instance().Trace("DDCControl", "Maximum equals -1 : can't be set : try now to set ");
                 Logger.Instance().Trace("DDCControl", "brightnessInfo:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
                 InitDDCControl();
             }
@@ -2296,10 +2334,10 @@ namespace FrontView
 
                 if (turnonoff == false)
                 {
-                    
-                   // Change here - don't get Current Levels to confusing/just get current levels at start of FrontView and use those until restart.
-                   // brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
-                 //   contrastInfo = brightnessControl.GetContrastCapabilities(0);
+
+                    // Change here - don't get Current Levels to confusing/just get current levels at start of FrontView and use those until restart.
+                    // brightnessInfo = brightnessControl.GetBrightnessCapabilities(0);
+                    //   contrastInfo = brightnessControl.GetContrastCapabilities(0);
 
                     Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
                     Logger.Instance().Trace("DDCControl", "brightnessInfo:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
@@ -2317,7 +2355,7 @@ namespace FrontView
                 {
 
                     Logger.Instance().Trace("DDCControl", "brightnessControl now equal " + brightnessControl.GetMonitors());
-                    Logger.Instance().Trace("DDCControl", "brightnessInfo:"+brightnessInfo.current +" maximum:"+brightnessInfo.maximum+" minimum:"+brightnessInfo.minimum);
+                    Logger.Instance().Trace("DDCControl", "brightnessInfo:" + brightnessInfo.current + " maximum:" + brightnessInfo.maximum + " minimum:" + brightnessInfo.minimum);
 
                     if (brightnessControl != null && brightnessInfo.current != -1)
                     {
@@ -2328,17 +2366,17 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().Trace("DDCControl", "Exception in SetBrightness/Contrast:"+ex);
+                Logger.Instance().Trace("DDCControl", "Exception in SetBrightness/Contrast:" + ex);
             }
 
-       }
+        }
 
 
         public void gotoHttpsimple(string url)
         {
             try
             {
-                 if (_config.HttpUseDigest == false)
+                if (_config.HttpUseDigest == false)
                 {
                     Logger.Instance().LogDump("HttpSimpleSend", "Using Basic: Url:  " + url, true);
 
@@ -2373,25 +2411,25 @@ namespace FrontView
                 }
                 if (_config.HttpUseDigest == true)
                 {
-                     Uri myurl = new Uri(url);
-                     string baseurl = myurl.GetComponents(UriComponents.SchemeAndServer | UriComponents.UserInfo, UriFormat.Unescaped);
-                     //var baseurl = myurl.Host;
-                     var dir = myurl.PathAndQuery;
-                     Logger.Instance().LogDump("HttpSimpleSend", "Using Digest:  Url: " + url + " BaseURL: " +baseurl + "  Dir: " + dir, true);
-                     DigestAuthFixer digest = new DigestAuthFixer(baseurl, _config.HttpUser, _config.HttpPassword);
-                     string strReturn = digest.GrabResponse(dir);
-                }           
-               
-            
+                    Uri myurl = new Uri(url);
+                    string baseurl = myurl.GetComponents(UriComponents.SchemeAndServer | UriComponents.UserInfo, UriFormat.Unescaped);
+                    //var baseurl = myurl.Host;
+                    var dir = myurl.PathAndQuery;
+                    Logger.Instance().LogDump("HttpSimpleSend", "Using Digest:  Url: " + url + " BaseURL: " + baseurl + "  Dir: " + dir, true);
+                    DigestAuthFixer digest = new DigestAuthFixer(baseurl, _config.HttpUser, _config.HttpPassword);
+                    string strReturn = digest.GrabResponse(dir);
+                }
+
+
             }
 
-            
+
             catch (Exception ex)
             {
                 Logger.Instance().Log("HttpSimpleSend", "ERROR: For URL: " + url + "   Exception: " + ex, true);
             }
 
-            
+
         }
 
         public void gotoHttp(string url, Plugin.ApiCurrently nowPlaying)
@@ -2400,46 +2438,46 @@ namespace FrontView
             {
                 //Add Variable Support to URL passing - mainly useful for filename?
                 var newurl = url;
-                
-                if (url =="")
+
+                if (url == "")
                 {
                     Logger.Instance().LogDump("HttpSend", "Called - URL Empty:  URL: " + url, true);
                     return;
                 }
 
-                if (nowPlaying.FileName != null) 
-                { 
-                newurl = url.Replace("%HTTPFILENAME%", Uri.EscapeUriString(nowPlaying.FileName)); 
-                }
-                if (nowPlaying.Artist !=null)
+                if (nowPlaying.FileName != null)
                 {
-                newurl = newurl.Replace("%HTTPARTIST%", Uri.EscapeUriString(nowPlaying.Artist));
+                    newurl = url.Replace("%HTTPFILENAME%", Uri.EscapeUriString(nowPlaying.FileName));
+                }
+                if (nowPlaying.Artist != null)
+                {
+                    newurl = newurl.Replace("%HTTPARTIST%", Uri.EscapeUriString(nowPlaying.Artist));
                 }
                 if (nowPlaying.Album != null)
                 {
-                newurl = newurl.Replace("%HTTPALBUM%", Uri.EscapeUriString(nowPlaying.Album));
+                    newurl = newurl.Replace("%HTTPALBUM%", Uri.EscapeUriString(nowPlaying.Album));
                 }
                 if (nowPlaying.FanartURL != null)
                 {
-                newurl = newurl.Replace("%HTTPFANARTURL%", Uri.EscapeUriString(nowPlaying.FanartURL));
+                    newurl = newurl.Replace("%HTTPFANARTURL%", Uri.EscapeUriString(nowPlaying.FanartURL));
                 }
                 if (nowPlaying.MediaType != null)
                 {
-                newurl = newurl.Replace("%HTTPMEDIATYPE%", Uri.EscapeUriString(nowPlaying.MediaType));
+                    newurl = newurl.Replace("%HTTPMEDIATYPE%", Uri.EscapeUriString(nowPlaying.MediaType));
                 }
                 if (nowPlaying.ShowTitle != null)
                 {
-                newurl = newurl.Replace("%HTTPTITLE%", Uri.EscapeUriString(nowPlaying.ShowTitle));
+                    newurl = newurl.Replace("%HTTPTITLE%", Uri.EscapeUriString(nowPlaying.ShowTitle));
                 }
                 if (nowPlaying.Plot != null)
                 {
-                newurl = newurl.Replace("%HTTPPLOT%", Uri.EscapeUriString(nowPlaying.Plot));
+                    newurl = newurl.Replace("%HTTPPLOT%", Uri.EscapeUriString(nowPlaying.Plot));
                 }
-                           
-                
+
+
                 newurl = newurl.Replace("%HTTPSEASONNO%", Uri.EscapeUriString(nowPlaying.SeasonNumber.ToString()));
-                           
-                
+
+
                 newurl = newurl.Replace("%HTTPPROGRESS%", Uri.EscapeUriString(nowPlaying.Progress.ToString()));
 
                 newurl = newurl.Replace("%HTTPTIME%", Uri.EscapeUriString(nowPlaying.Time.ToString()));
@@ -2454,9 +2492,9 @@ namespace FrontView
 
 
 
-               
 
-                Logger.Instance().LogDump("HttpSend", "Variables " +url + " newURL " + newurl, true);
+
+                Logger.Instance().LogDump("HttpSend", "Variables " + url + " newURL " + newurl, true);
 
                 url = newurl;
 
@@ -2496,27 +2534,27 @@ namespace FrontView
                 }
                 if (_config.HttpUseDigest == true)
                 {
-                     Uri myurl = new Uri(url);
-                     string baseurl = myurl.GetComponents(UriComponents.SchemeAndServer | UriComponents.UserInfo, UriFormat.Unescaped);
-                     //var baseurl = myurl.Host;
-                     var dir = myurl.PathAndQuery;
-                     Logger.Instance().LogDump("HttpSend", "Using Digest:  Url: " + url + " BaseURL: " +baseurl + "  Dir: " + dir, true);
-                     DigestAuthFixer digest = new DigestAuthFixer(baseurl, _config.HttpUser, _config.HttpPassword);
-                     string strReturn = digest.GrabResponse(dir);
-                }           
-               
-            
+                    Uri myurl = new Uri(url);
+                    string baseurl = myurl.GetComponents(UriComponents.SchemeAndServer | UriComponents.UserInfo, UriFormat.Unescaped);
+                    //var baseurl = myurl.Host;
+                    var dir = myurl.PathAndQuery;
+                    Logger.Instance().LogDump("HttpSend", "Using Digest:  Url: " + url + " BaseURL: " + baseurl + "  Dir: " + dir, true);
+                    DigestAuthFixer digest = new DigestAuthFixer(baseurl, _config.HttpUser, _config.HttpPassword);
+                    string strReturn = digest.GrabResponse(dir);
+                }
+
+
             }
 
-            
+
             catch (Exception ex)
             {
                 Logger.Instance().Log("HttpSend", "ERROR: For URL: " + url + "   Exception: " + ex, true);
             }
 
-        
+
         }
-         
+
         private void StartScreensaver()
         {
             if (!_isScreenSaver)
@@ -2589,11 +2627,11 @@ namespace FrontView
 
             // Getting DPI scaling factor from System.Drawing.Graphics - works for some settings but seemingly not all
             // Below:
-           // Don't use this:
-            
+            // Don't use this:
+
             // System.Drawing.Graphics graphics = new System.Windows.Forms.Form().CreateGraphics();
-           // Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
-           // Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
+            // Logger.Instance().LogDump("Graphics dpix:" + graphics.DpiX, true);
+            // Logger.Instance().LogDump("Graphics dpiY:" + graphics.DpiY, true);
 
 
             // Below using CompositionTarget to get dpi settings m2.M11 and m2.M22 resulting settings
@@ -2608,7 +2646,7 @@ namespace FrontView
                     Logger.Instance().LogDump("Screens DPI:  Changing dx and dy:", true);
                     dx = m2.M11;
                     dy = m2.M22;
-                    Logger.Instance().LogDump("Screens DPI:  Dx:"+dx+" and Dy:"+dy, true);
+                    Logger.Instance().LogDump("Screens DPI:  Dx:" + dx + " and Dy:" + dy, true);
                 }
             }
             else
@@ -2627,36 +2665,36 @@ namespace FrontView
             var screens = System.Windows.Forms.Screen.AllScreens;
 
             Logger.Instance().LogDump("Var Screens", true);
-    //        ni.BalloonTipTitle = "Minimise Setting";
-    //        ni.BalloonTipText = " Minimise Always On";
+            //        ni.BalloonTipTitle = "Minimise Setting";
+            //        ni.BalloonTipText = " Minimise Always On";
 
-        //    ni.DoubleClick +=
+            //    ni.DoubleClick +=
 
-        //        delegate(object sender, EventArgs args)
-         //       {
-        //            this.Show();
-        //            this.WindowState = WindowState.Normal;
-        // //      
+            //        delegate(object sender, EventArgs args)
+            //       {
+            //            this.Show();
+            //            this.WindowState = WindowState.Normal;
+            // //      
             Logger.Instance().LogDump("Screens Length", screens.Length);
             int screenDisplayNumber = -1;
             //Check Device Name against each screen - when matched set - ScreenDisplayNumber to that
 
-            for (int i=0; i < screens.Length; i++)
+            for (int i = 0; i < screens.Length; i++)
             {
                 var DeviceName = ScreenResolution.GetDeviceName(i);
-                Logger.Instance().LogDump("Screens Compare:  Checking all Screens for DeviceName: i ="+i +":DeviceName equals:",DeviceName);
-                
+                Logger.Instance().LogDump("Screens Compare:  Checking all Screens for DeviceName: i =" + i + ":DeviceName equals:", DeviceName);
+
 
                 if (DeviceName == _config.SelectedDisplay)
                 {
                     screenDisplayNumber = i;
-                    Logger.Instance().LogDump("Screens Compare:  DeviceName Found: " +DeviceName+"  & ScreenDisplayNumber Set to:", i);
+                    Logger.Instance().LogDump("Screens Compare:  DeviceName Found: " + DeviceName + "  & ScreenDisplayNumber Set to:", i);
                     break;
                 }
-            
+
             }
 
-                        
+
             if (screenDisplayNumber == -1)
             {
                 Logger.Instance().LogDump("Screens Compare:  ERR: screenDisplayNumber still -1: ", screenDisplayNumber);
@@ -2665,10 +2703,10 @@ namespace FrontView
             }
 
 
-            if (screens.Length == 1 )
+            if (screens.Length == 1)
             {
-                              
-               
+
+
                 if (_config.ForceResolution)
                 {
                     var currentRes = ScreenResolution.GetDevmode(screenDisplayNumber, -1);
@@ -2684,8 +2722,8 @@ namespace FrontView
             }
             else
             {
-                               
-                
+
+
                 if (_config.ForceResolution)
                 {
                     var currentRes = ScreenResolution.GetDevmode(screenDisplayNumber, -1);
@@ -2697,20 +2735,20 @@ namespace FrontView
                         Logger.Instance().LogDump("ChangeResolutionMultiScreen", _config.Resolution);
                     }
                 }
-               
+
                 // without this here - fails - likely delay to screen coming back up after resolution change with out rechecking - doesn't see screen
 
                 screens = System.Windows.Forms.Screen.AllScreens;
 
-                
 
-               // foreach (var scr in screens)
-               // {
-               //     Logger.Instance().LogDump("All Screen Details: Scr.Primary:", scr.Primary);
-               //     Logger.Instance().LogDump("Screen Device Names:", scr.DeviceName);
-               //     Logger.Instance().LogDump("Another Screen Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
+
+                // foreach (var scr in screens)
+                // {
+                //     Logger.Instance().LogDump("All Screen Details: Scr.Primary:", scr.Primary);
+                //     Logger.Instance().LogDump("Screen Device Names:", scr.DeviceName);
+                //     Logger.Instance().LogDump("Another Screen Details:", ScreenResolution.GetDevmode(screenDisplayNumber, -1));
                 //
-               // }
+                // }
 
                 /*   Below: Accurate and works - but presently so does M11 and M12 and easier to use in DPIDecorator class
                  *   So remove for the moment
@@ -2728,7 +2766,7 @@ namespace FrontView
                 foreach (var scr in screens)
                 {
 
-                    
+
                     if (_config.SelectedDisplay == scr.DeviceName)
                     {
 
@@ -2744,7 +2782,7 @@ namespace FrontView
                         {
                             // should be divided by dx and dy
 
-                            Top = scr.Bounds.Location.Y/dy;
+                            Top = scr.Bounds.Location.Y / dy;
                             Left = scr.Bounds.Location.X / dx;
                         }
 
@@ -2787,8 +2825,8 @@ namespace FrontView
 
             if (_config.Resolution.DMPelsWidth > 0)
             {
-                Width = _config.Resolution.DMPelsWidth /dx;  // add dpi adjustment here - yep all good.
-                Height = _config.Resolution.DMPelsHeight /dy;
+                Width = _config.Resolution.DMPelsWidth / dx;  // add dpi adjustment here - yep all good.
+                Height = _config.Resolution.DMPelsHeight / dy;
 
 
                 Logger.Instance().LogDump("Screens Width DPI Adjusted:", Width);
@@ -2805,12 +2843,12 @@ namespace FrontView
 
 
 
-                
+
                 grd_Settings.ClipToBounds = false;
                 ScaleTransform myScaleTransform = new ScaleTransform();
                 myScaleTransform.ScaleX = 0.8;  //remove DPI scaling here - DPI Decorator class will do it
                 myScaleTransform.ScaleY = 0.8;
-            //    grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
+                //    grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
                 grd_Settings.RenderTransform = myScaleTransform;
 
 
@@ -2825,15 +2863,15 @@ namespace FrontView
                 ScaleTransform myScaleTransform = new ScaleTransform();
                 myScaleTransform.ScaleX = 1.0;  //DPI scaling shouldnt be needed here as well - the DPI Decorator will do all this
                 myScaleTransform.ScaleY = 1.0;
-             //   grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
+                //   grd_Settings.RenderTransformOrigin = new Point(0.5, 0.5);
                 grd_Settings.RenderTransform = myScaleTransform;
             }
 
-            
+
             if (_config.ShowAudioMenu == false)
             {
                 brd_Home_Video.Margin = new Thickness(0, 0, 100, 100);
-              //  brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
+                //  brd_Home_Music.Margin = new Thickness(0, 70, 100, 0);
                 brd_Home_Other.Margin = new Thickness(0, 200, 100, 0);
 
 
@@ -2844,7 +2882,7 @@ namespace FrontView
                 _config.Hack480 = false;
             }
 
-                _setPov = false;
+            _setPov = false;
         }
 
         private void notifyIcon1_DoubleClick(object Sender, EventArgs e)
@@ -2854,20 +2892,20 @@ namespace FrontView
             // Set the WindowState to normal if the form is minimized. 
             if (this.WindowState == WindowState.Minimized)
             {
-                 this.ShowInTaskbar = _config.ShowInTaskbar;
-                 _config.MinimiseAlways = false;
+                this.ShowInTaskbar = _config.ShowInTaskbar;
+                _config.MinimiseAlways = false;
                 _config.FanartAlways = true;
 
-                
+
                 RestoreWindowNoActivateExtension.RestoreNoActivate(this);
-                this.Show();                
+                this.Show();
                 //Use No activation or focus change as bove - functioing 
 
                 //this.WindowState = WindowState.Normal;
 
                 //this.Activate();
 
-                
+
 
                 Logger.Instance().LogDump("NEW Yastse Debug    : DBL click tasbar event/Min Window, Open Window and set MinimiseAlways to false ", _config.MinimiseAlways);
                 return;
@@ -2890,7 +2928,7 @@ namespace FrontView
 
         private void ShowHome()
         {
-            
+
             var en = _yatse2Pages.GetEnumerator();
             while (en.MoveNext())
             {
@@ -2904,7 +2942,7 @@ namespace FrontView
                         if (_moviesDataSource.Count < 1)
                             return;
                         break;
-                    case "grd_TvShows" :
+                    case "grd_TvShows":
                         Load_TvShows();
                         if (_tvShowsDataSource.Count < 1)
                             return;
@@ -2924,7 +2962,7 @@ namespace FrontView
                         if (_audioGenresDataSource.Count < 1)
                             return;
                         break;
-                    case "grd_Weather" :
+                    case "grd_Weather":
                         RefreshWeather();
                         break;
                     default:
@@ -2946,12 +2984,12 @@ namespace FrontView
                 return;
             foreach (Grid grid in trp_Transition.Items)
             {
-                if (grid.Name != _gridHistory[_gridHistory.Count-1]) continue;
+                if (grid.Name != _gridHistory[_gridHistory.Count - 1]) continue;
                 if (ShowGrid(grid, false) && _gridHistory.Count > 0)
                     _gridHistory.RemoveAt(_gridHistory.Count - 1);
                 return;
             }
-            
+
         }
 
         private void ShowGrid(Grid newGrid)
@@ -2959,7 +2997,7 @@ namespace FrontView
             ShowGrid(newGrid, true);
         }
 
-        private bool ShowGrid(Grid newGrid , bool history)
+        private bool ShowGrid(Grid newGrid, bool history)
         {
             Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run from ShowGrid1", _timer);
             ResetTimer();
@@ -2985,8 +3023,8 @@ namespace FrontView
                 _gridHistory.Clear();
             else
                 if (history)
-                    if (_currentGrid.Name != "grd_Currently")
-                        _gridHistory.Add(_currentGrid.Name);
+                if (_currentGrid.Name != "grd_Currently")
+                    _gridHistory.Add(_currentGrid.Name);
             _currentGrid = newGrid;
             return true;
         }
@@ -2994,9 +3032,9 @@ namespace FrontView
 
         private void ResetTimer()
         {
-            
-           // Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
-            
+
+            // Logger.Instance().Trace("FrontView+", "FOCUS::: config.KeepFocus: " +_config.KeepFocus+" FOCUSS::: _remoteInfo"+_remoteInfo.ProcessName+ "FOCUS:::: _disableFocus"+_disableFocus); 
+
             if (_config.KeepFocus && _remoteInfo != null && !_disableFocus)
             {
                 if (_remote != null)
@@ -3005,7 +3043,7 @@ namespace FrontView
                     _remote.GiveFocus();
                 }
 
-             }
+            }
 
 
             Logger.Instance().LogDump("FrontView FANART    : ResetTimer Run", _timer);
@@ -3036,7 +3074,7 @@ namespace FrontView
 
         }
 
-        private void  RefreshWeatherCurrentData()
+        private void RefreshWeatherCurrentData()
         {
             var weatherData = _weather.GetWeatherData(_config.WeatherLoc);
             if (weatherData == null)
@@ -3067,7 +3105,7 @@ namespace FrontView
                 ni.Icon = null;
                 ni.Dispose();
                 ni = null;
-             }
+            }
         }
 
 
@@ -3075,7 +3113,7 @@ namespace FrontView
         {
             public FakeWindowsPeer(Window window) : base(window)
             {
-                
+
             }
 
             protected override List<AutomationPeer> GetChildrenCore()

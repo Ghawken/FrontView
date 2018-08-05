@@ -1,5 +1,12 @@
 ﻿Changelog:
 
+
+
+1.286
+Better Messaging when Remotes no longer connectable
+Add Kodi 18 - Leia Remote Control as seperate selectable
+Fix for 64 bit install - not all 64 bit
+
 1.285
 Change Weather API completely to DarkSky.net - Needs a DarkSKY API Key
 Add Check for Currently screen (very occasionally missed changing to it) Now checks every second if not up and should be

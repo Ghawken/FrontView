@@ -215,6 +215,11 @@ namespace FrontView
                 _remoteInfoEdit.OS = remote.GetOS();
                 _remoteInfoEdit.Version = remote.GetVersion();
                 _remoteInfoEdit.Additional = remote.GetAdditionalInfo();
+                if (_remoteInfoEdit.Additional != "")
+                {
+                    // Update Kodi Sources
+                    UpdateKodiSource(_remoteInfoEdit.Additional);
+                }
                 _remoteInfoEdit.Validated = true;
             }
             else if (res == 0)
