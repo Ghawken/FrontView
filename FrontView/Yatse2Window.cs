@@ -629,7 +629,7 @@ namespace FrontView
 
             if (_FanartServer != null && _FanartServer.IsAlive)
             {
-                Logger.Instance().Log("Fanart-Server", "Fanart Server is Up:  Shutting Down.  Server Restarting..", true);
+                Logger.Instance().Log("Fanart-Server", "Fanart Server is Up:  Shutting Down. ", true);
                 //_FanartServer.Abort(); // Messy - but in my defence is very very very simple thread
                 RunningServerThread = false;  //Using this to stop.
             }
@@ -641,7 +641,7 @@ namespace FrontView
                 Thread.Sleep(500);
                 RunningServerThread = true;
             }
-            if (_FanartServer != null && _FanartServer.IsAlive == false)
+            if (_FanartServer != null && _FanartServer.IsAlive == false && _remote.GetOS() == "Kodi")
             {
                 Logger.Instance().Log("Fanart-Server", "Starting a New Thread. ", true);
                 _FanartServer.Start();
@@ -733,7 +733,7 @@ namespace FrontView
             else
             {
                 Logger.Instance().Log("Fanart-Server", "End of Server Thread.", true);
-                
+                _config.FanartCurrentPath = _config.FanartDirectory;
             }
             //   listener.Stop();
         }
@@ -1747,8 +1747,8 @@ namespace FrontView
 
             if (_remote.GetOS() == "Emby" && FanartAlways == true)
             {
+                _config.FanartDirectory = _config.FanartDirectoryMovie;
                 Logger.Instance().LogDump("Frontview FANART", "Emby is Remote Connection - Ignoring Relevant Fanart", true);
-
                 Logger.Instance().LogDump("Frontview FANART", "Emby: Path to Fanart " + _config.FanartDirectory, true);
 
                 // Emby No point currently to do menu checks as will not work
@@ -1757,9 +1757,9 @@ namespace FrontView
                 {
                     _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
                     Logger.Instance().LogDump("Frontview FANART", "Default Fanart Directory is null - Add Directory", true);
-
+                    
                 }
-
+                
             }
 
 
