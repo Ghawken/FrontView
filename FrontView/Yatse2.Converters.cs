@@ -78,7 +78,7 @@ namespace FrontView
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Logger.Instance().Trace("IconVisibility2:", "check for: " + (string)value + ":param:" + (string)parameter);
+            //Logger.Instance().Trace("IconVisibility2:", "check for: " + (string)value + ":param:" + (string)parameter);
 
             if (value == DependencyProperty.UnsetValue) return false;
 
@@ -87,11 +87,11 @@ namespace FrontView
 
             if (String.IsNullOrWhiteSpace(check))
             {
-                Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for, check: " + check + ":param:" + param);
+                //Logger.Instance().Trace("IconVisibility ERROR:", "Check/MovieItems Empty for, check: " + check + ":param:" + param);
                 return Visibility.Collapsed;
             }
 
-            Logger.Instance().Trace("IconVisibility:", "check for: " + check + ":param:" + param);
+            //Logger.Instance().Trace("IconVisibility:", "check for: " + check + ":param:" + param);
 
             // check equals to MovieIcons contents eg.  DTS,h264,1080p,2:40:1 etc
             // param is value passed
@@ -191,7 +191,7 @@ namespace FrontView
             }
 
             var path = Helper.SkinPath + (string)value + @"\Icons\" + param + ".png";
-            Logger.Instance().Trace("C_SkinBrush", "Skin image : " + path );
+            //Logger.Instance().Trace("C_SkinBrush", "Skin image : " + path );
 
 
 
@@ -199,7 +199,7 @@ namespace FrontView
             {
                 // Change to check Default Skin if missing - hopefully moving to avoid duplication of entire skin directories    
 
-                Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
+                //Logger.Instance().Trace("C_SkinBrush", "Missing skin image : " + path + " Trying Default Skin");
                 path = Helper.SkinPath + "Default" + @"\Icons\" + param + ".png";
                 if (!File.Exists(path))
                 {
@@ -727,12 +727,8 @@ namespace FrontView
             var img2 = (string)value;
             var param2 = (string)parameter;
 
-
-
             string lastpart = img2.Substring(Math.Max(0, img2.Length - 23));
-
             Logger.Instance().Trace("SkinLogoConverter:", "img: " + img2 + ":param:" + param2 + " Last last of Filename:======"+lastpart);
-
 
             if (lastpart == "Default_Video-Logos.png")
             {
@@ -771,7 +767,7 @@ namespace FrontView
             if (String.IsNullOrEmpty(param))
                 return false;
 
-            Logger.Instance().Trace("SkinExtraConverter:", "img: " + img + ":param:"+param);
+            //Logger.Instance().Trace("SkinExtraConverter:", "img: " + img + ":param:"+param);
 
             if (img=="V Large NowPlaying")
             {

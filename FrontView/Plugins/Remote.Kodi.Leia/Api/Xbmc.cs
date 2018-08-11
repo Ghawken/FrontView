@@ -130,7 +130,75 @@ namespace Remote.XBMC.Leia.Api
 
         public override string GetAdditionalInfo()
         {
-            return "";
+            try
+            {
+
+                //return "";
+                Logger.Instance().Trace("Get-Additional-Info: ", "Entered Subroutine");
+                // Store the results in JsonArray so can be passed back as String
+                var videoresults = new JsonArray();
+                var musicresults = new JsonArray();
+                JsonObject sources = new JsonObject();
+
+
+                // Repeat Below for Music Sources
+                var label = "video";
+                var items = new JsonObject();
+                items["media"] = label;
+
+                var res = (JsonObject)JsonCommand("Files.GetSources", items);
+                Logger.Instance().Trace("Get-Additional-Info Video : ", "Res Equals:" + res);
+
+                if (res != null)
+                {
+                    if (res.Contains("sources"))
+                    {
+                        foreach (JsonObject file in (JsonArray)res["sources"])
+                        {
+                            videoresults.Add(file["file"]);
+                            Logger.Instance().Trace("Get-Additional-Info : ", "SourceSwitch Equals:" + file["file"].ToString());
+                        }
+                    }
+                }
+                /// Repeat for Music
+                /// 
+                items["media"] = "music";
+                res = (JsonObject)JsonCommand("Files.GetSources", items);
+                Logger.Instance().Trace("Get-Additional-Info Music : ", "Res Equals:" + res);
+
+                if (res != null)
+                {
+                    if (res.Contains("sources"))
+                    {
+                        foreach (JsonObject file in (JsonArray)res["sources"])
+                        {
+                            musicresults.Add(file["file"]);
+                            Logger.Instance().Trace("Get-Additional-Info : ", "Music SourceSwitch Equals:" + file["file"].ToString());
+                        }
+                    }
+                }
+                if (sources != null)
+                {
+                    if (videoresults != null)
+                    {
+                        sources["video"] = videoresults;
+                    }
+                    if (musicresults != null)
+                    {
+                        sources["music"] = musicresults;
+                    }
+                }
+
+                Logger.Instance().Trace("Get-Additional-Info ALL : ", "JsonResults Equals:" + sources.ToString());
+                return sources.ToString();
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Get-Additional-Info Error : ", ex.ToString());
+                return "";
+            }
+            //return res == null ? null : (JsonObject)((JsonObject)res)[label];
+
             /*var infos = GetSystemProperties("profile");
             if (infos == null) return "";
             return infos.ToString();*/

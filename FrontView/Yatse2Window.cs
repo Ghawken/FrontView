@@ -221,6 +221,8 @@ namespace FrontView
         private bool HttpisStopped;
         private bool HttpisDelayed;
 
+        private bool RunningServerThread = true;
+
         private string _filterMovie = "";
         private string _filterTvShow = "";
         private string _filterAudioGenre = "";
@@ -620,36 +622,50 @@ namespace FrontView
             }
         }
 
-
-        private void StartServer()
+        private Thread _FanartServer;
+        private void StartServer(string IpAddress)
         {
-            Logger.Instance().Log("SERVER", "STARTSERVER - Starting UDP Server Thread... ", true);
-            //Logger.Instance().LogDump("SERVER THREAD    : Attempting to start new Thread ", true);
-            Thread t = new Thread(NewThread) { IsBackground = true };
-            t.IsBackground = true;
-            t.Start();
+            Logger.Instance().Log("Fanart-Server", "STARTSERVER - Starting/Checking UDP Server Thread... ", true);
 
-            Logger.Instance().Log("SERVER", "STARTSERVER after thread started... ", true);
+            if (_FanartServer != null && _FanartServer.IsAlive)
+            {
+                Logger.Instance().Log("Fanart-Server", "Fanart Server is Up:  Shutting Down.  Server Restarting..", true);
+                //_FanartServer.Abort(); // Messy - but in my defence is very very very simple thread
+                RunningServerThread = false;  //Using this to stop.
+            }
+
+            _FanartServer = new Thread(() => NewThread(IpAddress)) { IsBackground = true };
+            _FanartServer.IsBackground = true;
+            if (RunningServerThread == false)
+            {
+                Thread.Sleep(500);
+                RunningServerThread = true;
+            }
+            if (_FanartServer != null && _FanartServer.IsAlive == false)
+            {
+                Logger.Instance().Log("Fanart-Server", "Starting a New Thread. ", true);
+                _FanartServer.Start();
+            }
+            
         }
 
-        private void NewThread()
+        private void NewThread(string IpAddress)
         {
 
             try
             {
-                IPAddress localAdd = IPAddress.Parse(_config.IPAddress);
+                IPAddress localAdd = IPAddress.Parse(IpAddress);
                 // TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
-                Logger.Instance().Log("SERVER", "Within New Thread running Listener... ", true);
+                Logger.Instance().Log("Fanart-Server", "Within New Thread running Listener: IP Address:"+IpAddress+" Port Equals:"+_config.IPPort, true);
                 // listener.Start();
                 // _config.FanartCurrentPath = null;
 
                 UdpClient client = new UdpClient(_config.IPPort);
 
-                while (true)
+                while (RunningServerThread)
                 {
 
                     //NetworkStream nwStream = client.GetStream();
-
                     IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 0);
 
                     byte[] buffer = client.Receive(ref groupEP);
@@ -657,8 +673,8 @@ namespace FrontView
                     string dataReceived = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
 
-                    Logger.Instance().LogDump("SERVER", "Data Received  " + dataReceived, true);
-                    Logger.Instance().LogDump("SERVER", dataReceived, true);
+                    Logger.Instance().LogDump("Fanart-Server", "Data Received  " + dataReceived, true);
+                   // Logger.Instance().LogDump("Fanart-Server", dataReceived, true);
 
                     // Receive data from Kodi thread to deal with theme.mp3
                     // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
@@ -672,13 +688,12 @@ namespace FrontView
 
                     if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
                     {
-                        Logger.Instance().LogDump("SERVER", "NOT Playback Started Event - change Fanart as required", true);
+                        Logger.Instance().LogDump("Fanart-Server", "NOT Playback Started Event - change Fanart as required", true);
                         if (dataReceived != "" && dataReceived != null)
                         {
                             _config.FanartCurrentPath = dataReceived;
                         }
                     }
-
                     /**
                     if (dataReceived.Contains("FrontViewConsoleCommand ON"))
                     {
@@ -693,9 +708,7 @@ namespace FrontView
                             SwitchFanart();
                             _config.FanartSwitch = false;
                         }
-
                     }
-
                     **/
                     //  onfig.FanartCurrentPath = dataReceived;
                     // Console.WriteLine("The resulting messages on the server" + dataReceived);
@@ -703,22 +716,31 @@ namespace FrontView
                     // Console.WriteLine("\n");
                     //client.Close();
                 }
+                client.Close();
+                client.Dispose();
             }
             catch (Exception ex)
             {
-                Logger.Instance().Log("SERVER", "Proper Exception Caught:" + ex, true);
-
+                Logger.Instance().Log("Fanart-Server", "Proper Exception Caught:" + ex, true);
+                
 
             }
 
-            NewThread();
-
+            if (RunningServerThread)
+            {
+                NewThread(IpAddress);
+            }
+            else
+            {
+                Logger.Instance().Log("Fanart-Server", "End of Server Thread.", true);
+                
+            }
             //   listener.Stop();
         }
 
         private void UpdateText(string message)
         {
-            Logger.Instance().Log("SERVER", message, true);
+            Logger.Instance().Log("Fanart-Server", message, true);
         }
 
 
@@ -952,10 +974,7 @@ namespace FrontView
                 Change_Display_Settings(null, null);
 
 
-                if (_config.StartFrontViewServer)
-                {
-                    StartServer();
-                }
+
                 HttpisStopped = true;
 
                 //Disable why figure out best update path
@@ -1073,8 +1092,8 @@ namespace FrontView
                 foreach (var music in Sources.music)
                 {
                     Logger.Instance().Trace("Update KodiSource: Add Music Source ", music);
-                    KodiSourceData.KodiSources[i] = SortOutPath(music);
-                    Logger.Instance().Trace("Update KodiSource", "KodiSources Array " + i + "  " + KodiSourceData.KodiSources[i]);
+                    KodiSourceData.KodiMusicSources[i] = SortOutPath(music);
+                    Logger.Instance().Trace("Update KodiSource", "KodiSources Music Array " + i + "  " + KodiSourceData.KodiMusicSources[i]);
                     i++;
                 }
                 Logger.Instance().Trace("Update KodiSource: Complete --------------------------------------- ", "");
@@ -1596,7 +1615,8 @@ namespace FrontView
             }
             catch (Exception ex)
             {
-                Logger.Instance().LogDump("IsFileURI", "Fails Path Test" + path, true);
+                Logger.Instance().LogDump("IsFileURI", "Fails Path Test: " + path, true);
+                Logger.Instance().LogDump("IsFileURI", "Fails Path Exception: " + ex, true);
                 return false;
 
             }

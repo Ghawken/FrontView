@@ -1117,9 +1117,10 @@ namespace Remote.Emby.Api
         public Object JsonCommand(string cmd, Object parameter)
         {
             if (!_configured)
+            {
                 Log("Emby:  Something not configured.");
                 return null;
-
+            }
 
             if (String.IsNullOrEmpty(Globals.EmbyAuthToken))
             {

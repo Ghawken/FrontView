@@ -1,6 +1,8 @@
 ﻿Changelog:
 
-
+1.292
+Add Fanart-Server Connection settings to remote settings
+(Uses Port from Config File but no longer IP Address)
 
 1.286
 Better Messaging when Remotes no longer connectable

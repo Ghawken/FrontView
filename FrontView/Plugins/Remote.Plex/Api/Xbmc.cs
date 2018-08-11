@@ -519,6 +519,7 @@ namespace Remote.Plex.Api
             catch (Exception ex)
             {
                 Log("Plex Connection Failed : " + ip + ":" + port);
+                Log("Plex Connection Failed : Error/Exception " + ex);
                 _isConnected = false;
                 return "";
             }
@@ -667,9 +668,10 @@ namespace Remote.Plex.Api
         public Object JsonCommand(string cmd, Object parameter)
         {
             if (!_configured)
+            {
                 Log("Plex:  Something not configured.");
                 return null;
-
+            }
 
             if (PlexAuthToken == "")
             {

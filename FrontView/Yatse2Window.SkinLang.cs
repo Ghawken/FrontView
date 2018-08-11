@@ -229,14 +229,21 @@ namespace FrontView
                     ex is ArgumentException ||
                     ex is NullReferenceException)  
                 {
-                    Logger.Instance().Log("FrontView+", "Exception Thrown - or No Fanart Images - cancel show in " + path);
-                    
+                    Logger.Instance().Log("FrontView+", "Exception Thrown - or No Fanart Images - cancel show in " + path);                   
                     return null;
                                                             
                 }
-                throw;
+                else
+                {
+                    Logger.Instance().Log("FrontView+", "Exception Thrown:---------------- " + path);
+                    return null;
+                }
+                // don't ever throw
+                //throw;
             }
         }
+
+
         private void RefreshDictionaries()
         {
             Logger.Instance().Log("FrontView+", "Load dictionaries - Skin : " + _yatse2Properties.Skin + ", Lang : " + _yatse2Properties.Language);

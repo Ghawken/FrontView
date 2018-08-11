@@ -750,6 +750,17 @@ namespace FrontView
                     QuickRefreshLibrary();
                 }
 
+
+                /////////////////////////////////////////////////////////////////////////////////////
+                // Start Fanart Server with Remote Connection and use Remote Parameters/Ip Address //
+                // Ignore the Config File Data for IP use it for Port                              //
+                ////////////////////////////////////////////////////////////////////////////////////
+                if (_config.StartFrontViewServer && _remote.GetOS() == "Kodi")
+                 
+                {
+                    StartServer(_remote.IP);
+                }
+
                 updateCacheSizes();
 
                 if (!_remoteLibraryRefreshed)

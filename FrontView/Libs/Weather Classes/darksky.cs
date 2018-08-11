@@ -24,10 +24,10 @@ namespace FrontView.Libs.DarkSkyAPI
         public float time { get; set; }
         public string summary { get; set; }
         public string icon { get; set; }
-        public int nearestStormDistance { get; set; }
-        public int nearestStormBearing { get; set; }
-        public int precipIntensity { get; set; }
-        public int precipProbability { get; set; }
+        public decimal nearestStormDistance { get; set; }
+        public decimal nearestStormBearing { get; set; }
+        public decimal precipIntensity { get; set; }
+        public decimal precipProbability { get; set; }
         public float temperature { get; set; }
         public float apparentTemperature { get; set; }
         public float dewPoint { get; set; }
@@ -83,13 +83,13 @@ namespace FrontView.Libs.DarkSkyAPI
         public float visibility { get; set; }
         public float ozone { get; set; }
         public float temperatureMin { get; set; }
-        public int temperatureMinTime { get; set; }
+        public float temperatureMinTime { get; set; }
         public float temperatureMax { get; set; }
-        public int temperatureMaxTime { get; set; }
+        public float temperatureMaxTime { get; set; }
         public float apparentTemperatureMin { get; set; }
-        public int apparentTemperatureMinTime { get; set; }
+        public float apparentTemperatureMinTime { get; set; }
         public float apparentTemperatureMax { get; set; }
-        public int apparentTemperatureMaxTime { get; set; }
+        public float apparentTemperatureMaxTime { get; set; }
     }
 
     public class Flags

@@ -321,7 +321,7 @@ namespace FrontView.Libs
                         }
                         catch (WebException ex)
                         {
-                            Logger.Instance().Trace("Weather:", "No Data File Exists:");
+                            Logger.Instance().Trace("Weather:", "No Data File Exists: Exception: "+ex);
                             return null;
                         }
                     }
@@ -383,7 +383,7 @@ namespace FrontView.Libs
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance().Trace("Weather", "DarkSky Error" + ex);
+                    Logger.Instance().Trace("Weather", "DarkSky Error Caught:" + ex);
                     return null;
                 }
                 return null;
