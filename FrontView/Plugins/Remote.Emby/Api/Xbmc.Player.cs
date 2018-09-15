@@ -561,7 +561,16 @@ namespace Remote.Emby.Api
 
                                 if (server.AirDate !=null || server.AirDate !="")
                                 {
-                                    _nowPlaying.FirstAired = DateTime.Parse(server.AirDate);
+                                    try
+                                    {
+                                        _nowPlaying.FirstAired = DateTime.Parse(server.AirDate);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        _parent.Log("DateTimeParse AirDate Exception");
+                                        _nowPlaying.FirstAired = DateTime.MinValue;
+                                    }
+                                    
                                 }
                                 response.Close();
                                 return;
