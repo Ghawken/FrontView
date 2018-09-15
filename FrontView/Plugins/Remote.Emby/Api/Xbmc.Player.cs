@@ -558,9 +558,10 @@ namespace Remote.Emby.Api
 
                                 _nowPlaying.Tagline = server.Tagline;
                                 _nowPlaying.Studio = server.Studio;
-                                if (server.AirDate.HasValue)
+
+                                if (server.AirDate !=null || server.AirDate !="")
                                 {
-                                    _nowPlaying.FirstAired = server.AirDate.Value;
+                                    _nowPlaying.FirstAired = DateTime.Parse(server.AirDate);
                                 }
                                 response.Close();
                                 return;

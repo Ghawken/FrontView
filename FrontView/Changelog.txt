@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+1.293
+Fix for Emby Server changes/Emby Remote
+
 1.292
 Add Fanart-Server Connection settings to remote settings
 (Uses Port from Config File but no longer IP Address)
