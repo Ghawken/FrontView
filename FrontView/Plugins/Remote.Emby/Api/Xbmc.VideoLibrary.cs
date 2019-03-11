@@ -325,7 +325,7 @@ namespace Remote.Emby.Api
 
 
                 _parent.Trace("GetTVEpisodes : Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&ExcludeLocationTypes=Virtual&IncludeItemTypes=Episode";
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&ExcludeLocationTypes=Virtual&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
 
                 var request = WebRequest.CreateHttp(NPurl);
 
@@ -377,9 +377,9 @@ namespace Remote.Emby.Api
                                     var tvShow = new ApiTvEpisode
                                     {
                                         Title = genre.Name ?? "",
-                                        Plot = "", 
+                                        Plot = genre.Overview ?? "",
                                         Rating = genre.OfficialRating ?? "",
-                                        Mpaa = "",
+                                        Mpaa = genre.CommunityRating ?? "Unknown",
                                         Date = sqlFormattedDate,
                                         Director = "",
                                         PlayCount = Convert.ToInt64(genre.UserData.PlayCount),
@@ -422,7 +422,7 @@ namespace Remote.Emby.Api
             try
             {
                 _parent.Trace("Getting TV Shows REFRESH in TVSHOWS Parent IP: " + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode";
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
                 var request = WebRequest.CreateHttp(NPurl);
                 request.Method = "get";
                 request.Timeout = 700000;
@@ -477,13 +477,12 @@ namespace Remote.Emby.Api
                                     }
                                 }
 
-
                                 var tvShow = new ApiTvShow
                                 {
 
                                     Title = genre.SeriesName ?? "Unknown",
                                     Plot = SingleTVData.Overview ?? "",
-                                    Rating = genre.CommunityRating.ToString() ?? "",
+                                    Rating = SingleTVData.CommunityRating.ToString() ?? "",
                                     IdScraper = "",
                                     Mpaa = SingleTVData.OfficialRating ?? "Unknown",
                                     Genre = TempTVGenre,
@@ -530,7 +529,7 @@ namespace Remote.Emby.Api
             {
 
                 _parent.Trace("Getting TV Shows" + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ExcludeLocationTypes=Virtual&Recursive=true&IncludeItemTypes=Series";
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ExcludeLocationTypes=Virtual&Recursive=true&IncludeItemTypes=Series&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
 
                 var request = WebRequest.CreateHttp(NPurl);
 
@@ -592,7 +591,7 @@ namespace Remote.Emby.Api
                                 {
 
                                     Title = genre.Name ?? "Unknown",
-                                    Plot = SingleTVData.Overview ?? "",
+                                    Plot = genre.Overview ?? "",
                                     Rating = genre.CommunityRating.ToString() ?? "",
                                     IdScraper = "",
                                     Mpaa = SingleTVData.OfficialRating ?? "Unknown",
@@ -601,7 +600,7 @@ namespace Remote.Emby.Api
                                     IdShow = Xbmc.IDtoNumber(genre.Id),
                                     TotalCount = (long)(int)genre.RecursiveItemCount,
                                     Path = SingleTVData.Path ?? "",
-                                    Premiered = genre.PremiereDate.ToString("D") ?? "",
+                                    Premiered = SingleTVData.PremiereDate.ToString("D") ?? "",
                                     Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
                                     Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Backdrop" ?? "",
                                     Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Banner" ?? "",
@@ -642,7 +641,7 @@ namespace Remote.Emby.Api
             {
 
                 _parent.Trace("Getting Main Selection Result" + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items";
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items&Fields=ChildCount";
 
                 var request = WebRequest.CreateHttp(NPurl);
 
@@ -674,14 +673,8 @@ namespace Remote.Emby.Api
 
                         var ItemData = deserializer.Deserialize<MainSelectionItems.Rootobject>(json);
                         _parent.Trace("---------------Get Main Selection:  Issue: Results.Count: " + ItemData.TotalRecordCount);
-
-
-                        
-
                         foreach (var id in ItemData.Items)
                         {
-
-
                             if (id.CollectionType == param)
                             {
                                 _parent.Trace("----------- Get Main Selection Run ---" + param + " ID Result ---------------equals--------------:  " + id.Id);
@@ -741,6 +734,7 @@ namespace Remote.Emby.Api
                         var ItemData = deserializer.Deserialize<TVSingleItemSeries.Rootobject>(json);
                         _parent.Trace("---------------Get Single TV From Series Selection:  Issue: Results.Taglines: " + ItemData.Taglines);
 
+   
                         return ItemData;
 
                     }
@@ -765,7 +759,8 @@ namespace Remote.Emby.Api
             {
 
                 _parent.Trace("Getting Single Movie Data" + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items/" + itemId;
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items/"+itemId + @"?Fields=People,Overview,Studios,VoteCount,MediaSources,MediaStreams,CommunityRating,ProductionYear,ProviderIds,Path,Genres,Taglines";
+
 
                 var request = WebRequest.CreateHttp(NPurl);
 
@@ -791,14 +786,17 @@ namespace Remote.Emby.Api
                     using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
                     {
                         string json = sr.ReadToEnd();
-                        _parent.Trace("--------------GETTING Single Movie Selection Result ------" + json);
+                        _parent.Trace("--------------GETTING Single Movie Selection Result --  for itemId: " + itemId +" -------------- Json: Result:" +System.Environment.NewLine + json);
 
                         var deserializer = new JavaScriptSerializer();
 
                         var ItemData = deserializer.Deserialize<SingleMovieItem.Rootobject>(json);
-                        _parent.Trace("---------------Get Single Movie Selection:  Issue: Results.Taglines: " + ItemData.Taglines.ToString());
+                        _parent.Trace("---------------Get Single Movie Selection:  ");
 
                         return ItemData;
+
+
+                        //return ItemData;
 
                     }
                 }
@@ -869,6 +867,7 @@ namespace Remote.Emby.Api
                                         {
 
                                             SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
+                                            
 
                                             List<string> MovieIcons = new List<string>();
 
@@ -876,17 +875,17 @@ namespace Remote.Emby.Api
                                             // needs to be empty otherwise will fail with null exception down further
                                             //
 
-                                            MovieIcons = GetMovieIcons(Movieitem);
-
-
-                                            
+                                            MovieIcons = GetMovieIcons(Movieitem);                                          
 
                                             string newDirector = "";
 
-                                            bool index = Movieitem.People.Any(item => item.Type == "Director");
-                                            if (index == true)
+                                            if (Movieitem.People != null)
                                             {
-                                                newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+                                                bool index = Movieitem.People.Any(item => item.Type == "Director");
+                                                if (index == true)
+                                                {
+                                                    newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+                                                }
                                             }
 
                                             string Taglines = "";
@@ -905,57 +904,75 @@ namespace Remote.Emby.Api
                                                     Studios = Movieitem.Studios.FirstOrDefault().Name.ToString();
                                                 }
                                             }
+                                            string Genres = "";
+                                            if (Movieitem.Genres != null && Movieitem.Genres.Length != 0)
+                                            {
+                                                    Genres = String.Join(",", Movieitem.Genres);
+                                            }
+                                            string ProviderIds = "";
+                                            if (Movieitem.ProviderIds != null)
+                                            {
+                                                if (Movieitem.ProviderIds.Imdb != null)
+                                                {
+                                                    ProviderIds = Movieitem.ProviderIds.Imdb.ToString();
+                                                }
+                                            }
+                                            long PlayCount = 0;
+                                            if (Movieitem.UserData != null)
+                                            {
+                                                    PlayCount = Movieitem.UserData.PlayCount;
 
+                                            }
 
-
-                                            var Seconds = Convert.ToInt64(id.RunTimeTicks ?? 0);
+                                            var Seconds = Convert.ToInt64(Movieitem.RunTimeTicks ?? 0);
                                             var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
+                                            _parent.Trace("MovieItem:  RoundSeconds equals:" + RoundSeconds.ToString());
 
                                             _parent.Trace("VideoLibrary Check:");
-                                            _parent.Trace(Movieitem.Name ?? "Unknown");
-                                            _parent.Trace(Movieitem.Overview ?? "Unknown");
-                                            _parent.Trace(Movieitem.VoteCount.ToString() ?? "0");
-                                            _parent.Trace(id.CommunityRating.ToString() ?? "0");
-                                            _parent.Trace(id.ProductionYear.ToString() ?? "nil Production Year:");
+                                            _parent.Trace("Movieitem.name:" + Movieitem.Name ?? "Unknown");
+                                            _parent.Trace("Movieitem.Overview:" + Movieitem.Overview ?? "Unknown");
+                                            _parent.Trace("VountCount:" + Movieitem.VoteCount.ToString() ?? "0");
+                                            _parent.Trace("Community Rating:" + Movieitem.CommunityRating.ToString() ?? "0");
+                                            _parent.Trace(Movieitem.ProductionYear.ToString() ?? "nil Production Year:");
                                             _parent.Trace(Taglines);
-                                            _parent.Trace(Movieitem.ProviderIds.Imdb ?? "");
+                                            _parent.Trace("MovieItem: ProviderIds:");                                         
+                                            _parent.Trace(ProviderIds ?? "");                           
+
                                             _parent.Trace(new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown");
                                             _parent.Trace(id.OfficialRating ?? "Unknown");
-                                            _parent.Trace(Movieitem.Genres.FirstOrDefault() ?? "Unknown");
+                                            _parent.Trace(Genres);
                                             _parent.Trace(newDirector ?? "");
                                             _parent.Trace(id.Name ?? "");
                                             _parent.Trace(Studios);
-                                            _parent.Trace(Xbmc.IDtoNumber(Movieitem.Id).ToString());
-                                            _parent.Trace(Movieitem.Path.ToString() ?? "");
-                                            _parent.Trace(Movieitem.Id ?? "");
-                                            _parent.Trace(Movieitem.UserData.PlayCount.ToString() ?? "nilPlayCount");
+                                            _parent.Trace(Xbmc.IDtoNumber(id.Id).ToString());
+                                            _parent.Trace("MoviePath:" + Movieitem.Path ?? "");
+                                            _parent.Trace("Id.id"+ id.Id ?? "");
+                                            _parent.Trace("PlayCount:" + PlayCount.ToString());
                                             _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary");
                                             _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop");
                                             _parent.Trace(Xbmc.Hash(id.Id));
                                             _parent.Trace("MovieIcons Set:" + String.Join(",", MovieIcons));
-
-
 
                                             var movie = new ApiMovie
                                             {
                                                 Title = Movieitem.Name ?? "Unknown",
                                                 Plot = Movieitem.Overview ?? "Unknown",
                                                 Votes = Movieitem.VoteCount.ToString() ?? "0",
-                                                Rating = id.CommunityRating.ToString() ?? "0",
-                                                Year = id.ProductionYear ?? 1901,
+                                                Rating = Movieitem.CommunityRating.ToString() ?? "0",
+                                                Year = Movieitem.ProductionYear ?? 1901,
                                                 Tagline = Taglines,
-                                                IdScraper = Movieitem.ProviderIds.Imdb ?? "",
+                                                IdScraper = ProviderIds ?? "",
                                                 Length = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
-                                                Mpaa = id.OfficialRating ?? "Unknown",
-                                                Genre = Movieitem.Genres.FirstOrDefault() ?? "Unknown",
+                                                Mpaa = Movieitem.OfficialRating ?? "Unknown",
+                                                Genre = Genres,
                                                 Director = newDirector ?? "",
                                                 OriginalTitle = id.Name ?? "",
                                                 Studio = Studios,
                                                 IdFile = 0,
-                                                IdMovie = Xbmc.IDtoNumber(Movieitem.Id),
+                                                IdMovie = Xbmc.IDtoNumber(id.Id),
                                                 FileName = Movieitem.Path.ToString() ?? "",
                                                 Path = Movieitem.Id ?? "",
-                                                PlayCount = Movieitem.UserData.PlayCount ?? 0,
+                                                PlayCount = PlayCount,
                                                 Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
                                                 Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner",
                                                 Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
@@ -1173,7 +1190,7 @@ namespace Remote.Emby.Api
                 try
                 {
                     _parent.Trace("Getting TV Episodes: Parent IP: " + _parent.IP);
-                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode";
+                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating";
                     var request = WebRequest.CreateHttp(NPurl);
                     request.Method = "get";
                     request.Timeout = 150000;
@@ -1217,9 +1234,9 @@ namespace Remote.Emby.Api
                                         var tvShow = new ApiTvEpisode
                                         {
                                             Title = genre.Name ?? "",
-                                            Plot = "",
+                                            Plot = genre.Overview ?? "",
                                             Rating = genre.OfficialRating ?? "",
-                                            Mpaa = "",
+                                            Mpaa = genre.CommunityRating ?? "Unknown",
                                             Date = sqlFormattedDate,
                                             Director = "",
                                             PlayCount = (long)(int)genre.UserData.PlayCount,
@@ -1267,7 +1284,7 @@ namespace Remote.Emby.Api
                 {
 
                     _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
-                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory;
+                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory ;
                     _parent.Trace("Getting Main Movie DB NPurl Called " + NPurl);
 
                     var request = WebRequest.CreateHttp(NPurl);
@@ -1306,6 +1323,11 @@ namespace Remote.Emby.Api
                             {
                                 try
                                 {
+                                    if (id.ChildCount >= 1)
+                                    {
+
+                                    }
+
 
                                     SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
 
@@ -1317,13 +1339,15 @@ namespace Remote.Emby.Api
 
                                     MovieIcons = GetMovieIcons(Movieitem);
 
-
                                     string newDirector = "";
 
-                                    bool index = Movieitem.People.Any(item => item.Type == "Director");
-                                    if (index == true)
+                                    if (Movieitem.People != null)
                                     {
-                                        newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+                                        bool index = Movieitem.People.Any(item => item.Type == "Director");
+                                        if (index == true)
+                                        {
+                                            newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+                                        }
                                     }
 
                                     string Taglines = "";
@@ -1342,7 +1366,25 @@ namespace Remote.Emby.Api
                                             Studios = Movieitem.Studios.FirstOrDefault().Name.ToString();
                                         }
                                     }
+                                    string Genres = "";
+                                    if (Movieitem.Genres != null && Movieitem.Genres.Length != 0)
+                                    {
+                                        Genres = String.Join(",", Movieitem.Genres);
+                                    }
+                                    string ProviderIds = "";
+                                    if (Movieitem.ProviderIds != null)
+                                    {
+                                        if (Movieitem.ProviderIds.Imdb != null)
+                                        {
+                                            ProviderIds = Movieitem.ProviderIds.Imdb.ToString();
+                                        }
+                                    }
+                                    long PlayCount = 0;
+                                    if (Movieitem.UserData != null)
+                                    {
+                                        PlayCount = Movieitem.UserData.PlayCount;
 
+                                    }
                                     var Seconds = Convert.ToInt64(id.RunTimeTicks ?? 0);
                                     var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
 
@@ -1350,20 +1392,20 @@ namespace Remote.Emby.Api
                                     _parent.Trace(Movieitem.Name ?? "Unknown");
                                     _parent.Trace(Movieitem.Overview ?? "Unknown");
                                     _parent.Trace(Movieitem.VoteCount.ToString() ?? "0");
-                                    _parent.Trace(id.CommunityRating.ToString() ?? "0");
-                                    _parent.Trace(id.ProductionYear.ToString() ?? "nil Production Year:");
+                                    _parent.Trace(Movieitem.CommunityRating.ToString() ?? "0");
+                                    _parent.Trace(Movieitem.ProductionYear.ToString() ?? "nil Production Year:");
                                     _parent.Trace(Taglines);
-                                    _parent.Trace(Movieitem.ProviderIds.Imdb ?? "");
+                                    _parent.Trace(ProviderIds);
                                     _parent.Trace(new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown");
                                     _parent.Trace(id.OfficialRating ?? "Unknown");
-                                    _parent.Trace(Movieitem.Genres.FirstOrDefault() ?? "Unknown");
+                                    _parent.Trace(Genres.ToString());
                                     _parent.Trace(newDirector ?? "");
                                     _parent.Trace(id.Name ?? "");
                                     _parent.Trace(Studios);
                                     _parent.Trace(Xbmc.IDtoNumber(Movieitem.Id).ToString());
                                     _parent.Trace(Movieitem.Path.ToString() ?? "");
                                     _parent.Trace(Movieitem.Id ?? "");
-                                    _parent.Trace(Movieitem.UserData.PlayCount.ToString() ?? "nilPlayCount");
+                                    _parent.Trace("PlayCount" + PlayCount.ToString());
                                     _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary");
                                     _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop");
                                     _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner");
@@ -1377,13 +1419,13 @@ namespace Remote.Emby.Api
                                         Title = Movieitem.Name ?? "Unknown",
                                         Plot = Movieitem.Overview ?? "Unknown",
                                         Votes = Movieitem.VoteCount.ToString() ?? "0",
-                                        Rating = id.CommunityRating.ToString() ?? "0",
-                                        Year = id.ProductionYear ?? 1901,
+                                        Rating = Movieitem.CommunityRating.ToString() ?? "0",
+                                        Year = Movieitem.ProductionYear ?? 1901,
                                         Tagline = Taglines,
-                                        IdScraper = Movieitem.ProviderIds.Imdb ?? "",
+                                        IdScraper = ProviderIds,
                                         Length = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
                                         Mpaa = id.OfficialRating ?? "Unknown",
-                                        Genre = Movieitem.Genres.FirstOrDefault() ?? "Unknown",
+                                        Genre = Genres,
                                         Director = newDirector ?? "",
                                         OriginalTitle = id.Name ?? "",
                                         Studio = Studios,
@@ -1391,7 +1433,7 @@ namespace Remote.Emby.Api
                                         IdMovie = Xbmc.IDtoNumber(Movieitem.Id),
                                         FileName = Movieitem.Path.ToString() ?? "",
                                         Path = Movieitem.Id ?? "",
-                                        PlayCount = Movieitem.UserData.PlayCount ?? 0,
+                                        PlayCount = PlayCount,
                                         Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
                                         Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
                                         Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner",

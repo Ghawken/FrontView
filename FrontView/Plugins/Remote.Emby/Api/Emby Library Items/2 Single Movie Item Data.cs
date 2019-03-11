@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Remote.Emby.Api.SingleMovieItem
 {
-
     public class Rootobject
     {
         public string Name { get; set; }
@@ -36,9 +35,9 @@ namespace Remote.Emby.Api.SingleMovieItem
         public string[] Genres { get; set; }
         public float CommunityRating { get; set; }
         public int VoteCount { get; set; }
-        public long RunTimeTicks { get; set; }
+        public long? RunTimeTicks { get; set; }
         public string PlayAccess { get; set; }
-        public int ProductionYear { get; set; }
+        public int? ProductionYear { get; set; }
         public bool IsPlaceHolder { get; set; }
         public Remotetrailer[] RemoteTrailers { get; set; }
         public Providerids ProviderIds { get; set; }
@@ -79,7 +78,7 @@ namespace Remote.Emby.Api.SingleMovieItem
     public class Userdata
     {
         public long PlaybackPositionTicks { get; set; }
-        public int? PlayCount { get; set; }
+        public long PlayCount { get; set; }
         public bool IsFavorite { get; set; }
         public DateTime LastPlayedDate { get; set; }
         public bool Played { get; set; }

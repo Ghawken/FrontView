@@ -287,11 +287,13 @@ namespace Remote.Emby.Api
 
             try
             {
-                res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input.Substring(0,15), 16);
+                res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input);
+                //res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input.Substring(0,15), 16);
+
             }
             catch (Exception ex)
             {
-                Logger.Instance().Trace("ERROR : ", "IDtoNumber Error" + input + "Result ");
+                Logger.Instance().Trace("ERROR : ", "IDtoNumber Error:" + input + "Result ");
                 Logger.Instance().Trace("ERROR: ", " IDtoNumber Exception" + ex);
                 return 0;
             }

@@ -19,6 +19,8 @@ namespace Remote.Emby.Api.TVEpisodes
         public string ServerId { get; set; }
         public string Id { get; set; }
         public DateTime PremiereDate { get; set; }
+        public string Overview { get; set; }
+        public string CommunityRating { get; set; }
         public long RunTimeTicks { get; set; }
         public string PlayAccess { get; set; }
         public int ProductionYear { get; set; }
@@ -45,7 +47,6 @@ namespace Remote.Emby.Api.TVEpisodes
         public string ParentThumbImageTag { get; set; }
         public string LocationType { get; set; }
         public string MediaType { get; set; }
-        public float CommunityRating { get; set; }
         public bool HasSubtitles { get; set; }
         public string OfficialRating { get; set; }
         public int IndexNumberEnd { get; set; }
