@@ -1,5 +1,8 @@
 ﻿Changelog:
 
+1.294
+Fixes for Emby Movie/Tv Show Database download to FV
+
 1.293
 Fix for Emby Server changes/Emby Remote
 
