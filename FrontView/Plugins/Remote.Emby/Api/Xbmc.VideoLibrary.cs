@@ -641,7 +641,7 @@ namespace Remote.Emby.Api
             {
 
                 _parent.Trace("Getting Main Selection Result" + _parent.IP);
-                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items&Fields=ChildCount";
+                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items";
 
                 var request = WebRequest.CreateHttp(NPurl);
 
@@ -827,10 +827,10 @@ namespace Remote.Emby.Api
                         {
 
                             _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
-                            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&SortBy=DateCreated&SortOrder=Descending&ParentId=" + MovieDirectory;
+                            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie&Recursive=true&Fields=BasicSyncInfo,MediaSourceCount,SortName,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Banner,Thumb,Disc,Logo&StartIndex=0&ParentId=" + MovieDirectory;
                             _parent.Trace("Getting Main Movie Database Refresh URL Called" + NPurl);
                             var request = WebRequest.CreateHttp(NPurl);
-
+                            
                             request.Method = "get";
                             request.Timeout = 150000;
                             _parent.Trace("Main Selection: " + _parent.IP + ":" + _parent.Port);
@@ -1284,7 +1284,9 @@ namespace Remote.Emby.Api
                 {
 
                     _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
-                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory ;
+                    //string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory ;
+                    //
+                    string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory + "&SortBy=DateCreated&SortName&SortOrder=Descending&IncludeItemTypes=Movie&Recursive=true&Fields=BasicSyncInfo,MediaSourceCount,SortName,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Banner,Thumb,Disc,Logo&StartIndex=0";
                     _parent.Trace("Getting Main Movie DB NPurl Called " + NPurl);
 
                     var request = WebRequest.CreateHttp(NPurl);
@@ -1424,13 +1426,13 @@ namespace Remote.Emby.Api
                                         Tagline = Taglines,
                                         IdScraper = ProviderIds,
                                         Length = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
-                                        Mpaa = id.OfficialRating ?? "Unknown",
+                                        Mpaa = Movieitem.OfficialRating ?? "Unknown",
                                         Genre = Genres,
                                         Director = newDirector ?? "",
                                         OriginalTitle = id.Name ?? "",
                                         Studio = Studios,
                                         IdFile = 0,
-                                        IdMovie = Xbmc.IDtoNumber(Movieitem.Id),
+                                        IdMovie = Xbmc.IDtoNumber(id.Id),
                                         FileName = Movieitem.Path.ToString() ?? "",
                                         Path = Movieitem.Id ?? "",
                                         PlayCount = PlayCount,
