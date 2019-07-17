@@ -424,6 +424,9 @@ namespace Remote.Plex.Api
                        return 0;
                     }
 
+                    Log("Local IP Address equals:");
+                    Log(GetLocalIPAddress());
+
                     foreach (var server in deserialized.Server)
                     {
                         Log("Clients FOUND: " + deserialized.size);
@@ -465,14 +468,25 @@ namespace Remote.Plex.Api
             try
             {
 
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (var ip in host.AddressList)
+                string localIP;
+                using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
                 {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        return ip.ToString();
-                    }
+                    socket.Connect("8.8.8.8", 65530);
+                    IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
+                    localIP = endPoint.Address.ToString();
+                    return localIP;
                 }
+
+
+
+                //var host = Dns.GetHostEntry(Dns.GetHostName());
+                //foreach (var ip in host.AddressList)
+                //{
+                //    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                //    {
+                //        return ip.ToString();
+                //    }
+                //}
                 return "No IP Obtainable";
             }
             catch (Exception ex)

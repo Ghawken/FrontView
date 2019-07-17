@@ -358,10 +358,11 @@ namespace Remote.Plex.Api
                                 _parent.Log("Checking against Local Playback only Client IP: " + _parent.ClientIPAddress);
                                 _parent.Log("IP Address Playing now are:" + server.Player.address);
 
-                                if (server.Player.address == _parent.ClientIPAddress)
+                                if (server.Player.address.Contains(_parent.ClientIPAddress))
                                 {
 
                                     _parent.Log("Plex: Found Local Playback");
+                                    _parent.Log("***** Plex: " + server.ToString());
 
                                     _parent.Log("Plex: server.Art EQUALS ===========" + server.art);
 
@@ -468,7 +469,7 @@ namespace Remote.Plex.Api
                                     var RoundOffset = Math.Round(Convert.ToInt64(server.viewOffset) / 1000.00, 1);
                                     _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundOffset));
 
-                                    _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + "Calcuated on server.viewOffset:" + server.viewOffset);
+                                    _parent.Log("Plex:NP NowPlaying.Time:" + _nowPlaying.Time + " Calcuated on server.viewOffset:" + server.viewOffset);
 
                                     var percent = Math.Floor(100.0 * Convert.ToInt32("0" + server.viewOffset, CultureInfo.InvariantCulture) / Convert.ToInt32("0" + server.Media.duration, CultureInfo.InvariantCulture));
                                     if (Double.IsNaN(percent))
