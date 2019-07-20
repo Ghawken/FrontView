@@ -174,7 +174,7 @@ namespace Remote.Jriver.Api
 
         public void ToggleMute()
         {
-           // if (_parent.MpcLoaded)
+            // if (_parent.MpcLoaded)
                 AsyncCommand("Mute", "Set=1");
         }
 

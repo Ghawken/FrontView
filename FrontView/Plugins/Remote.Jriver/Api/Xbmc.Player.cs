@@ -338,7 +338,7 @@ namespace Remote.Jriver.Api
                                 newPlayback = true;
                             }
                             //_nowPlaying.IsNewMedia = true;
-                            _nowPlaying.MediaType = "Movie";
+                            //_nowPlaying.MediaType = "Movie";
                             _nowPlaying.IsPlaying = true;
 
                             _nowPlaying.Title = getItemName(deserialized, "Name");
@@ -366,9 +366,13 @@ namespace Remote.Jriver.Api
                                 //        _parent.Log("Plex:NP NowPlaying.Title:" + _nowPlaying.Title);
                                 //        // Make changes here to recognise ts recordings as TV and use regex to populate season/episode dat
 
-                                _nowPlaying.MediaType = getFieldValue(fileFields, "Media Sub Type") == "episode" ? "TvShow" : "Movie";
+                                _nowPlaying.MediaType = getFieldValue(fileFields, "Media Sub Type") == "TV Show" ? "TvShow" : "Movie";
                                 _parent.Log("JRiver:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
+                                _nowPlaying.SeasonNumber = Convert.ToInt32(getFieldValue(fileFields, "Season"));
+                                _nowPlaying.EpisodeNumber = Convert.ToInt32(getFieldValue(fileFields, "Episode"));
+                                _nowPlaying.Plot = getFieldValue(fileFields, "Description");
+                                
                                 _nowPlaying.ShowTitle = String.IsNullOrEmpty(getFieldValue(fileFields, "Series")) ? "Blank" : getFieldValue(fileFields, "Series");
                                 _parent.Log("JRiver:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
 
@@ -440,14 +444,23 @@ namespace Remote.Jriver.Api
                             _parent.Log("JRiver:NP NowPlaying.title:" + _nowPlaying.Title);
 
                             var Volume = getItemName(deserialized, "VolumeDisplay");  //Volume
-                            Volume = Volume.Remove(Volume.Length - 1);  //Remove % from Display
-                            try
+
+                            if (Volume == "Muted")
                             {
-                                _nowPlaying.Volume = Convert.ToInt32(Volume);
+                                _nowPlaying.IsMuted = true;
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                _parent.Log("Exception in Volume Conversion:" + ex);
+                                _nowPlaying.IsMuted = false;
+                                Volume = Volume.Remove(Volume.Length - 1);  //Remove % from Display
+                                try
+                                {
+                                    _nowPlaying.Volume = Convert.ToInt32(Volume);
+                                }
+                                catch (Exception ex)
+                                {
+                                    _parent.Log("Exception in Volume Conversion:" + ex);
+                                }
                             }
                             _parent.Log("JRiver:NP NowPlaying.title:" + _nowPlaying.Title);
 
@@ -489,7 +502,7 @@ namespace Remote.Jriver.Api
                             var playerState = getItemName(deserialized, "State");
                             _parent.Log("Jriver: Player State:" + playerState);
 
-
+                            
                             if (playerState == "1")
                             {
                                 _nowPlaying.IsPaused = true;
@@ -504,7 +517,7 @@ namespace Remote.Jriver.Api
 
                             // _nowPlaying.LogoURL = "";
 
-                            _nowPlaying.MovieIcons = "";
+                          //  _nowPlaying.MovieIcons = "";
 
                               _parent.Log("JRiver Remote:  Filename" + _nowPlaying.FileName + " IsPlaying :" + _nowPlaying.IsPlaying + " IsPaused :" + _nowPlaying.IsPaused + " MediaType :" + _nowPlaying.MediaType);
 
