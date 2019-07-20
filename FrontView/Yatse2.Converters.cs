@@ -658,25 +658,16 @@ namespace FrontView
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-
-            
+        {     
             if (value == DependencyProperty.UnsetValue) return false;
-
-
             // Check and change the filename from default to cache file first and then check if equals default cache.
-
             //string cacheornot = "";
             var img = (string)value;
-
             if (String.IsNullOrEmpty(img))
             {
                 Logger.Instance().Trace("SkinLogoConverter:", "img NULL orEMPTY; returning false ");
-                return false; 
-                
+                return false;               
             }
-
-
             var param = (string)parameter;
             var path = img;
 
@@ -687,9 +678,6 @@ namespace FrontView
                 path = Helper.CachePath + "Video\\Logos" + @"\" + ApiHelper.Instance().GetPluginHashFromFileName((string)value, Helper.Instance.CurrentApi) + ".jpg";
                 Logger.Instance().Trace("SkinLogoConverter: Contains Video-Logo FALSE", "img: " + img + ":param:" + param + " path :" + path);
             }
-
-
-
 
             if (File.Exists(path))
             {

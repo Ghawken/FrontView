@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontViewConsoleChange", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote.XBMC.Leia", "Plugins\Remote.Kodi.Leia\Remote.XBMC.Leia.csproj", "{520FC54E-95C7-4661-B222-AD0E11308B2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote.WMC", "Plugins\Remote.WMC\Remote.WMC.csproj", "{2478A6DC-509D-41EA-BFF1-47839D95BEA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote.Jriver", "Plugins\Remote.Jriver\Remote.Jriver.csproj", "{2478A6DC-509D-41EA-BFF1-47839D95BEA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
