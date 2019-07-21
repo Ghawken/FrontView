@@ -103,7 +103,7 @@ namespace Remote.Jriver.Api
         public Xbmc()
         {
             File = new XbmcFile(this);
-            VideoLibrary = new XbmcVideoLibrary(this);
+            //VideoLibrary = new XbmcVideoLibrary(this);
             AudioLibrary = new XbmcAudioLibrary(this);
             AudioPlayer = new XbmcAudioPlayer(this);
             PicturePlayer = new XbmcPicturePlayer(this);
@@ -299,6 +299,11 @@ namespace Remote.Jriver.Api
                 }
             }
             return true;
+        }
+
+        internal static long IDtoNumber(object seriesId)
+        {
+            throw new NotImplementedException();
         }
 
         public override bool CheckRemote(string os, string version, string additional, bool force)

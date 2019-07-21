@@ -307,83 +307,84 @@ namespace FrontView
                     _yatse2Properties.Currently.MusicSong = nowPlaying.Title;
                     _yatse2Properties.Currently.MusicArtist = nowPlaying.Artist;
                     _yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
-                    Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL +" and Yatse2Properties.Currently.Logo equals:"+ _yatse2Properties.Currently.Logo, true);
+                    Logger.Instance().LogDump("LogoUpdate [310 Y2W.Remote.cs]", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL +" and Yatse2Properties.Currently.Logo equals:"+ _yatse2Properties.Currently.Logo, true);
                     _yatse2Properties.Currently.Fanart = _config.MusicFanartRotation ? GetRandomImagePath(Helper.CachePath + @"Music\Fanarts") : GetMusicFanartPath(nowPlaying.FanartURL);
                     _yatse2Properties.Currently.MovieIcons = nowPlaying.MovieIcons;
 
-                // Wholesale change coming up......  Move away from DB for Currently Info, instead move to extrafanart for the artist detected....
-                // Looks good - should do the same for Video Now Playing info screen
-
-                    Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart URL equals:" + nowPlaying.FanartURL, true);
-                    Logger.Instance().LogDump("UpdateAUDIO", "Config GetMusicFanartPath equals:" + GetMusicFanartPath(nowPlaying.FanartURL), true);
-
-                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Artist Equals:" + nowPlaying.Artist + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicArtist, true);
-                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Album quals:" + nowPlaying.Album + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicAlbum, true);
-                    Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Song Equals:" + nowPlaying.Title + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicSong, true);
-
-                    var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
-
-                    // Change to checking first Kodi Audio source for extrafanart artist fanart - rather than all which time consuming
-
-                    if (KodiSourceData.KodiMusicSources[0] != null || KodiSourceData.KodiMusicSources[0] != "")
+                    // Wholesale change coming up......  Move away from DB for Currently Info, instead move to extrafanart for the artist detected....
+                    // Looks good - should do the same for Video Now Playing info screen
+                    if (_remotePlugin.Name.Contains("Kodi"))
                     {
-                        var testaudiofanartcheck = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
-                        Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
-                        if (System.IO.Directory.Exists(testaudiofanartcheck))
-                        {
-                            Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
-                            testaudiofanart = testaudiofanartcheck;
-                        }
-                    }
+                        Logger.Instance().LogDump("UpdateAUDIO", "Config Rotation:Currently Fanart URL equals:" + nowPlaying.FanartURL, true);
+                        Logger.Instance().LogDump("UpdateAUDIO", "Config GetMusicFanartPath equals:" + GetMusicFanartPath(nowPlaying.FanartURL), true);
+                        Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Artist Equals:" + nowPlaying.Artist + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicArtist, true);
+                        Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Album quals:" + nowPlaying.Album + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicAlbum, true);
+                        Logger.Instance().LogDump("UpdateAUDIO", "*********** nowPlaying Song Equals:" + nowPlaying.Title + " and Currently MusicArtist:" + _yatse2Properties.Currently.MusicSong, true);
 
-/**
-                   foreach (var musicsource in KodiSourceData.KodiMusicSources)
-                   {
-                            if (musicsource != null)
-                            { 
-                            var testaudiofanartcheck = musicsource + nowPlaying.Artist + @"\extrafanart\";
+                        var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
+
+                        // Change to checking first Kodi Audio source for extrafanart artist fanart - rather than all which time consuming
+
+                        if (KodiSourceData.KodiMusicSources[0] != null || KodiSourceData.KodiMusicSources[0] != "")
+                        {
+                            var testaudiofanartcheck = KodiSourceData.KodiMusicSources[0] + @"\" + nowPlaying.Artist + @"\extrafanart\";
                             Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
-                            if (System.IO.Directory.Exists(testaudiofanartcheck)) 
-                                {
-                                 Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
-                                 testaudiofanart = testaudiofanartcheck;
-                                 break;
-                                }
-                            }    
-                       
-                    
-                    }
-**/
-                    string resultextrafanart = GetRandomImagePath(testaudiofanart);
-
-                     //var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
-                    Logger.Instance().LogDump("UpdateAUDIO", "testfanart equals:" + testaudiofanart, true);
-                    Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + resultextrafanart, true);
-
-// check for extrafanart -- if no images found will not run and default should apply
-                    if (!_config.MusicFanartRotation && !resultextrafanart.EndsWith("Default_Diaporama.png")  )
-                    {
-                        Logger.Instance().LogDump("UpdateAUDIO", "Currently.Fanart set to testaudiofanart:" , true);
-                        var FanartPathFilename = resultextrafanart;
-                        var FanartisLocked = true;
-                        FanartisLocked = IsFileLocked(FanartPathFilename);
-                        if ( FanartisLocked == false)
-                        {
-                            Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is not locked using "+ FanartPathFilename, true); 
-                            _yatse2Properties.Currently.Fanart = FanartPathFilename;
-                            usingExtrafanart = true;
+                            if (System.IO.Directory.Exists(testaudiofanartcheck))
+                            {
+                                Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                                testaudiofanart = testaudiofanartcheck;
+                            }
                         }
-                        if (FanartisLocked == true)
-                        {
-                            Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is locked/using Default", true);
-                            _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
-                            usingExtrafanart = false;
-                        }                     
-                  
-                    }
 
-   
-                       
+                        /**
+                                           foreach (var musicsource in KodiSourceData.KodiMusicSources)
+                                           {
+                                                    if (musicsource != null)
+                                                    { 
+                                                    var testaudiofanartcheck = musicsource + nowPlaying.Artist + @"\extrafanart\";
+                                                    Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Checking all sources " + testaudiofanartcheck);
+                                                    if (System.IO.Directory.Exists(testaudiofanartcheck)) 
+                                                        {
+                                                         Logger.Instance().LogDump("UpdateAUDIO ARRAY", "Directory Exists Usings - No check for contents though " + testaudiofanartcheck);
+                                                         testaudiofanart = testaudiofanartcheck;
+                                                         break;
+                                                        }
+                                                    }    
+                                               
+                                            
+                                            }
+                        **/
+                        string resultextrafanart = GetRandomImagePath(testaudiofanart);
+
+                        //var testaudiofanart = KodiSourceData.KodiMusicSources[0] + nowPlaying.Artist + @"\extrafanart\";
+                        Logger.Instance().LogDump("UpdateAUDIO", "testfanart equals:" + testaudiofanart, true);
+                        Logger.Instance().LogDump("UpdateAUDIO", "GetRandomImagePath ==:" + resultextrafanart, true);
+
+                        // check for extrafanart -- if no images found will not run and default should apply
+
+
+                        if (!_config.MusicFanartRotation && !resultextrafanart.EndsWith("Default_Diaporama.png"))
+                        {
+                            Logger.Instance().LogDump("UpdateAUDIO", "Currently.Fanart set to testaudiofanart:", true);
+                            var FanartPathFilename = resultextrafanart;
+                            var FanartisLocked = true;
+                            FanartisLocked = IsFileLocked(FanartPathFilename);
+                            if (FanartisLocked == false)
+                            {
+                                Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is not locked using " + FanartPathFilename, true);
+                                _yatse2Properties.Currently.Fanart = FanartPathFilename;
+                                usingExtrafanart = true;
+                            }
+                            if (FanartisLocked == true)
+                            {
+                                Logger.Instance().LogDump("UpdateAUDIO", "Fanart File is locked/using Default", true);
+                                _yatse2Properties.Currently.Fanart = Helper.SkinorDefault(Helper.SkinPath, _config.Skin, @"\Interface\Default_Diaporama.png");
+                                usingExtrafanart = false;
+                            }
+
+                        }
+
+                    }
 
                     Logger.Instance().LogDump("UpdateAUDIO", "nowPlaying FanartURL:" + nowPlaying.FanartURL, true);
                     Logger.Instance().LogDump("UpdateAUDIO", "Currently Fanart equals:" + _yatse2Properties.Currently.Fanart, true);

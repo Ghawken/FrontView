@@ -366,22 +366,46 @@ namespace Remote.Jriver.Api
                                 //        _parent.Log("Plex:NP NowPlaying.Title:" + _nowPlaying.Title);
                                 //        // Make changes here to recognise ts recordings as TV and use regex to populate season/episode dat
 
-                                _nowPlaying.MediaType = getFieldValue(fileFields, "Media Sub Type") == "TV Show" ? "TvShow" : "Movie";
+                                var mediaSubType = getFieldValue(fileFields, "Media Sub Type");
+                                var mediaType = getFieldValue(fileFields, "Media Type");
+
+                                if (mediaType == "Video")
+                                {
+                                    if (mediaSubType == "TV Show")
+                                    {
+                                        _nowPlaying.MediaType = "TvShow";
+                                    }
+                                    else
+                                    {
+                                        _nowPlaying.MediaType = "Movie";
+                                    }
+                                }
+                                else if (mediaType == "Audio")
+                                {
+                                    _nowPlaying.MediaType = "Audio";
+
+                                }
+                                else
+                                {
+                                    _nowPlaying.MediaType = "Movie";
+                                }
+                               
                                 _parent.Log("JRiver:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
-                                _nowPlaying.SeasonNumber = Convert.ToInt32(getFieldValue(fileFields, "Season"));
-                                _nowPlaying.EpisodeNumber = Convert.ToInt32(getFieldValue(fileFields, "Episode"));
-                                _nowPlaying.Plot = getFieldValue(fileFields, "Description");
-                                
-                                _nowPlaying.ShowTitle = String.IsNullOrEmpty(getFieldValue(fileFields, "Series")) ? "Blank" : getFieldValue(fileFields, "Series");
-                                _parent.Log("JRiver:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
+                                if (_nowPlaying.MediaType == "TvShow")
+                                {
+                                    _nowPlaying.SeasonNumber = Convert.ToInt32(getFieldValue(fileFields, "Season"));
+                                    _nowPlaying.EpisodeNumber = Convert.ToInt32(getFieldValue(fileFields, "Episode"));
+                                    _nowPlaying.Plot = getFieldValue(fileFields, "Description");
+                                    _nowPlaying.ShowTitle = String.IsNullOrEmpty(getFieldValue(fileFields, "Series")) ? "Blank" : getFieldValue(fileFields, "Series");
+                                    _parent.Log("JRiver:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
 
+                                }
                                 // _nowPlaying.FirstAired = String.IsNullOrEmpty(getFieldValue(fileFields, "Date")) ? "NotGiven" : getFieldValue(fileFields, "Filename"); ;
                                 var serverArt = getItemName(deserialized, "ImageURL");
                                 _parent.Log("JRiver: server.Art EQUALS ===========" + serverArt);
 
                                 var filePath = Path.GetDirectoryName(_nowPlaying.FileName);
-
                                 var fanartPath = Path.Combine(filePath, "fanart.jpg");
                                 var LogoPath = Path.Combine(filePath, "logo.png");
                                 var ThumbPath = Path.Combine(filePath, "poster.jpg");
@@ -431,11 +455,14 @@ namespace Remote.Jriver.Api
                                 _nowPlaying.Genre = String.IsNullOrEmpty(getFieldValue(fileFields, "Genre")) ? "" : getFieldValue(fileFields, "Genre");
                                 _parent.Log("JRiver:NP NowPlaying.Genre:" + _nowPlaying.Genre);
 
-                                List<string> MovieIcons = new List<string>();
-                                MovieIcons = GetMovieIcons(fileFields);
-                                _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
-                                _parent.Log("JRiver:NP NowPlaying.MovieIcons:" + _nowPlaying.MovieIcons);
+                                if (_nowPlaying.MediaType == "TvShow" || _nowPlaying.MediaType == "Movie")
+                                {
+                                    List<string> MovieIcons = new List<string>();
+                                    MovieIcons = GetMovieIcons(fileFields);
 
+                                    _nowPlaying.MovieIcons = String.Join(",", MovieIcons);
+                                    _parent.Log("JRiver:NP NowPlaying.MovieIcons:" + _nowPlaying.MovieIcons);
+                                }
                             }
 
 
@@ -514,6 +541,13 @@ namespace Remote.Jriver.Api
                                 _nowPlaying.IsPlaying = true;
                             }
 
+
+                            if (_nowPlaying.MediaType == "Audio")
+                            {
+                                _nowPlaying.Artist = String.IsNullOrEmpty(getItemName(deserialized, "Artist")) ? "Unknown" : getItemName(deserialized, "Artist");
+                                _nowPlaying.Album = String.IsNullOrEmpty(getItemName(deserialized, "Album")) ? "Unknown" : getItemName(deserialized, "Album");
+                                _nowPlaying.Track  = String.IsNullOrEmpty(getItemName(deserialized, "PlayingNowTracks")) ? 1 : Convert.ToInt32(getItemName(deserialized, "PlayingNowTracks"));
+                            }
 
                             // _nowPlaying.LogoURL = "";
 
@@ -602,26 +636,34 @@ namespace Remote.Jriver.Api
             List<string> MovieIcons = new List<string>();
             _parent.Trace("MovieIcons Generating List:");
             // Make sure not null; 
+
             MovieIcons.Add("");
+
             try
             {
                 //Container
                 if (Movieitem != null)
                 {
                     var Compression = getFieldValue(Movieitem, "Compression");
-                    var video = Compression.Split(' ');
-                    var videoCodec = video[3].Remove(video[3].Length - 1).ToUpper();
-                    var audioCodec = video[5].Remove(video[5].Length - 1).ToUpper();
 
-                    videoCodec = "codec" + videoCodec;
+                    if (Compression != null && Compression != "")
+                    {
+                        var video = Compression.Split(' ');
+                        var videoCodec = video[3].Remove(video[3].Length - 1).ToUpper();
+                        var audioCodec = video[5].Remove(video[5].Length - 1).ToUpper();
 
-                    MovieIcons.Add(videoCodec);
-                    MovieIcons.Add(audioCodec);
-                    _parent.Trace("MovieIcons Adding:" + videoCodec);
-                    _parent.Trace("MovieIcons Adding:" + audioCodec);
+                        videoCodec = "codec" + videoCodec;
+
+                        MovieIcons.Add(videoCodec);
+                        MovieIcons.Add(audioCodec);
+                        _parent.Trace("MovieIcons Adding:" + videoCodec);
+                        _parent.Trace("MovieIcons Adding:" + audioCodec);
+                    }
+
 
                     var Channels = getFieldValue(Movieitem, "Channels");
-                    if (Channels != "0" && !string.IsNullOrWhiteSpace(Channels))
+
+                    if (Channels != "0" && !string.IsNullOrWhiteSpace(Channels) && Channels !="")
                     {
                         MovieIcons.Add("Channels" + Channels.ToString());
                         _parent.Trace("MovieIcons Adding Channels:" + Channels.ToString());
@@ -636,6 +678,7 @@ namespace Remote.Jriver.Api
                     if (getVideoHeight != null && getVideoHeight != "")
                     {
                         var VideoHeight = Convert.ToInt32(getVideoHeight);
+                        _parent.Trace("MovieIcons VideoHeight Converted:" + VideoHeight);
                         if (VideoHeight > 1200)
                         {
                             MovieIcons.Add("4K");
@@ -664,8 +707,11 @@ namespace Remote.Jriver.Api
                     }
 
                     var aspect = getFieldValue(Movieitem, "Aspect Ratio");
-                    MovieIcons.Add(aspect);
-                    _parent.Trace("MovieIcons Adding Aspect:" + aspect.ToString());
+                    if (aspect != "" && aspect != null)
+                    {
+                        MovieIcons.Add(aspect);
+                        _parent.Trace("MovieIcons Adding Aspect:" + aspect.ToString());
+                    }
                 }
 
             }
@@ -715,8 +761,7 @@ namespace Remote.Jriver.Api
             try
             {
                 foreach (var item in fileInfo.Item )
-                {
-                   
+                {              
                     if (item.Name == itemName)
                     {
                         return item.Value;

@@ -17,392 +17,1474 @@
 // ------------------------------------------------------------------------
 
 using System;
+using System.Text;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Script.Serialization;
+using System.Web;
+using System.Web.Script;
 using Plugin;
-using Jayrock.Json;
+//using Jayrock.Json;
 
-namespace Remote.Jriver.Api
-{
-  class XbmcVideoLibrary : IApiVideoLibrary
-  {
-    private readonly Xbmc _parent;
-
-    public XbmcVideoLibrary(Xbmc parent)
-    {
-      _parent = parent;
-    }
-    public Collection<ApiTvSeason> GetTvSeasonsRefresh()
-    {
-        return null;
-    }
-    public Collection<ApiTvSeason> GetTvSeasons()
-    {
-      var seasons = new Collection<ApiTvSeason>();
-
-      var properties = new JsonArray(new[] { "title" });
-      var param = new JsonObject();
-      param["properties"] = properties;
-      var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetTVShows", param);
-      if (result != null)
-      {
-        if (result.Contains("tvshows"))
-        {
-          foreach (JsonObject show in (JsonArray)result["tvshows"])
-          {
-            var properties2 =
-              new JsonArray(new[] { "tvshowid", "fanart", "thumbnail", "season", "showtitle", "episode" });
-            var param2 = new JsonObject();
-            param2["properties"] = properties2;
-            param2["tvshowid"] = (long)(JsonNumber)show["tvshowid"];
-            var result2 = (JsonObject)_parent.JsonCommand("VideoLibrary.GetSeasons", param2);
-            if (result2 == null) continue;
-            if (!result2.Contains("seasons")) continue;
-            foreach (JsonObject genre in (JsonArray)result2["seasons"])
-            {
-              try
-              {
-                var tvShow = new ApiTvSeason
-                  {
-                    SeasonNumber = (long)(JsonNumber)genre["season"],
-                    IdShow = (long)(JsonNumber)genre["tvshowid"],
-                    Show = genre["showtitle"].ToString(),
-                    Thumb = genre["thumbnail"].ToString(),
-                    EpisodeCount = (long)(JsonNumber)genre["episode"],
-                    Fanart = genre["fanart"].ToString(),
-                    Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                  };
-                seasons.Add(tvShow);
-              }
-              catch (Exception)
-              {
-              }
-            }
-          }
-        }
-      }
-      return seasons;
-    }
-    public Collection<ApiTvEpisode> GetTvEpisodesRefresh()
-    {
-        var episodes = new Collection<ApiTvEpisode>();
-
-        var properties = new JsonArray(new[] { "title", "plot", "season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "firstaired" });
-        var param = new JsonObject();
-        param["properties"] = properties;
-        // First 100 Date sorted
-        var param2 = new JsonObject();
-        param2.Add("start", 0);
-        param2.Add("end", 100);
-        var param3 = new JsonObject();
-        param3.Add("order", "descending");
-        param3.Add("method", "dateadded");
-        param.Add("sort", param3);
-        param.Add("limits", param2);
-        var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetEpisodes", param);
-
-        if (result != null)
-        {
-            if (result.Contains("episodes"))
-            {
-                foreach (JsonObject genre in (JsonArray)result["episodes"])
-                {
-                    try
-                    {
-                        var tvShow = new ApiTvEpisode
-                        {
-                            Title = genre["title"].ToString(),
-                            Plot = genre["plot"].ToString(),
-                            Rating = genre["rating"].ToString(),
-                            Mpaa = "",
-                            Date = genre["firstaired"].ToString(),
-                            Director = "",
-                            PlayCount = 0,
-                            Studio = "",
-                            IdEpisode = (long)(JsonNumber)genre["episodeid"],
-                            IdShow = (long)(JsonNumber)genre["tvshowid"],
-                            Season = (long)(JsonNumber)genre["season"],
-                            Episode = (long)(JsonNumber)genre["episode"],
-                            Path = "",
-                            ShowTitle = genre["showtitle"].ToString(),
-                            Thumb = genre["thumbnail"].ToString(),
-                            Fanart = genre["fanart"].ToString(),
-                            Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                        };
-                        episodes.Add(tvShow);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-        }
-        return episodes;
-    }
-    public Collection<ApiTvEpisode> GetTvEpisodes()
-    {
-      var episodes = new Collection<ApiTvEpisode>();
-
-      var properties = new JsonArray(new[] { "title", "plot", "season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "firstaired" });
-      var param = new JsonObject();
-      param["properties"] = properties;
-      var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetEpisodes", param);
-      if (result != null)
-      {
-        if (result.Contains("episodes"))
-        {
-          foreach (JsonObject genre in (JsonArray)result["episodes"])
-          {
-            try
-            {
-              var tvShow = new ApiTvEpisode
-                {
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  Mpaa = "",
-                  Date = genre["firstaired"].ToString(),
-                  Director = "",
-                  PlayCount = 0,
-                  Studio = "",
-                  IdEpisode = (long)(JsonNumber)genre["episodeid"],
-                  IdShow = (long)(JsonNumber)genre["tvshowid"],
-                  Season = (long)(JsonNumber)genre["season"],
-                  Episode = (long)(JsonNumber)genre["episode"],
-                  Path = "",
-                  ShowTitle = genre["showtitle"].ToString(),
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                };
-              episodes.Add(tvShow);
-            }
-            catch (Exception)
-            {
-            }
-          }
-        }
-      }
-      return episodes;
-    }
-
-    public Collection<ApiTvShow> GetTvShows()
-    {
-      var shows = new Collection<ApiTvShow>();
-
-      var properties = new JsonArray(new[] { "title", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode" });
-      var param = new JsonObject();
-      param["properties"] = properties;
-      var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetTVShows", param);
-      if (result != null)
-      {
-        if (result.Contains("tvshows"))
-        {
-          foreach (JsonObject genre in (JsonArray)result["tvshows"])
-          {
-            try
-            {
-              var tvShow = new ApiTvShow
-                {
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  IdScraper = "",
-                  Mpaa = genre["mpaa"].ToString(),
-                  Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                  Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                  IdShow = (long)(JsonNumber)genre["tvshowid"],
-                  TotalCount = (long)(JsonNumber)genre["episode"],
-                  Path = "",
-                  Premiered = genre["premiered"].ToString(),
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                };
-              shows.Add(tvShow);
-            }
-            catch (Exception)
-            {
-            }
-          }
-        }
-      }
-      return shows;
-    }
-    public Collection<ApiTvShow> GetTvShowsRefresh()
-    {
-        var shows = new Collection<ApiTvShow>();
-
-        var properties = new JsonArray(new[] { "title", "plot", "genre", "fanart", "thumbnail", "rating", "mpaa", "studio", "playcount", "premiered", "episode" });
-        var param = new JsonObject();
-        param["properties"] = properties;
-
-        // First 100 Date sorted
-        var param2 = new JsonObject();
-        param2.Add("start", 0);
-        param2.Add("end", 10);
-        var param3 = new JsonObject();
-        param3.Add("order", "descending");
-        param3.Add("method", "dateadded");
-        param.Add("sort", param3);
-        param.Add("limits", param2);
+using System.Xml;
+using System.Xml.Serialization;
+using System.Linq;
 
 
-        var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetTVShows", param);
-        if (result != null)
-        {
-            if (result.Contains("tvshows"))
-            {
-                foreach (JsonObject genre in (JsonArray)result["tvshows"])
-                {
-                    try
-                    {
-                        var tvShow = new ApiTvShow
-                        {
-                            Title = genre["title"].ToString(),
-                            Plot = genre["plot"].ToString(),
-                            Rating = genre["rating"].ToString(),
-                            IdScraper = "",
-                            Mpaa = genre["mpaa"].ToString(),
-                            Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                            Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                            IdShow = (long)(JsonNumber)genre["tvshowid"],
-                            TotalCount = (long)(JsonNumber)genre["episode"],
-                            Path = "",
-                            Premiered = genre["premiered"].ToString(),
-                            Thumb = genre["thumbnail"].ToString(),
-                            Fanart = genre["fanart"].ToString(),
-                            Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                        };
-                        shows.Add(tvShow);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-        }
-        return shows;
-    }   
+//namespace Remote.Jriver.Api
+//{
+    //class XbmcVideoLibrary : IApiVideoLibrary
+    //{
+    //    private readonly Xbmc _parent;
 
-    public Collection<ApiMovie> GetMoviesRefresh()
-    {
-        var movies = new Collection<ApiMovie>();
+    //    public XbmcVideoLibrary(Xbmc parent)
+    //    {
+    //        _parent = parent;
+    //    }
 
-        var properties = new JsonArray(new[] { "title", "plot", "dateadded", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes" });
-        var param = new JsonObject();
-        param["properties"] = properties;
-        // First 100 Date sorted
-        var param2 = new JsonObject();
-        param2.Add("start", 0);
-        param2.Add("end", 100);
-        var param3 = new JsonObject();
-        param3.Add("order", "descending");
-        param3.Add("method", "dateadded");
-        param.Add("sort", param3);
-        param.Add("limits", param2);
+    //    public Collection<ApiTvSeason> GetTvSeasonsRefresh()
+    //    {
+    //        var seasons = new Collection<ApiTvSeason>();
+
+    //        try
+    //        {
+    //            _parent.Trace("Getting TV Seasons from New TV Episodes:  Need to pull the whole Database...." + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID&Token=" + _parent.JRiverAuthToken;
+    //            // http://192.168.1.97:52199/MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            _parent.Trace("Single TV Season from TV Episodes NEW: Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var JRiverToken = _parent.JRiverAuthToken;
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                    //public List<Jriver.Api.AllDatabase.MPLItemField> items = new List<Jriver.Api.AllDatabase.MPLItemField>();
+
+    //                    // Get the stream containing content returned by the server.
+    //                    System.IO.Stream dataStream = response.GetResponseStream();
+    //                    // Open the stream using a StreamReader.                      
+
+    //                    XmlSerializer serializer = new XmlSerializer(typeof(Jriver.Api.AllDatabase.MPL));
+
+    //                    System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                    var deserialized = (Jriver.Api.AllDatabase.MPL)serializer.Deserialize(reader);
+
+    //                    try {
+
+    //                    foreach (var genre in deserialized.Items)
+    //                    {
+    //                        var isTVshow = false;
+    //                        foreach (var more in genre.Fields)
+    //                        {
+    //                            var SeriesName = "";
+    //                            long SeasonNumber = 0;
+    //                            var Show = "";
+    //                            var ThumbURL = "";
+    //                            long EpisodeCount = 0;
+    //                            string FanartURL = "";
+    //                            string Hash = "";
+
+    //                            if (more.Name=="Media Sub Type" && more.Value=="TV Show")
+    //                            {
+    //                                isTVshow = true;
+    //                                // OKay found entry that is a TV Show
+    //                            }
+    //                            if (more.Name == "Series")
+    //                            {
+    //                                SeriesName = more.Value;
+    //                            }
+    //                            if (more.Name == "Season")
+    //                            {
+    //                                SeasonNumber = Convert.ToInt64(more.Value);
+    //                            }
+    //                            if (more.Name == "Season")
+    //                            {
+    //                                SeasonNumber = Convert.ToInt64(more.Value);
+    //                            }
+    //                            // var SingleTVData = GetSingleTVFromSeries(genre.Id);
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Season Number:" + genre.ParentIndexNumber);
+    //                            //    _parent.Trace("---Emby QuickRefresh GetTVSeasons--- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Series Name:" + genre.SeriesName);
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Thumb:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "");
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Child Count:" + (long)(int)genre.IndexNumber);
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Fanart:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "");
+    //                            _parent.Trace("---Emby QuickRefresh GetTVSeasons--- Hash:" + Xbmc.Hash(genre.SeasonId));
+
+    //                            var tvShow = new ApiTvSeason
+    //                            {
+    //                                SeasonNumber = genre.ParentIndexNumber,
+    //                                // IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                Show = genre.SeriesName ?? "",
+    //                                Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
+    //                                EpisodeCount = (long)(int)genre.IndexNumber,   //bit of a hack but if date sorted - latest episode should be highest - so for most should be right.
+    //                                Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                Hash = Xbmc.Hash(genre.SeasonId)
+    //                            };
+    //                            seasons.Add(tvShow);
+
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Shows Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+                
+    //        }
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another tV SHows exception" + Ex);
+    //        }
 
 
-        var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
-        if (result != null)
-        {
-            if (result.Contains("movies"))
-            {
-                foreach (JsonObject genre in (JsonArray)result["movies"])
-                {
-                    try
-                    {
-                        var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
-                        var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
-                        var movie = new ApiMovie
-                        {
 
-                            Title = genre["title"].ToString(),
-                            Plot = genre["plot"].ToString(),
-                            Votes = genre["votes"].ToString(),
-                            Rating = genre["rating"].ToString(),
-                            Year = (long)(JsonNumber)genre["year"],
-                            IdScraper = "",
-                            Length = duration,
-                            Mpaa = genre["mpaa"].ToString(),
-                            Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                            Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
-                            OriginalTitle = genre["originaltitle"].ToString(),
-                            Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                            IdFile = 0,
-                            IdMovie = (long)(JsonNumber)genre["movieid"],
-                            FileName = "",
-                            Path = "",
-                            PlayCount = 0,
-                            Thumb = genre["thumbnail"].ToString(),
-                            Fanart = genre["fanart"].ToString(),
-                            Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
-                            DateAdded = genre["dateadded"].ToString()
-                        };
-                        movies.Add(movie);
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-            }
-        }
+    //        return seasons;
+    //    }
 
-        return movies;
+    //    //Change main TV Seasons pull to Episode based one.
+    //    // One below/Old one - keep timing out - not answer on Emby Forums - no clear issue at this end
+    //    // ? Issue with IncludeItemTypes=Season - or possibly local database problem/corrupt at my end
+    //    // See how this one goes/also how quick it is.
 
-    }
+    //    public Collection<ApiTvSeason> GetTvSeasons()
+    //    {
+    //        var seasons = new Collection<ApiTvSeason>();
 
-    public Collection<ApiMovie> GetMovies()
-    {
-      var movies = new Collection<ApiMovie>();
+    //        try
+    //        {
 
-      var properties = new JsonArray(new[] { "title", "plot", "genre", "year", "fanart", "thumbnail", "playcount", "studio", "rating", "runtime", "mpaa", "originaltitle", "director", "votes" });
-      var param = new JsonObject();
-      param["properties"] = properties;
-      var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetMovies", param);
-      if (result != null)
-      {
-        if (result.Contains("movies"))
-        {
-          foreach (JsonObject genre in (JsonArray)result["movies"])
-          {
-            try
-            {
-              var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
-              var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
-              var movie = new ApiMovie
-                {
 
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Votes = genre["votes"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  Year = (long)(JsonNumber)genre["year"],
-                  IdScraper = "",
-                  Length = duration,
-                  Mpaa = genre["mpaa"].ToString(),
-                  Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                  Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
-                  OriginalTitle = genre["originaltitle"].ToString(),
-                  Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                  IdFile = 0,
-                  IdMovie = (long)(JsonNumber)genre["movieid"],
-                  FileName = "",
-                  Path = "",
-                  PlayCount = 0,
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                };
-              movies.Add(movie);
-            }
-            catch (Exception)
-            {
-            }
-          }
-        }
-      }
+    //            _parent.Trace("Getting TV Seasons (NEW Code Base Change) from New TV Episodes Somehow:" + _parent.IP);
+    //            //          string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Season";
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?Recursive=true&ExcludeLocationTypes=Virtual&IncludeItemTypes=Episode";
 
-      return movies;
-    }
-  }
-}
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 700000;
+    //            _parent.Trace("Single TV Season from TV Episodes NEW: Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Single TV Season Change to Code Base- Based on Episode Data -- tion Result ------" + json);
+
+    //                    var deserializer = new JavaScriptSerializer();
+
+    //                    deserializer.MaxJsonLength = Int32.MaxValue;
+    //                    // Hopefully fix above.
+    //                    var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
+
+    //                    //   _parent.Trace("---------------Get Single TV Season Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
+
+    //                    foreach (var genre in ItemData.Items)
+    //                    {
+    //                        try
+    //                        {
+
+    //                            // var SingleTVData = GetSingleTVFromSeries(genre.Id);
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Season Number:" + genre.ParentIndexNumber);
+    //                            //  _parent.Trace("---Emby  GetTVSeasons NEW --- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Series Name:" + genre.SeriesName);
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Thumb:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "");
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Child Count:" + (long)(int)genre.IndexNumber);
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Fanart:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "");
+    //                            _parent.Trace("---Emby  GetTVSeasons NEW --- Hash:" + Xbmc.Hash(genre.SeasonId));
+
+    //                            var tvShow = new ApiTvSeason
+    //                            {
+    //                                SeasonNumber = genre.ParentIndexNumber,
+    //                                IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                Show = genre.SeriesName ?? "",
+    //                                Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
+    //                                EpisodeCount = (long)(int)genre.IndexNumber,   //bit of a hack but if date sorted - latest episode should be highest - so for most should be right.
+    //                                Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                Hash = Xbmc.Hash(genre.SeasonId)
+    //                            };
+    //                            seasons.Add(tvShow);
+
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Shows Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another TV Shows:NEW Seasons (from Episode Data) exception" + Ex);
+    //        }
+
+
+
+    //        return seasons;
+    //    }
+
+    //    /**
+    //    public Collection<ApiTvSeason> GetTvSeasons()
+    //    {
+    //        var seasons = new Collection<ApiTvSeason>();
+
+    //        try
+    //        {
+
+
+    //            _parent.Trace("Getting TV Seasons:" + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?Recursive=true&IncludeItemTypes=Season";
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            request.KeepAlive = false;
+    //            _parent.Trace("Get TVSeasons TV Season Selection: " + NPurl);
+
+    //            var authString = _parent.GetAuthString();
+
+    //            request.Headers.Add("X-MediaBrowser-Token", Globals.EmbyAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                //REMOVETHIS                System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Single TV Season Selection Result ------" + json);
+
+    //                    var deserializer = new JavaScriptSerializer();
+    //                    deserializer.MaxJsonLength = Int32.MaxValue;
+
+    //                    var ItemData = deserializer.Deserialize<TVSeasons.Rootobject>(json);
+    //                    _parent.Trace("---------------Get Single TV Season Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
+
+    //                    foreach (var genre in ItemData.Items)
+    //                    {
+    //                        try
+    //                        {
+
+    //                            //var SingleTVData = GetSingleTVFromSeries(genre.Id);
+    //                            _parent.Trace("---Emby GetTVSeasons--- Season Number:" + (long)(int)genre.IndexNumber);
+    //                            _parent.Trace("---Emby GetTVSeasons--- ID Show:" + Xbmc.IDtoNumber(genre.SeriesId));
+    //                            _parent.Trace("---Emby GetTVSeasons--- Series Name:" + genre.SeriesName);
+    //                            _parent.Trace("---Emby GetTVSeasons--- Thumb:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "");
+    //                            _parent.Trace("---Emby GetTVSeasons--- Child Count:" + (long)(int)genre.ChildCount);
+    //                            _parent.Trace("---Emby GetTVSeasons--- Fanart:" + "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "");
+    //                            _parent.Trace("---Emby GetTVSeasons--- Hash:" + Xbmc.Hash(genre.Id));
+
+    //                            var tvShow = new ApiTvSeason
+    //                            {
+    //                                SeasonNumber = genre.IndexNumber,
+    //                                IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                Show = genre.SeriesName ?? "",
+    //                                Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
+    //                                EpisodeCount = (long)(int)genre.ChildCount,
+    //                                Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                Hash = Xbmc.Hash(genre.Id)
+    //                            };
+    //                            seasons.Add(tvShow);
+
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Shows Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another tV SHows exception" + Ex);
+    //        }
+
+
+    //        return seasons;
+    //    }
+    //**/
+    //    public Collection<ApiTvEpisode> GetTvEpisodes()
+    //    {
+    //        var episodes = new Collection<ApiTvEpisode>();
+
+    //        try
+    //        {
+
+
+    //            _parent.Trace("GetTVEpisodes : Parent IP: " + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?Recursive=true&ExcludeLocationTypes=Virtual&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 700000;
+    //            _parent.Trace("GetTVEpisodes: Single TV Episode Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING TVEpisodes Selection Result ------" + json + "---END---");
+
+    //                    var deserializer = new JavaScriptSerializer();
+    //                    deserializer.MaxJsonLength = Int32.MaxValue;
+    //                    var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
+    //                    _parent.Trace("---------------Get TVEpisode Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
+
+    //                    foreach (var genre in ItemData.Items)
+    //                    {
+    //                        try
+    //                        {
+    //                            //Use Path to pass data on Item Number to play as API Long can't hold
+    //                            //var SingleTVData = GetSingleTVFromSeries(genre.Id);
+
+    //                            //Convert Date to sql date to allow sql date sort
+
+    //                            DateTime myDateTime = genre.PremiereDate;
+    //                            string sqlFormattedDate = myDateTime.ToString("s");
+
+    //                            //Remove Embys Virtual Episodes from the Database
+
+    //                            if (genre.LocationType != "Virtual")
+    //                            {
+    //                                var tvShow = new ApiTvEpisode
+    //                                {
+    //                                    Title = genre.Name ?? "",
+    //                                    Plot = genre.Overview ?? "",
+    //                                    Rating = genre.OfficialRating ?? "",
+    //                                    Mpaa = genre.CommunityRating ?? "Unknown",
+    //                                    Date = sqlFormattedDate,
+    //                                    Director = "",
+    //                                    PlayCount = Convert.ToInt64(genre.UserData.PlayCount),
+    //                                    Studio = "",
+    //                                    // IdEpisode = Xbmc.IDtoNumber(genre.Id),
+    //                                    //  IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                    Season = (long)(int)genre.ParentIndexNumber,
+    //                                    Episode = (long)(int)genre.IndexNumber,
+    //                                    Path = genre.Id ?? "",
+    //                                    ShowTitle = genre.SeriesName ?? "",
+    //                                    Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
+    //                                    Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                    Hash = Xbmc.Hash(genre.Id)
+    //                                };
+    //                                episodes.Add(tvShow);
+    //                            }
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Episodes Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another tV Episodes exception" + Ex);
+    //        }
+
+    //        return episodes;
+    //    }
+
+    //    public Collection<ApiTvShow> GetTvShowsRefresh()
+    //    {
+    //        //var MovieId = GetMainSelection("TV");
+    //        var shows = new Collection<ApiTvShow>();
+
+    //        try
+    //        {
+    //            _parent.Trace("Getting TV Shows REFRESH in TVSHOWS Parent IP: " + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
+    //            var request = WebRequest.CreateHttp(NPurl);
+    //            request.Method = "get";
+    //            request.Timeout = 700000;
+    //            _parent.Trace("Single REFRESH TV Episode Selection in TVSHOWS: " + _parent.IP + ":" + _parent.Port);
+    //            var authString = _parent.JRiverAuthToken;
+    //            request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+    //            var response = request.GetResponse();
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING REFRESH TV Episodes: in TV SHOWS Selection Result ------" + json);
+    //                    var deserializer = new JavaScriptSerializer();
+    //                    deserializer.MaxJsonLength = Int32.MaxValue;
+    //                    var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
+    //                    _parent.Trace("---------------Get Single REFRESH TV Shows in TVSHOWS REfresh Selection:  Issue: Results.Taglines: " + ItemData.Items.Count());
+
+    //                    foreach (var genre in ItemData.Items)
+    //                    {
+    //                        try
+    //                        {
+
+    //                            var SingleTVData = GetSingleTVFromSeries(genre.SeriesId);
+
+    //                            string TempTVGenre = "";
+    //                            if (SingleTVData.Genres != null && SingleTVData.Genres.Length != 0)
+    //                            {
+    //                                if (SingleTVData.Genres.FirstOrDefault() != null)
+    //                                {
+    //                                    TempTVGenre = SingleTVData.Genres.FirstOrDefault().ToString();
+    //                                }
+    //                            }
+
+    //                            string TempTVStudios = "";
+    //                            if (SingleTVData.Studios != null && SingleTVData.Studios.Length != 0)
+    //                            {
+    //                                if (SingleTVData.Studios.FirstOrDefault() != null)
+    //                                {
+    //                                    TempTVStudios = SingleTVData.Studios.FirstOrDefault().Name.ToString();
+    //                                }
+    //                            }
+
+    //                            var tvShow = new ApiTvShow
+    //                            {
+
+    //                                Title = genre.SeriesName ?? "Unknown",
+    //                                Plot = SingleTVData.Overview ?? "",
+    //                                Rating = SingleTVData.CommunityRating.ToString() ?? "",
+    //                                IdScraper = "",
+    //                                Mpaa = SingleTVData.OfficialRating ?? "Unknown",
+    //                                Genre = TempTVGenre,
+    //                                Studio = TempTVStudios,
+    //                                IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                TotalCount = (long)(int)SingleTVData.RecursiveItemCount,
+    //                                Path = SingleTVData.Path ?? "",
+    //                                Premiered = SingleTVData.PremiereDate.ToString("D") ?? "",
+    //                                Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Primary" ?? "",
+    //                                Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.ParentBackdropItemId + "/Images/Banner" ?? "",
+    //                                Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.ParentBackdropItemId + "/Images/Logo" ?? "",
+    //                                Hash = Xbmc.Hash(genre.SeriesId)
+
+    //                            };
+
+    //                            shows.Add(tvShow);
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Shows REFRESH Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+    //        }
+
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another tV SHows exception" + Ex);
+    //        }
+
+    //        return shows;
+    //    }
+
+
+    //    public Collection<ApiTvShow> GetTvShows()
+    //    {
+    //        //var MovieId = GetMainSelection("TV");
+    //        var shows = new Collection<ApiTvShow>();
+
+    //        try
+    //        {
+
+    //            _parent.Trace("Getting TV Shows" + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?ExcludeLocationTypes=Virtual&Recursive=true&IncludeItemTypes=Series&Fields=Overview,Rating,OfficialRating,RecursiveItemCount";
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            _parent.Trace("Single TV Show Selection: " + NPurl);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                //REMOVETHIS                   System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Single TV Show Selection Result ------" + json + "---***--- END --- END GetTvShows:");
+
+    //                    var deserializer = new JavaScriptSerializer();
+
+    //                    var ItemData = deserializer.Deserialize<TVShows.Rootobject>(json);
+    //                    _parent.Trace("---------------GetTVShows:  TV Show Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
+
+    //                    foreach (var genre in ItemData.Items)
+    //                    {
+    //                        try
+    //                        {
+
+    //                            var SingleTVData = GetSingleTVFromSeries(genre.Id);
+
+    //                            string TempTVGenre = "";
+    //                            if (SingleTVData.Genres != null && SingleTVData.Genres.Length != 0)
+    //                            {
+    //                                if (SingleTVData.Genres.FirstOrDefault() != null)
+    //                                {
+    //                                    TempTVGenre = SingleTVData.Genres.FirstOrDefault().ToString();
+    //                                }
+    //                            }
+    //                            string TempTVStudios = "";
+    //                            if (SingleTVData.Studios != null && SingleTVData.Studios.Length != 0)
+    //                            {
+    //                                if (SingleTVData.Studios.FirstOrDefault() != null)
+    //                                {
+    //                                    TempTVStudios = SingleTVData.Studios.FirstOrDefault().Name.ToString();
+    //                                }
+    //                            }
+
+
+    //                            var tvShow = new ApiTvShow
+    //                            {
+
+    //                                Title = genre.Name ?? "Unknown",
+    //                                Plot = genre.Overview ?? "",
+    //                                Rating = genre.CommunityRating.ToString() ?? "",
+    //                                IdScraper = "",
+    //                                Mpaa = SingleTVData.OfficialRating ?? "Unknown",
+    //                                Genre = TempTVGenre,
+    //                                Studio = TempTVStudios,
+    //                                IdShow = Xbmc.IDtoNumber(genre.Id),
+    //                                TotalCount = (long)(int)genre.RecursiveItemCount,
+    //                                Path = SingleTVData.Path ?? "",
+    //                                Premiered = SingleTVData.PremiereDate.ToString("D") ?? "",
+    //                                Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
+    //                                Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Backdrop" ?? "",
+    //                                Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Banner" ?? "",
+    //                                Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Logo" ?? "",
+    //                                Hash = Xbmc.Hash(genre.Id)
+
+    //                            };
+
+    //                            shows.Add(tvShow);
+    //                        }
+    //                        catch (Exception ex)
+    //                        {
+    //                            _parent.Trace("TV Shows Exception Caught " + ex);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+    //        }
+    //        catch (Exception Ex)
+    //        {
+    //            _parent.Trace("Another tV SHows exception" + Ex);
+    //        }
+
+    //        return shows;
+    //    }
+
+
+
+
+
+    //    public List<string> GetMainSelection(string param)
+    //    {
+
+    //        List<string> result = new List<string>();
+
+    //        try
+    //        {
+
+    //            _parent.Trace("Getting Main Selection Result" + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items";
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            _parent.Trace("Main Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                //REMOVETHIS                   System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Main Selection Result ------" + json);
+
+    //                    var deserializer = new JavaScriptSerializer();
+
+    //                    var ItemData = deserializer.Deserialize<MainSelectionItems.Rootobject>(json);
+    //                    _parent.Trace("---------------Get Main Selection:  Issue: Results.Count: " + ItemData.TotalRecordCount);
+    //                    foreach (var id in ItemData.Items)
+    //                    {
+    //                        if (id.CollectionType == param)
+    //                        {
+    //                            _parent.Trace("----------- Get Main Selection Run ---" + param + " ID Result ---------------equals--------------:  " + id.Id);
+    //                            result.Add(id.Id);
+    //                        }
+    //                    }
+
+    //                }
+    //            }
+
+
+    //            return result;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            _parent.Trace("ERROR in Main Selection obtaining: " + ex);
+    //            return null;
+
+    //        }
+    //    }
+    //    public TVSingleItemSeries.Rootobject GetSingleTVFromSeries(string itemId)
+    //    {
+    //        try
+    //        {
+
+    //            _parent.Trace("Getting Single TV From Series Data" + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items/" + itemId;
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            _parent.Trace("Single Movie Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", authString);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                //REMOVETHIS                System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Single TV From Series Selection Result ------" + json);
+
+    //                    var deserializer = new JavaScriptSerializer();
+
+    //                    var ItemData = deserializer.Deserialize<TVSingleItemSeries.Rootobject>(json);
+    //                    _parent.Trace("---------------Get Single TV From Series Selection:  Issue: Results.Taglines: " + ItemData.Taglines);
+
+
+    //                    return ItemData;
+
+    //                }
+    //            }
+
+
+    //            return null;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            _parent.Trace("ERROR in Single TV From Series Selection obtaining: " + ex);
+    //            return null;
+
+    //        }
+    //    }
+
+
+
+    //    public SingleMovieItem.Rootobject GetSingleMovieItem(string itemId)
+    //    {
+    //        try
+    //        {
+
+    //            _parent.Trace("Getting Single Movie Data" + _parent.IP);
+    //            string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items/" + itemId + @"?Fields=People,Overview,Studios,VoteCount,MediaSources,MediaStreams,CommunityRating,ProductionYear,ProviderIds,Path,Genres,Taglines";
+
+
+    //            var request = WebRequest.CreateHttp(NPurl);
+
+    //            request.Method = "get";
+    //            request.Timeout = 150000;
+    //            _parent.Trace("Single Movie Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //            var authString = _parent.JRiverAuthToken;
+
+    //            request.Headers.Add("X-MediaBrowser-Token", authString);
+    //            request.Headers.Add("X-Emby-Authorization", authString);
+    //            request.ContentType = "application/json; charset=utf-8";
+    //            request.Accept = "application/json; charset=utf-8";
+
+    //            var response = request.GetResponse();
+
+    //            if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //            {
+
+    //                System.IO.Stream dataStream = response.GetResponseStream();
+    //                System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                {
+    //                    string json = sr.ReadToEnd();
+    //                    _parent.Trace("--------------GETTING Single Movie Selection Result --  for itemId: " + itemId + " -------------- Json: Result:" + System.Environment.NewLine + json);
+
+    //                    var deserializer = new JavaScriptSerializer();
+
+    //                    // var ItemData = deserializer.Deserialize<SingleMovieItem.Rootobject>(json);
+    //                    _parent.Trace("---------------Get Single Movie Selection:  ");
+
+    //                    //  return ItemData;
+
+
+    //                    //return ItemData;
+
+    //                }
+    //            }
+
+
+    //            return null;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            _parent.Trace("ERROR in Single Movie Selection obtaining: " + ex);
+    //            return null;
+
+    //        }
+    //    }
+    //    public Collection<ApiMovie> GetMoviesRefresh()
+    //    {
+    //        {
+    //            var movies = new Collection<ApiMovie>();
+    //            List<string> MovieId = GetMainSelection("movies");
+
+    //            try
+    //            {
+    //                foreach (string MovieDirectory in MovieId)
+    //                {
+
+
+    //                    try
+    //                    {
+
+    //                        _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
+    //                        string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?Limit=30&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie&Recursive=true&Fields=BasicSyncInfo,MediaSourceCount,SortName,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Banner,Thumb,Disc,Logo&StartIndex=0&ParentId=" + MovieDirectory;
+    //                        _parent.Trace("Getting Main Movie Database Refresh URL Called" + NPurl);
+    //                        var request = WebRequest.CreateHttp(NPurl);
+
+    //                        request.Method = "get";
+    //                        request.Timeout = 150000;
+    //                        _parent.Trace("Main Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //                        var authString = _parent.JRiverAuthToken;
+
+    //                        request.Headers.Add("X-MediaBrowser-Token", authString);
+    //                        request.Headers.Add("X-Emby-Authorization", authString);
+    //                        request.ContentType = "application/json; charset=utf-8";
+    //                        request.Accept = "application/json; charset=utf-8";
+
+    //                        var response = request.GetResponse();
+
+    //                        if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //                        {
+
+    //                            System.IO.Stream dataStream = response.GetResponseStream();
+    //                            //REMOVETHIS                 System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                            using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                            {
+    //                                string json = sr.ReadToEnd();
+    //                                _parent.Trace("--------------GETTING All Movies Results ------" + json);
+
+    //                                var deserializer = new JavaScriptSerializer();
+
+    //                                var ItemData = deserializer.Deserialize<Movies.Rootobject>(json);
+
+    //                                _parent.Trace("---------------Get Worlds Result:  Issue: Results.Count: " + ItemData.Items.Count);
+
+    //                                foreach (var id in ItemData.Items)
+    //                                {
+    //                                    try
+    //                                    {
+
+    //                                        SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
+
+
+    //                                        List<string> MovieIcons = new List<string>();
+
+    //                                        // if null equals null-  doesn't make much sense but no harm.  Perhaps change to empty later.
+    //                                        // needs to be empty otherwise will fail with null exception down further
+    //                                        //
+
+    //                                        MovieIcons = GetMovieIcons(Movieitem);
+
+    //                                        string newDirector = "";
+
+    //                                        if (Movieitem.People != null)
+    //                                        {
+    //                                            bool index = Movieitem.People.Any(item => item.Type == "Director");
+    //                                            if (index == true)
+    //                                            {
+    //                                                newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+    //                                            }
+    //                                        }
+
+    //                                        string Taglines = "";
+    //                                        if (Movieitem.Taglines != null && Movieitem.Taglines.Length != 0)
+    //                                        {
+    //                                            if (Movieitem.Taglines.FirstOrDefault() != null)
+    //                                            {
+    //                                                Taglines = Movieitem.Taglines.FirstOrDefault().ToString();
+    //                                            }
+    //                                        }
+    //                                        string Studios = "";
+    //                                        if (Movieitem.Studios != null && Movieitem.Studios.Length != 0)
+    //                                        {
+    //                                            if (Movieitem.Studios.FirstOrDefault() != null)
+    //                                            {
+    //                                                Studios = Movieitem.Studios.FirstOrDefault().Name.ToString();
+    //                                            }
+    //                                        }
+    //                                        string Genres = "";
+    //                                        if (Movieitem.Genres != null && Movieitem.Genres.Length != 0)
+    //                                        {
+    //                                            Genres = String.Join(",", Movieitem.Genres);
+    //                                        }
+    //                                        string ProviderIds = "";
+    //                                        if (Movieitem.ProviderIds != null)
+    //                                        {
+    //                                            if (Movieitem.ProviderIds.Imdb != null)
+    //                                            {
+    //                                                ProviderIds = Movieitem.ProviderIds.Imdb.ToString();
+    //                                            }
+    //                                        }
+    //                                        long PlayCount = 0;
+    //                                        if (Movieitem.UserData != null)
+    //                                        {
+    //                                            PlayCount = Movieitem.UserData.PlayCount;
+
+    //                                        }
+
+    //                                        var Seconds = Convert.ToInt64(Movieitem.RunTimeTicks ?? 0);
+    //                                        var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
+    //                                        _parent.Trace("MovieItem:  RoundSeconds equals:" + RoundSeconds.ToString());
+
+    //                                        _parent.Trace("VideoLibrary Check:");
+    //                                        _parent.Trace("Movieitem.name:" + Movieitem.Name ?? "Unknown");
+    //                                        _parent.Trace("Movieitem.Overview:" + Movieitem.Overview ?? "Unknown");
+    //                                        _parent.Trace("VountCount:" + Movieitem.VoteCount.ToString() ?? "0");
+    //                                        _parent.Trace("Community Rating:" + Movieitem.CommunityRating.ToString() ?? "0");
+    //                                        _parent.Trace(Movieitem.ProductionYear.ToString() ?? "nil Production Year:");
+    //                                        _parent.Trace(Taglines);
+    //                                        _parent.Trace("MovieItem: ProviderIds:");
+    //                                        _parent.Trace(ProviderIds ?? "");
+
+    //                                        _parent.Trace(new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown");
+    //                                        _parent.Trace(id.OfficialRating ?? "Unknown");
+    //                                        _parent.Trace(Genres);
+    //                                        _parent.Trace(newDirector ?? "");
+    //                                        _parent.Trace(id.Name ?? "");
+    //                                        _parent.Trace(Studios);
+    //                                        _parent.Trace(Xbmc.IDtoNumber(id.Id).ToString());
+    //                                        _parent.Trace("MoviePath:" + Movieitem.Path ?? "");
+    //                                        _parent.Trace("Id.id" + id.Id ?? "");
+    //                                        _parent.Trace("PlayCount:" + PlayCount.ToString());
+    //                                        _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary");
+    //                                        _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop");
+    //                                        _parent.Trace(Xbmc.Hash(id.Id));
+    //                                        _parent.Trace("MovieIcons Set:" + String.Join(",", MovieIcons));
+
+    //                                        var movie = new ApiMovie
+    //                                        {
+    //                                            Title = Movieitem.Name ?? "Unknown",
+    //                                            Plot = Movieitem.Overview ?? "Unknown",
+    //                                            Votes = Movieitem.VoteCount.ToString() ?? "0",
+    //                                            Rating = Movieitem.CommunityRating.ToString() ?? "0",
+    //                                            Year = Movieitem.ProductionYear ?? 1901,
+    //                                            Tagline = Taglines,
+    //                                            IdScraper = ProviderIds ?? "",
+    //                                            Length = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
+    //                                            Mpaa = Movieitem.OfficialRating ?? "Unknown",
+    //                                            Genre = Genres,
+    //                                            Director = newDirector ?? "",
+    //                                            OriginalTitle = id.Name ?? "",
+    //                                            Studio = Studios,
+    //                                            IdFile = 0,
+    //                                            IdMovie = Xbmc.IDtoNumber(id.Id),
+    //                                            FileName = Movieitem.Path.ToString() ?? "",
+    //                                            Path = Movieitem.Id ?? "",
+    //                                            PlayCount = PlayCount,
+    //                                            Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
+    //                                            Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner",
+    //                                            Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
+    //                                            Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
+    //                                            Hash = Xbmc.Hash(id.Id),
+    //                                            DateAdded = Movieitem.DateCreated.ToString("s"),
+    //                                            MovieIcons = String.Join(",", MovieIcons)
+    //                                        };
+    //                                        movies.Add(movie);
+    //                                    }
+
+    //                                    catch (Exception ex)
+    //                                    {
+    //                                        _parent.Trace("Exception with Movie Name :" + ex);
+
+    //                                    }
+    //                                }
+
+
+
+
+    //                            }
+
+    //                        }
+
+
+    //                    }
+    //                    catch (Exception ex)
+    //                    {
+    //                        _parent.Trace("ERROR in Main Movies obtaining: " + ex);
+
+
+    //                    }
+
+
+    //                }
+    //                return movies;
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                _parent.Trace("Error in List Array for Main Selection:" + ex);
+    //                return null;
+    //            }
+    //        }
+    //    }
+
+    //    public List<string> GetMovieIcons(SingleMovieItem.Rootobject Movieitem)
+    //    {
+
+    //        List<string> MovieIcons = new List<string>();
+    //        _parent.Trace("MovieIcons Generating List:");
+
+    //        // Make sure not null; 
+    //        MovieIcons.Add("");
+
+
+    //        try
+    //        {
+    //            //Container
+    //            if (Movieitem.MediaSources != null)
+    //            {
+    //                var MediaSources = Movieitem.MediaSources.FirstOrDefault();
+
+
+    //                if (MediaSources != null)
+    //                {
+    //                    if (MediaSources.Container != null)
+    //                    {
+    //                        MovieIcons.Add(MediaSources.Container.ToString());
+    //                        _parent.Trace("MovieIcons Adding Container:" + MediaSources.Container.ToString());
+    //                    }
+    //                    if (MediaSources.VideoType != null)
+    //                    {
+    //                        MovieIcons.Add(MediaSources.VideoType.ToString());
+    //                        _parent.Trace("MovieIcons Adding VideoType:" + MediaSources.VideoType.ToString());
+    //                    }
+    //                }
+    //            }
+
+    //            if (Movieitem.MediaStreams != null)
+    //            {
+    //                var CountStreams = Movieitem.MediaStreams.Count(i => i.IsDefault == true);
+
+    //                if (CountStreams > 0)
+    //                {
+    //                    var isDefaultMediaStream = Movieitem.MediaStreams.FirstOrDefault(i => i.IsDefault == true);
+
+    //                    // added check - make sure is default stream being checked
+    //                    // often multiples streams commentary etc with ac3 and other codecs - would not make sense to have all shown
+
+    //                    try
+    //                    {
+
+    //                        var MovieCodec = Movieitem.MediaStreams.Where(i => i.IsDefault == true).Where(i => i.Type == "Audio").FirstOrDefault();
+
+    //                        if (MovieCodec != null && !string.IsNullOrEmpty(MovieCodec.Codec))
+    //                        {
+    //                            if (MovieCodec.Codec.Equals("dca") == true)
+    //                            {
+    //                                if (MovieCodec.Profile.ToString() == "DTS")
+    //                                {
+    //                                    MovieIcons.Add(MovieCodec.Profile.ToString());
+    //                                    _parent.Trace("MovieIcons dca adding DTS Profile:" + MovieCodec.Profile.ToString());
+    //                                }
+    //                                else
+    //                                // If contains more - remove or reedit the DTS bit to avoid double detection later on
+    //                                {
+    //                                    string Profile = MovieCodec.Profile.ToString();
+    //                                    Profile = Profile.Replace("DTS", "DST");
+    //                                    MovieIcons.Add(Profile);
+    //                                    _parent.Trace("MovieIcons dca adding DST Plus Profile:" + Profile);
+    //                                }
+    //                            }
+    //                            else
+    //                            {
+    //                                MovieIcons.Add(MovieCodec.Codec.ToString());
+    //                                _parent.Trace("MovieIcons Adding Codec:" + MovieCodec.Codec.ToString());
+    //                            }
+
+
+
+    //                            if (MovieCodec.Channels > 0)
+    //                            {
+    //                                MovieIcons.Add("Channels" + MovieCodec.Channels.ToString());
+    //                                _parent.Trace("MovieIcons Adding Channels:" + MovieCodec.Channels.ToString());
+    //                            }
+
+    //                        }
+    //                    }
+    //                    catch (Exception ex)
+    //                    {
+    //                        _parent.Trace("MovieIcons Exception Caught Within AudioStream Codec Check:" + ex);
+    //                        return MovieIcons;
+    //                    }
+
+    //                }
+
+
+    //                var VideoInfo = Movieitem.MediaStreams.First(i => i.Type == "Video");
+
+    //                if (VideoInfo != null)
+    //                {
+    //                    if (!string.IsNullOrWhiteSpace(VideoInfo.Codec))
+    //                    {
+    //                        MovieIcons.Add("codec" + VideoInfo.Codec.ToString());
+    //                        _parent.Trace("MovieIcons Adding codec" + VideoInfo.Codec.ToString());
+
+    //                    }
+    //                    if (VideoInfo.AspectRatio != null)
+    //                    {
+
+    //                        if (!string.IsNullOrWhiteSpace(VideoInfo.AspectRatio))
+    //                        {
+    //                            MovieIcons.Add(VideoInfo.AspectRatio.ToString());
+    //                            _parent.Trace("MovieIcons Adding Ratio:" + VideoInfo.AspectRatio.ToString());
+    //                        }
+
+    //                    }
+
+    //                    if (VideoInfo.Width.HasValue)
+    //                    {
+    //                        if (VideoInfo.Width > 3800)
+    //                        {
+    //                            MovieIcons.Add("4K");
+    //                            _parent.Trace("MoviesIcons Adding 4K");
+    //                        }
+    //                        else if (VideoInfo.Width >= 1900)
+    //                        {
+    //                            MovieIcons.Add("1080p");
+    //                            _parent.Trace("MoviesIcons Adding 1080p");
+    //                        }
+    //                        else if (VideoInfo.Width >= 1270)
+    //                        {
+    //                            MovieIcons.Add("720p");
+    //                            _parent.Trace("MoviesIcons Adding 720p");
+    //                        }
+    //                        else if (VideoInfo.Width >= 700)
+    //                        {
+    //                            MovieIcons.Add("480P");
+    //                            _parent.Trace("MoviesIcons Adding 480p");
+    //                        }
+    //                        else
+    //                        {
+    //                            MovieIcons.Add("SD");
+    //                            _parent.Trace("MoviesIcons Adding SD");
+    //                        }
+    //                    }
+    //                }
+    //            }
+
+
+
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            _parent.Trace("MovieIcons Exception Caught Within VideoInfo Codec Check:" + ex);
+    //            return MovieIcons;
+    //        }
+
+
+
+
+    //        return MovieIcons;
+
+
+
+    //    }
+
+
+    //    public Collection<ApiTvEpisode> GetTvEpisodesRefresh()
+    //    {
+    //        {
+    //            var episodes = new Collection<ApiTvEpisode>();
+
+    //            try
+    //            {
+    //                _parent.Trace("Getting TV Episodes: Parent IP: " + _parent.IP);
+    //                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?Limit=30&Recursive=true&ExcludeLocationTypes=Virtual&SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Episode&Fields=Overview,Rating,OfficialRating";
+    //                var request = WebRequest.CreateHttp(NPurl);
+    //                request.Method = "get";
+    //                request.Timeout = 150000;
+    //                _parent.Trace("Single TV Episode Selection: " + _parent.IP + ":" + _parent.Port);
+    //                var authString = _parent.JRiverAuthToken();
+    //                request.Headers.Add("X-MediaBrowser-Token", authString);
+    //                request.Headers.Add("X-Emby-Authorization", authString);
+    //                request.ContentType = "application/json; charset=utf-8";
+    //                request.Accept = "application/json; charset=utf-8";
+    //                var response = request.GetResponse();
+    //                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //                {
+    //                    System.IO.Stream dataStream = response.GetResponseStream();
+    //                    using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                    {
+    //                        string json = sr.ReadToEnd();
+    //                        _parent.Trace("--------------GETTING TV Episodes Selection Result ------" + json);
+
+    //                        var deserializer = new JavaScriptSerializer();
+
+    //                        deserializer.MaxJsonLength = Int32.MaxValue;
+
+    //                        var ItemData = deserializer.Deserialize<TVEpisodes.Rootobject>(json);
+    //                        _parent.Trace("---------------Get Single TV Episode Selection:  Issue: Results.Taglines: " + ItemData.TotalRecordCount);
+    //                        foreach (var genre in ItemData.Items)
+    //                        {
+    //                            try
+    //                            {
+    //                                //Use Path to pass data on Item Number to play as API Long can't hold
+    //                                //var SingleTVData = GetSingleTVFromSeries(genre.Id);
+
+    //                                //Convert Date to sql date to allow sql date sort
+
+    //                                DateTime myDateTime = genre.PremiereDate;
+    //                                string sqlFormattedDate = myDateTime.ToString("s");
+
+    //                                //Remove Embys Virtual Episodes from the Database  /also now done above in url ExcludeLocation finding
+
+    //                                if (genre.LocationType != "Virtual")
+    //                                {
+    //                                    var tvShow = new ApiTvEpisode
+    //                                    {
+    //                                        Title = genre.Name ?? "",
+    //                                        Plot = genre.Overview ?? "",
+    //                                        Rating = genre.OfficialRating ?? "",
+    //                                        Mpaa = genre.CommunityRating ?? "Unknown",
+    //                                        Date = sqlFormattedDate,
+    //                                        Director = "",
+    //                                        PlayCount = (long)(int)genre.UserData.PlayCount,
+    //                                        Studio = "",
+    //                                        IdEpisode = Xbmc.IDtoNumber(genre.Id),
+    //                                        IdShow = Xbmc.IDtoNumber(genre.SeriesId),
+    //                                        Season = (long)(int)genre.ParentIndexNumber,
+    //                                        Episode = (long)(int)genre.IndexNumber,
+    //                                        Path = genre.Id ?? "",
+    //                                        ShowTitle = genre.SeriesName ?? "",
+    //                                        Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.Id + "/Images/Primary" ?? "",
+    //                                        Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + genre.SeriesId + "/Images/Backdrop" ?? "",
+    //                                        Hash = Xbmc.Hash(genre.Id)
+    //                                    };
+    //                                    episodes.Add(tvShow);
+    //                                }
+    //                            }
+    //                            catch (Exception ex)
+    //                            {
+    //                                _parent.Trace("TV Episodes Exception Caught " + ex);
+    //                            }
+    //                        }
+
+    //                    }
+    //                }
+    //            }
+    //            catch (Exception Ex)
+    //            {
+    //                _parent.Trace("Another tV Episodes exception" + Ex);
+    //            }
+
+    //            return episodes;
+    //        }
+    //    }
+
+    //    public Collection<ApiMovie> GetMovies()
+    //    {
+    //        var movies = new Collection<ApiMovie>();
+    //        List<string> MovieId = GetMainSelection("movies");
+
+    //        foreach (string MovieDirectory in MovieId)
+    //        {
+
+    //            try
+    //            {
+
+    //                _parent.Trace("Getting Main Movie Database Result" + _parent.IP);
+    //                //string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + Globals.CurrentUserID + "/Items?ParentId=" + MovieDirectory ;
+    //                //
+    //                string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/emby/Users/" + "/Items?ParentId=" + MovieDirectory + "&SortBy=DateCreated&SortName&SortOrder=Descending&IncludeItemTypes=Movie&Recursive=true&Fields=BasicSyncInfo,MediaSourceCount,SortName,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary,Backdrop,Banner,Thumb,Disc,Logo&StartIndex=0";
+    //                _parent.Trace("Getting Main Movie DB NPurl Called " + NPurl);
+
+    //                var request = WebRequest.CreateHttp(NPurl);
+
+    //                request.Method = "get";
+    //                request.Timeout = 150000;
+    //                _parent.Trace("Main Selection: " + _parent.IP + ":" + _parent.Port);
+
+    //                var authString = _parent.JRiverAuthToken;
+
+    //                request.Headers.Add("X-MediaBrowser-Token", _parent.JRiverAuthToken);
+    //                request.Headers.Add("X-Emby-Authorization", authString);
+    //                request.ContentType = "application/json; charset=utf-8";
+    //                request.Accept = "application/json; charset=utf-8";
+
+    //                var response = request.GetResponse();
+
+    //                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
+    //                {
+
+    //                    System.IO.Stream dataStream = response.GetResponseStream();
+    //                    //REMOVETHIS                 System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+
+    //                    using (var sr = new System.IO.StreamReader(response.GetResponseStream()))
+    //                    {
+    //                        string json = sr.ReadToEnd();
+    //                        _parent.Trace("--------------GETTING All Movies Results ------" + json);
+
+    //                        var deserializer = new JavaScriptSerializer();
+
+    //                        var ItemData = deserializer.Deserialize<Movies.Rootobject>(json);
+
+    //                        _parent.Trace("---------------Get Worlds Result:  Issue: Results.Count: " + ItemData.Items.Count);
+
+    //                        foreach (var id in ItemData.Items)
+    //                        {
+    //                            try
+    //                            {
+    //                                if (id.ChildCount >= 1)
+    //                                {
+
+    //                                }
+
+
+    //                                SingleMovieItem.Rootobject Movieitem = GetSingleMovieItem(id.Id);
+
+    //                                List<string> MovieIcons = new List<string>();
+
+    //                                // if null equals null-  doesn't make much sense but no harm.  Perhaps change to empty later.
+    //                                // needs to be empty otherwise will fail with null exception down further
+    //                                //
+
+    //                                MovieIcons = GetMovieIcons(Movieitem);
+
+    //                                string newDirector = "";
+
+    //                                if (Movieitem.People != null)
+    //                                {
+    //                                    bool index = Movieitem.People.Any(item => item.Type == "Director");
+    //                                    if (index == true)
+    //                                    {
+    //                                        newDirector = Movieitem.People.First(i => i.Type == "Director").Name.ToString();
+    //                                    }
+    //                                }
+
+    //                                string Taglines = "";
+    //                                if (Movieitem.Taglines != null && Movieitem.Taglines.Length != 0)
+    //                                {
+    //                                    if (Movieitem.Taglines.FirstOrDefault() != null)
+    //                                    {
+    //                                        Taglines = Movieitem.Taglines.FirstOrDefault().ToString();
+    //                                    }
+    //                                }
+    //                                string Studios = "";
+    //                                if (Movieitem.Studios != null && Movieitem.Studios.Length != 0)
+    //                                {
+    //                                    if (Movieitem.Studios.FirstOrDefault() != null)
+    //                                    {
+    //                                        Studios = Movieitem.Studios.FirstOrDefault().Name.ToString();
+    //                                    }
+    //                                }
+    //                                string Genres = "";
+    //                                if (Movieitem.Genres != null && Movieitem.Genres.Length != 0)
+    //                                {
+    //                                    Genres = String.Join(",", Movieitem.Genres);
+    //                                }
+    //                                string ProviderIds = "";
+    //                                if (Movieitem.ProviderIds != null)
+    //                                {
+    //                                    if (Movieitem.ProviderIds.Imdb != null)
+    //                                    {
+    //                                        ProviderIds = Movieitem.ProviderIds.Imdb.ToString();
+    //                                    }
+    //                                }
+    //                                long PlayCount = 0;
+    //                                if (Movieitem.UserData != null)
+    //                                {
+    //                                    PlayCount = Movieitem.UserData.PlayCount;
+
+    //                                }
+    //                                var Seconds = Convert.ToInt64(id.RunTimeTicks ?? 0);
+    //                                var RoundSeconds = Math.Round(Seconds / 10000000.00, 1);
+
+    //                                _parent.Trace("VideoLibrary Check:");
+    //                                _parent.Trace(Movieitem.Name ?? "Unknown");
+    //                                _parent.Trace(Movieitem.Overview ?? "Unknown");
+    //                                _parent.Trace(Movieitem.VoteCount.ToString() ?? "0");
+    //                                _parent.Trace(Movieitem.CommunityRating.ToString() ?? "0");
+    //                                _parent.Trace(Movieitem.ProductionYear.ToString() ?? "nil Production Year:");
+    //                                _parent.Trace(Taglines);
+    //                                _parent.Trace(ProviderIds);
+    //                                _parent.Trace(new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown");
+    //                                _parent.Trace(id.OfficialRating ?? "Unknown");
+    //                                _parent.Trace(Genres.ToString());
+    //                                _parent.Trace(newDirector ?? "");
+    //                                _parent.Trace(id.Name ?? "");
+    //                                _parent.Trace(Studios);
+    //                                _parent.Trace(Xbmc.IDtoNumber(Movieitem.Id).ToString());
+    //                                _parent.Trace(Movieitem.Path.ToString() ?? "");
+    //                                _parent.Trace(Movieitem.Id ?? "");
+    //                                _parent.Trace("PlayCount" + PlayCount.ToString());
+    //                                _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary");
+    //                                _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop");
+    //                                _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner");
+    //                                _parent.Trace("http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo");
+    //                                _parent.Trace(Xbmc.Hash(id.Id));
+
+
+
+    //                                var movie = new ApiMovie
+    //                                {
+    //                                    Title = Movieitem.Name ?? "Unknown",
+    //                                    Plot = Movieitem.Overview ?? "Unknown",
+    //                                    Votes = Movieitem.VoteCount.ToString() ?? "0",
+    //                                    Rating = Movieitem.CommunityRating.ToString() ?? "0",
+    //                                    Year = Movieitem.ProductionYear ?? 1901,
+    //                                    Tagline = Taglines,
+    //                                    IdScraper = ProviderIds,
+    //                                    Length = new TimeSpan(0, 0, 0, Convert.ToInt32(RoundSeconds)).ToString() ?? "Unknown",
+    //                                    Mpaa = Movieitem.OfficialRating ?? "Unknown",
+    //                                    Genre = Genres,
+    //                                    Director = newDirector ?? "",
+    //                                    OriginalTitle = id.Name ?? "",
+    //                                    Studio = Studios,
+    //                                    IdFile = 0,
+    //                                    IdMovie = Xbmc.IDtoNumber(id.Id),
+    //                                    FileName = Movieitem.Path.ToString() ?? "",
+    //                                    Path = Movieitem.Id ?? "",
+    //                                    PlayCount = PlayCount,
+    //                                    Thumb = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Primary",
+    //                                    Fanart = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Backdrop",
+    //                                    Banner = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Banner",
+    //                                    Logo = "http://" + _parent.IP + ":" + _parent.Port + "/Items/" + id.Id + "/Images/Logo",
+    //                                    Hash = Xbmc.Hash(id.Id),
+    //                                    DateAdded = Movieitem.DateCreated.ToString("s"),
+    //                                    MovieIcons = String.Join(",", MovieIcons)
+    //                                };
+    //                                movies.Add(movie);
+    //                            }
+
+    //                            catch (Exception ex)
+    //                            {
+    //                                _parent.Trace("Exception with Movie Name :" + ex);
+
+    //                            }
+    //                        }
+
+
+
+    //                    }
+
+    //                }
+
+
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                _parent.Trace("ERROR in Main Movies obtaining: " + ex);
+
+
+    //            }
+
+    //        }
+
+
+    //        return movies;
+    //    }
+//    }
+//}

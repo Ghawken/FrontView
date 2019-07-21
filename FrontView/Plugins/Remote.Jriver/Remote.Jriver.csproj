@@ -130,6 +130,7 @@
     <Compile Include="Api\Writer.cs" />
     <Compile Include="Classes\Alive.cs" />
     <Compile Include="Classes\Authenicateclass.cs" />
+    <Compile Include="Classes\AllDatabase.cs" />
     <Compile Include="Classes\getFileInfo.cs" />
     <Compile Include="Classes\InfoZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
