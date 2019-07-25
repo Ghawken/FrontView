@@ -167,14 +167,10 @@ namespace FrontView
 
         public void Application_Exit(object sender, ExitEventArgs e)
         {
-           Logger.Instance().Log("FrontViewApp", "EXIT CALLED", true);
+           Logger.Instance().Log("FrontViewApp", "EXIT CALLED:"+e.ApplicationExitCode, true);
            //Yatse2Window.ni.Icon;
-
-        
-            FrontView.Classes.FrontViewConfig config;            
-
-
-
+       
+           FrontView.Classes.FrontViewConfig config;            
            string configFile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\FrontView+\settings.xml");
            try
            {

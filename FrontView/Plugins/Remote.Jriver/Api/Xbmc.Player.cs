@@ -383,7 +383,6 @@ namespace Remote.Jriver.Api
                                 else if (mediaType == "Audio")
                                 {
                                     _nowPlaying.MediaType = "Audio";
-
                                 }
                                 else
                                 {
@@ -399,8 +398,8 @@ namespace Remote.Jriver.Api
                                     _nowPlaying.Plot = getFieldValue(fileFields, "Description");
                                     _nowPlaying.ShowTitle = String.IsNullOrEmpty(getFieldValue(fileFields, "Series")) ? "Blank" : getFieldValue(fileFields, "Series");
                                     _parent.Log("JRiver:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
-
                                 }
+
                                 // _nowPlaying.FirstAired = String.IsNullOrEmpty(getFieldValue(fileFields, "Date")) ? "NotGiven" : getFieldValue(fileFields, "Filename"); ;
                                 var serverArt = getItemName(deserialized, "ImageURL");
                                 _parent.Log("JRiver: server.Art EQUALS ===========" + serverArt);
@@ -444,6 +443,7 @@ namespace Remote.Jriver.Api
                                    // _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/"+ serverArt + "&Type=Full&Token="+_parent.JRiverAuthToken;
                                     _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
                                 }
+
                         
                                 _parent.Log("JRiver:  nowPlaying Fanart equals:" + _nowPlaying.FanartURL);
                                 _parent.Log("JRiver:  nowPlaying Logo equals:" + _nowPlaying.LogoURL);

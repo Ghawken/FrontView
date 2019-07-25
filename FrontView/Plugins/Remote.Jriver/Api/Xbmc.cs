@@ -103,7 +103,7 @@ namespace Remote.Jriver.Api
         public Xbmc()
         {
             File = new XbmcFile(this);
-            //VideoLibrary = new XbmcVideoLibrary(this);
+            VideoLibrary = new XbmcVideoLibrary(this);
             AudioLibrary = new XbmcAudioLibrary(this);
             AudioPlayer = new XbmcAudioPlayer(this);
             PicturePlayer = new XbmcPicturePlayer(this);
@@ -301,11 +301,50 @@ namespace Remote.Jriver.Api
             return true;
         }
 
-        internal static long IDtoNumber(object seriesId)
+        public static long IDtoNumber(string input)
         {
-            throw new NotImplementedException();
+            long res;
+
+            input = input.ToUpper();
+
+            try
+            {
+                res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input);
+               // res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input.Substring(0,15), 16);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Jriver ERROR : ", "IDtoNumber Error:" + input );
+                Logger.Instance().Trace("Jriver ERROR: ", " IDtoNumber Exception" + ex);
+                return 0;
+            }
+
+            return (long)res;
         }
 
+        public static long IDstringtoNumber(string input)
+        {
+            long res;
+
+            //input = input.ToUpper();
+
+            try
+            {
+                res = input.GetHashCode();
+                //Logger.Instance().Trace("JRiver"," IDstringtoNumber: Name to Number: Name:" + input + " and Number:" + res);
+                // res = String.IsNullOrEmpty(input) ? 0 : Convert.ToInt64(input.Substring(0,15), 16);
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Jriver ERROR : ", "ID String to Number Error:" + input);
+                Logger.Instance().Trace("Jriver ERROR: ", " ID String to Number Exception:" + ex);
+                return 0;
+            }
+
+            return (long)res;
+        }
         public override bool CheckRemote(string os, string version, string additional, bool force)
         {
             var cOs = GetOS();

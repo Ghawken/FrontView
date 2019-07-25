@@ -187,13 +187,13 @@ namespace FrontView
                     if (show.IdShow == apiTvSeason.IdShow && apiTvSeason.SeasonNumber == show.SeasonNumber)
                     {
                         notfound = false;
-                        Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons : Season Already Exisits: Seasons Id Show.Name: " + show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow + " SeasonNumber:" + apiTvSeason.SeasonNumber + " show.SeasonNumber:" + show.SeasonNumber);
+                        //Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons : Season Already Exists: Seasons Id Show.Name: " + show.Show + " show.Idshow ID:" + show.IdShow + " apiTvEpisode.Id:" + apiTvSeason.IdShow + " SeasonNumber:" + apiTvSeason.SeasonNumber + " show.SeasonNumber:" + show.SeasonNumber);
                     }
                 }
 
                 if (notfound == true)
                 {
-                    Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons :nserting TV Season :Show Name:" + apiTvSeason.Show + ": ShowID:" + apiTvSeason.IdShow + " Season Number:" + apiTvSeason.SeasonNumber + " Episode Count:" + apiTvSeason.EpisodeCount + " Hash " + apiTvSeason.Hash);
+                    Logger.Instance().LogDump("FrontView+", "Refresh: TV Seasons :Inserting TV Season :Show Name:" + apiTvSeason.Show + ": ShowID:" + apiTvSeason.IdShow + " Season Number:" + apiTvSeason.SeasonNumber + " Episode Count:" + apiTvSeason.EpisodeCount + " Hash " + apiTvSeason.Hash);
                     var tvSeason = new Yatse2TvSeason(apiTvSeason) { IdRemote = _remoteInfo.Id };
                     _database.InsertTvSeason(tvSeason);
                     oldData = _database.GetTvSeason(_remoteInfo.Id);

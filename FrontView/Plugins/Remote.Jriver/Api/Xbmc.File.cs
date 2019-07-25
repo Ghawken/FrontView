@@ -190,7 +190,7 @@ namespace Remote.Jriver.Api
             }
             catch (WebException ex)
             {
-                _parent.Log("Plex:   Something wrong with new one" + ex);
+                _parent.Log("Jriver:   Something wrong with new one: " + ex+" for filename:"+fileName);
                 return false;
             }
         }

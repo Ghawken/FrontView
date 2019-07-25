@@ -51,9 +51,9 @@ namespace Remote.Jriver
         {
             return new ApiSupportedFunctions
                        {
-                           MovieLibrary = false,
+                           MovieLibrary = true,
                            AudioLibrary = false,
-                           TvShowLibrary = false,
+                           TvShowLibrary = true,
                            PictureLibrary = false,
                            SupportsRemoteControl = true
                        };
