@@ -388,6 +388,7 @@ namespace FrontView
 
                 _config.QuickRefreshEnable = (bool)chk_Settings_QuickRefreshEnable.IsChecked;
                 _config.ShowAudioMenu = (bool)chk_Settings_ShowAudioMenu.IsChecked;
+                _config.ShowVideoMenu = (bool)chk_Settings_ShowVideoMenu.IsChecked;
                 _config.DimmingOnlyVideo = (bool)chk_Settings_DimmingOnlyVideo.IsChecked;
                 _config.HideCompilationArtists = (bool)chk_Settings_HideCompilationArtists.IsChecked;
                 _config.GenreToArtists = (bool)chk_Settings_GenreToArtists.IsChecked;
@@ -530,6 +531,7 @@ namespace FrontView
             RefreshDictionaries();
 
             _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
+            _yatse2Properties.Currently.HideVideoMenu = _config.ShowVideoMenu;
 
             Helper.Instance.UseCoverArt = (bool)_config.CoverArt;
 

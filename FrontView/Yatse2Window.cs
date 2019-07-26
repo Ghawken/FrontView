@@ -917,6 +917,8 @@ namespace FrontView
                     };
                     RefreshDictionaries();
                     _yatse2Properties.Currently.HideAudioMenu = _config.ShowAudioMenu;
+                    _yatse2Properties.Currently.HideVideoMenu = _config.ShowVideoMenu;
+                    
                 }
 
                 InitDatabase();

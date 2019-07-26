@@ -199,6 +199,11 @@ namespace Remote.Jriver.Api
 public Collection<ApiTvSeason> GetTvSeasons()
 {
             var seasons = new Collection<ApiTvSeason>();
+
+            // 
+            return seasons;
+            //
+
             try
             {
                 // Load full database...
@@ -257,10 +262,7 @@ public Collection<ApiTvSeason> GetTvSeasons()
                         }
                     }
                     string tvdb = "0";
-                    if (Field.TryGetValue("TheTVDB Series ID", out tvdb))
-                    {
-                        tvdb = tvdb;
-                    }
+
                     string ShowName = Field.ValueOrDefault("Series");
 
                     if (ShowName == "")
@@ -298,7 +300,11 @@ public Collection<ApiTvEpisode> GetTvEpisodes()
 {
 
     var episodes = new Collection<ApiTvEpisode>();
-    try
+            //
+            return episodes;
+            //
+
+            try
     {
                 getallItems("/MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID&Query=[Media%20Sub%20Type]=[TV%20Show]");
                 _parent.Trace("GetTVEpisodes : Parent IP: " + _parent.IP);
@@ -376,10 +382,6 @@ public Collection<ApiTvEpisode> GetTvEpisodes()
                     string sqlFormattedDate = myDateTime.ToString("s");
 
                     string tvdb = "0";
-                    if (Field.TryGetValue("TheTVDB Series ID", out tvdb))
-                    {
-                        tvdb = tvdb;
-                    }
                     string ShowName = Field.ValueOrDefault("Series");
 
                     if (ShowName == "")
@@ -536,6 +538,8 @@ public Collection<ApiTvShow> GetTvShows()
 {
             //var MovieId = GetMainSelection("TV");
             var shows = new Collection<ApiTvShow>();
+            return shows;
+            //
 
             try
             {
@@ -616,11 +620,6 @@ public Collection<ApiTvShow> GetTvShows()
                         {
                             BannerArt = BannerPath;
                         }
-                    }
-                    string tvdb = "0";
-                    if (Field.TryGetValue("TheTVDB Series ID", out tvdb))
-                    {
-                        tvdb = tvdb;
                     }
                     string ShowName = Field.ValueOrDefault("Series");
 

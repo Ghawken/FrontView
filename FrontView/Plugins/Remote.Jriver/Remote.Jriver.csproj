@@ -128,7 +128,7 @@
     <Compile Include="Api\User.cs" />
     <Compile Include="Api\Video.cs" />
     <Compile Include="Api\Writer.cs" />
-    <Compile Include="Classes\Alive.cs" />
+    <Compile Include="Classes\Alive2.cs" />
     <Compile Include="Classes\Authenicateclass.cs" />
     <Compile Include="Classes\AllDatabase.cs" />
     <Compile Include="Classes\getFileInfo.cs" />

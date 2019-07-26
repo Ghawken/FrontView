@@ -52,7 +52,7 @@ namespace Remote.Jriver
             return new ApiSupportedFunctions
                        {
                            MovieLibrary = true,
-                           AudioLibrary = false,
+                           AudioLibrary = true,
                            TvShowLibrary = true,
                            PictureLibrary = false,
                            SupportsRemoteControl = true

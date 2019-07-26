@@ -770,7 +770,7 @@ namespace FrontView
                 }
                 else
                 {
-                    if (_remoteInfo.CacheFilled == 0 && _remote.File.AsyncDownloadFinished())
+                    if (_remoteInfo.CacheFilled == 0 && _remote.File.AsyncDownloadFinished() )
                     {
                         RefreshThumbsFanarts();
                         ShowPopup(GetLocalizedString(101));

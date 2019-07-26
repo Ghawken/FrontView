@@ -799,7 +799,15 @@ namespace FrontView
         private void RefreshThumbsFanarts()
         {
             Logger.Instance().Log("FrontView+","Start Refresh : Thumbs/Fanarts");
+
+            if (_remote.ApiName =="JRV")
+            {
+                Logger.Instance().Log("Frontview+", "Skip as JRiver remote");
+                return;
+            }
+
             _remote.File.StopAsync();
+
 
             var dlinfo = new List<ApiImageDownloadInfo>();
 

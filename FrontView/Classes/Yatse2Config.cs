@@ -100,6 +100,7 @@ namespace FrontView.Classes
         public bool DimmingOnlyVideo { get; set; }
         public bool Hack480 { get; set; }
         public bool ShowAudioMenu { get; set; }
+        public bool ShowVideoMenu { get; set; }
         public bool DebugTrace { get; set; }
         public bool ForceOnCheckRemote { get; set; }
         public bool HideCompilationArtists { get; set; }
@@ -176,6 +177,7 @@ namespace FrontView.Classes
             Topmost = true;
             Hack480 = false;
             ShowAudioMenu = true;
+            ShowVideoMenu = true;
             KeepFocus = false;
             ForceResolution = false;
             Diaporama = false;
@@ -381,6 +383,7 @@ namespace FrontView.Classes
             DimmingOnlyVideo = config.DimmingOnlyVideo;
             Hack480 = config.Hack480;
             ShowAudioMenu = config.ShowAudioMenu;
+            ShowVideoMenu = config.ShowVideoMenu;
             Homepage = config.Homepage;
             DebugTrace = config.DebugTrace;
             ForceOnCheckRemote = config.ForceOnCheckRemote;

@@ -375,8 +375,15 @@ namespace FrontView.Classes
             get { return (bool)GetValue(HideAudioMenuProperty); }
             set { SetValue(HideAudioMenuProperty, value); }
         }
-         
-         
+
+        public static DependencyProperty HideVideoMenuProperty =
+  DependencyProperty.Register("HideVideoMenu", typeof(bool), typeof(Yatse2Currently));
+        public bool HideVideoMenu
+        {
+            get { return (bool)GetValue(HideVideoMenuProperty); }
+            set { SetValue(HideVideoMenuProperty, value); }
+        }
+
 
         public static readonly DependencyProperty IsTvDetails480Property =
             DependencyProperty.Register("IsTvDetails480", typeof(bool), typeof(Yatse2Currently));
