@@ -222,6 +222,7 @@ namespace Remote.Jriver.Api
                             string Thumb2 = "";
                             string Fanart2 = "";
                             string cdart = "";
+                            string Frontjpg = "";
                             if (Field.TryGetValue("Key", out FileKey))
                             {
                                 Thumb2 = "http://" + _parent.IP + ":" + _parent.Port + "/MCWS/v1/File/GetImage?File=" + FileKey + "&FileType=Key&Type=Thumbnail&Format=jpg&Token=" + _parent.JRiverAuthToken ?? "";
@@ -231,38 +232,69 @@ namespace Remote.Jriver.Api
                             var filename = Field.ValueOrDefault("Filename");
                             if (filename != null & filename != "")
                             {
-                                var filePath = Path.GetDirectoryName(Field.ValueOrDefault("Filename"));
-                                var fanartPath = Path.Combine(filePath, "fanart.jpg");
-                                var cdartpath = Path.Combine(filePath, "cdart.png");
-                                var ThumbPath = Path.Combine(filePath, "folder.jpg");
-                                var BannerPath = Path.Combine(filePath, "banner.jpg");
-                                System.IO.FileInfo fi = new System.IO.FileInfo(fanartPath);
-                                System.IO.FileInfo ficdart = new System.IO.FileInfo(cdartpath);
-                                System.IO.FileInfo fiThumb = new System.IO.FileInfo(ThumbPath);
-
-                                if (fi.Exists)
+                                FileInfo[] fiJpgs = new System.IO.FileInfo(filename).Directory.GetFiles("*.jpg");
+                                FileInfo[] fiPngs = new System.IO.FileInfo(filename).Directory.GetFiles("*.png");
+                                if (fiJpgs.Length == 0 && fiPngs.Length == 0)
                                 {
-                                    Fanart2 = fanartPath;  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
+                                    _parent.Trace("No Jpgs or PngsFound");
                                 }
-
-                                if (fiThumb.Exists)
+                                else
                                 {
-                                    Thumb2 = ThumbPath;
-                                }
+                                    if (fiJpgs.Any(item => item.FullName.Contains("Front")) )
+                                    {
+                                        Thumb2 = fiJpgs.First(item => item.FullName.Contains("Front")).FullName;
+                                    }
+                                    else if (fiJpgs.Any(item => item.FullName.Contains("folder")))
+                                    {
+                                        Thumb2 = fiJpgs.First(item => item.FullName.Contains("folder")).FullName;
+                                    }
+                                    else if (fiPngs.Any(item => item.FullName.Contains("cdart")))
+                                    {
+                                        Thumb2 = fiPngs.First(item => item.FullName.Contains("cdart")).FullName;
+                                    }
+                                    else if (fiJpgs.Any(item => item.FullName.Contains("jpg")))
+                                    {
+                                        Thumb2 = fiJpgs.First(item => item.FullName.Contains("jpg")).FullName;
+                                    }
+                                    // ****************************************************
+                                    if (fiJpgs.Any(item => item.FullName.Contains("fanart")))
+                                    {
+                                        Fanart2 = fiJpgs.First(item => item.FullName.Contains(@"*fanart*")).FullName;
+                                    }
+                                    else if (fiPngs.Any(item => item.FullName.Contains("fanart.png")))
+                                    {
+                                        Fanart2 = fiPngs.First(item => item.FullName.Contains("fanart")).FullName;
+                                    }
+                                    else if (fiJpgs.Any(item => item.FullName.Contains("jpg")))
+                                    {
+                                        Fanart2 = fiJpgs.First(item => item.FullName.Contains("jpg")).FullName;
+                                    }
 
-                                if (ficdart.Exists)
-                                {
-                                    cdart = cdartpath;
-                                }
+                                    //var filePath = Path.GetDirectoryName(Field.ValueOrDefault("Filename"));
+                                    //var fanartPath = Path.Combine(filePath, "fanart.jpg");
+                                    //var cdartpath = Path.Combine(filePath, "cdart.png");
+                                    //var ThumbPath = Path.Combine(filePath, "folder.jpg");
+                                    //var BannerPath = Path.Combine(filePath, "banner.jpg");
+                                    //var Frontpath = Path.Combine(filePath, "*Front.jpg");
+                                    //System.IO.FileInfo fi = new System.IO.FileInfo(fanartPath);
+                                    //System.IO.FileInfo ficdart = new System.IO.FileInfo(cdartpath);
+                                    //System.IO.FileInfo fiThumb = new System.IO.FileInfo(ThumbPath);
 
-                                // use cdart or album
-                                if (cdart != "")  // use this else Thumb (folder.jpg currently) or failing that Thumb from JRiver 
-                                                  // can access mp3 file data??
-                                {
-                                    Thumb2 = cdart;
+                                    //if (fi.Exists)
+                                    //{
+                                    //    Fanart2 = fanartPath;  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
+                                    //}
+
+                                    //if (fiThumb.Exists)
+                                    //{
+                                    //    Thumb2 = ThumbPath;
+                                    //}
+
                                 }
                             }
 
+
+                            _parent.Trace("GetAlbum Art: " + Thumb2);
                             string GenreName = "Unknown";
                             if (Field.TryGetValue("Genre", out result))
                             {
@@ -289,7 +321,9 @@ namespace Remote.Jriver.Api
                                     Artist = Artist,
                                     Genre = GenreName,
                                     Year = Year,
-                                    Thumb = Thumb2
+                                    Thumb = Thumb2,
+                                    Fanart = Fanart2,
+                                    Hash = Xbmc.Hash(Album)
                                 };
                                 if (!albums.Any(a => a.Title == Album))
                                 {
@@ -389,6 +423,7 @@ namespace Remote.Jriver.Api
                                 var cdartpath = Path.Combine(filePath, "cdart.png");
                                 var ThumbPath = Path.Combine(filePath, "folder.jpg");
                                 var BannerPath = Path.Combine(filePath, "banner.jpg");
+                                
                                 System.IO.FileInfo fi = new System.IO.FileInfo(fanartPath);
                                 System.IO.FileInfo ficdart = new System.IO.FileInfo(cdartpath);
                                 System.IO.FileInfo fiThumb = new System.IO.FileInfo(ThumbPath);

@@ -652,27 +652,25 @@ namespace FrontView
         private void NewThread(string IpAddress)
         {
 
+            UdpClient client = new UdpClient(_config.IPPort);
+            client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             try
             {
                 IPAddress localAdd = IPAddress.Parse(IpAddress);
                 // TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
                 Logger.Instance().Log("Fanart-Server", "Within New Thread running Listener: IP Address:"+IpAddress+" Port Equals:"+_config.IPPort, true);
                 // listener.Start();
-                // _config.FanartCurrentPath = null;
-
-                UdpClient client = new UdpClient(_config.IPPort);
+                // _config.FanartCurrentPath = null;            
 
                 while (RunningServerThread)
                 {
-
                     //NetworkStream nwStream = client.GetStream();
                     IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 0);
-
                     byte[] buffer = client.Receive(ref groupEP);
                     // int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
                     string dataReceived = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
                     // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
-
+                    
                     Logger.Instance().LogDump("Fanart-Server", "Data Received  " + dataReceived, true);
                    // Logger.Instance().LogDump("Fanart-Server", dataReceived, true);
 
@@ -722,12 +720,18 @@ namespace FrontView
             catch (Exception ex)
             {
                 Logger.Instance().Log("Fanart-Server", "Proper Exception Caught:" + ex, true);
-                
-
+                client.Close();
+                client.Dispose();        
             }
+            finally
+            {
+                client.Close();
+                client.Dispose();
+            }
+                        
 
             if (RunningServerThread)
-            {
+            {              
                 NewThread(IpAddress);
             }
             else
@@ -1618,7 +1622,7 @@ namespace FrontView
             catch (Exception ex)
             {
                 Logger.Instance().LogDump("IsFileURI", "Fails Path Test: " + path, true);
-                Logger.Instance().LogDump("IsFileURI", "Fails Path Exception: " + ex, true);
+                Logger.Instance().LogDump("IsFileURI", "Fails Path Caught Exception: " + ex, true);
                 return false;
 
             }

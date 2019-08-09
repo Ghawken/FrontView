@@ -800,11 +800,11 @@ namespace FrontView
         {
             Logger.Instance().Log("FrontView+","Start Refresh : Thumbs/Fanarts");
 
-            if (_remote.ApiName =="JRV")
-            {
-                Logger.Instance().Log("Frontview+", "Skip as JRiver remote");
-                return;
-            }
+            //if (_remote.ApiName =="JRV")
+            //{
+            //    Logger.Instance().Log("Frontview+", "Skip as JRiver remote");
+            //    return;
+            //}
 
             _remote.File.StopAsync();
 

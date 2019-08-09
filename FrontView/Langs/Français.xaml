@@ -158,6 +158,6 @@
     <S:String x:Key="Localized_138">Action de lecture par défaut :</S:String>
     <S:String x:Key="Localized_139">Lecture</S:String>
     <S:String x:Key="Localized_140">Aléatoire</S:String>
-    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_141">Use FrontView Server</S:String>
     <S:String x:Key="Localized_142">Use Minimise Always</S:String>
 </ResourceDictionary>

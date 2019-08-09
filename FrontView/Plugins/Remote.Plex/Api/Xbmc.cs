@@ -344,6 +344,9 @@ namespace Remote.Plex.Api
             return true;
         }
 
+
+
+
         public override int TestConnection(string ip, string port, string user, string password)
         {
             if (String.IsNullOrEmpty(ip)) return 0;
@@ -523,6 +526,8 @@ namespace Remote.Plex.Api
                     var json = new JavaScriptSerializer();
 
                     dynamic result = json.DeserializeObject(response);
+
+                    Log("Plex:"+response.ToString());                 
 
                     var token = result["user"]["authentication_token"];
                     PlexAuthToken = token;

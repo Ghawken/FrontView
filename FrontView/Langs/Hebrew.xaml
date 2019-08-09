@@ -151,6 +151,6 @@
     <S:String x:Key="Localized_131">מזג האוויר</S:String>
     <S:String x:Key="Localized_132">אחר</S:String>
     <S:String x:Key="Localized_133">עדכון</S:String>
-    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_141">Use FrontView Server</S:String>
     <S:String x:Key="Localized_142">Use Minimise Always</S:String>
 </ResourceDictionary>

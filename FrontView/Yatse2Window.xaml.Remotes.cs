@@ -113,6 +113,8 @@ namespace FrontView
             var remote = ApiHelper.Instance().GetRemoteByApi(selitem.Api);
 
             var res = remote.TestConnection(selitem.IP, selitem.Port, selitem.Login, selitem.Password);
+
+
             if (res !=1 )
             { 
                 ShowOkDialog(GetLocalizedString(16));

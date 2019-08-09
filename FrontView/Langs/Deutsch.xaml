@@ -126,6 +126,6 @@
     <S:String x:Key="Localized_106">Künstler bei Zusammenstellungen verbergen. </S:String>
     <S:String x:Key="Localized_107">Künstler im Genre anzeigene</S:String>
     <S:String x:Key="Localized_108">Aktuelle Musik Fanart Rotation </S:String>
-    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_141">Use FrontView Server</S:String>
     <S:String x:Key="Localized_142">Use Minimise Always</S:String>
 </ResourceDictionary>

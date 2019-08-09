@@ -133,6 +133,6 @@
     <S:String x:Key="Localized_113">U heeft de laatste versie.</S:String>
     <S:String x:Key="Localized_114">Fout tijdens controle. Probeer later nog eens.</S:String>
     <S:String x:Key="Localized_115">Vertalingen bijgewerkt</S:String>
-    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_141">Use FrontView Server</S:String>
     <S:String x:Key="Localized_142">Use Minimise Always</S:String>
 </ResourceDictionary>

@@ -158,6 +158,6 @@
     <S:String x:Key="Localized_138">Domyślna akcja odtwarzania :</S:String>
     <S:String x:Key="Localized_139">Odtwarzaj</S:String>
     <S:String x:Key="Localized_140">Losowo</S:String>
-    <S:String x:Key="Localized_141">Use Yatse2 Server</S:String>
+    <S:String x:Key="Localized_141">Use FrontView Server</S:String>
     <S:String x:Key="Localized_142">Use Minimise Always</S:String>
 </ResourceDictionary>
