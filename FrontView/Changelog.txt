@@ -1,5 +1,17 @@
 ﻿Changelog:
 
+1.303
+Few fixes - Hide Video Menu not sticking until save, Fanart crash if no remote on startup
+More changes to Kodi Fanart Server connection - stopping/starting/restarting better handled
+Hardening against crashes (which can't replicate)
+
+1.302
+Add some checks for Kodi Frontview Server/Fanart Connection
+(reusing same socket address is starts/restarts)
+
+1.300
+Add JRiver Support
+
 1.294
 Fixes for Emby Movie/Tv Show Database download to FV
 

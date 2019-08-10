@@ -717,7 +717,11 @@ namespace FrontView
         private void UpdateRemote()
         {
             if (_remote == null)
+            {
+                
+                RunningServerThread = false;
                 return;
+            }
             if (!_remoteConnected && _remote.IsConnected() && !_failedRemoteCheck)
             {
                 Logger.Instance().Log("FrontView+", "Remote connected : " + _remoteInfo.Id + " - " + _remoteInfo.Name + " (" + _remoteInfo.Api + " / " + _remoteInfo.Version + ")");
@@ -739,8 +743,6 @@ namespace FrontView
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Connected");
                 _remoteConnected = true;
 
-
-
                 //Add Startup Connection QUick Refresh & Kodi Source Data change
                 if (_remoteInfo.Additional != "")
                 {
@@ -754,13 +756,16 @@ namespace FrontView
 
                 /////////////////////////////////////////////////////////////////////////////////////
                 // Start Fanart Server with Remote Connection and use Remote Parameters/Ip Address //
-                // Ignore the Config File Data for IP use it for Port                              //
+                // Ignore the Config File Data for IP use it for Port                             
+                // Only Runs with first connection of Remote Control/Kodi                          //
                 ////////////////////////////////////////////////////////////////////////////////////
-                if (_config.StartFrontViewServer )
-                 
+                if (_config.StartFrontViewServer )               
                 {
+                    Logger.Instance().LogDump("Fanart-Server", "Starting/Checking Server:" + _remote.IP);
                     StartServer(_remote.IP);
                 }
+
+
 
                 updateCacheSizes();
 
@@ -819,6 +824,7 @@ namespace FrontView
                     ShowPopup(GetLocalizedString(97) + " " + _remoteInfo.Name);
                     _remote.File.StopAsync();
                     _yatse2Properties.IsSyncing = false;
+                    RunningServerThread = false;  // Remote disconnected kill server thread
                 }
                 btn_Header_Remotes.Background = GetSkinImageBrush("Menu_Remote_Disconnected");
                 _remoteConnected = false;

@@ -106,7 +106,7 @@ namespace FrontView
 
             chk_Settings_QuickRefreshEnable.IsChecked = _config.QuickRefreshEnable;
             chk_Settings_ShowAudioMenu.IsChecked = _config.ShowAudioMenu;
-
+            chk_Settings_ShowVideoMenu.IsChecked = _config.ShowVideoMenu;
 
             //chk_Settings_AnimatedMusicCover.IsChecked = _config.AnimatedMusicCover;
             chk_Settings_DimmingOnlyVideo.IsChecked = _config.DimmingOnlyVideo;

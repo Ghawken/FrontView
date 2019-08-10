@@ -652,92 +652,93 @@ namespace FrontView
         private void NewThread(string IpAddress)
         {
 
-            UdpClient client = new UdpClient(_config.IPPort);
-            client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             try
             {
-                IPAddress localAdd = IPAddress.Parse(IpAddress);
-                // TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
-                Logger.Instance().Log("Fanart-Server", "Within New Thread running Listener: IP Address:"+IpAddress+" Port Equals:"+_config.IPPort, true);
-                // listener.Start();
-                // _config.FanartCurrentPath = null;            
-
-                while (RunningServerThread)
+                UdpClient client = new UdpClient(_config.IPPort);
+                client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                try
                 {
-                    //NetworkStream nwStream = client.GetStream();
-                    IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 0);
-                    byte[] buffer = client.Receive(ref groupEP);
-                    // int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
-                    string dataReceived = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
-                    // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
-                    
-                    Logger.Instance().LogDump("Fanart-Server", "Data Received  " + dataReceived, true);
-                   // Logger.Instance().LogDump("Fanart-Server", dataReceived, true);
+                    IPAddress localAdd = IPAddress.Parse(IpAddress);
+                    // TcpListener listener = new TcpListener(IPAddress.Any, _config.IPPort);
+                    Logger.Instance().Log("Fanart-Server", "Within New Thread running Listener: IP Address:" + IpAddress + " Port Equals:" + _config.IPPort, true);
+                    // listener.Start();
+                    // _config.FanartCurrentPath = null;            
 
-                    // Receive data from Kodi thread to deal with theme.mp3
-                    // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
-                    // occurs on every playback - but when theme started - stops sending ListItem.Path info and sends
-                    // playback info for theme.
-                    // At Remote End Kodi ignores theme files so no NowPlaying screen for them
-                    // BUT - resorts to generic fanart as the Fanart Path info that was sent is no longer sent
-                    // This change basically ignores sent info from Kodi via Plugin -- if a onstartplayback event noted
-                    // Phew.
-                    // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
-
-                    if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
+                    while (RunningServerThread)
                     {
-                        Logger.Instance().LogDump("Fanart-Server", "NOT Playback Started Event - change Fanart as required", true);
-                        if (dataReceived != "" && dataReceived != null)
-                        {
-                            _config.FanartCurrentPath = dataReceived;
-                        }
-                    }
-                    /**
-                    if (dataReceived.Contains("FrontViewConsoleCommand ON"))
-                    {
-                        Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON - change Fanart", true);
-                        string[] arguments = dataReceived.Split(',');
+                        //NetworkStream nwStream = client.GetStream();
+                        IPEndPoint groupEP = new IPEndPoint(IPAddress.Any, 0);
+                        byte[] buffer = client.Receive(ref groupEP);
+                        // int bytesRead = nwStream.Read(buffer, 0, client.ReceiveBufferSize);
+                        string dataReceived = Encoding.ASCII.GetString(buffer, 0, buffer.Length);
+                        // Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
 
-                        Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:"+arguments[0]+" "+arguments[1], true);
-                        if (dataReceived != "" && dataReceived != null)
+                        Logger.Instance().LogDump("Fanart-Server", "Data Received  " + dataReceived, true);
+                        // Logger.Instance().LogDump("Fanart-Server", dataReceived, true);
+
+                        // Receive data from Kodi thread to deal with theme.mp3
+                        // Basically checks for onplaybackstarted info which is sent when Kodi is playinbg
+                        // occurs on every playback - but when theme started - stops sending ListItem.Path info and sends
+                        // playback info for theme.
+                        // At Remote End Kodi ignores theme files so no NowPlaying screen for them
+                        // BUT - resorts to generic fanart as the Fanart Path info that was sent is no longer sent
+                        // This change basically ignores sent info from Kodi via Plugin -- if a onstartplayback event noted
+                        // Phew.
+                        // Also does not reset FanartCurrentPath info every time run / second / hopefully no unforseen issues
+
+                        if (!dataReceived.Contains(@"<event>onplaybackstarted</event>"))
                         {
-                            _config.FanartCurrentPath = arguments[1];
-                            CheckFanArt();
-                            SwitchFanart();
-                            _config.FanartSwitch = false;
+                            Logger.Instance().LogDump("Fanart-Server", "NOT Playback Started Event - change Fanart as required", true);
+                            if (dataReceived != "" && dataReceived != null)
+                            {
+                                _config.FanartCurrentPath = dataReceived;
+                            }
                         }
+                        /**
+                        if (dataReceived.Contains("FrontViewConsoleCommand ON"))
+                        {
+                            Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON - change Fanart", true);
+                            string[] arguments = dataReceived.Split(',');
+
+                            Logger.Instance().LogDump("SERVER", "ConsoleCommandReceived ON Arguments:"+arguments[0]+" "+arguments[1], true);
+                            if (dataReceived != "" && dataReceived != null)
+                            {
+                                _config.FanartCurrentPath = arguments[1];
+                                CheckFanArt();
+                                SwitchFanart();
+                                _config.FanartSwitch = false;
+                            }
+                        }
+                        **/
+                        //  onfig.FanartCurrentPath = dataReceived;
+                        // Console.WriteLine("The resulting messages on the server" + dataReceived);
+                        //  nwStream.Write(buffer, 0, bytesRead);
+                        // Console.WriteLine("\n");
+                        //client.Close();
                     }
-                    **/
-                    //  onfig.FanartCurrentPath = dataReceived;
-                    // Console.WriteLine("The resulting messages on the server" + dataReceived);
-                    //  nwStream.Write(buffer, 0, bytesRead);
-                    // Console.WriteLine("\n");
-                    //client.Close();
+                    client.Close();
+                    client.Dispose();
                 }
-                client.Close();
-                client.Dispose();
+                catch (Exception ex)
+                {
+                    Logger.Instance().Log("Fanart-Server", "Proper Exception Caught:" + ex, true);
+                    client.Close();
+                    client.Dispose();
+                }
+
+                if (RunningServerThread)
+                {
+                    NewThread(IpAddress);
+                }
+                else
+                {
+                    Logger.Instance().Log("Fanart-Server", "End of Server Thread.", true);
+                    _config.FanartCurrentPath = _config.FanartDirectory;
+                }
             }
             catch (Exception ex)
             {
-                Logger.Instance().Log("Fanart-Server", "Proper Exception Caught:" + ex, true);
-                client.Close();
-                client.Dispose();        
-            }
-            finally
-            {
-                client.Close();
-                client.Dispose();
-            }
-                        
-
-            if (RunningServerThread)
-            {              
-                NewThread(IpAddress);
-            }
-            else
-            {
-                Logger.Instance().Log("Fanart-Server", "End of Server Thread.", true);
-                _config.FanartCurrentPath = _config.FanartDirectory;
+                Logger.Instance().LogDump("Fanart-Server", "Caught Main Exception: Of interest: " + ex, true);
             }
             //   listener.Stop();
         }
@@ -1736,185 +1737,180 @@ namespace FrontView
 
         private void CheckFanArt(bool forceCheck)
         {
-
-            var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
-            var FanartAlways = _config.FanartAlways;
-            //_config.FanartDirectory = null;
-            int numberofdirectoriesdeep = _config.FanartNumberDirectories;
-            var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
-
-
-            if (nowPlaying2 != null)
+            try
             {
-                Logger.Instance().LogDump("FrontView FANART    : Check FanART Run & Current Menu prior", nowPlaying2.CurrentMenuLabel, true);
-                Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
-            }
-
-            if (_remote.GetOS() == "Emby" && FanartAlways == true)
-            {
-                _config.FanartDirectory = _config.FanartDirectoryMovie;
-                Logger.Instance().LogDump("Frontview FANART", "Emby is Remote Connection - Ignoring Relevant Fanart", true);
-                Logger.Instance().LogDump("Frontview FANART", "Emby: Path to Fanart " + _config.FanartDirectory, true);
-
-                // Emby No point currently to do menu checks as will not work
-                // Need to figure out the path however - change path if not correct - enable compatiblity with both
-                if (GetRandomImagePathNew(_config.FanartDirectory) == null)
+                var nowPlaying2 = _remote != null ? _remote.Player.NowPlaying(false) : new ApiCurrently();
+                var FanartAlways = _config.FanartAlways;
+                //_config.FanartDirectory = null;
+                int numberofdirectoriesdeep = _config.FanartNumberDirectories;
+                var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                var FanartDirectory = appdatadirectory + @"\Kodi\userdata\";
+                if (nowPlaying2 != null)
                 {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
-                    Logger.Instance().LogDump("Frontview FANART", "Default Fanart Directory is null - Add Directory", true);
-                    
+                    Logger.Instance().LogDump("FrontView FANART    : Check FanART Run & Current Menu prior", nowPlaying2.CurrentMenuLabel, true);
+                    Logger.Instance().LogDump("FrontView FANART    : Check Remote Type if EMBY Dont check any further set to Default", nowPlaying2.CurrentMenuLabel, true);
                 }
-                
-            }
 
-
-            if (grd_Diaporama.Visibility == Visibility.Hidden)  //  && nowPlaying2.CurrentMenuID != "10004" ) ||  (grd_Diaporama.Visibility == Visibility.Hidden && nowPlaying2.CurrentMenuID != "10000" && !_config.NoHomeScreenFanart) ||  )
-            {
-                if (nowPlaying2.CurrentMenuID != "10004")
+                if (_remote != null && _remote.GetOS() == "Emby" && FanartAlways == true)
                 {
-                    if ((nowPlaying2.CurrentMenuID != "10000") || (nowPlaying2.CurrentMenuID == "10000" && !_config.NoHomeScreenFanart))
+                    _config.FanartDirectory = _config.FanartDirectoryMovie;
+                    Logger.Instance().LogDump("Frontview FANART", "Emby is Remote Connection - Ignoring Relevant Fanart", true);
+                    Logger.Instance().LogDump("Frontview FANART", "Emby: Path to Fanart " + _config.FanartDirectory, true);
+
+                    // Emby No point currently to do menu checks as will not work
+                    // Need to figure out the path however - change path if not correct - enable compatiblity with both
+                    if (GetRandomImagePathNew(_config.FanartDirectory) == null)
                     {
-                        var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
-                        if (stbDiaporamaShow != null)
-                        {
-                            stbDiaporamaShow.Begin(this);
-                        }
-                    }
-                }
-            }
-
-
-            if (FanartAlways == true || forceCheck == true)
-            {
-
-                if (nowPlaying2.FileName == "IGNORE")
-                {
-                    Logger.Instance().LogDump("IGNORE", "IGNORE given ignoring Fanart Socket", true);
-                    return;
-                }
-
-
-
-
-                string CurrentPath = SortOutPath(_config.FanartCurrentPath);
-                CurrentPath = cleanPath(CurrentPath, string.Empty);
-
-                //    var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                //    var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
-
-                Logger.Instance().LogDump("SERVER", "Fanart Directory from Socket =:" + _config.FanartCurrentPath, true);
-                Logger.Instance().LogDump("SERVER", "Fanart Directory NORMALISED =:" + CurrentPath, true);
-
-                if (IsFileURI(CurrentPath) == true)
-                {
-                    if (nowPlaying2.CurrentMenuID == "10025")
-                    {
-                        try
-                        {
-                            string CurrentPath2 = CurrentPath;
-                            Logger.Instance().LogDump("SERVER", "Video Directory Socket returned path - CurrentPath2 equals  " + @CurrentPath2, true);
-
-                            string CurrentPath3 = GetFanartDirectory(CurrentPath2);
-
-
-                            _config.FanartDirectory = @CurrentPath3 + @"extrafanart\";
-                            Logger.Instance().LogDump("SERVER", "FanartDirectory Performed and equals:" + _config.FanartDirectory, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Instance().LogDump("SERVER", "Fanart Video Menu 10025 - Exception occured   " + ex, true);
-                            _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
-                        }
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
+                        Logger.Instance().LogDump("Frontview FANART", "Default Fanart Directory is null - Add Directory", true);
 
                     }
 
-                    if (nowPlaying2.CurrentMenuID == "10002")
-                    {
-                        try
-                        {
+                }
 
-                            string CurrentPath2 = CurrentPath;
-                            Logger.Instance().LogDump("SERVER", "Image Directory Selected - path equals  " + CurrentPath2, true);
-                            _config.FanartDirectory = @CurrentPath2;
-                            Logger.Instance().LogDump("SERVER", "Image Directory Selected & fanart equals  " + _config.FanartDirectory, true);
-                            if (GetRandomImagePathNew(_config.FanartDirectory) == null) //Empty directory or root etc
+                if (grd_Diaporama.Visibility == Visibility.Hidden)  //  && nowPlaying2.CurrentMenuID != "10004" ) ||  (grd_Diaporama.Visibility == Visibility.Hidden && nowPlaying2.CurrentMenuID != "10000" && !_config.NoHomeScreenFanart) ||  )
+                {
+                    if (nowPlaying2.CurrentMenuID != "10004")
+                    {
+                        if ((nowPlaying2.CurrentMenuID != "10000") || (nowPlaying2.CurrentMenuID == "10000" && !_config.NoHomeScreenFanart))
+                        {
+                            var stbDiaporamaShow = (Storyboard)TryFindResource("stb_ShowDiaporama");
+                            if (stbDiaporamaShow != null)
                             {
-                                _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
-                                Logger.Instance().LogDump("SERVER", "Image Directory & no Images: Reset to default :" + _config.FanartDirectory, true);
+                                stbDiaporamaShow.Begin(this);
                             }
                         }
-                        catch (Exception ex)
+                    }
+                }
+
+
+                if (FanartAlways == true || forceCheck == true)
+                {
+
+                    if (nowPlaying2.FileName == "IGNORE")
+                    {
+                        Logger.Instance().LogDump("IGNORE", "IGNORE given ignoring Fanart Socket", true);
+                        return;
+                    }
+
+                    string CurrentPath = SortOutPath(_config.FanartCurrentPath);
+                    CurrentPath = cleanPath(CurrentPath, string.Empty);
+
+                    //    var appdatadirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    //    var FanartDirectory = appdatadirectory + @"\Kodi\userdata\"; 
+
+                    Logger.Instance().LogDump("SERVER", "Fanart Directory from Socket =:" + _config.FanartCurrentPath, true);
+                    Logger.Instance().LogDump("SERVER", "Fanart Directory NORMALISED =:" + CurrentPath, true);
+
+                    if (IsFileURI(CurrentPath) == true)
+                    {
+                        if (nowPlaying2.CurrentMenuID == "10025")
                         {
-                            Logger.Instance().LogDump("SERVER", "Fanart Image - Exception occured   " + ex, true);
-                            _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
+                            try
+                            {
+                                string CurrentPath2 = CurrentPath;
+                                Logger.Instance().LogDump("SERVER", "Video Directory Socket returned path - CurrentPath2 equals  " + @CurrentPath2, true);
+
+                                string CurrentPath3 = GetFanartDirectory(CurrentPath2);
+
+
+                                _config.FanartDirectory = @CurrentPath3 + @"extrafanart\";
+                                Logger.Instance().LogDump("SERVER", "FanartDirectory Performed and equals:" + _config.FanartDirectory, true);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Instance().LogDump("SERVER", "Fanart Video Menu 10025 - Exception occured   " + ex, true);
+                                _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
+                            }
+
+                        }
+
+                        if (nowPlaying2.CurrentMenuID == "10002")
+                        {
+                            try
+                            {
+
+                                string CurrentPath2 = CurrentPath;
+                                Logger.Instance().LogDump("SERVER", "Image Directory Selected - path equals  " + CurrentPath2, true);
+                                _config.FanartDirectory = @CurrentPath2;
+                                Logger.Instance().LogDump("SERVER", "Image Directory Selected & fanart equals  " + _config.FanartDirectory, true);
+                                if (GetRandomImagePathNew(_config.FanartDirectory) == null) //Empty directory or root etc
+                                {
+                                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
+                                    Logger.Instance().LogDump("SERVER", "Image Directory & no Images: Reset to default :" + _config.FanartDirectory, true);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Instance().LogDump("SERVER", "Fanart Image - Exception occured   " + ex, true);
+                                _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages;
+                            }
+
+                        }
+                    }
+                    // if no directory or no files afte above then move to default menu based settings                
+
+                    if (nowPlaying2.CurrentMenuID == "10025" && IsFileURI(CurrentPath) != true)
+                    {
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie; // +@"MovieFanart\";
+                    }
+
+                    if (nowPlaying2.CurrentMenuID == "10501")
+                    {
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
+
+                    }
+
+                    if (nowPlaying2.CurrentMenuID == "10501")
+                    {
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
+
+                    }
+
+                    //  if (nowPlaying2.CurrentMenuID == "10002")
+                    //  {
+                    //      _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages; // +@"OwnFanart\";
+                    //  }
+                    if (nowPlaying2.CurrentMenuID == "12600")
+                    {
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryWeather; // ppdatadirectory + @"\Kodi\userdata\addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";
+
+                    }
+                    if (nowPlaying2.CurrentMenuID == "10000")  //Equals the home menu
+                    {
+                        //
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
+                    }
+                    if (nowPlaying2.CurrentMenuID == "10502")
+                    {
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
+
+                    }
+
+                    //If directory empty and fanart show being displayed - change to default - which is Movies
+                    if (GetRandomImagePathNew(_config.FanartDirectory) == null && grd_Diaporama.Visibility != Visibility.Hidden)
+                    {
+
+
+                        _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
+                    }
+
+                    if ((nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden) || (nowPlaying2.CurrentMenuID == "10000" && _config.NoHomeScreenFanart && grd_Diaporama.Visibility != Visibility.Hidden))
+                    {
+
+                        var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
+                        if (stbDiaporamaHide != null)
+                        {
+                            stbDiaporamaHide.Begin(this);
                         }
 
                     }
-                }
-                // if no directory or no files afte above then move to default menu based settings                
-
-                if (nowPlaying2.CurrentMenuID == "10025" && IsFileURI(CurrentPath) != true)
-                {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie; // +@"MovieFanart\";
-                }
-
-                if (nowPlaying2.CurrentMenuID == "10501")
-                {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
 
                 }
-
-                if (nowPlaying2.CurrentMenuID == "10501")
-                {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic;
-
-                }
-
-
-                //  if (nowPlaying2.CurrentMenuID == "10002")
-                //  {
-                //      _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMyImages; // +@"OwnFanart\";
-                //  }
-                if (nowPlaying2.CurrentMenuID == "12600")
-                {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryWeather; // ppdatadirectory + @"\Kodi\userdata\addon_data\skin.aeonmq5.extrapack\backgrounds_weather\";
-
-                }
-                if (nowPlaying2.CurrentMenuID == "10000")  //Equals the home menu
-                {
-                    //
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryTV;
-                }
-                if (nowPlaying2.CurrentMenuID == "10502")
-                {
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMusic; // +@"ArtistFanart\";
-
-                }
-
-                //If directory empty and fanart show being displayed - change to default - which is Movies
-                if (GetRandomImagePathNew(_config.FanartDirectory) == null && grd_Diaporama.Visibility != Visibility.Hidden)
-                {
-
-
-                    _config.FanartDirectory = FanartDirectory + _config.FanartDirectoryMovie;
-                }
-
-
-
-
-
-                if ((nowPlaying2.CurrentMenuID == "10004" && grd_Diaporama.Visibility != Visibility.Hidden) || (nowPlaying2.CurrentMenuID == "10000" && _config.NoHomeScreenFanart && grd_Diaporama.Visibility != Visibility.Hidden))
-                {
-
-                    var stbDiaporamaHide = (Storyboard)TryFindResource("stb_HideDiaporama");
-                    if (stbDiaporamaHide != null)
-                    {
-                        stbDiaporamaHide.Begin(this);
-                    }
-
-                }
-
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Log("CheckFanart","Caught Exception:" + ex);
             }
         }
 
@@ -1955,8 +1951,9 @@ namespace FrontView
             _timerHeader++;
             _timer++;
             _timerWeather++;
-            Logger.Instance().LogDump("FrontView FANART    : Timer Result", _timer);
-
+            Logger.Instance().LogDump("FrontView Timer_Tick    : Timer Result", _timer);
+            Logger.Instance().LogDump("FrontView Timer_Tick    : Weather Timer Result", _timerWeather);
+            Logger.Instance().LogDump("FrontView Timer_Tick    : timer Header Timer Result", _timerHeader);
             UpdateRemote();
 
             Window glennwindow = Window.GetWindow(this);
@@ -2273,10 +2270,15 @@ namespace FrontView
 
             }
 
+            if (RunningServerThread && _config.StartFrontViewServer == false)
+            {
+                RunningServerThread = false; 
+                // If ServerThreadRunning, but config now not to run server, set RunningServerThread to False (should kill thread)
+                // and won't be restarted until config above changed..
+            }
 
 
             PositionScreen();
-
             CheckFirstLaunch();
 
         }
