@@ -291,7 +291,13 @@ namespace Remote.Plex.Api
                             Log("Clients FOUND: " + deserialized.size);
                             Log("name is " + server.name + " and host is " + server.host);
 
-                            
+                            // Just use local IP address always
+                            // Given Plex Player hasn't fixed problem
+
+                            ClientIPAddress = GetLocalIPAddress();
+                            return true;
+
+
                             if (server.host == GetLocalIPAddress())
                             {
                                 Log("Client Machine Found - Yah!    " + server.host + ":" + server.name);
@@ -434,6 +440,14 @@ namespace Remote.Plex.Api
                     {
                         Log("Clients FOUND: " + deserialized.size);
                         Log("name is " + server.name + " and host is " + server.host);
+
+                        // Just use local IP address always
+                        // Given Plex Player hasn't fixed problem
+
+                        ServerPort = port;
+                        ClientIPAddress = GetLocalIPAddress();
+                        return 1;
+
 
                         if (server.host == GetLocalIPAddress())
                         {

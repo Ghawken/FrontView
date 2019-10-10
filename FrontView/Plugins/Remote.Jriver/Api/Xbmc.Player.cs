@@ -47,6 +47,13 @@ namespace Remote.Jriver.Api
             _parent = parent;
         }
 
+
+        public string ReplaceInvalidChars(string filename)
+        {
+            return string.Join("_", filename.Split(Path.GetInvalidFileNameChars()));
+        }
+
+
         public void RefreshNowPlaying()
         {
             lock (Locker)
@@ -360,6 +367,8 @@ namespace Remote.Jriver.Api
                                 _parent.Log("JRiver:NP NowPlaying.Plot:" + _nowPlaying.Plot);
 
                                 _nowPlaying.FileName = String.IsNullOrEmpty(getFieldValue(fileFields, "Filename")) ? "NotGiven" : getFieldValue(fileFields, "Filename");
+
+
                                 _parent.Log("JRiver:NP NowPlaying.FileName:" + _nowPlaying.FileName);
 
                                 //        _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "" : server.title;
@@ -368,6 +377,9 @@ namespace Remote.Jriver.Api
 
                                 var mediaSubType = getFieldValue(fileFields, "Media Sub Type");
                                 var mediaType = getFieldValue(fileFields, "Media Type");
+
+                                _parent.Log("JRiver: mediaSubType:" + mediaSubType);
+                                _parent.Log("JRiver: mediaType:" + mediaType);
 
                                 if (mediaType == "Video")
                                 {
@@ -384,10 +396,16 @@ namespace Remote.Jriver.Api
                                 {
                                     _nowPlaying.MediaType = "Audio";
                                 }
+                                else if (mediaType=="TV")
+                                {
+                                    _nowPlaying.MediaType = "LiveTV";
+                                    _nowPlaying.FileName = ReplaceInvalidChars(_nowPlaying.FileName);
+                                }
                                 else
                                 {
                                     _nowPlaying.MediaType = "Movie";
                                 }
+                                
                                
                                 _parent.Log("JRiver:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
@@ -620,7 +638,7 @@ namespace Remote.Jriver.Api
                     }
                     catch (Exception ex)
                     {
-                        _parent.Log("Exception in NowPlaying Plex System" + ex);
+                        _parent.Log("Exception in NowPlaying Jriver System" + ex);
                     }
 
 
@@ -786,12 +804,12 @@ namespace Remote.Jriver.Api
                 if (checkNewMedia)
                 {
                     _nowPlaying.IsNewMedia = false;
-                    _parent.Log("JRiver: [Xbmc.Player.cs 613] NewMedia:False");
+                    _parent.Log("JRiver: [Xbmc.Player.cs 807] NewMedia:False");
                     if (_currentMediaFile != _nowPlaying.FileName || (_currentMediaTitle != _nowPlaying.Title))
                     {
                         _currentMediaTitle = _nowPlaying.Title;
                         _currentMediaFile = _nowPlaying.FileName;
-                        _parent.Log("JRiver: [Xbmc.Player.cs 619] setting NewMedia to True");
+                        _parent.Log("JRiver: [Xbmc.Player.cs 807] setting NewMedia to True");
                         _nowPlaying.IsNewMedia = true;
                     }
                 }
