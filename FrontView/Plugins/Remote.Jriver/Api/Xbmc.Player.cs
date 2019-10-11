@@ -58,248 +58,6 @@ namespace Remote.Jriver.Api
         {
             lock (Locker)
             {
-                /*if (_parent.MpcLoaded)
-                {
-                    var result = _parent.MpcHcRemote.GetStatus();
-                    var result2 = new ArrayList();
-                    MpcHcRemote.ParseCSVFields(result2, result);
-                    var data = (string[])result2.ToArray(typeof(string));
-                    if (data.Length > 6)
-                    {
-                        _nowPlaying.MediaType = "Video";
-                        _nowPlaying.Title = "Media Player Classic";
-                        _nowPlaying.Time = new TimeSpan(0, 0, 0, Convert.ToInt32("0" + data[2]) / 1000);
-                        _nowPlaying.Duration = new TimeSpan(0, 0, 0, Convert.ToInt32("0" + data[4]) / 1000);
-                        var percent = Math.Floor(100.0 * Convert.ToInt32("0" + data[2], CultureInfo.InvariantCulture) / Convert.ToInt32("0" + data[4], CultureInfo.InvariantCulture));
-                        if (Double.IsNaN(percent))
-                            percent = 0;
-                        _nowPlaying.Volume = Convert.ToInt32("0" + data[7], CultureInfo.InvariantCulture);
-                        _nowPlaying.IsMuted = data[6] == "1";
-                        _nowPlaying.Progress = (int)percent;
-
-                        if (data[1] == "Playing")
-                        {
-                            _parent.Log("XBMC PLAYER REMOTE:   Playing given Changing NowPlaying to true " + data[1]);
-                            _nowPlaying.IsPlaying = true;
-                            _nowPlaying.IsPaused = false;
-                        }
-                        if (data[1] == "Paused")
-                        {
-                            _parent.Log("XBMC PLAYER REMOTE:   Paused given Changing NowPlaying to true " + data[1]);
-                            _nowPlaying.IsPaused = true;
-                            _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
-                        }
-
-                    }
-                    if (_parent.MpcLoaded == false)
-                    {
-                        _nowPlaying.FileName = "Glenn MPC Stopped";
-                        _nowPlaying.Title = "";
-                        _nowPlaying.IsPlaying = false;
-                        _nowPlaying.IsPaused = false;
-                    }
-                }
-                else
-                {
-                    if (!_parent.IsConnected())
-                    {
-                        _nowPlaying.FileName = "";
-                        _nowPlaying.Title = "";
-                        _nowPlaying.IsPlaying = false;
-                        _nowPlaying.IsPaused = false;
-                        _parent.Log("XBMC PLAYER REMOTE:   Returning as no !Player Connected");
-
-                        return;
-                    }
-                    //_parent.Log("XBMC PLAYER REMOTE:   Check with MPC Doesnt make it here");
-                    /*
-                */
-                /*   
-                   var GUIproperties = new JsonObject();
-                   GUIproperties["properties"] = new[]
-                                                     {
-                                                         "currentwindow"
-                                                             
-                                                      
-                                                       };
-
-                   var menuresult = (JsonObject)_parent.JsonCommand("GUI.GetProperties", GUIproperties);
-                   var GUIdeeper = (JsonObject)menuresult["currentwindow"];
-                   _nowPlaying.CurrentMenuLabel = GUIdeeper["label"].ToString();
-                   _nowPlaying.CurrentMenuID = GUIdeeper["id"].ToString();
-                    
-                                     
-                   var current = -1;
-                   var players = (JsonArray)_parent.JsonCommand("Player.GetActivePlayers", null);
-
-
-                   if (players.Count > 0)
-                   {
-                       foreach (JsonObject player in players)
-                       {
-                           if (player["type"].ToString() == "picture")
-                               continue;
-                           current = Int32.Parse(player["playerid"].ToString());
-                           _nowPlaying.MediaType = (string)player["type"];
-                       }
-                   }
-
-                   if (current == -1)
-                   {
-                       _nowPlaying.FileName = "";
-                       _nowPlaying.Title = "";
-                       _nowPlaying.IsPlaying = false;
-                       _nowPlaying.IsPaused = false;
-                       return;
-                   }
-
-                   var items = new JsonObject();
-                   items["playerid"] = current;
-                   items["properties"] = new[]{
-                                           "file",
-                                           "comment",
-                                           "tvshowid",
-                                           "albumartist",
-                                           "duration",
-                                           //"id",
-                                           "album",
-                                           //"votes",
-                                          // "mpaa",
-                                          // "writer",
-                                          //"albumid",
-                                           //"type",
-                                           "genre",
-                                           "year",
-                                           //"plotoutline",
-                                           "track",
-                                           "artist",
-                                           //"season",
-                                           //"imdbnumber",
-                                          // "studio",
-                                           //"showlink",
-                                           "showtitle",
-                                           "episode",
-                                           "season",
-                                           "plot",
-                                           "director",
-                                           "studio",
-                                           "rating",
-                                           //"productioncode",
-                                           //"country",
-                                           //"premiered",
-                                           //"originaltitle",
-                                           //"artistid",
-                                           //"firstaired",
-                                           "tagline",
-                                           "thumbnail",
-                                           "fanart"
-                                           //"top250",
-                                           //"trailer"
-                                       };
-
-                   var properties = new JsonObject();
-                   properties["playerid"] = current;
-                   properties["properties"] = new[]{
-                                           "totaltime",
-                                           "percentage",
-                                           "time",
-                                           "speed"
-                                       };
-
-                   var appproperties = new JsonObject();
-                   appproperties["properties"] = new[]
-                                                     {
-                                                         "muted",
-                                                         "volume"
-                                                     };
-
-                   var result1 = (JsonObject)_parent.JsonCommand("Player.GetProperties", properties);
-                   var result2 = (JsonObject)_parent.JsonCommand("Player.GetItem", items);
-                   var result3 = (JsonObject)_parent.JsonCommand("Application.GetProperties", appproperties);
-
-
-                   if (result1 == null || result2 == null || result3 == null)
-                   {
-                       _nowPlaying.FileName = "";
-                       _nowPlaying.Title = "";
-                       _nowPlaying.IsPlaying = false;
-                       _nowPlaying.IsPaused = false;
-                       return;
-                   }
-
-                   result2 = (JsonObject)(result2)["item"];
-                 
-                   if (_nowPlaying.MediaType == "video")
-                   {
-                       if (result2["type"].ToString() == "channel")  //if PVR Needs to go high otherwise exception
-                       {
-                           _nowPlaying.MediaType = "Pvr";
-                           _nowPlaying.IsNewMedia = true;
-                           _nowPlaying.FileName = result2["label"].ToString();
-                           _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                           _nowPlaying.FanartURL = result2["fanart"].ToString();
-                           _nowPlaying.Title = result2["label"].ToString();
-                           _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
-                           _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
-                           var pvrtime = (JsonObject)result1["time"];
-                           var pvrtotal = (JsonObject)result1["totaltime"];
-                           _nowPlaying.Time = new TimeSpan(0, Convert.ToInt32("0" + pvrtime["hours"]), Convert.ToInt32("0" + pvrtime["minutes"]), Convert.ToInt32("0" + pvrtime["seconds"]));
-                           _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0" + pvrtotal["hours"]), Convert.ToInt32("0" + pvrtotal["minutes"]), Convert.ToInt32("0" + pvrtotal["seconds"]));
-                           _nowPlaying.Progress = Convert.ToInt32("0" + result1["percentage"].ToString().Split('.')[0]);
-                           _nowPlaying.Volume = Convert.ToInt32("0" + result3["volume"]);
-                           _nowPlaying.IsMuted = (bool)result3["muted"];
-                           return;
-                       }
-                   }
-
-                   _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
-                   _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
-                   var time = (JsonObject)result1["time"];
-                   var total = (JsonObject)result1["totaltime"];
-                   _nowPlaying.Time = new TimeSpan(0, Convert.ToInt32("0" + time["hours"]), Convert.ToInt32("0" + time["minutes"]), Convert.ToInt32("0" + time["seconds"]));
-                   _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0" + total["hours"]), Convert.ToInt32("0" + total["minutes"]), Convert.ToInt32("0" + total["seconds"]));
-                   _nowPlaying.Progress = Convert.ToInt32("0" + result1["percentage"].ToString().Split('.')[0]);
-                   _nowPlaying.Volume = Convert.ToInt32("0" + result3["volume"]);
-                   _nowPlaying.IsMuted = (bool)result3["muted"];
-
-                   _parent.MpcLoaded = _nowPlaying.Duration == new TimeSpan(0, 0, 0, 1);
-
-                   _nowPlaying.FileName = result2["file"].ToString();
-
-                   if (_nowPlaying.MediaType == "audio")
-                   {
-                       _nowPlaying.MediaType = "Audio";
-                       _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
-                       _nowPlaying.Title = result2["label"].ToString();
-                       _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
-                       _nowPlaying.Track = Convert.ToInt32("0" + result2["track"]);
-                       _nowPlaying.Artist = _parent.JsonArrayToString((JsonArray)result2["artist"]);
-                       _nowPlaying.Album = result2["album"].ToString();
-                       _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                       _nowPlaying.FanartURL = result2["fanart"].ToString();
-                   }
-                    
-                   if (_nowPlaying.MediaType == "video")
-                   {
-                       _nowPlaying.MediaType = result2["type"].ToString() == "episode" ? "TvShow" : "Movie";
-                        
-
-                        
-                       _nowPlaying.Genre = _parent.JsonArrayToString((JsonArray)result2["genre"]);
-                       _nowPlaying.Title = result2["label"].ToString();
-                       _nowPlaying.Year = Convert.ToInt32("0" + result2["year"]);
-                       _nowPlaying.SeasonNumber = Convert.ToInt32("0" + result2["season"].ToString().Replace("-", ""));
-                       _nowPlaying.EpisodeNumber = Convert.ToInt32("0" + result2["episode"].ToString().Replace("-", ""));
-                       _nowPlaying.ShowTitle = result2["showtitle"].ToString();
-                       _nowPlaying.Plot = result2["plot"].ToString();
-                       _nowPlaying.Director = _parent.JsonArrayToString((JsonArray)result2["director"]);
-                       _nowPlaying.Studio = _parent.JsonArrayToString((JsonArray)result2["studio"]);
-                       _nowPlaying.Tagline = result2["tagline"].ToString();
-                       _nowPlaying.Rating = result2["rating"].ToString();
-                       _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                       _nowPlaying.FanartURL = result2["fanart"].ToString();
-                   }
-               */
                 if (_parent.IsConnected())
                 {
                     try
@@ -308,7 +66,7 @@ namespace Remote.Jriver.Api
                         _parent.Log("JRiver: Commencing NowPlaying Check for NowPlaying Screen Update");
                         string NPurl = "http://" + _parent.IP + ":" + _parent.Port + "/MCWS/v1/Playback/Info?Zone=-1"+"&Token="+_parent.JRiverAuthToken;
                         var request = WebRequest.Create(NPurl);
-                        var newPlayback = false;
+                        //var newPlayback = false;
 
                         request.Headers.Add("Token", _parent.JRiverAuthToken);
                         var response = request.GetResponse();
@@ -317,7 +75,6 @@ namespace Remote.Jriver.Api
                         {
                             //  Use MPC Remote
                             _parent.MpcLoaded = true;
-
                             // Get the stream containing content returned by the server.
                             System.IO.Stream dataStream = response.GetResponseStream();
                             // Open the stream using a StreamReader.
@@ -327,48 +84,47 @@ namespace Remote.Jriver.Api
                             //_parent.Log("InfoZone: " + reader.ReadToEnd().ToString());
                             var playbackState = getItemName(deserialized, "State");
 
+                            _parent.Log("Jriver: Player State:" + playbackState);
+
+                            if (playbackState == "1")
+                            {
+                                _nowPlaying.IsPaused = true;
+                                _nowPlaying.IsPlaying = false;
+                            }
+                            if (playbackState == "2")
+                            {
+                                _nowPlaying.IsPaused = false;
+                                _nowPlaying.IsPlaying = true;
+                            }
                             if (playbackState == "0")
                             {
                                 _nowPlaying.FileName = "";
                                 _nowPlaying.Title = "";
-                                _nowPlaying.IsPlaying = false;
                                 _nowPlaying.IsPaused = false;
                                 _nowPlaying.IsPlaying = false;
-                                _nowPlaying.IsNewMedia = false;
+                               // _nowPlaying.FanartURL = "";
+                               // _nowPlaying.ThumbURL = "";
+                               // _nowPlaying.IsNewMedia = false;
                                 _parent.Log("JRiver Log: Nothing is Playing");
                                 return;
                             }
 
-                            if (_nowPlaying.IsNewMedia == true)
+                            _nowPlaying.Title = String.IsNullOrEmpty(getItemName(deserialized, "Name")) ? "Blank" : getItemName(deserialized, "Name");
+                            _parent.Log("JRiver:NP NowPlaying.title:" + _nowPlaying.Title);
+                            var fileFields = getFileInfo(getItemName(deserialized, "FileKey"));
+                            _nowPlaying.FileName = String.IsNullOrEmpty(getFieldValue(fileFields, "Filename")) ? "NotGiven" : getFieldValue(fileFields, "Filename");
+
+                            if (_nowPlaying.IsNewMedia)
                             {
-                                _parent.Log("JRiver: Setting newPlayback to True:");
-                                newPlayback = true;
-                            }
-                            //_nowPlaying.IsNewMedia = true;
-                            //_nowPlaying.MediaType = "Movie";
-                            _nowPlaying.IsPlaying = true;
-
-                            _nowPlaying.Title = getItemName(deserialized, "Name");
-
-                            if (newPlayback)
-                            {
-                                var fileFields = getFileInfo(getItemName(deserialized, "FileKey"));
-
+                                 _parent.Log("JRiver:  newPlayback is True:");
                                 //        //    Console.WriteLine("" + server.art);
                                 //        //    Console.WriteLine("" + server.chapterSource);
-
                                 _nowPlaying.Director = String.IsNullOrEmpty(getFieldValue(fileFields, "Director")) ? "Unknown" : getFieldValue(fileFields, "Director"); ;
                                 _parent.Log("JRiver:NP NowPlaying.Director:" + _nowPlaying.Director);
-
                                 //        //     Console.WriteLine("" + server.duration);
                                 //        //    Console.WriteLine("" + server.grandparentArt);
-
                                 _nowPlaying.Plot = String.IsNullOrEmpty(getFieldValue(fileFields, "Tag Line")) ? "" : getFieldValue(fileFields, "Tag Line");
-                                _parent.Log("JRiver:NP NowPlaying.Plot:" + _nowPlaying.Plot);
-
-                                _nowPlaying.FileName = String.IsNullOrEmpty(getFieldValue(fileFields, "Filename")) ? "NotGiven" : getFieldValue(fileFields, "Filename");
-
-
+                                _parent.Log("JRiver:NP NowPlaying.Plot:" + _nowPlaying.Plot);                             
                                 _parent.Log("JRiver:NP NowPlaying.FileName:" + _nowPlaying.FileName);
 
                                 //        _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "" : server.title;
@@ -398,21 +154,24 @@ namespace Remote.Jriver.Api
                                 }
                                 else if (mediaType=="TV")
                                 {
-                                    _nowPlaying.MediaType = "LiveTV";
+                                    _nowPlaying.MediaType = "Movie";
                                     _nowPlaying.FileName = ReplaceInvalidChars(_nowPlaying.FileName);
                                 }
                                 else
                                 {
                                     _nowPlaying.MediaType = "Movie";
                                 }
-                                
-                               
+                                                              
                                 _parent.Log("JRiver:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
                                 if (_nowPlaying.MediaType == "TvShow")
                                 {
-                                    _nowPlaying.SeasonNumber = Convert.ToInt32(getFieldValue(fileFields, "Season"));
-                                    _nowPlaying.EpisodeNumber = Convert.ToInt32(getFieldValue(fileFields, "Episode"));
+                                    int SeasonNumber = 0;
+                                    int EpisodeNumber = 0;
+                                    int.TryParse(getFieldValue(fileFields, "Season"), out SeasonNumber);
+                                    int.TryParse(getFieldValue(fileFields, "Episode"), out EpisodeNumber);
+                                    _nowPlaying.SeasonNumber = SeasonNumber;
+                                    _nowPlaying.EpisodeNumber = EpisodeNumber;
                                     _nowPlaying.Plot = getFieldValue(fileFields, "Description");
                                     _nowPlaying.ShowTitle = String.IsNullOrEmpty(getFieldValue(fileFields, "Series")) ? "Blank" : getFieldValue(fileFields, "Series");
                                     _parent.Log("JRiver:NP NowPlaying.Showtitle:" + _nowPlaying.ShowTitle);
@@ -482,12 +241,6 @@ namespace Remote.Jriver.Api
                                     _parent.Log("JRiver:NP NowPlaying.MovieIcons:" + _nowPlaying.MovieIcons);
                                 }
                             }
-
-
-
-                            _nowPlaying.Title = String.IsNullOrEmpty(getItemName(deserialized, "Name")) ? "Blank" : getItemName(deserialized, "Name"); 
-                            _parent.Log("JRiver:NP NowPlaying.title:" + _nowPlaying.Title);
-
                             var Volume = getItemName(deserialized, "VolumeDisplay");  //Volume
 
                             if (Volume == "Muted")
@@ -497,10 +250,14 @@ namespace Remote.Jriver.Api
                             else
                             {
                                 _nowPlaying.IsMuted = false;
-                                Volume = Volume.Remove(Volume.Length - 1);  //Remove % from Display
+                                int VolumeInt = 0;
+                                int.TryParse(Volume.Remove(Volume.Length - 1), out VolumeInt);
+
                                 try
                                 {
-                                    _nowPlaying.Volume = Convert.ToInt32(Volume);
+                                    _parent.Log("JRiver:Volume: VolumeDisplay Equals:" + Volume);
+                                    _nowPlaying.Volume = VolumeInt;
+
                                 }
                                 catch (Exception ex)
                                 {
@@ -514,7 +271,6 @@ namespace Remote.Jriver.Api
                                 // duration for Plex given in millseconds - convert to seconds and round
                                 // Convert Duration to Timespan with seconds only
                                 var RoundSeconds = Math.Round(Convert.ToInt64(getItemName(deserialized, "DurationMS")) / 1000.00, 1);
-
                                 _nowPlaying.Duration = new TimeSpan(0, Convert.ToInt32("0"), Convert.ToInt32("0"), Convert.ToInt32(RoundSeconds));
                             }
 
@@ -544,20 +300,6 @@ namespace Remote.Jriver.Api
 
                             //        }
 
-                            var playerState = getItemName(deserialized, "State");
-                            _parent.Log("Jriver: Player State:" + playerState);
-
-                            
-                            if (playerState == "1")
-                            {
-                                _nowPlaying.IsPaused = true;
-                                _nowPlaying.IsPlaying = false;
-                            }
-                            if (playerState == "2")
-                            {
-                                _nowPlaying.IsPaused = false;
-                                _nowPlaying.IsPlaying = true;
-                            }
 
 
                             if (_nowPlaying.MediaType == "Audio")
@@ -813,7 +555,7 @@ namespace Remote.Jriver.Api
                         _nowPlaying.IsNewMedia = true;
                     }
                 }
-
+                
                 return _nowPlaying;
             }
         }

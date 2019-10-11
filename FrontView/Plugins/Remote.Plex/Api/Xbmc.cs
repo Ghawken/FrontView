@@ -218,36 +218,23 @@ namespace Remote.Plex.Api
 
         public override bool CheckConnection()
         {
-
             if (!MpcLoaded)
             {
-
                 string url = GetJsonPath() + "/clients";
                 // PMS Server Clients Page - to connect to and see whether local player is in effect.
-
-
-
-
                 try
                 {
-
                     var request = WebRequest.CreateHttp(url);
-
                     request.Headers.Add("X-Plex-Token", PlexAuthToken);
 
                     Log("CheckConnection: PlexToken Equals:" + PlexAuthToken);
                     
-
                     request.Method = "get";
                     request.Timeout = 5000;
                     request.ContentType = "application/json; charset=utf-8";
-
                     request.Accept = "application/json; charset=utf-8";
-
                     request.Host = IP + ":" + Port;
                     request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
-
-
 
                     var values = new NameValueCollection();
 
@@ -257,69 +244,25 @@ namespace Remote.Plex.Api
                     values["Origin"] = IP + ":" + Port;
                     values["X-Plex-Username"] = UserName;
                     values["Upgrade-Insecure-Requests"] = "1";
-
                     request.Headers.Add(values);
-
-
 
                     var response = request.GetResponse();
 
                     if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                     {
-
-                        // Get the stream containing content returned by the server.
-                        System.IO.Stream dataStream = response.GetResponseStream();
-                        // Open the stream using a StreamReader.
-                        System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
-
-
-
-                        XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients2.MediaContainer));
-                        Remote.Plex.Api.Clients2.MediaContainer deserialized = (Remote.Plex.Api.Clients2.MediaContainer)serializer.Deserialize(reader);
-
-                        string json = reader.ReadToEnd().ToString();
-                        Log("CheckConnection Plex:" + json);
-                        
-                        if (deserialized.size == 0)
-                        {
-                            Log("No connected Plex. Clients Found");
-                            return false;
-                        }
-
-                        foreach (var server in deserialized.Server)
-                        {
-                            Log("Clients FOUND: " + deserialized.size);
-                            Log("name is " + server.name + " and host is " + server.host);
-
-                            // Just use local IP address always
-                            // Given Plex Player hasn't fixed problem
-
-                            ClientIPAddress = GetLocalIPAddress();
-                            return true;
-
-
-                            if (server.host == GetLocalIPAddress())
-                            {
-                                Log("Client Machine Found - Yah!    " + server.host + ":" + server.name);
-                                ClientIPAddress = server.host;
-                                return true;
-
-                            }
-
-                        }
-
-                        Log("Local Client not found - disconnecting");
-                        return false;
-
-
+                        Log("CheckConnection Plex: Clients Returned. Contents no longer useful.");
+                        ClientIPAddress = GetLocalIPAddress();
+                        return true;
                     }
-                    Log("HTTP Status Not Okay - no exception failed - disconnecting");
-                    return false;
-
+                    else
+                    {
+                        Log("No reply from clients/ Plex. Clients Found");
+                        return false;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Log("Cannot connect are server details right " + ex);
+                    Log("CheckConnection Plex: Cannot connect.   Are server details right " + ex);
                     return false;
                 }
             }
@@ -351,8 +294,6 @@ namespace Remote.Plex.Api
         }
 
 
-
-
         public override int TestConnection(string ip, string port, string user, string password)
         {
             if (String.IsNullOrEmpty(ip)) return 0;
@@ -382,15 +323,11 @@ namespace Remote.Plex.Api
 
                 request.Method = "get";
                 request.Timeout = 5000;
-                request.ContentType = "application/json; charset=utf-8";
-             
-                request.Accept = "application/json; charset=utf-8";
-                
+                request.ContentType = "application/json; charset=utf-8";            
+                request.Accept = "application/json; charset=utf-8";              
                 request.Host = IP + ":" + Port;
                 request.UserAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36";
              
-
-
                 var values = new NameValueCollection();
                 
                 values["X-Plex-Client-Identifier"] = "FrontView+";
@@ -409,64 +346,33 @@ namespace Remote.Plex.Api
                 {
 
                     // Get the stream containing content returned by the server.
-                    System.IO.Stream dataStream = response.GetResponseStream();
+  //                  System.IO.Stream dataStream = response.GetResponseStream();
                     // Open the stream using a StreamReader.
-
-
-                    System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
+//                    System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
                     //string json = reader.ReadToEnd().ToString();
                     //Log("Plex Returned:" + json);   
 
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients.MediaContainer));
-                    Remote.Plex.Api.Clients.MediaContainer deserialized = (Remote.Plex.Api.Clients.MediaContainer)serializer.Deserialize(reader);
+    //                XmlSerializer serializer = new XmlSerializer(typeof(Remote.Plex.Api.Clients.MediaContainer));
+      //              Remote.Plex.Api.Clients.MediaContainer deserialized = (Remote.Plex.Api.Clients.MediaContainer)serializer.Deserialize(reader);
 
 
-                    string json = reader.ReadToEnd().ToString();
+        //            string json = reader.ReadToEnd().ToString();
                     Log("Testing Client URL:" + url);
-                    Log("TestConnection Plex: ip:"+ip+":Port:"+port+" Result:" + json);
-
-                    if (deserialized.size == 0)
-                    {
-                       Log("No connected Plex. Clients Found");
-                       return 0;
-                    }
-
+                    Log("TestConnection Plex: ip:"+ip+":Port:"+port);
                     Log("Local IP Address equals:");
                     Log(GetLocalIPAddress());
 
-                    foreach (var server in deserialized.Server)
-                    {
-                        Log("Clients FOUND: " + deserialized.size);
-                        Log("name is " + server.name + " and host is " + server.host);
-
-                        // Just use local IP address always
-                        // Given Plex Player hasn't fixed problem
 
                         ServerPort = port;
                         ClientIPAddress = GetLocalIPAddress();
                         return 1;
 
+                 }
 
-                        if (server.host == GetLocalIPAddress())
-                        {
-                            Log("Client Machine Found - Yah!    " + server.host + ":" + server.name);
-                            ClientIPAddress = server.host;
-                            ServerPort = port;
-                            return 1;
-
-                        }
-
-                    }
-
-                    Log("Local Client not found - disconnecting");
-                    return 0;
-
-
-                }
-                Log("HTTP Status Not Okay - no exception failed - disconnecting");
-                return 0;
+                 Log("Could not connect to client not found - disconnecting");
+                 return 0;
 
             }
             catch (Exception ex)
@@ -475,11 +381,8 @@ namespace Remote.Plex.Api
                 return 0;
             }
 
-
-
-
-
         }
+
         public static string GetLocalIPAddress()
         {
             try
@@ -511,6 +414,7 @@ namespace Remote.Plex.Api
                 return "NO IP Obtainable." + ex;
             }
         }
+
        public string GetPlexAuthToken(string ip, string port, string user, string password)
 {
 

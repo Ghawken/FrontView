@@ -895,6 +895,15 @@ namespace FrontView
 
                 InitProperties();
 
+                if (!_config.DisableAnimations)
+                {
+                    trp_Transition.Transition = TryFindResource("GridTransition") as FluidKit.Controls.Transition;
+                }
+                else
+                {
+                    trp_Transition.Transition = new FluidKit.Controls.NoTransition();
+                }
+
                 if (_yatse2Properties != null)
                 {
                     Helper.Instance.CurrentSkin = _config.Skin;
@@ -960,14 +969,7 @@ namespace FrontView
 
                 Logger.Instance().Log("Taskbar:", "Create new Taskbar Icon located: " + sPath2Icon);
 
-                if (!_config.DisableAnimations)
-                {
-                    trp_Transition.Transition = TryFindResource("GridTransition") as FluidKit.Controls.Transition;
-                }
-                else
-                {
-                    trp_Transition.Transition = new FluidKit.Controls.NoTransition();
-                }
+
 
                 //disable automatic resolution dection - except at start of
 
@@ -2998,7 +3000,7 @@ namespace FrontView
                 }
 
                 foreach (Grid grid in trp_Transition.Items)
-                {
+                {                   
                     if (grid.Name != en.Value.ToString()) continue;
                     ShowGrid(grid);
                     return;
@@ -3045,8 +3047,16 @@ namespace FrontView
 
             _disableFocus = ((newGrid.Name == "grd_Settings") || (newGrid.Name == "grd_Remotes"));
 
-            trp_Transition.ApplyTransition(_currentGrid.Name, newGrid.Name);
+            
 
+            if (trp_Transition.IsLoaded)
+            {
+                trp_Transition.ApplyTransition(_currentGrid.Name, newGrid.Name);
+            }
+            else
+            {
+                Logger.Instance().LogDump("ShowGrid [3058] Transition NOT Loaded, Skipped.... _currentGrid.Name:" + _currentGrid.Name + " newGrid.Name:" + newGrid.Name, true);
+            }
             if (newGrid.Name == "grd_Home")
                 _gridHistory.Clear();
             else

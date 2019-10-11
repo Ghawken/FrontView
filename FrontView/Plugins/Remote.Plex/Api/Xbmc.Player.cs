@@ -341,7 +341,7 @@ namespace Remote.Plex.Api
                                 _nowPlaying.IsPlaying = false;
                                 _nowPlaying.IsPaused = false;
                                 _nowPlaying.IsPlaying = false;
-                                _nowPlaying.IsNewMedia = false;
+                                //_nowPlaying.IsNewMedia = false;
                                 _parent.Log("Plex Log: Nothing is Playing");
                                 return;
                             }
