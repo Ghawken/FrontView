@@ -47,6 +47,7 @@ namespace Remote.Jriver.Api
             // Delete now misnamed allitems
             _parent.Trace("Deleting allItems as rerun...");
             Allitems.Clear();
+            return;
 
             try
             {
@@ -95,6 +96,9 @@ namespace Remote.Jriver.Api
         {
             _parent.Trace("JRiver Get Genres Running");
             var genres = new Collection<ApiAudioGenre>();
+            return genres;
+
+
             try
             {
                 getallItems("/MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID&Query=[Media%20Type]=[Audio]");
@@ -142,6 +146,7 @@ namespace Remote.Jriver.Api
 
             _parent.Trace("JRiver Get Artists Running");
             var artists = new Collection<ApiAudioArtist>();
+            return artists;
 
             try
             {
@@ -197,6 +202,8 @@ namespace Remote.Jriver.Api
     {
             _parent.Trace("JRiver GetAlbums Running");
             var albums = new Collection<ApiAudioAlbum>();
+            return albums;
+
             try
             {
                 getallItems("/MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID&Query=[Media%20Type]=[Audio]");
@@ -348,6 +355,8 @@ namespace Remote.Jriver.Api
     {
             _parent.Trace("JRiver GetSongs Running");
             var songs = new Collection<ApiAudioSong>();
+            return songs;
+
             try
             {
                 getallItems("/MCWS/v1/Files/Search?Action=mpl&ActiveFile=-1&Zone=-1&ZoneType=ID&Query=[Media%20Type]=[Audio]");

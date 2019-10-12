@@ -68,6 +68,8 @@ namespace Remote.Jriver.Api
             // Delete now misnamed allitems
             _parent.Trace("Deleting allItems as rerun...");
             Allitems.Clear();
+            return;
+
 
             try
             {

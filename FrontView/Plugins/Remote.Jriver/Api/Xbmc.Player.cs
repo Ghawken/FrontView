@@ -121,7 +121,7 @@ namespace Remote.Jriver.Api
 
                             if (_nowPlaying.IsNewMedia)
                             {
-                                 _parent.Log("JRiver:  newPlayback is True:");
+                                _parent.Log("JRiver:  newPlayback is True:");
                                 //        //    Console.WriteLine("" + server.art);
                                 //        //    Console.WriteLine("" + server.chapterSource);
                                 _nowPlaying.Director = String.IsNullOrEmpty(getFieldValue(fileFields, "Director")) ? "Unknown" : getFieldValue(fileFields, "Director"); ;
@@ -129,7 +129,7 @@ namespace Remote.Jriver.Api
                                 //        //     Console.WriteLine("" + server.duration);
                                 //        //    Console.WriteLine("" + server.grandparentArt);
                                 _nowPlaying.Plot = String.IsNullOrEmpty(getFieldValue(fileFields, "Tag Line")) ? "" : getFieldValue(fileFields, "Tag Line");
-                                _parent.Log("JRiver:NP NowPlaying.Plot:" + _nowPlaying.Plot);                             
+                                _parent.Log("JRiver:NP NowPlaying.Plot:" + _nowPlaying.Plot);
                                 _parent.Log("JRiver:NP NowPlaying.FileName:" + _nowPlaying.FileName);
 
                                 //        _nowPlaying.Title = String.IsNullOrEmpty(server.title) ? "" : server.title;
@@ -157,7 +157,7 @@ namespace Remote.Jriver.Api
                                 {
                                     _nowPlaying.MediaType = "Audio";
                                 }
-                                else if (mediaType=="TV")
+                                else if (mediaType == "TV")
                                 {
                                     _nowPlaying.MediaType = "Movie";
                                     _nowPlaying.FileName = ReplaceInvalidChars(_nowPlaying.FileName);
@@ -166,7 +166,7 @@ namespace Remote.Jriver.Api
                                 {
                                     _nowPlaying.MediaType = "Movie";
                                 }
-                                                              
+
                                 _parent.Log("JRiver:NP NowPlaying.MediaType:" + _nowPlaying.MediaType);
 
                                 if (_nowPlaying.MediaType == "TvShow")
@@ -190,6 +190,29 @@ namespace Remote.Jriver.Api
                                 var filePath = Path.GetDirectoryName(_nowPlaying.FileName);
                                 string[] files = System.IO.Directory.GetFiles(filePath);
 
+                                var extrafanart = false;
+                                string extrafanartbackdropfile = "";
+
+                                var extrafanartpath = Path.Combine(filePath, "extrafanart");
+
+                                _parent.Log("JRiver:  nowPlaying extrafanartPath to check equals:" + extrafanartpath);
+
+                                if (Directory.Exists(extrafanartpath))
+                                {
+                                    var extrafanartFiles = System.IO.Directory.GetFiles(extrafanartpath, "*.jpg");
+                                    _parent.Log("JRiver:  nowPlaying extrafanartPath Exists:");
+                                    _parent.Log("JRiver:  extrafanart Files: "+ string.Join(",  ", extrafanartFiles));
+                                    // check files
+                                    if (extrafanartFiles != null && extrafanartFiles.Length > 0)
+                                    {
+                                        extrafanart = true;
+                                        // get random item
+                                        var idx = new Random().Next(extrafanartFiles.Length);
+                                        _parent.Log("JRiver:  ExtrafanartFiles Index ==============" + idx);
+                                            extrafanartbackdropfile = extrafanartFiles[idx];
+                                        _parent.Log("JRiver:  extrabackdropfile  ==============" + extrafanartbackdropfile);
+                                    }
+                                }
 
                                 var fanartPath = Path.Combine(filePath, "fanart.jpg");
                                 var LogoPath = Path.Combine(filePath, "logo.png");
@@ -200,17 +223,21 @@ namespace Remote.Jriver.Api
                                 if (!String.IsNullOrEmpty(_nowPlaying.FileName))
                                 {
                                     CustomArt = _nowPlaying.FileName.Remove(_nowPlaying.FileName.Length - 3);
-                                }     
-                                
+                                }
+
                                 CustomArt = CustomArt + "jpg";
                                 _parent.Log("Jriver: CustomArt: Check: " + CustomArt);
-                                
+
                                 _parent.Log("JRiver: ** filePath ** :" + filePath);
                                 //_parent.Log("JRiver: Files in path:" + string.Join(",  ", files) );
                                 _parent.Log("JRiver: Checking.... ** fanArt.Jpg ** ** Logo.Png ** ** poster.Jpg **  ** folder.jpg ** :");
-
                                 int pos = Array.IndexOf(files, fanartPath);
-                                if (pos > -1)
+
+                                if (extrafanart == true && extrafanartbackdropfile != "" )
+                                {
+                                    _nowPlaying.FanartURL = extrafanartbackdropfile;
+                                }
+                                else if (pos > -1)
                                 {
                                     _nowPlaying.FanartURL = files[pos];  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
                                 }
@@ -219,7 +246,8 @@ namespace Remote.Jriver.Api
                                     _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
                                 }
 
-                                pos = Array.IndexOf(files,LogoPath);
+
+                                pos = Array.IndexOf(files, LogoPath);
                                 if (pos > -1)
                                 {
                                     _nowPlaying.LogoURL = files[pos];
@@ -228,15 +256,15 @@ namespace Remote.Jriver.Api
                                 {
                                     _nowPlaying.LogoURL = "";
                                 }
-
                                 pos = Array.IndexOf(files, ThumbPath);
                                 int pos2 = Array.IndexOf(files, ThumbPath2);
                                 int pos3 = Array.IndexOf(files, CustomArt);
-                                if (pos>-1)
+
+                                if (pos > -1)
                                 {
                                     _nowPlaying.ThumbURL = files[pos];
                                 }
-                                else if (pos2 > -1 )
+                                else if (pos2 > -1)
                                 {
                                     _nowPlaying.ThumbURL = files[pos2];
                                 }
@@ -252,57 +280,6 @@ namespace Remote.Jriver.Api
 
                                 sw.Stop();
                                 _parent.Log("JRIVER: STOPWATCH: Elapsed MS " + sw.ElapsedMilliseconds);
-
-                                //var sw = Stopwatch.StartNew();
-                                //var filePath = Path.GetDirectoryName(_nowPlaying.FileName);
-                                //var fanartPath = Path.Combine(filePath, "fanart.jpg");
-                                //var LogoPath = Path.Combine(filePath, "logo.png");
-                                //var ThumbPath = Path.Combine(filePath, "poster.jpg");
-                                //var ThumbPath2 = Path.Combine(filePath, "folder.jpg");
-                                //System.IO.FileInfo fi = new System.IO.FileInfo(fanartPath);
-                                //System.IO.FileInfo fiLogo = new System.IO.FileInfo(LogoPath);
-                                //System.IO.FileInfo fiThumb = new System.IO.FileInfo(ThumbPath);
-                                //System.IO.FileInfo fiThumb2 = new System.IO.FileInfo(ThumbPath2);
-
-                                //_parent.Log("JRiver: ** filePath ** :" + filePath);
-                                //_parent.Log("JRiver: Checking.... ** fanArt.Jpg ** :" + fanartPath);
-                                //_parent.Log("JRiver: Checking... ** Logo.Png ** :" + LogoPath);
-                                //_parent.Log("JRiver: Checking... ** poster.Jpg ** :" + ThumbPath);
-                                //_parent.Log("JRiver: Checking... ** folder.jpg ** :" + ThumbPath2);
-                                //if (fi.Exists)
-                                //{
-                                //    _nowPlaying.FanartURL = fanartPath;  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
-                                //}
-                                //else
-                                //{
-                                //    _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
-                                //}
-
-                                //if (fiLogo.Exists)
-                                //{
-                                //    _nowPlaying.LogoURL = LogoPath;
-                                //}
-                                //else
-                                //{
-                                //    _nowPlaying.LogoURL = "";
-                                //}
-
-                                //if (fiThumb.Exists)
-                                //{
-                                //    _nowPlaying.ThumbURL = ThumbPath;
-                                //}
-                                //else if (fiThumb2.Exists)
-                                //{
-                                //    _nowPlaying.ThumbURL = ThumbPath2;
-                                //}
-                                //else
-                                //{
-                                //   // _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/"+ serverArt + "&Type=Full&Token="+_parent.JRiverAuthToken;
-                                //    _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
-                                //}
-
-                                //sw.Stop();
-                                //_parent.Log("JRIVER: STOPWATCH: Elapsed MS "+sw.ElapsedMilliseconds);
 
 
                                 _parent.Log("JRiver:  nowPlaying Fanart equals:" + _nowPlaying.FanartURL);
@@ -324,6 +301,7 @@ namespace Remote.Jriver.Api
                                     _parent.Log("JRiver:NP NowPlaying.MovieIcons:" + _nowPlaying.MovieIcons);
                                 }
                             }
+
                             var Volume = getItemName(deserialized, "VolumeDisplay");  //Volume
 
                             if (Volume == "Muted")
@@ -629,7 +607,7 @@ namespace Remote.Jriver.Api
                 if (checkNewMedia)
                 {
                     _nowPlaying.IsNewMedia = false;
-                    _parent.Log("JRiver: [Xbmc.Player.cs 807] NewMedia:False");
+                    _parent.Log("JRiver: [Xbmc.Player.cs 610] NewMedia:False");
                     if (_currentMediaFile != _nowPlaying.FileName || (_currentMediaTitle != _nowPlaying.Title))
                     {
                         _currentMediaTitle = _nowPlaying.Title;
