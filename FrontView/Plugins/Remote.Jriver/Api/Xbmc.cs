@@ -86,6 +86,7 @@ namespace Remote.Jriver.Api
             [DllImport("user32.dll")]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool SetForegroundWindow(IntPtr hWnd);
+
         }
 
         public override void GiveFocus()

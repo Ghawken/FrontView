@@ -135,9 +135,7 @@ namespace FrontView
     {
         private const string Repository = @"http://yatse.leetzone.org/repository";
         private bool _allowBeta;
-
         //changed below to public
-
         public readonly FrontViewConfig _config = new FrontViewConfig();
         private readonly string _configFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\FrontView+\settings.xml";
         private readonly Yatse2DB _database = new Yatse2DB();
@@ -169,7 +167,6 @@ namespace FrontView
         private FrontView.Libs.DDCControl.BrightnessControl brightnessControl;
         public FrontView.Libs.DDCControl.BrightnessInfo brightnessInfo;
         public FrontView.Libs.DDCControl.BrightnessInfo contrastInfo;
-
 
         private bool _videoFavoritesFilter;
         private bool _audioFavoritesFilter;
@@ -271,7 +268,6 @@ namespace FrontView
             Logger.Instance().LogDump("NativeControl", "Send Message  sending...", true);
             IntPtr HWND_BROADCAST = new IntPtr(0xffff);
             SendMessage(HWND_BROADCAST, (IntPtr)0x0112, (IntPtr)0xF170, (IntPtr)onoff);
-
         }
 
         private void StartDiaporama()
@@ -797,7 +793,6 @@ namespace FrontView
                     {
                         //Return the other process instance.  
                         return process;
-
                     }
                 }
             }
@@ -807,13 +802,10 @@ namespace FrontView
 
         private void Init()
         {
-
             try
             {
                 PreInit();
                 // Attempting to start server socket on seperate thread
-
-
                 //Change refresh rate to limit CPU usage - try off
                 /*
                 Timeline.DesiredFrameRateProperty.OverrideMetadata(
@@ -824,12 +816,9 @@ namespace FrontView
 
                 Logger.Instance().Log("SERVER", "Starting Server Thread... ", true);
 
-
                 var assem = Assembly.GetEntryAssembly();
                 var assemName = assem.GetName();
                 var ver = assemName.Version;
-
-
 
                 Logger.Instance().Log("FrontView+", "Starting version :" + ver.Major + "." + ver.Minor, true);
                 Logger.Instance().Log("FrontView+", "Starting build : " + ver.Build, true);
@@ -852,8 +841,8 @@ namespace FrontView
                 //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Build = " + Environment.OSVersion.Version.Build, true);
                 //     Logger.Instance().Log("OSInfo", "OsVersion.Version.Revision = " + Environment.OSVersion.Version.Revision, true);
                 //     Logger.Instance().Log("OSInfo", "OsVersion.Prodcut = " + Environment.OSVersion, true);
-
                 //     Logger.Instance().Log("OSInfo", "Edition = " + OSInfo.Edition, true);
+
                 Logger.Instance().Log("OSInfo", "Service Pack Build =" + Environment.OSVersion.Version.Build, true);
                 Logger.Instance().Log("OSInfo", "Version = " + OSInfo.VersionString, true);
                 Logger.Instance().Log("OSInfo", "Bits = " + OSInfo.RealBits, true);
@@ -878,9 +867,6 @@ namespace FrontView
                 _timerScreenSaver = _config.ScreensaverTimer;
                 Logger.Instance().Debug = _config.Debug;
                 Logger.Instance().DebugTrace = _config.DebugTrace;
-
-
-
                 Logger.Instance().Log("FrontView+", "End load config");
                 Logger.Instance().LogDump("FrontView", _config);
 
@@ -903,6 +889,7 @@ namespace FrontView
                 {
                     trp_Transition.Transition = new FluidKit.Controls.NoTransition();
                 }
+
 
                 if (_yatse2Properties != null)
                 {
@@ -2015,11 +2002,7 @@ namespace FrontView
             //  CheckUpdate(false);
             //}
 
-            if (!_showHomePage)
-            {
-                ShowHome();
-                _showHomePage = true;
-            }
+
 
             if (_timerHeader > 15)
             {
@@ -2282,6 +2265,11 @@ namespace FrontView
 
             PositionScreen();
             CheckFirstLaunch();
+            if (!_showHomePage)
+            {
+                ShowHome();
+                _showHomePage = true;
+            }
 
         }
 
@@ -3045,14 +3033,12 @@ namespace FrontView
 
             _yatse2Properties.ShowHomeButton = newGrid.Name != "grd_Home";
 
-            _disableFocus = ((newGrid.Name == "grd_Settings") || (newGrid.Name == "grd_Remotes"));
-
-            
+            _disableFocus = ((newGrid.Name == "grd_Settings") || (newGrid.Name == "grd_Remotes"));          
 
             if (trp_Transition.IsLoaded)
             {
                 trp_Transition.ApplyTransition(_currentGrid.Name, newGrid.Name);
-            }
+            }          
             else
             {
                 Logger.Instance().LogDump("ShowGrid [3058] Transition NOT Loaded, Skipped.... _currentGrid.Name:" + _currentGrid.Name + " newGrid.Name:" + newGrid.Name, true);

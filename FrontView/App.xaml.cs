@@ -61,11 +61,7 @@ namespace FrontView
         protected override void OnStartup(StartupEventArgs e)
         {
 
-
             Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
-
-            
-
 
             SplashScreen screen = new SplashScreen("Skin/Internal/Images/Splash.png");
             FrameworkElement.LanguageProperty.OverrideMetadata(
@@ -80,9 +76,6 @@ namespace FrontView
             InitLog();
 
             SetDPIState();
-
-
-
             // Check for CommandLine arguments - check for nosplashscreen
             string[] args = Environment.GetCommandLineArgs();
 
@@ -93,8 +86,6 @@ namespace FrontView
                 screen.Show(true);
             }
 
-            
-
             /**
             Logger.Instance().LogDump("Checking Command Line Args:" + args.Length, true);
 
@@ -104,7 +95,6 @@ namespace FrontView
             }
     **/
 
-
             base.OnStartup(e);
 
             TimeSpan time = new TimeSpan(0, 0, 5);
@@ -113,7 +103,8 @@ namespace FrontView
             {
                 screen.Close(time);
             }
-         
+
+           
         }
 
         private static void SetDPIState()
@@ -160,7 +151,7 @@ namespace FrontView
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-
+            Logger.Instance().Log("FrontViewApp", "STARTUP CALLED:", true);
             return;
             
         }
