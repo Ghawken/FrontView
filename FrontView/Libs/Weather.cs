@@ -329,7 +329,7 @@ namespace FrontView.Libs
                 }
                 catch (Exception ex)
                 {
-                    Logger.Instance().Trace("Weather:", "DarkSky Error" + ex);
+                    Logger.Instance().Trace("Weather:", "DarkSky Caught Error:" + ex);
                     return null;
                 }
 

@@ -17,20 +17,20 @@
 // ------------------------------------------------------------------------
 
 using System;
-using System.Collections;
+//using System.Collections;
 using System.Globalization;
 using Jayrock.Json;
 using Plugin;
-using System.Web.Script.Serialization;
-using System.Xml;
+//using System.Web.Script.Serialization;
+//using System.Xml;
 using System.Xml.Serialization;
 using System.Net;
-using System.Text.RegularExpressions;
-using Setup;
+//using System.Text.RegularExpressions;
+//using Setup;
 using System.IO;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+//using System.Diagnostics;
+//using System.Text;
 
 namespace Remote.Jriver.Api
 {
@@ -186,100 +186,131 @@ namespace Remote.Jriver.Api
                                 var serverArt = getItemName(deserialized, "ImageURL");
                                 _parent.Log("JRiver: server.Art EQUALS ===========" + serverArt);
 
-                                var sw = Stopwatch.StartNew();
-                                var filePath = Path.GetDirectoryName(_nowPlaying.FileName);
-                                string[] files = System.IO.Directory.GetFiles(filePath);
+                               // var sw = Stopwatch.StartNew();
 
                                 var extrafanart = false;
+                                var filePath = "BAD";
+                                try
+                                {
+                                    filePath = Path.GetDirectoryName(_nowPlaying.FileName);
+                                    extrafanart = true;  //Path Seems to be okay
+                                }
+                                catch
+                                {
+                                    _parent.Log("JRIVER:   nowPlaying Bad filePath: Caught: ");
+                                    extrafanart = false;
+                                }
+
+                                string[] files = new string[] { };
+                                if (extrafanart)
+                                {
+                                    files = System.IO.Directory.GetFiles(filePath);
+                                }
+                                else
+                                {
+                                    files = new string[] { "Empty" };
+                                }
+                                
                                 string extrafanartbackdropfile = "";
 
-                                var extrafanartpath = Path.Combine(filePath, "extrafanart");
-
-                                _parent.Log("JRiver:  nowPlaying extrafanartPath to check equals:" + extrafanartpath);
-
-                                if (Directory.Exists(extrafanartpath))
+                                if (extrafanart)
                                 {
-                                    var extrafanartFiles = System.IO.Directory.GetFiles(extrafanartpath, "*.jpg");
-                                    _parent.Log("JRiver:  nowPlaying extrafanartPath Exists:");
-                                    _parent.Log("JRiver:  extrafanart Files: "+ string.Join(",  ", extrafanartFiles));
-                                    // check files
-                                    if (extrafanartFiles != null && extrafanartFiles.Length > 0)
+                                    var extrafanartpath = Path.Combine(filePath, "extrafanart");
+                                    _parent.Log("JRiver:  nowPlaying extrafanartPath to check equals:" + extrafanartpath);
+                                    if (Directory.Exists(extrafanartpath))
                                     {
-                                        extrafanart = true;
-                                        // get random item
-                                        var idx = new Random().Next(extrafanartFiles.Length);
-                                        _parent.Log("JRiver:  ExtrafanartFiles Index ==============" + idx);
+                                        var extrafanartFiles = System.IO.Directory.GetFiles(extrafanartpath, "*.jpg");
+                                        _parent.Log("JRiver:  nowPlaying extrafanartPath Exists:");
+                                        _parent.Log("JRiver:  extrafanart Files: " + string.Join(",  ", extrafanartFiles));
+                                        // check files
+                                        if (extrafanartFiles != null && extrafanartFiles.Length > 0)
+                                        {
+                                            extrafanart = true;
+                                            // get random item
+                                            var idx = new Random().Next(extrafanartFiles.Length);
+                                            _parent.Log("JRiver:  ExtrafanartFiles Index ==============" + idx);
                                             extrafanartbackdropfile = extrafanartFiles[idx];
-                                        _parent.Log("JRiver:  extrabackdropfile  ==============" + extrafanartbackdropfile);
+                                            _parent.Log("JRiver:  extrabackdropfile  ==============" + extrafanartbackdropfile);
+                                        }
                                     }
                                 }
 
-                                var fanartPath = Path.Combine(filePath, "fanart.jpg");
-                                var LogoPath = Path.Combine(filePath, "logo.png");
-                                var ThumbPath = Path.Combine(filePath, "poster.jpg");
-                                var ThumbPath2 = Path.Combine(filePath, "folder.jpg");
-
-                                string CustomArt = "Default.";
-                                if (!String.IsNullOrEmpty(_nowPlaying.FileName))
+                                if (filePath != "BAD")
                                 {
-                                    CustomArt = _nowPlaying.FileName.Remove(_nowPlaying.FileName.Length - 3);
-                                }
+                                    var fanartPath = Path.Combine(filePath, "fanart.jpg");
+                                    var LogoPath = Path.Combine(filePath, "logo.png");
+                                    var ThumbPath = Path.Combine(filePath, "poster.jpg");
+                                    var ThumbPath2 = Path.Combine(filePath, "folder.jpg");
 
-                                CustomArt = CustomArt + "jpg";
-                                _parent.Log("Jriver: CustomArt: Check: " + CustomArt);
+                                    string CustomArt = "Default.";
+                                    if (!String.IsNullOrEmpty(_nowPlaying.FileName))
+                                    {
+                                        CustomArt = _nowPlaying.FileName.Remove(_nowPlaying.FileName.Length - 3);
+                                    }
 
-                                _parent.Log("JRiver: ** filePath ** :" + filePath);
-                                //_parent.Log("JRiver: Files in path:" + string.Join(",  ", files) );
-                                _parent.Log("JRiver: Checking.... ** fanArt.Jpg ** ** Logo.Png ** ** poster.Jpg **  ** folder.jpg ** :");
-                                int pos = Array.IndexOf(files, fanartPath);
+                                    CustomArt = CustomArt + "jpg";
+                                    _parent.Log("Jriver: CustomArt: Check: " + CustomArt);
 
-                                if (extrafanart == true && extrafanartbackdropfile != "" )
-                                {
-                                    _nowPlaying.FanartURL = extrafanartbackdropfile;
+                                    _parent.Log("JRiver: ** filePath ** :" + filePath);
+                                    //_parent.Log("JRiver: Files in path:" + string.Join(",  ", files) );
+                                    _parent.Log("JRiver: Checking.... ** fanArt.Jpg ** ** Logo.Png ** ** poster.Jpg **  ** folder.jpg ** :");
+                                    int pos = Array.IndexOf(files, fanartPath);
+
+                                    if (extrafanart == true && extrafanartbackdropfile != "")
+                                    {
+                                        _nowPlaying.FanartURL = extrafanartbackdropfile;
+                                    }
+                                    else if (pos > -1)
+                                    {
+                                        _nowPlaying.FanartURL = files[pos];  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
+                                    }
+                                    else
+                                    {
+                                        _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
+                                    }
+
+
+                                    pos = Array.IndexOf(files, LogoPath);
+                                    if (pos > -1)
+                                    {
+                                        _nowPlaying.LogoURL = files[pos];
+                                    }
+                                    else
+                                    {
+                                        _nowPlaying.LogoURL = "";
+                                    }
+                                    pos = Array.IndexOf(files, ThumbPath);
+                                    int pos2 = Array.IndexOf(files, ThumbPath2);
+                                    int pos3 = Array.IndexOf(files, CustomArt);
+
+                                    if (pos > -1)
+                                    {
+                                        _nowPlaying.ThumbURL = files[pos];
+                                    }
+                                    else if (pos2 > -1)
+                                    {
+                                        _nowPlaying.ThumbURL = files[pos2];
+                                    }
+                                    else if (pos3 > -1)
+                                    {
+                                        _nowPlaying.ThumbURL = files[pos3];
+                                    }
+                                    else
+                                    {
+                                        // _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/"+ serverArt + "&Type=Full&Token="+_parent.JRiverAuthToken;
+                                        _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
+                                    }
+
+                                    //sw.Stop();
                                 }
-                                else if (pos > -1)
-                                {
-                                    _nowPlaying.FanartURL = files[pos];  //if fanart.jpg exisits in directory with movie use this otherwise default to JRiver Thumb
-                                }
-                                else
+                                else   // No filePath information.  Nothing to get except http file from Jrvier
+
                                 {
                                     _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
-                                }
-
-
-                                pos = Array.IndexOf(files, LogoPath);
-                                if (pos > -1)
-                                {
-                                    _nowPlaying.LogoURL = files[pos];
-                                }
-                                else
-                                {
+                                    _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
                                     _nowPlaying.LogoURL = "";
                                 }
-                                pos = Array.IndexOf(files, ThumbPath);
-                                int pos2 = Array.IndexOf(files, ThumbPath2);
-                                int pos3 = Array.IndexOf(files, CustomArt);
-
-                                if (pos > -1)
-                                {
-                                    _nowPlaying.ThumbURL = files[pos];
-                                }
-                                else if (pos2 > -1)
-                                {
-                                    _nowPlaying.ThumbURL = files[pos2];
-                                }
-                                else if (pos3 > -1)
-                                {
-                                    _nowPlaying.ThumbURL = files[pos3];
-                                }
-                                else
-                                {
-                                    // _nowPlaying.FanartURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/"+ serverArt + "&Type=Full&Token="+_parent.JRiverAuthToken;
-                                    _nowPlaying.ThumbURL = @"http://" + _parent.IP + ":" + _parent.Port + @"/" + serverArt + "&Type=Full&Token=" + _parent.JRiverAuthToken;
-                                }
-
-                                sw.Stop();
-                                _parent.Log("JRIVER: STOPWATCH: Elapsed MS " + sw.ElapsedMilliseconds);
+                               // _parent.Log("JRIVER: STOPWATCH: Elapsed MS " + sw.ElapsedMilliseconds);
 
 
                                 _parent.Log("JRiver:  nowPlaying Fanart equals:" + _nowPlaying.FanartURL);

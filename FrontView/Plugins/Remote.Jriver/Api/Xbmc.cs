@@ -166,11 +166,18 @@ namespace Remote.Jriver.Api
             try
             {
                 if (!_configured) return null;
+                if (fileName == "") return null;
                 if (fileName.StartsWith(@"\\"))
                 {
                     Log("JRiver:  GetDownloadPath: \\ Found Returing FileName:" + fileName);
                     return fileName;
                 }
+                else if ( fileName[1] == ':')
+                {
+                    Log("JRiver:  GetDownloadPath: : - Yes Semi-Colon - presume local file - Found Returing FileName:" + fileName);
+                    return fileName;
+                }
+                    
                 // return @"http://" + HttpUtility.UrlEncode(fileName);
                 Log("Line 171: Plex API - Trying to sortout fanart URL: and Returning FileName: " + HttpUtility.UrlEncode(fileName));
                 return HttpUtility.UrlEncode(fileName);
