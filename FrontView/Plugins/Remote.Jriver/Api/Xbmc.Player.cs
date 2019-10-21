@@ -194,11 +194,13 @@ namespace Remote.Jriver.Api
                                 {
                                     filePath = Path.GetDirectoryName(_nowPlaying.FileName);
                                     extrafanart = true;  //Path Seems to be okay
+                                    _parent.Log("JRIVER:   nowPlaying filePath appears intact ");
                                 }
                                 catch
                                 {
                                     _parent.Log("JRIVER:   nowPlaying Bad filePath: Caught: ");
                                     extrafanart = false;
+                                    filePath = "BAD";
                                 }
 
                                 string[] files = new string[] { };
@@ -245,10 +247,10 @@ namespace Remote.Jriver.Api
                                     string CustomArt = "Default.";
                                     if (!String.IsNullOrEmpty(_nowPlaying.FileName))
                                     {
-                                        CustomArt = _nowPlaying.FileName.Remove(_nowPlaying.FileName.Length - 3);
+                                        CustomArt = _nowPlaying.FileName.Remove(_nowPlaying.FileName.LastIndexOf('.'));   // remove characters up to . deals with .ts and .mp4
                                     }
 
-                                    CustomArt = CustomArt + "jpg";
+                                    CustomArt = CustomArt + ".jpg";
                                     _parent.Log("Jriver: CustomArt: Check: " + CustomArt);
 
                                     _parent.Log("JRiver: ** filePath ** :" + filePath);
