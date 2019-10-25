@@ -90,6 +90,7 @@ namespace Remote.Jriver.Api
                             var playbackState = getItemName(deserialized, "State");
 
                             _parent.Log("Jriver: Player State:" + playbackState);
+                            _parent.Log("Jriver: isNewMedia:" + _nowPlaying.IsNewMedia);
 
                             if (playbackState == "1")
                             {
@@ -121,7 +122,7 @@ namespace Remote.Jriver.Api
 
                             if (_nowPlaying.IsNewMedia)
                             {
-                                _parent.Log("JRiver:  newPlayback is True:");
+                                _parent.Log("JRiver:  newPlayback or NewMedia is True:");
                                 //        //    Console.WriteLine("" + server.art);
                                 //        //    Console.WriteLine("" + server.chapterSource);
                                 _nowPlaying.Director = String.IsNullOrEmpty(getFieldValue(fileFields, "Director")) ? "Unknown" : getFieldValue(fileFields, "Director"); ;
@@ -203,13 +204,30 @@ namespace Remote.Jriver.Api
                                     filePath = "BAD";
                                 }
 
-                                string[] files = new string[] { };
-                                if (extrafanart)
+                                if (String.IsNullOrEmpty(filePath))
                                 {
-                                    files = System.IO.Directory.GetFiles(filePath);
+                                    filePath = "BAD";
                                 }
-                                else
+
+                                string[] files = new string[] { };
+
+                                try
                                 {
+                                    if (extrafanart)
+                                    {
+                                        files = System.IO.Directory.GetFiles(filePath);
+                                    }
+                                    else
+                                    {
+                                        files = new string[] { "Empty" };
+                                    }
+                                }
+                                catch
+                                {
+
+                                    _parent.Log("JRIVER:  Caught exception with GetFiles/FilePath.  ");
+                                    extrafanart = false;
+                                    filePath = "BAD";
                                     files = new string[] { "Empty" };
                                 }
                                 
