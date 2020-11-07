@@ -489,7 +489,7 @@ namespace Remote.Emby.Api
                             {
                                   Trace("----------------- Returning CurrentUserID based on Username from Public/Users: UserID:"+server.Name +" Username "+server.Id);
                                   Globals.CurrentUserID = server.Id;
-                                  return  server.Id;
+                                  return  server.Name;
                             }
                             
                             
@@ -690,15 +690,17 @@ namespace Remote.Emby.Api
             
             postData["username"] = Uri.EscapeDataString(UserName);
 
-//REMOVETHIS            var bytes = Encoding.UTF8.GetBytes(password ?? string.Empty);
+            //REMOVETHIS            var bytes = Encoding.UTF8.GetBytes(password ?? string.Empty);
 
             //Log("---------------" + HashSha1(Password));
 
             postData["password"] = HashSha1(Password);
 
+            postData["pw"] = Uri.EscapeDataString(Password);
+
             postData["passwordMD5"] = HashMd5(Password);
 
-            
+
             //var postArg = SimpleJson.SerializeObject(postData);
 
             var postArg = JsonConvert.ExportToString(postData);

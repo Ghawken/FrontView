@@ -2158,7 +2158,7 @@
                         <Canvas Margin="286,194,52,224" Width="462" HorizontalAlignment="Center" RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Height="182" VerticalAlignment="Center" >
                             <Border BorderThickness="0" Height="182" Width="462" VerticalAlignment="Center" Background="#A5000000" CornerRadius="20,20,20,20"  RenderTransform="{Binding Parent, ElementName=canvas, Mode=OneWay}" Canvas.Top="-10"  HorizontalAlignment="Center" Canvas.Left="1"/>
                             <TextBlock FontSize="38" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}"  TextAlignment="Left"
-                       Text="{Binding Date, Source={StaticResource Yatse2Properties}}"  Width="308" VerticalAlignment="Center"  Canvas.Left="26" Canvas.Top="108"/>
+                       Text="{Binding Date, Source={StaticResource Yatse2Properties}}"  Width="320" VerticalAlignment="Center"  Canvas.Left="26" Canvas.Top="108"/>
 
                             <TextBlock Height="70" FontWeight="Bold" Foreground="{DynamicResource Default_Font_Color}" TextAlignment="Left" TextWrapping="Wrap" FontSize="45" VerticalAlignment="Center" Width="259"
                        Text="{Binding Time, Source={StaticResource Yatse2Properties}}" Canvas.Left="26" Canvas.Top="10" />
