@@ -276,11 +276,9 @@ namespace FrontView
             }
 
             lst_Settings_WeatherUnit.Items.Clear();
-            lst_Settings_WeatherUnit.Items.Add("auto");
-            lst_Settings_WeatherUnit.Items.Add("us");
-            lst_Settings_WeatherUnit.Items.Add("si");
-            lst_Settings_WeatherUnit.Items.Add("ca");
-            lst_Settings_WeatherUnit.Items.Add("uk2");
+            lst_Settings_WeatherUnit.Items.Add("metric");
+            lst_Settings_WeatherUnit.Items.Add("imperial");
+
 
             lst_Settings_WeatherUnit.SelectedItem = _config.WeatherUnit;
 
@@ -581,7 +579,7 @@ namespace FrontView
         private void Hyperlink_RequestNavigate(object sender,
                                        System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://darksky.net/poweredby/");
+            System.Diagnostics.Process.Start("https://openweathermap.org/");
         }
 
         private void btn_Settings_WeatherLocId_Click(object sender, RoutedEventArgs e)

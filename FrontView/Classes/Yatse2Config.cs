@@ -212,7 +212,7 @@ namespace FrontView.Classes
             WeatherLoc = "Unknown";
             WeatherLatitude = "42.3601";
             WeatherLongitude = "-71.0589";  //Default to New York
-            WeatherUnit = "auto";
+            WeatherUnit = "metric";
             WeatherAPI = "1111";
             DefaultRemote = 0;
             Homepage = "Home";

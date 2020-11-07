@@ -1,7 +1,4 @@
 ﻿// ------------------------------------------------------------------------
-//    YATSE 2 - A touch screen remote controller for XBMC (.NET 3.5)
-//    Copyright (C) 2010  Tolriq (http://yatse.leetzone.org)
-//
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
@@ -28,6 +25,7 @@ using System.Web.Script.Serialization;
 using System.Xml.XPath;
 using Setup;
 using System.Web;
+using System.Linq;
 using Timer = System.Timers.Timer;
 
 namespace FrontView.Libs
@@ -117,7 +115,7 @@ namespace FrontView.Libs
         public string GetTemp(string temp)
         {
 
-            return temp.Truncate(4) + "°" ;
+            return temp.Truncate(4) + "°";
         }
     }
 
@@ -143,12 +141,15 @@ namespace FrontView.Libs
         //private const string DataUrl = "http://api.wunderground.com/api/"; //134031614dc4d6b2/conditions";
 
         private const string DataUrl = "https://api.darksky.net/forecast/";
+
+        private const string openWeatherDataUrl = "https://api.openweathermap.org/data/2.5/"; // onecall?lat=42.3601&lon=-71.0589&exclude=hourly,minutely&appid=1deb261a61d5aff31541326c653ab0fb;
+
         //private const string ForecastDataUrl = "http://xoap.weather.com/weather/local/{0}?cc=*&dayf=5&link=xoap&prod=xoap&par={1}&key={2}&unit={3}";
         //private const string ForecastDataUrl = "http://xml.weather.yahoo.com/forecastrss/{0}_{1}.xml";
 
         private const string ForecastDataUrl = "https://api.darksky.net/forecast/"; //134031614dc4d6b2/forecast10day";
 
-        public void Configure(string cacheDir, string unit, string partnerId, string licenseKey, string weatherAPI,string latitude, string longitude, string LocationName)
+        public void Configure(string cacheDir, string unit, string partnerId, string licenseKey, string weatherAPI, string latitude, string longitude, string LocationName)
         {
             _partnerId = partnerId;
             _licenseKey = licenseKey;
@@ -208,9 +209,9 @@ namespace FrontView.Libs
             double cacheDuration;
 
             Logger.Instance().Trace("Weather", "Weather API Equals: " + _weatherAPI);
-           
+
             string newLocID = locId;
-            string invalid = @";/:\";        
+            string invalid = @";/:\";
             foreach (char c in invalid)
             {
                 newLocID = newLocID.Replace(c.ToString(), "");
@@ -223,13 +224,15 @@ namespace FrontView.Libs
             Logger.Instance().Trace("Weather", "Weather Unit Equals: " + _unit);
 
 
-            url = DataUrl + _weatherAPI + @"/"+_latitude+ @"," + _longitude + @"?exclude=minutely,hourly"+@"&units="+_unit;
+            //url = DataUrl + _weatherAPI + @"/"+_latitude+ @"," + _longitude + @"?exclude=minutely,hourly"+@"&units="+_unit;
+            url = openWeatherDataUrl + @"onecall?lat=" + _latitude + @"&lon=" + _longitude + @"&exclude=hourly,minutely&units=" + _unit + "&appid=" + _weatherAPI;
+
             cacheDuration = CacheDuration;
 
             try
             {
                 Logger.Instance().Trace("Weather", "Path: " + path);
-                
+
                 if (File.Exists(path))
                 {
                     var lastWriteTime = File.GetLastWriteTime(path);
@@ -247,9 +250,9 @@ namespace FrontView.Libs
 
                         str = client.DownloadString(url);
 
-                        Logger.Instance().Trace("Weather:", "Checking before writing file : "+str);
-                        
-                        if ( str.Contains("keynotfound"))
+                        Logger.Instance().Trace("Weather:", "Checking before writing file : " + str);
+
+                        if (str.Contains("keynotfound"))
                         {
                             Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
                             return false;
@@ -261,18 +264,18 @@ namespace FrontView.Libs
                         }
 
 
-                        client.DownloadFile(new Uri(url ), path);
+                        client.DownloadFile(new Uri(url), path);
 
                         Logger.Instance().Trace("Weather", "Downloaded File Path equals: " + path);
                     }
                 }
                 return true;
             }
-            catch (Exception ex) 
-                {
-                    Logger.Instance().Trace("Weather:", "Exception: " + ex);
-                    return false;
-                }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Weather:", "Exception: " + ex);
+                return false;
+            }
             return false;
         }
 
@@ -309,90 +312,90 @@ namespace FrontView.Libs
                 Logger.Instance().Trace("Weather:", "!LoadWeatherData Null returning null.");
                 return null;
             }
-                try
+            try
+            {
+                using (StreamReader client = new StreamReader(path))
                 {
-                    using (StreamReader client = new StreamReader(path))
+                    try
                     {
-                        try
-                        {
-                            str = client.ReadToEnd();//DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
-                            Logger.Instance().Trace("Weather:", "GetWeatherData: Trying DATA FILE " + path);
-                            //Logger.Instance().Trace("Weather:", "GetWeatherData: Data " + str);
-                        }
-                        catch (WebException ex)
-                        {
-                            Logger.Instance().Trace("Weather:", "No Data File Exists: Exception: "+ex);
-                            return null;
-                        }
+                        str = client.ReadToEnd();//DataUrl + _weatherAPI + @"/conditions" + locId + ".json");
+                        Logger.Instance().Trace("Weather:", "GetWeatherData: Trying DATA FILE " + path);
+                        //Logger.Instance().Trace("Weather:", "GetWeatherData: Data " + str);
                     }
-
+                    catch (WebException ex)
+                    {
+                        Logger.Instance().Trace("Weather:", "No Data File Exists: Exception: " + ex);
+                        return null;
+                    }
                 }
-                catch (Exception ex)
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Weather:", "DarkSky Error" + ex);
+                return null;
+            }
+
+
+            try
+            {
+                string json = str;
+
+                bool night = false;
+
+                if (str.Contains("keynotfound"))
                 {
-                    Logger.Instance().Trace("Weather:", "DarkSky Caught Error:" + ex);
+                    Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
                     return null;
                 }
 
 
+                var deserializer = new JavaScriptSerializer();
+                var server = deserializer.Deserialize<OpenWeatherAPI.Root>(json);
+
+                result.LocationName = _LocationName;
+                var currentWeather = server.current.weather.First();
+                result.Forecast.Clear();
+
                 try
                 {
-                    string json = str;
-                    
-                    bool night = false ;
 
-                    if (str.Contains("keynotfound"))
+                    Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + currentWeather.icon);
+                    Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + currentWeather.icon);
+                    if (currentWeather.icon.EndsWith("n"))
                     {
-                        Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
-                        return null;
+                        night = true;
                     }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Instance().Trace("Weather*", "Exception Caught in Icon Night or Day test" + ex);
+                }
 
-
-                    var deserializer = new JavaScriptSerializer();
-                    var server = deserializer.Deserialize<DarkSkyAPI.Rootobject>(json);
-
-                    result.LocationName = _LocationName;
-                    
-                    result.Forecast.Clear();
-
-                    try
-                    {
-                        
-                        Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + server.currently.icon);
-                        Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + server.currently.icon);
-                        if (server.currently.icon.EndsWith("night"))
-                        {
-                            night = true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Instance().Trace("Weather*", "Exception Caught in Icon Night or Day test" + ex);
-                    }
-
-                        result.TempUnit = "°";
+                result.TempUnit = "°";
 
                 result.Today = new WeatherCurrentDetail
                 {
-                        Temperature = server.currently.temperature.ToString(),
-                        Icon = convertIcons(server.currently.icon)
+                    Temperature = server.current.temp.ToString(),
+                    Icon = convertIcons(currentWeather.icon)
                 };
                 return result;
-                    
 
 
-                }
-                catch (Exception ex)
-                {
-                    Logger.Instance().Trace("Weather", "DarkSky Error Caught:" + ex);
-                    return null;
-                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Weather", "DarkSky Error Caught:" + ex);
                 return null;
+            }
+            return null;
 
 
 
-            
+
         }
-            
+
         public WeatherData GetForecastWeatherData(string locId)
         {
             return GetForecastWeatherDataNew(locId, false);
@@ -423,10 +426,10 @@ namespace FrontView.Libs
                 return null;
             }
 
-           // GetWeatherDataNew(locId, false);    //loads conditions --> probably need to move this
+            // GetWeatherDataNew(locId, false);    //loads conditions --> probably need to move this
 
             if (!LoadWeatherData(locId, force, true))
-            {  
+            {
                 Logger.Instance().Trace("Weather:", "!LoadWeatherData ForecastWeatherDataNull returning null.");
                 return null;
             }
@@ -444,42 +447,42 @@ namespace FrontView.Libs
                     }
                     catch (WebException ex)
                     {
-                        Logger.Instance().Trace("Weather:", "Underground Error" + ex);
+                        Logger.Instance().Trace("Weather:", " Error" + ex);
                         return null;
                     }
                 }
-            
+
             }
             catch (Exception ex)
             {
-                    Logger.Instance().Trace("Weather:", "Underground Error" + ex);
-                    return null;
+                Logger.Instance().Trace("Weather:", " Error" + ex);
+                return null;
             }
 
 
             try
             {
-                    string json = str;
-                    
-                    if (str.Contains("keynotfound"))
-                    {
-                        Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
-                        return null;
-                    }
+                string json = str;
+
+                if (str.Contains("keynotfound"))
+                {
+                    Logger.Instance().Log("Weather:", "ERORR in Weather API Key Not Found");
+                    return null;
+                }
 
 
-                    var deserializer = new JavaScriptSerializer();
-                    var server = deserializer.Deserialize<DarkSkyAPI.Rootobject>(json);
-                    result.LocationName = server.timezone.ToString();
-                    result.Forecast.Clear();
-
+                var deserializer = new JavaScriptSerializer();
+                var server = deserializer.Deserialize<OpenWeatherAPI.Root>(json);
+                result.LocationName = server.timezone.ToString();
+                result.Forecast.Clear();
+                var currentWeather = server.current.weather.First();
 
                 try
                 {
 
-                    Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + server.currently.icon);
-                    Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + server.currently.icon);
-                    if (server.currently.icon.EndsWith("night"))
+                    Logger.Instance().Trace("Weather**", "Getting icon url to find night or not:" + currentWeather.icon);
+                    Logger.Instance().Trace("Weather**", "IS File True: icon url to find night or not:" + currentWeather.icon);
+                    if (currentWeather.icon.EndsWith("n"))
                     {
                         night = true;
                     }
@@ -489,21 +492,21 @@ namespace FrontView.Libs
                     Logger.Instance().Trace("Weather*", "Exception Caught in Icon Night or Day test" + ex);
                 }
 
-                    result.TempUnit = "°";
-                        result.Today = new WeatherCurrentDetail
-                            {
-                                Temperature = server.currently.temperature.ToString(),
-                                Icon = convertIcons(server.currently.icon)
-                        };
-
-
-                }
-                catch (Exception ex)
+                result.TempUnit = "°";
+                result.Today = new WeatherCurrentDetail
                 {
-                    Logger.Instance().Trace("Weather", "Underground Error" + ex);
-                    return null;
-                }
-            
+                    Temperature = server.current.temp.ToString(),
+                    Icon = convertIcons(currentWeather.icon)
+                };
+
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Instance().Trace("Weather", " Error" + ex);
+                return null;
+            }
+
             // Now downloading Forecast stuff...
 
 
@@ -523,7 +526,7 @@ namespace FrontView.Libs
                         return null;
                     }
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 Logger.Instance().Trace("Weather", "Underground Error" + ex);
@@ -542,7 +545,7 @@ namespace FrontView.Libs
                 }
 
                 var deserializer = new JavaScriptSerializer();
-                var server = deserializer.Deserialize<DarkSkyAPI.Rootobject>(json);
+                var server = deserializer.Deserialize<OpenWeatherAPI.Root>(json);
 
                 result.Forecast.Clear();
 
@@ -550,20 +553,21 @@ namespace FrontView.Libs
 
                 if (server != null)
                 {
-                    foreach (var element in server.daily.data)
+                    foreach (var element in server.daily)
                     {
 
-                        var currentdatetime = UnixTimeStampToDateTime(element.time);
-;
+                        var currentdatetime = UnixTimeStampToDateTime(element.dt);
+                        var daysWeather = element.weather.First();
+
                         var temp = new WeatherForecastDetail
                         {
                             DayDiff = diff,
                             DayName = currentdatetime.DayOfWeek.ToString(),
-                            DayDate =currentdatetime.Date.ToString(),
-                            DayIcon = convertIcons(element.icon),
-                            NightIcon = convertIcons(element.icon),
-                            MaxTemp = element.temperatureHigh.ToString(),
-                            LowTemp =  element.temperatureLow.ToString() ,
+                            DayDate = currentdatetime.Date.ToString(),
+                            DayIcon = convertIcons(daysWeather.icon),
+                            NightIcon = convertIcons(daysWeather.icon),
+                            MaxTemp = element.temp.max.ToString(),
+                            LowTemp = element.temp.min.ToString(),
 
                         };
                         result.Forecast.Add(temp);
@@ -591,23 +595,23 @@ namespace FrontView.Libs
 
         public static string convertIcons(string icon)
         {
-
+            //convertIcons(currentWeather.icon, currentWeather.id, currentWeather.description, currentWeather.main)
             Logger.Instance().Trace("Weather", " Converting Icons:" + icon.ToString());
             var night = false;
             var day = false;
 
-            if (icon.EndsWith("night"))
+            if (icon.EndsWith("n"))
             {
                 night = true;
             }
-            else if (icon.EndsWith("day"))
+            else if (icon.EndsWith("d"))
             {
                 day = true;
             }
 
             icon = Switchicons(icon);
 
-            if (night==true)
+            if (night == true)
             {
                 icon = "nt_" + icon;
             }
@@ -622,17 +626,33 @@ namespace FrontView.Libs
         {
             switch (icon)
             {
-                case "clear": return "clear";
-                case "partly-cloudy-day": return "partlycloudy";
-                case "partly-cloudy-night": return "partlycloudy";
-                case "clear-day": return "clear";
-                case "clear-night": return "clear";
-                case "cloudy": return "cloudy";
-                case "rain": return "rain";
-                case "sleet": return "sleet";
-                case "snow": return "snow";
-                case "wind": return "wind";
-                case "fog": return "fog";
+                case "01d": return "clear";
+                case "01n": return "clear";
+
+                case "02d": return "mostlysunny";
+                case "02n": return "mostlysunny";
+
+                case "03d": return "partlycloudy";
+                case "03n": return "partlycloudy";
+
+                case "04d": return "cloudy";
+                case "04n": return "cloudy";
+
+                case "09d": return "rain";
+                case "09n": return "rain";
+                case "10d": return "chancerain";
+                case "10n": return "chancerain";
+
+                case "11d": return "tstorms";
+                case "11n": return "tstorms";
+
+                case "13d": return "snow";
+                case "13n": return "snow";
+
+                case "50d": return "hazy";
+                case "50n": return "hazy";
+
+
             }
             return "na";
 
@@ -665,28 +685,28 @@ namespace FrontView.Libs
 
 
                 //var elements = data.SelectNodes("//RESULTS");
-                
+
                 if (server != null)
                     foreach (var element in server.RESULTS)
                     {
 
-                       // string tempID = element.l.Replace("/q/locid:", "");
-                       // tempID = tempID.Substring(0, tempID.IndexOf(";")+1);
-                        
-                        
+                        // string tempID = element.l.Replace("/q/locid:", "");
+                        // tempID = tempID.Substring(0, tempID.IndexOf(";")+1);
+
+
                         var temp = new WeatherLocation
-                                       {
-                                           LocId = element.l,
-                                           LocType = element.type,
-                                           Name = element.name
-                                       };
+                        {
+                            LocId = element.l,
+                            LocType = element.type,
+                            Name = element.name
+                        };
                         result.Add(temp);
                     }
             }
             catch (XmlException) { }
             catch (XPathException) { }
-            
-            
+
+
             return result;
         }
 
