@@ -244,6 +244,11 @@ namespace Remote.XBMC.Matrix.Api
                         {
                             clearlogo = artresults["movie.clearlogo"].ToString();
                         }
+                        else if (artresults["clearlogo"] != null)
+                        {
+                            clearlogo = artresults["clearlogo"].ToString();
+                        }
+
                         if (artresults["banner"] != null)
                         {
                             banner = artresults["banner"].ToString();
@@ -254,8 +259,6 @@ namespace Remote.XBMC.Matrix.Api
                         }
 
                     }
-
-
 
 
                     if (_nowPlaying.MediaType == "video")
@@ -484,7 +487,13 @@ namespace Remote.XBMC.Matrix.Api
                                 }
                             }
                         }
-                        _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                        else
+                        {
+                            _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                            _nowPlaying.FanartURL = result2["fanart"].ToString();
+                        }
+                        
+                        //
 
                         // Change here to using Thumb if Fanart blank
 
