@@ -26,7 +26,7 @@ using System.Web.Script.Serialization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Remote.XBMC.Leia.Api
+namespace Remote.XBMC.Matrix.Api
 {
     class XbmcPlayer : IApiPlayer
     {
@@ -100,10 +100,10 @@ namespace Remote.XBMC.Leia.Api
 
                         return;
                     }
+                    _parent.Log("XBMC PLAYER REMOTE NOT using MPCLoaded");
                    
 
-                    
-                    
+                            
                     
                     
                     //_parent.Log("XBMC PLAYER REMOTE:   Check with MPC Doesnt make it here");
@@ -236,17 +236,25 @@ namespace Remote.XBMC.Leia.Api
 
                     if (artresults != null)
                     {
-                        if (artresults["clearlogo"] != null)
+                        if (artresults["tvshow.clearlogo"] != null)
                         {
-                            clearlogo = artresults["clearlogo"].ToString();
+                            clearlogo = artresults["tvshow.clearlogo"].ToString();
+                        }
+                        else if (artresults["movie.clearlogo"] != null)
+                        {
+                            clearlogo = artresults["movie.clearlogo"].ToString();
                         }
                         if (artresults["banner"] != null)
                         {
                             banner = artresults["banner"].ToString();
                         }
-
+                        else if (artresults["movie.banner"] != null)
+                        {
+                             banner = artresults["movie.banner"].ToString();
+                        }
 
                     }
+
 
 
 
@@ -257,8 +265,30 @@ namespace Remote.XBMC.Leia.Api
                             _nowPlaying.MediaType = "Pvr";
                             _nowPlaying.IsNewMedia = true;
                             _nowPlaying.FileName = result2["label"].ToString();
-                            _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                            _nowPlaying.FanartURL = result2["fanart"].ToString();
+
+                            if (artresults != null)
+                            {
+                                if (artresults["fanart"] != null)
+                                {
+                                    _nowPlaying.FanartURL = artresults["fanart"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.FanartURL = artresults["fanart"].ToString();
+                                }
+                                if (artresults["set.poster"] != null)
+                                {
+                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
+                                }
+                               
+                            }
+
+                        //    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                         //   _nowPlaying.FanartURL = result2["fanart"].ToString();
                             _nowPlaying.LogoURL = clearlogo;
 
                             if (result2["showtitle"] != null && result2["showtitle"].ToString() !="" )
@@ -302,7 +332,7 @@ namespace Remote.XBMC.Leia.Api
                     _nowPlaying.Volume = Convert.ToInt32("0" + result3["volume"]);
                     _nowPlaying.IsMuted = (bool)result3["muted"];
 
-                    _parent.MpcLoaded = _nowPlaying.Duration == new TimeSpan(0, 0, 0, 1);
+                   // _parent.MpcLoaded = _nowPlaying.Duration == new TimeSpan(0, 0, 0, 1);
 
                     _nowPlaying.FileName = result2["file"].ToString();
 
@@ -409,6 +439,51 @@ namespace Remote.XBMC.Leia.Api
                         _nowPlaying.Tagline = result2["tagline"].ToString();
                         _nowPlaying.Rating = result2["rating"].ToString();
 
+                        if (artresults != null)
+                        {
+                            if (_nowPlaying.MediaType == "Movie")
+                            {
+                                if (artresults["fanart"] != null)
+                                {
+                                    _nowPlaying.FanartURL = artresults["fanart"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.FanartURL = result2["fanart"].ToString();
+                                }
+                                if (artresults["set.poster"] != null)
+                                {
+                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
+                                }
+                                else if (artresults["poster"]!= null)
+                                {
+                                    _nowPlaying.ThumbURL = artresults["poster"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                                }
+                            }
+                            else //TvShow
+                            {
+                                if (artresults["tvshow.fanart"] != null)
+                                {
+                                    _nowPlaying.FanartURL = artresults["tvshow.fanart"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.FanartURL = result2["fanart"].ToString();
+                                }
+                                if (artresults["tvshow.poster"] != null)
+                                {
+                                    _nowPlaying.ThumbURL = artresults["tvshow.poster"].ToString();
+                                }
+                                else
+                                {
+                                    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                                }
+                            }
+                        }
                         _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
 
                         // Change here to using Thumb if Fanart blank
@@ -708,14 +783,17 @@ namespace Remote.XBMC.Leia.Api
                             var current = Int32.Parse(player["playerid"].ToString());
                             var par = new JsonObject();
                             par["playerid"] = current;
-                            par["value"] = progress;
+                            var item = new JsonObject();
+                            item["percentage"] = progress;
+                            par["value"] = item;
+                        
+                    
+
                             _parent.AsyncJsonCommand("Player.Seek", par);
                         }
                     }
 
-                    _parent.JsonCommand(
-                        _nowPlaying.MediaType == "Audio" ? "AudioPlayer.SeekPercentage" : "VideoPlayer.SeekPercentage",
-                        progress);
+         //           _parent.JsonCommand(nowPlaying.MediaType == "Audio" ? "Player.Seek" : "Player.Seek", );
                 }
         }
 

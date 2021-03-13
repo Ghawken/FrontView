@@ -1,5 +1,19 @@
 ﻿Changelog:
 
+1.320
+Add Kodi remote to support Kodi Matrix
+Check for Localhost as remote connection and change to 127.0.0.1
+(NB: for remote ideally use 127.0.0.1 for local connection, remote control does not work with localhost)
+Update Kodi Service Addon to support Matrix (Kodi 19); seperate Addon include follow install instructions, setup and enable for Selective Fanart.
+
+
+1.315
+Change Weather to OpenWeatherOrg from DarkSky (as closing)
+Needs free API from OpenWeatherOrg - entered into Weather Settings Page
+Re-Merge earlier Emby Remote changes; not carried through to most recent version it would seem
+Check Plex connection/Server:  Functions correctly; always chooses local client (running on same computer as FrontView)
+
+
 1.303
 Few fixes - Hide Video Menu not sticking until save, Fanart crash if no remote on startup
 More changes to Kodi Fanart Server connection - stopping/starting/restarting better handled

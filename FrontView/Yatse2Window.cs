@@ -650,6 +650,10 @@ namespace FrontView
 
             try
             {
+                if (IpAddress == "localhost")
+                {
+                    IpAddress = "127.0.0.1";
+                }
                 UdpClient client = new UdpClient(_config.IPPort);
                 client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
                 try
@@ -1180,8 +1184,6 @@ namespace FrontView
         {
             try
             {
-
-
                 if (String.IsNullOrEmpty(path))
                 {
                     Logger.Instance().LogDump("SortOUT", "path Empty set to null  " + path, true);

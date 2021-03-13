@@ -516,7 +516,7 @@ namespace FrontView
                         _yatse2Properties.Currently.MovieTitle = movieinfo[0].Title;
                         _yatse2Properties.Currently.Fanart = GetVideoFanartPath(movieinfo[0].Fanart); // TODO : Change to Covnerter
                         _yatse2Properties.Currently.Logo = GetVideoLogoPath(movieinfo[0].Logo);
-                        Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + movieinfo[0].Logo + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
+                        Logger.Instance().LogDump("LogoUpdate", "nowPlaying 232 LogoURL equals:" + movieinfo[0].Logo + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
                         _yatse2Properties.Currently.MovieYear = movieinfo[0].Year.ToString(CultureInfo.InvariantCulture);
                         _yatse2Properties.Currently.MoviePlot = movieinfo[0].Plot;
                         _yatse2Properties.Currently.MovieDirector = movieinfo[0].Director;
