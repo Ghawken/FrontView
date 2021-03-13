@@ -119,7 +119,7 @@ namespace FrontView.Libs
             }
             catch (Exception ex)
             {
-                Logger.Instance().LogDump("CoverArTKodi", "Exception Using Default destFile:" + destFile +ex);
+                Logger.Instance().LogDump("CoverArTKodi", "Caught Exception Using Default destFile:" + destFile +ex);
                 return new BitmapImage(new Uri(destFile));
             }
 

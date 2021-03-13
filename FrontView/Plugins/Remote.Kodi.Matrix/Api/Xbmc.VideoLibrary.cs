@@ -50,7 +50,7 @@ namespace Remote.XBMC.Matrix.Api
           foreach (JsonObject show in (JsonArray)result["tvshows"])
           {
             var properties2 =
-              new JsonArray(new[] { "tvshowid", "fanart", "thumbnail", "season", "showtitle", "episode" });
+              new JsonArray(new[] { "tvshowid", "fanart", "art","thumbnail", "season", "showtitle", "episode" });
             var param2 = new JsonObject();
             param2["properties"] = properties2;
             param2["tvshowid"] = (long)(JsonNumber)show["tvshowid"];
@@ -59,23 +59,65 @@ namespace Remote.XBMC.Matrix.Api
             if (!result2.Contains("seasons")) continue;
             foreach (JsonObject genre in (JsonArray)result2["seasons"])
             {
-              try
-              {
-                var tvShow = new ApiTvSeason
-                  {
-                    SeasonNumber = (long)(JsonNumber)genre["season"],
-                    IdShow = (long)(JsonNumber)genre["tvshowid"],
-                    Show = genre["showtitle"].ToString(),
-                    Thumb = genre["thumbnail"].ToString(),
-                    EpisodeCount = (long)(JsonNumber)genre["episode"],
-                    Fanart = genre["fanart"].ToString(),
-                    Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                  };
-                seasons.Add(tvShow);
-              }
-              catch (Exception)
-              {
-              }
+                            try
+                            {
+                                var clearlogo = "NONE";
+                                var banner = "NONE";
+                                var poster = "NONE";
+                                var fanart = "NONE";
+                                JsonObject results = (JsonObject)genre["art"];
+                                _parent.Log("**TVShowrefresh: " + results.ToString());
+                                if (results != null)
+                                {
+                                    if (results["clearlogo"] != null)
+                                    {
+                                        clearlogo = results["clearlogo"].ToString();
+                                    }
+                                    if (results["banner"] != null)
+                                    {
+                                        banner = results["banner"].ToString();
+                                    }
+                                    if (results["poster"] != null)
+                                    {
+                                        poster = results["poster"].ToString();
+                                    }
+                                    else if (results["tvshow.poster"] != null)
+                                    {
+                                        poster = results["tvshow.poster"].ToString();
+                                    }
+                                    if (results["fanart"] != null)
+                                    {
+                                        fanart = results["fanart"].ToString();
+                                    }
+                                    else if (results["tvshow.fanart"] != null)
+                                    {
+                                        fanart = results["tvshow.fanart"].ToString();
+                                    }
+                                }
+                                if (poster == "NONE")
+                                {
+                                    poster = genre["thumbnail"].ToString();
+                                }
+                                if (fanart == "NONE")
+                                {
+                                    fanart = genre["fanart"].ToString();
+                                }
+
+                                var tvShow = new ApiTvSeason
+                                {
+                                    SeasonNumber = (long)(JsonNumber)genre["season"],
+                                    IdShow = (long)(JsonNumber)genre["tvshowid"],
+                                    Show = genre["showtitle"].ToString(),
+                                    Thumb = poster,
+                                    EpisodeCount = (long)(JsonNumber)genre["episode"],
+                                    Fanart = fanart,
+                                    Hash = Xbmc.Hash(poster)
+                                };
+                                seasons.Add(tvShow);
+                            }
+                            catch (Exception)
+                            {
+                            }
             }
           }
         }
@@ -109,7 +151,7 @@ namespace Remote.XBMC.Matrix.Api
                 foreach (JsonObject show in (JsonArray)result["tvshows"])
                 {
                     var properties2 =
-                      new JsonArray(new[] { "tvshowid", "fanart", "thumbnail", "season", "showtitle", "episode" });
+                      new JsonArray(new[] { "tvshowid", "art" ,"fanart", "thumbnail", "season", "showtitle", "episode" });
                     var param22 = new JsonObject();
                     param22["properties"] = properties2;
                     param22["tvshowid"] = (long)(JsonNumber)show["tvshowid"];
@@ -121,24 +163,67 @@ namespace Remote.XBMC.Matrix.Api
                     {
                         try
                         {
+                                var clearlogo = "NONE";
+                                var banner = "NONE";
+                                var poster = "NONE";
+                                var fanart = "NONE";
+                                JsonObject results = (JsonObject)genre["art"];
+                                _parent.Log("**TVShowrefresh: " + results.ToString());
+                                if (results != null)
+                                {
+                                    if (results["clearlogo"] != null)
+                                    {
+                                        clearlogo = results["clearlogo"].ToString();
+                                    }
+                                    if (results["banner"] != null)
+                                    {
+                                        banner = results["banner"].ToString();
+                                    }
+                                    if (results["poster"] != null)
+                                    {
+                                        poster = results["poster"].ToString();
+                                    }
+                                    else if (results["tvshow.poster"] != null)
+                                    {
+                                        poster = results["tvshow.poster"].ToString();
+                                    }
+                                    if (results["fanart"] != null)
+                                    {
+                                        fanart = results["fanart"].ToString();
+                                    }
+                                    else if (results["tvshow.fanart"] != null)
+                                    {
+                                        fanart = results["tvshow.fanart"].ToString();
+                                    }
+                                }
+                                if (poster == "NONE")
+                                {
+                                    poster = genre["thumbnail"].ToString();
+                                }
+                                if (fanart == "NONE")
+                                {
+                                    fanart = genre["fanart"].ToString();
+                                }
 
-                            _parent.Trace("Kodi QuickRefresh Seasons:  SeasonNumber:" + (long)(JsonNumber)genre["season"]);
+                             _parent.Trace("Kodi QuickRefresh Seasons:  SeasonNumber:" + (long)(JsonNumber)genre["season"]);
                             _parent.Trace("Kodi QuickRefresh Seasons:  IdShow:" + (long)(JsonNumber)genre["tvshowid"]);
                             _parent.Trace("Kodi QuickRefresh Seasons:  Show:" + genre["showtitle"].ToString());
-                            _parent.Trace("Kodi QuickRefresh Seasons:  Thumb:" + genre["thumbnail"].ToString());
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Thumb:" + poster);
                             _parent.Trace("Kodi QuickRefresh Seasons:  EpisodeCount:" + (long)(JsonNumber)genre["episode"]);
-                            _parent.Trace("Kodi QuickRefresh Seasons:  Fanart:" + genre["fanart"].ToString());
-                            _parent.Trace("Kodi QuickRefresh Seasons:  Hash:" + genre["thumbnail"].ToString());
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Fanart:" + fanart);
+                            _parent.Trace("Kodi QuickRefresh Seasons:  Hash:" +poster);
 
-                            var tvShow = new ApiTvSeason
+
+                               
+                                var tvShow = new ApiTvSeason
                             {
                                 SeasonNumber = (long)(JsonNumber)genre["season"],
                                 IdShow = (long)(JsonNumber)genre["tvshowid"],
                                 Show = genre["showtitle"].ToString(),
-                                Thumb = genre["thumbnail"].ToString(),
+                                Thumb = poster,
                                 EpisodeCount = (long)(JsonNumber)genre["episode"],
-                                Fanart = genre["fanart"].ToString(),
-                                Hash = Xbmc.Hash(genre["thumbnail"].ToString())
+                                Fanart = fanart,
+                                Hash = Xbmc.Hash(poster)
                             };
                             seasons.Add(tvShow);
                         }
@@ -156,12 +241,12 @@ namespace Remote.XBMC.Matrix.Api
     {
       var episodes = new Collection<ApiTvEpisode>();
         
-       var properties = new JsonArray(new[] { "title", "plot", "season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "firstaired" });
-      var param = new JsonObject();
-      param["properties"] = properties;
+       var properties = new JsonArray(new[] { "title", "art","plot", "season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "file", "firstaired" });
+        var param = new JsonObject();
+        param["properties"] = properties;
         // First 100 Date sorted
-      var param2 = new JsonObject();
-      param2.Add("start",0);
+        var param2 = new JsonObject();
+        param2.Add("start",0);
         param2.Add("end",30);  //Number of Episodes QUick Refresh Gets
         var param3 = new JsonObject();
           param3.Add("order", "descending");     
@@ -169,16 +254,58 @@ namespace Remote.XBMC.Matrix.Api
         param.Add("sort", param3);
         param.Add("limits", param2);
         var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetEpisodes", param);
-        
+
         if (result != null)
         {
             if (result.Contains("episodes"))
             {
+                
                 foreach (JsonObject genre in (JsonArray)result["episodes"])
                 {
                     try
                     {
-                        var tvShow = new ApiTvEpisode
+                            _parent.Trace("**TVShow Episode Genre Result: " + genre.ToString());
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            var poster = "NONE";
+                            var fanart = "NONE";
+                            JsonObject results = (JsonObject)genre["art"];
+                            _parent.Trace("**TVShow Episode refresh: " + results.ToString());
+                            if (results != null)
+                            {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
+                            }
+
+
+
+                            var tvShow = new ApiTvEpisode
                         {
                             Title = genre["title"].ToString(),
                             Plot = genre["plot"].ToString(),
@@ -194,12 +321,16 @@ namespace Remote.XBMC.Matrix.Api
                             Episode = (long)(JsonNumber)genre["episode"],
                             Path = "",
                             ShowTitle = genre["showtitle"].ToString(),
-                            Thumb = genre["thumbnail"].ToString(),
-                            Fanart = genre["fanart"].ToString(),
-                            Hash = Xbmc.Hash(genre["thumbnail"].ToString())
+                            Thumb = poster,
+                            Fanart = fanart,            
+                            Hash = Xbmc.Hash(poster)
                         };
                         episodes.Add(tvShow);
-                    }
+                            _parent.Trace("Kodi QuickRefresh Episodes:  Thumb:" + poster);
+                            _parent.Trace("Kodi QuickRefresh Episodes  Fanart:" + fanart);
+                            _parent.Trace("Kodi QuickRefresh Episodes:  Hash:" + Xbmc.Hash(poster).ToString());
+
+                        }
                     catch (Exception)
                     {
                     }
@@ -215,7 +346,7 @@ namespace Remote.XBMC.Matrix.Api
     {
       var episodes = new Collection<ApiTvEpisode>();
 
-      var properties = new JsonArray(new[] { "title", "plot", "season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "firstaired" });
+      var properties = new JsonArray(new[] { "title", "plot", "art","season", "episode", "showtitle", "tvshowid", "fanart", "thumbnail", "rating", "playcount", "firstaired" });
       var param = new JsonObject();
       param["properties"] = properties;
       var result = (JsonObject)_parent.JsonCommand("VideoLibrary.GetEpisodes", param);
@@ -225,33 +356,71 @@ namespace Remote.XBMC.Matrix.Api
         {
           foreach (JsonObject genre in (JsonArray)result["episodes"])
           {
-            try
-            {
-              var tvShow = new ApiTvEpisode
-                {
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  Mpaa = "",
-                  Date = genre["firstaired"].ToString(),
-                  Director = "",
-                  PlayCount = (long)(JsonNumber)genre["playcount"],
-                  Studio = "",
-                  IdEpisode = (long)(JsonNumber)genre["episodeid"],
-                  IdShow = (long)(JsonNumber)genre["tvshowid"],
-                  Season = (long)(JsonNumber)genre["season"],
-                  Episode = (long)(JsonNumber)genre["episode"],
-                  Path = "",
-                  ShowTitle = genre["showtitle"].ToString(),
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                };
-              episodes.Add(tvShow);
-            }
-            catch (Exception)
-            {
-            }
+                        try
+                        {
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            var poster = "NONE";
+                            var fanart = "NONE";
+                            JsonObject results = (JsonObject)genre["art"];
+                            if (results != null)
+                            {
+                                if (results["clearlogo"] != null)
+                                {
+                                    clearlogo = results["clearlogo"].ToString();
+                                }
+                                if (results["banner"] != null)
+                                {
+                                    banner = results["banner"].ToString();
+                                }
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
+                            }
+
+
+                            var tvShow = new ApiTvEpisode
+                            {
+                                Title = genre["title"].ToString(),
+                                Plot = genre["plot"].ToString(),
+                                Rating = genre["rating"].ToString(),
+                                Mpaa = "",
+                                Date = genre["firstaired"].ToString(),
+                                Director = "",
+                                PlayCount = (long)(JsonNumber)genre["playcount"],
+                                Studio = "",
+                                IdEpisode = (long)(JsonNumber)genre["episodeid"],
+                                IdShow = (long)(JsonNumber)genre["tvshowid"],
+                                Season = (long)(JsonNumber)genre["season"],
+                                Episode = (long)(JsonNumber)genre["episode"],
+                                Path = "",
+                                ShowTitle = genre["showtitle"].ToString(),
+                                Thumb =poster,                          
+                                Fanart = fanart,
+                                Hash = Xbmc.Hash(poster)
+                            };
+                            episodes.Add(tvShow);
+                        }
+                        catch (Exception)
+                        {
+                        }
           }
         }
       }
@@ -272,52 +441,77 @@ namespace Remote.XBMC.Matrix.Api
         {
           foreach (JsonObject genre in (JsonArray)result["tvshows"])
           {
-            try
-            {
+                        try
+                        {
                             var clearlogo = "NONE";
                             var banner = "NONE";
+                            var poster = "NONE";
+                            var fanart = "NONE";
                             // go through art and see.
 
                             JsonObject results = (JsonObject)genre["art"];
-
+                            _parent.Log("**TVShowrefresh: " + results.ToString());
                             if (results != null)
                             {
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
                                 }
+                                else if (results["tvshow.clearlogo"] != null)
+                                {
+                                    clearlogo = results["tvshow.clearlogo"].ToString();
+                                }
                                 if (results["banner"] != null)
                                 {
                                     banner = results["banner"].ToString();
                                 }
-
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
                             }
 
 
 
                             var tvShow = new ApiTvShow
-                {
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  IdScraper = "",
-                  Mpaa = genre["mpaa"].ToString(),
-                  Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                  Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                  IdShow = (long)(JsonNumber)genre["tvshowid"],
-                  TotalCount = (long)(JsonNumber)genre["episode"],
-                  Path = genre["file"].ToString(),
-                  Premiered = genre["premiered"].ToString(),
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Logo = clearlogo,
-                  Banner = banner,
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                };
-              shows.Add(tvShow);
-            }
-            catch (Exception ex)
-            {
+                            {
+                                Title = genre["title"].ToString(),
+                                Plot = genre["plot"].ToString(),
+                                Rating = genre["rating"].ToString(),
+                                IdScraper = "",
+                                Mpaa = genre["mpaa"].ToString(),
+                                Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
+                                Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
+                                IdShow = (long)(JsonNumber)genre["tvshowid"],
+                                TotalCount = (long)(JsonNumber)genre["episode"],
+                                Path = genre["file"].ToString(),
+                                Premiered = genre["premiered"].ToString(),
+                                Thumb = poster,
+                                Fanart = fanart,
+                                Logo = clearlogo,
+                                Banner = banner,
+                                Hash = Xbmc.Hash(genre["thumbnail"].ToString())
+                            };
+                            shows.Add(tvShow);
+                        }
+                        catch (Exception ex)
+                        {
                             _parent.Log("GetTVShows : Exception Caught: Json seems to equal :" + ex);
 
                         }
@@ -352,53 +546,83 @@ namespace Remote.XBMC.Matrix.Api
             {
                 foreach (JsonObject genre in (JsonArray)result["tvshows"])
                 {
-                    try
-                    {
-                        var clearlogo = "NONE";
-                        var banner = "NONE";
+                        try
+                        {
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            var poster = "NONE";
+                            var fanart = "NONE";
                             // go through art and see.
 
-                        JsonObject results = (JsonObject)genre["art"];
-
-                        if (results != null)
-                        {
+                            JsonObject results = (JsonObject)genre["art"];
+                            _parent.Log("**TVShowrefresh: " + results.ToString());
+                            if (results != null)
+                            {
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
+                                }
+                                else if (results["tvshow.clearlogo"] !=null)
+                                {
+                                    clearlogo = results["tvshow.clearlogo"].ToString();
                                 }
                                 if (results["banner"] != null)
                                 {
                                     banner = results["banner"].ToString();
                                 }
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
+                            }
 
-                         }
+
+                            var tvShow = new ApiTvShow
+                            {
+                                Title = genre["title"].ToString(),
+                                Plot = genre["plot"].ToString(),
+                                Rating = genre["rating"].ToString(),
+                                IdScraper = "",
+                                Mpaa = genre["mpaa"].ToString(),
+                                Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
+                                Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
+                                IdShow = (long)(JsonNumber)genre["tvshowid"],
+                                TotalCount = (long)(JsonNumber)genre["episode"],
+                                Path = genre["file"].ToString(),
+                                Premiered = genre["premiered"].ToString(),
+                                Thumb = poster,
+                                Fanart = fanart,
+                                Logo = clearlogo,
+                                Banner = banner,
+                                Hash = Xbmc.Hash(poster)
+                            };
+                            shows.Add(tvShow);
+                            _parent.Log("Adding TV SHOW: Details Below ****************");
+                            _parent.Log("Fanart:" + fanart + " Thumb:" + poster);
+                        }
 
 
-                        var tvShow = new ApiTvShow
+
+                        catch (Exception ex)
                         {
-                            Title = genre["title"].ToString(),
-                            Plot = genre["plot"].ToString(),
-                            Rating = genre["rating"].ToString(),
-                            IdScraper = "",
-                            Mpaa = genre["mpaa"].ToString(),
-                            Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                            Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                            IdShow = (long)(JsonNumber)genre["tvshowid"],
-                            TotalCount = (long)(JsonNumber)genre["episode"],
-                            Path = genre["file"].ToString(),
-                            Premiered = genre["premiered"].ToString(),
-                            Thumb = genre["thumbnail"].ToString(),
-                            Fanart = genre["fanart"].ToString(),
-                            Logo = clearlogo,
-                            Banner = banner,
-                            Hash = Xbmc.Hash(genre["thumbnail"].ToString())
-                        };
-                        shows.Add(tvShow);
-                    }
-                    catch (Exception ex)
-                    {
                             _parent.Log("GetTVShowsRefresh : Exception Caught: Json seems to equal :" + ex);
-                     }
+                        }
                 }
             }
         }
@@ -436,10 +660,10 @@ namespace Remote.XBMC.Matrix.Api
                             var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
                             var clearlogo = "NONE";
                             var banner = "NONE";
-                            // go through art and see.
-
+                            var poster = "NONE";
+                            var fanart = "NONE";
                             JsonObject results = (JsonObject)genre["art"];
-                                                        
+                            _parent.Log("**Get Movies  refresh: " + results.ToString());
                             if (results != null)
                             {
                                 if (results["clearlogo"] != null)
@@ -450,17 +674,31 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     banner = results["banner"].ToString();
                                 }
-
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
                             }
 
                             JsonObject streamdetails = (JsonObject)genre["streamdetails"];
                             List<string> MovieIcons = new List<string>();
                             MovieIcons = GetMovieIcons(streamdetails);
-              
-                                                 
-
-
-
 
                             var movie = new ApiMovie
                             {
@@ -482,11 +720,11 @@ namespace Remote.XBMC.Matrix.Api
                                 FileName = genre["file"].ToString(),
                                 Path = "",
                                 PlayCount = 0,
-                                Thumb = genre["thumbnail"].ToString(),
-                                Fanart = genre["fanart"].ToString(),
+                                Thumb = poster,
+                                Fanart = fanart,
                                 Logo = clearlogo,
                                 Banner = banner,
-                                Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
+                                Hash = Xbmc.Hash(poster),
                                 DateAdded = genre["dateadded"].ToString(),
                                 MovieIcons = String.Join(",", MovieIcons)
                             };
@@ -687,18 +925,18 @@ namespace Remote.XBMC.Matrix.Api
         {
           foreach (JsonObject genre in (JsonArray)result["movies"])
           {
-            try
-            {
-              var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
-              var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
-              var clearlogo = "NONE";
-              var banner = "NONE";
-                            // go through art and see.
-
-               JsonObject results = (JsonObject)genre["art"];
-
-              if (results != null)
-              {
+                        try
+                        {
+                            var t = TimeSpan.FromSeconds((long)(JsonNumber)genre["runtime"]);
+                            var duration = string.Format("{0:D2}:{1:D2}", t.Hours, t.Minutes);
+                            var clearlogo = "NONE";
+                            var banner = "NONE";
+                            var poster = "NONE";
+                            var fanart = "NONE";
+                            JsonObject results = (JsonObject)genre["art"];
+                            _parent.Log("**Get Movies  refresh: " + results.ToString());
+                            if (results != null)
+                            {
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
@@ -707,46 +945,67 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     banner = results["banner"].ToString();
                                 }
-               }
+                                if (results["poster"] != null)
+                                {
+                                    poster = results["poster"].ToString();
+                                }
+                                else if (results["tvshow.poster"] != null)
+                                {
+                                    poster = results["tvshow.poster"].ToString();
+                                }
+                                if (results["fanart"] != null)
+                                {
+                                    fanart = results["fanart"].ToString();
+                                }
+                            }
+                            if (poster == "NONE")
+                            {
+                                poster = genre["thumbnail"].ToString();
+                            }
+                            if (fanart == "NONE")
+                            {
+                                fanart = genre["fanart"].ToString();
+                            }
 
-               JsonObject streamdetails = (JsonObject)genre["streamdetails"];
-               List<string> MovieIcons = new List<string>();
-               MovieIcons = GetMovieIcons(streamdetails);
 
-                var movie = new ApiMovie
-                {
+                            JsonObject streamdetails = (JsonObject)genre["streamdetails"];
+                            List<string> MovieIcons = new List<string>();
+                            MovieIcons = GetMovieIcons(streamdetails);
 
-                  Title = genre["title"].ToString(),
-                  Plot = genre["plot"].ToString(),
-                  Votes = genre["votes"].ToString(),
-                  Rating = genre["rating"].ToString(),
-                  Year = (long)(JsonNumber)genre["year"],
-                  IdScraper = "",
-                  Length = duration,
-                  Mpaa = genre["mpaa"].ToString(),
-                  Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
-                  Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
-                  OriginalTitle = genre["originaltitle"].ToString(),
-                  Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
-                  IdFile = 0,
-                  IdMovie = (long)(JsonNumber)genre["movieid"],
-                  FileName = genre["file"].ToString(),
-                  Path = "",
-                  PlayCount = 0,
-                  Thumb = genre["thumbnail"].ToString(),
-                  Fanart = genre["fanart"].ToString(),
-                  Logo = clearlogo,
-                  Banner = banner,
-                  Hash = Xbmc.Hash(genre["thumbnail"].ToString()),
-                  DateAdded = genre["dateadded"].ToString(),
-                  MovieIcons = String.Join(",", MovieIcons)
-                };
-              movies.Add(movie);
-            }
-            catch (Exception ex)
-            {
+                            var movie = new ApiMovie
+                            {
+
+                                Title = genre["title"].ToString(),
+                                Plot = genre["plot"].ToString(),
+                                Votes = genre["votes"].ToString(),
+                                Rating = genre["rating"].ToString(),
+                                Year = (long)(JsonNumber)genre["year"],
+                                IdScraper = "",
+                                Length = duration,
+                                Mpaa = genre["mpaa"].ToString(),
+                                Genre = _parent.JsonArrayToString((JsonArray)genre["genre"]),
+                                Director = _parent.JsonArrayToString((JsonArray)genre["director"]),
+                                OriginalTitle = genre["originaltitle"].ToString(),
+                                Studio = _parent.JsonArrayToString((JsonArray)genre["studio"]),
+                                IdFile = 0,
+                                IdMovie = (long)(JsonNumber)genre["movieid"],
+                                FileName = genre["file"].ToString(),
+                                Path = "",
+                                PlayCount = 0,
+                                Thumb =poster,
+                                Fanart = fanart,
+                                Logo = clearlogo,
+                                Banner = banner,
+                                Hash = Xbmc.Hash(poster),
+                                DateAdded = genre["dateadded"].ToString(),
+                                MovieIcons = String.Join(",", MovieIcons)
+                            };
+                            movies.Add(movie);
+                        }
+                        catch (Exception ex)
+                        {
                             _parent.Log("Exception Caught: Json Clearlogo seems to equal :" + ex);
-            }
+                        }
           }
         }
       }

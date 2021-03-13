@@ -399,26 +399,28 @@ namespace FrontView
             Logger.Instance().Trace("CoverART MovieDetails", "Value = :" + (string)value);
 
             // If running Kodi check for Case and use that if exists
-            if (Helper.Instance.CurrentApi == "Kodi 16" || Helper.Instance.CurrentApi == "Kodi 17")
+            if (Helper.Instance.CurrentApi != null)
             {
-                if (Helper.Instance.UseCoverArt == true)
+                if (Helper.Instance.CurrentApi.Contains("Kodi"))
                 {
-
-                    var newpath = path.Remove(path.Length - 4) + "-Case.jpg";
-                    if (File.Exists(newpath))
+                    if (Helper.Instance.UseCoverArt == true)
                     {
-                        try
+
+                        var newpath = path.Remove(path.Length - 4) + "-Case.jpg";
+                        if (File.Exists(newpath))
                         {
-                            return new BitmapImage(new Uri(newpath));
-                        }
-                        catch (Exception)
-                        {
-                            return new BitmapImage(new Uri(path));
+                            try
+                            {
+                                return new BitmapImage(new Uri(newpath));
+                            }
+                            catch (Exception)
+                            {
+                                return new BitmapImage(new Uri(path));
+                            }
                         }
                     }
                 }
             }
-
             if (File.Exists(path))
             {
                 try
@@ -472,29 +474,31 @@ namespace FrontView
             Logger.Instance().Trace("CoverART", " Remote UseCoverART equals : " + Helper.Instance.UseCoverArt);
 
 
-            if (Helper.Instance.CurrentApi == "Kodi 16" || Helper.Instance.CurrentApi == "Kodi 17")
+            if (Helper.Instance.CurrentApi != null)
             {
-                if (Helper.Instance.UseCoverArt == true)
+                if (Helper.Instance.CurrentApi.Contains("Kodi"))
                 {
-                    Logger.Instance().Trace("CoverART", " values MultiBinding equals : " + values[0] + "Skin Value1:  " + values[1] + "MovieIcons:" + values[2]);
-
-                    Logger.Instance().Trace("CoverART", " Remote Property equals : " + Helper.Instance.CurrentApi);
-
-                    if (File.Exists(newpath))
+                    if (Helper.Instance.UseCoverArt == true)
                     {
-                        return new BitmapImage(new Uri(newpath));
+                        Logger.Instance().Trace("CoverART", " values MultiBinding equals : " + values[0] + "Skin Value1:  " + values[1] + "MovieIcons:" + values[2]);
+
+                        Logger.Instance().Trace("CoverART", " Remote Property equals : " + Helper.Instance.CurrentApi);
+
+                        if (File.Exists(newpath))
+                        {
+                            return new BitmapImage(new Uri(newpath));
+                        }
+
+                        if (File.Exists(path))
+                        {
+                            return ApiHelper.Instance().CoverArtTreatmentKodi(path, (string)values[1], MovieIcons);
+
+                        }
                     }
 
-                    if (File.Exists(path))
-                    {
-                        return ApiHelper.Instance().CoverArtTreatmentKodi(path, (string)values[1], MovieIcons);
-
-                    }
                 }
 
             }
-
-
             if (File.Exists(path))
             {
                 try

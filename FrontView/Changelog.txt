@@ -1,10 +1,12 @@
 ﻿Changelog:
 
-1.320
+1.325
 Add Kodi remote to support Kodi Matrix
 Check for Localhost as remote connection and change to 127.0.0.1
 (NB: for remote ideally use 127.0.0.1 for local connection, remote control does not work with localhost)
 Update Kodi Service Addon to support Matrix (Kodi 19); seperate Addon include follow install instructions, setup and enable for Selective Fanart.
+320->325 
+Bug fixs for Library download, image formats etc
 
 
 1.315
