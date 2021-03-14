@@ -16,6 +16,7 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ------------------------------------------------------------------------
 
+using System;
 using System.ComponentModel;
 using System.Net;
 using System.Threading;
@@ -68,15 +69,23 @@ namespace Remote.XBMC.Matrix.Api
 
         public bool DownloadImages(ApiImageDownloadInfo apiImageDownloadInfo)
         {
-            if (apiImageDownloadInfo == null)
-                return false;
-            var res = Download(apiImageDownloadInfo.Source, apiImageDownloadInfo.Destination);
-            if (res)
+            try
             {
-                if (apiImageDownloadInfo.ToThumb)
-                    _parent.GenerateThumb(apiImageDownloadInfo.Destination, apiImageDownloadInfo.Destination, apiImageDownloadInfo.MaxHeight);
+                if (apiImageDownloadInfo == null)
+                    return false;
+                var res = Download(apiImageDownloadInfo.Source, apiImageDownloadInfo.Destination);
+                if (res)
+                {
+                    if (apiImageDownloadInfo.ToThumb)
+                        _parent.GenerateThumb(apiImageDownloadInfo.Destination, apiImageDownloadInfo.Destination, apiImageDownloadInfo.MaxHeight);
+                }
+                return res;
             }
-            return res;
+            catch (Exception ex)
+            {
+                _parent.Log("ERROR - DOWNLOAD : " + ex.Message);
+                return false;
+            }
         }
 
         private void AsyncImagesDownloadsWorker(object sender, DoWorkEventArgs e)
@@ -94,7 +103,6 @@ namespace Remote.XBMC.Matrix.Api
             }
             _isDownloading = false;
         }
-
         public bool Download(string fileName, string destination)
         {
             if (!_parent.IsConnected())
@@ -116,6 +124,10 @@ namespace Remote.XBMC.Matrix.Api
             catch (WebException e)
             {
                 _parent.Log("ERROR - DOWNLOAD : " + _parent.GetDownloadPath(fileName) + " " + e.Message);
+            }
+            catch (Exception ex)
+            {
+                _parent.Log("ERROR - DOWNLOAD : " + _parent.GetDownloadPath(fileName) + " " + ex.Message);
             }
             return false;
         }

@@ -480,9 +480,18 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     _nowPlaying.FanartURL = result2["fanart"].ToString();
                                 }
-                                if (artresults["tvshow.poster"] != null)
+                                if (result2["thumbnail"].ToString() !=null)
+                                {
+                                    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+
+                                }                                
+                                else if (artresults["tvshow.poster"] != null)
                                 {
                                     _nowPlaying.ThumbURL = artresults["tvshow.poster"].ToString();
+                                }
+                                else if (artresults["thumb"] != null)
+                                {
+                                    _nowPlaying.ThumbURL = artresults["thumb"].ToString();
                                 }
                                 else
                                 {
@@ -539,11 +548,7 @@ namespace Remote.XBMC.Matrix.Api
                 var deserializer = new JavaScriptSerializer();
                 StreamDetails.Rootobject ItemData = deserializer.Deserialize<StreamDetails.Rootobject>(stringJsonResults);
 
-
-
-
-
-                //Container
+               //Container
                 if (ItemData != null)
                 {
 

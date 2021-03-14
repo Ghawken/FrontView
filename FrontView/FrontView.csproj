@@ -5474,6 +5474,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\anchorman2playback.png" />
+    <Resource Include="Images\AvengersMediaIconsMatrix.png" />
+    <Resource Include="Images\AverEndGameIcons.png" />
     <Content Include="Remote.Jriver.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

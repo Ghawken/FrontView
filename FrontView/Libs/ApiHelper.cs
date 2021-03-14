@@ -126,9 +126,9 @@ namespace FrontView.Libs
             Bitmap frame;
             try
             {
-
                 string BlueRayCase = Helper.SkinorDefault(Helper.SkinPath ,skin, @"\Interface\Case_BlurayCase.png");
                 string DVDCase = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Interface\Case_dvdCase.png");
+                string UltraCase = Helper.SkinorDefault(Helper.SkinPath, skin, @"\Interface\Case_4kCase.png");
                 string CasetoUse = "";
 
                 if (MovieIcons.Contains("1080p") || MovieIcons.Contains("720p"))
@@ -136,12 +136,16 @@ namespace FrontView.Libs
                     Logger.Instance().LogDump("CoverArTKodi", "MovieIcons Contains 1080p or 720p:" + MovieIcons);
                     CasetoUse = BlueRayCase;
                 }
+                else if (MovieIcons.Contains("4K") )
+                {
+                    Logger.Instance().LogDump("CoverArTKodi", "MovieIcons Contains 4k:" + MovieIcons);
+                    CasetoUse = UltraCase;
+                }
                 else
                 {
                     CasetoUse = DVDCase;
                     Logger.Instance().LogDump("CoverArTKodi", "MovieIcons DOES NOT Contains 1080p or 720p:" + MovieIcons);
                 }
-
                 Logger.Instance().LogDump("CoverArTKodi", "Trying case:" + CasetoUse);
 
                 frame = (Bitmap)Image.FromFile(CasetoUse);

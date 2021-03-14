@@ -1,5 +1,17 @@
 ﻿Changelog:
 
+1.330
+Kodi Matrix:
+Updates to Remotes to fix fanart images and logos sometimes not appearing.
+(if ongoing issues check Fanart for the file in Kodi - if thumb/poster/fanart exist FV should appropriate show them)
+Big Update to Movie Icons:
+Change to using Kodi Skin Standard Icons - change in file formatting.
+Compatible with all Skins - different skins can have different Movie Icons.
+Defaults to colour Ones as seems best selective
+4k/DTS-X/ATMOS added
+Updated Movie Cases in library to include 4k Ultra
+
+
 1.325
 Add Kodi remote to support Kodi Matrix
 Check for Localhost as remote connection and change to 127.0.0.1

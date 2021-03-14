@@ -181,6 +181,7 @@ namespace FrontView
         {
             if (value == DependencyProperty.UnsetValue) return false;
 
+            //Logger.Instance().Log("C_Skinbrush", "Param:" + parameter.ToString());
 
             var param = (string)parameter;
             var temp = param.Split('/');
@@ -192,8 +193,6 @@ namespace FrontView
 
             var path = Helper.SkinPath + (string)value + @"\Icons\" + param + ".png";
             //Logger.Instance().Trace("C_SkinBrush", "Skin image : " + path );
-
-
 
             if (!File.Exists(path))
             {
