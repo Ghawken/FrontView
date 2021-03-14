@@ -137,8 +137,12 @@ namespace FrontView
 
         private string GetVideoLogoPath(string remotepath)
         {
+
+            
             var hash = _remotePlugin.GetHashFromFileName(remotepath);
             var destFile = Helper.CachePath + @"Video\Logos\" + hash + ".jpg";
+
+            Logger.Instance().Trace("FrontView+ Logo:", "GetVideoLogo remotepath: " + remotepath.ToString()+ " and destFile:"+destFile.ToString());
 
             if (File.Exists(destFile)) return destFile;
 

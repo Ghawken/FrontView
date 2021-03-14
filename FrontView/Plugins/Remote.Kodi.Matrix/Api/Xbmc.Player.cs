@@ -248,6 +248,10 @@ namespace Remote.XBMC.Matrix.Api
                         {
                             clearlogo = artresults["clearlogo"].ToString();
                         }
+                        else if (artresults["logo"] != null)
+                        {
+                            clearlogo = artresults["logo"].ToString();
+                        }
 
                         if (artresults["banner"] != null)
                         {
@@ -442,6 +446,8 @@ namespace Remote.XBMC.Matrix.Api
                         _nowPlaying.Tagline = result2["tagline"].ToString();
                         _nowPlaying.Rating = result2["rating"].ToString();
 
+                       // _parent.Log("MediaType == " + _nowPlaying.MediaType);
+
                         if (artresults != null)
                         {
                             if (_nowPlaying.MediaType == "Movie")
@@ -454,11 +460,8 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     _nowPlaying.FanartURL = result2["fanart"].ToString();
                                 }
-                                if (artresults["set.poster"] != null)
-                                {
-                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
-                                }
-                                else if (artresults["poster"]!= null)
+                                
+                                if (artresults["poster"] != null)
                                 {
                                     _nowPlaying.ThumbURL = artresults["poster"].ToString();
                                 }

@@ -2427,6 +2427,9 @@
 
                             <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_vc1, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecvc1, ElementName=lst_Movies_flow}" />
 
+                                  <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=hdtype_4k, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=4K, ElementName=lst_Movies_flow}" />
+                            
+                            
                             <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_mpegvideo-2, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecmpeg2video, ElementName=lst_Movies_flow}" />
 
                             <Rectangle Width="{Binding Path=ActualHeight, ElementName=IconPanel}" HorizontalAlignment="Left" Fill="{Binding Skin, ConverterParameter=codec_mpeg4visual, Converter={x:Static Yatse2:SkinIconConverter.Instance}, Source={StaticResource Yatse2Properties}}" Visibility="{Binding SelectedItem.MovieIcons, Converter={x:Static Yatse2:IconVisibility.Instance}, ConverterParameter=codecmpeg4, ElementName=lst_Movies_flow}" />

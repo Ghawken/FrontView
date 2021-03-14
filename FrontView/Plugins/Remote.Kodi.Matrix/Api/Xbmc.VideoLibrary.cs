@@ -277,6 +277,10 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     clearlogo = results["clearlogo"].ToString();
                                 }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
+                                }
                                 if (results["banner"] != null)
                                 {
                                     banner = results["banner"].ToString();
@@ -369,6 +373,10 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     clearlogo = results["clearlogo"].ToString();
                                 }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
+                                }
                                 if (results["banner"] != null)
                                 {
                                     banner = results["banner"].ToString();
@@ -456,6 +464,10 @@ namespace Remote.XBMC.Matrix.Api
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
+                                }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
                                 }
                                 else if (results["tvshow.clearlogo"] != null)
                                 {
@@ -566,6 +578,10 @@ namespace Remote.XBMC.Matrix.Api
                                 {
                                     clearlogo = results["tvshow.clearlogo"].ToString();
                                 }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
+                                }
                                 if (results["banner"] != null)
                                 {
                                     banner = results["banner"].ToString();
@@ -669,6 +685,10 @@ namespace Remote.XBMC.Matrix.Api
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
+                                }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
                                 }
                                 if (results["banner"] != null)
                                 {
@@ -940,6 +960,10 @@ namespace Remote.XBMC.Matrix.Api
                                 if (results["clearlogo"] != null)
                                 {
                                     clearlogo = results["clearlogo"].ToString();
+                                }
+                                else if (results["logo"] != null)
+                                {
+                                    clearlogo = results["logo"].ToString();
                                 }
                                 if (results["banner"] != null)
                                 {

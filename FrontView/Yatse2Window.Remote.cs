@@ -464,7 +464,7 @@ namespace FrontView
                     _yatse2Properties.Currently.IsTv = true;
                     _yatse2Properties.Currently.Thumb = GetVideoThumbPath(nowPlaying.ThumbURL); // TODO : Change to converter
                     _yatse2Properties.Currently.Logo = GetVideoLogoPath(nowPlaying.LogoURL);
-                    Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
+                    Logger.Instance().LogDump("LogoUpdate.3", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
                     var epinfo = _database.GetTvEpisodeFromFile(_remoteInfo.Id, nowPlaying.FileName);
                     if (epinfo.Count > 0)
                     {
@@ -503,7 +503,8 @@ namespace FrontView
                 case "Movie":
                     _yatse2Properties.Currently.Thumb = GetVideoThumbPath(nowPlaying.ThumbURL); // TODO : Change to converter
                     //_yatse2Properties.Currently.Logo = GetVideoThumbPath(nowPlaying.LogoURL);
-                    Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
+
+                    Logger.Instance().LogDump("LogoUpdate.4", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
 
                     Logger.Instance().Log("FrontView+", "New Movie Media : " + nowPlaying.FileName);
                     var movieinfo = _database.GetMovieFromFile(_remoteInfo.Id, nowPlaying.FileName);
@@ -515,7 +516,19 @@ namespace FrontView
                     {
                         _yatse2Properties.Currently.MovieTitle = movieinfo[0].Title;
                         _yatse2Properties.Currently.Fanart = GetVideoFanartPath(movieinfo[0].Fanart); // TODO : Change to Covnerter
-                        _yatse2Properties.Currently.Logo = GetVideoLogoPath(movieinfo[0].Logo);
+                        if (movieinfo[0].Logo == null) 
+                        {
+                            _yatse2Properties.Currently.Logo = GetVideoLogoPath(movieinfo[0].Logo);
+                        }
+                        else if (movieinfo[0].Logo == "NONE")
+                        {
+                            _yatse2Properties.Currently.Logo = GetVideoLogoPath(nowPlaying.LogoURL);
+                        }
+                        else
+                        {
+                            _yatse2Properties.Currently.Logo = GetVideoLogoPath(movieinfo[0].Logo);
+                        }
+                        // = movieinfo[0].Logo == "NONE" : GetVideoLogoPath(movieinfo[0].Logo) ? GetVideoLogoPath(nowPlaying.LogoURL);
                         Logger.Instance().LogDump("LogoUpdate", "nowPlaying 232 LogoURL equals:" + movieinfo[0].Logo + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
                         _yatse2Properties.Currently.MovieYear = movieinfo[0].Year.ToString(CultureInfo.InvariantCulture);
                         _yatse2Properties.Currently.MoviePlot = movieinfo[0].Plot;
@@ -530,7 +543,7 @@ namespace FrontView
                         _yatse2Properties.Currently.Fanart = GetVideoFanartPath(nowPlaying.FanartURL); // TODO : Change to Converter
                         _yatse2Properties.Currently.Logo = GetVideoLogoPath(nowPlaying.LogoURL);
                         _yatse2Properties.Currently.MovieYear = nowPlaying.Year.ToString(CultureInfo.InvariantCulture);
-                        Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
+                        Logger.Instance().LogDump("LogoUpdate", "nowPlaying LogoURL -123- equals:" + nowPlaying.LogoURL + " and Yatse2Properties.Currently.Logo equals:" + _yatse2Properties.Currently.Logo, true);
                         _yatse2Properties.Currently.MoviePlot = nowPlaying.Plot;
                         _yatse2Properties.Currently.MovieDirector = nowPlaying.Director;
                         _yatse2Properties.Currently.MovieNote = nowPlaying.Rating;

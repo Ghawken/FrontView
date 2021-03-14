@@ -255,6 +255,19 @@ namespace Remote.XBMC.Matrix.Api
         {
             if (!_configured) return null;
             if (!_configured) return null;
+
+  //          if (fileName.StartsWith(@"image://"))
+   //         {
+   //             // remove it
+   //             Logger.Instance().Trace("GetDownloadPath:", "Modified Filename was prior: " + fileName.ToString());
+    //            fileName = fileName.Remove(0, 8);
+               if (fileName.EndsWith(@"/"))
+                {
+                    fileName = fileName.Remove(fileName.Length- 1);
+                }
+   //         }
+
+            Logger.Instance().Trace("GetDownloadPath:",  "fileName now:"+ fileName.ToString());
             return @"http://" + IP + ":" + Port + "/image/" + HttpUtility.UrlEncode(fileName);
 
             // 
