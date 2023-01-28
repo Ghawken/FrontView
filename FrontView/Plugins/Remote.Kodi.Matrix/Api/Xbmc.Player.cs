@@ -234,32 +234,40 @@ namespace Remote.XBMC.Matrix.Api
 
                     JsonObject artresults = (JsonObject)result2["art"];
 
+
                     if (artresults != null)
                     {
-                        if (artresults["tvshow.clearlogo"] != null)
+                        try
                         {
-                            clearlogo = artresults["tvshow.clearlogo"].ToString();
-                        }
-                        else if (artresults["movie.clearlogo"] != null)
-                        {
-                            clearlogo = artresults["movie.clearlogo"].ToString();
-                        }
-                        else if (artresults["clearlogo"] != null)
-                        {
-                            clearlogo = artresults["clearlogo"].ToString();
-                        }
-                        else if (artresults["logo"] != null)
-                        {
-                            clearlogo = artresults["logo"].ToString();
-                        }
+                            if (artresults["tvshow.clearlogo"] != null)
+                            {
+                                clearlogo = artresults["tvshow.clearlogo"].ToString();
+                            }
+                            else if (artresults["movie.clearlogo"] != null)
+                            {
+                                clearlogo = artresults["movie.clearlogo"].ToString();
+                            }
+                            else if (artresults["clearlogo"] != null)
+                            {
+                                clearlogo = artresults["clearlogo"].ToString();
+                            }
+                            else if (artresults["logo"] != null)
+                            {
+                                clearlogo = artresults["logo"].ToString();
+                            }
 
-                        if (artresults["banner"] != null)
-                        {
-                            banner = artresults["banner"].ToString();
+                            if (artresults["banner"] != null)
+                            {
+                                banner = artresults["banner"].ToString();
+                            }
+                            else if (artresults["movie.banner"] != null)
+                            {
+                                banner = artresults["movie.banner"].ToString();
+                            }
                         }
-                        else if (artresults["movie.banner"] != null)
+                        catch (Exception ex)
                         {
-                             banner = artresults["movie.banner"].ToString();
+                            _parent.Trace("ArtResults Caught Exception:" + ex);
                         }
 
                     }
@@ -269,44 +277,53 @@ namespace Remote.XBMC.Matrix.Api
                     {
                         if (result2["type"].ToString() == "channel")  //if PVR Needs to go high otherwise exception
                         {
+                            _parent.Log("KODI-Remote:nowPlaying PVR:" + result2["type"]);
                             _nowPlaying.MediaType = "Pvr";
                             _nowPlaying.IsNewMedia = true;
                             _nowPlaying.FileName = result2["label"].ToString();
+                            _parent.Log("KODI-Remote:nowPlaying PVR Filename:" + result2["label"].ToString());
 
                             if (artresults != null)
                             {
-                                if (artresults["fanart"] != null)
+                                try
                                 {
-                                    _nowPlaying.FanartURL = artresults["fanart"].ToString();
-                                }
-                                else
-                                {
-                                    _nowPlaying.FanartURL = artresults["fanart"].ToString();
-                                }
-                                if (artresults["set.poster"] != null)
-                                {
-                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
-                                }
-                                else
-                                {
-                                    _nowPlaying.ThumbURL = artresults["set.poster"].ToString();
-                                }
-                               
-                            }
+                                    if (artresults["fanart"] != null)
+                                    {
+                                        _nowPlaying.FanartURL = artresults["fanart"].ToString();
+                                    }
+                                    else
+                                    {
+                                        if (artresults["thumb"] != null)
+                                        {
+                                            _nowPlaying.FanartURL = artresults["thumb"].ToString();
+                                        }
+                                    }
 
-                        //    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
-                         //   _nowPlaying.FanartURL = result2["fanart"].ToString();
+                                    if (artresults["thumb"] != null)
+                                    {
+                                        _nowPlaying.ThumbURL = artresults["thumb"].ToString();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    _parent.Trace("Fanart PVR:" + ex);
+                                }
+
+                            }
+                            _parent.Log("KODI-Remote:nowPlaying PVR.1 isPaused:" + _nowPlaying.IsPaused.ToString() + " and isPlaying:" + _nowPlaying.IsPlaying.ToString());
+                            //    _nowPlaying.ThumbURL = result2["thumbnail"].ToString();
+                            //   _nowPlaying.FanartURL = result2["fanart"].ToString();
                             _nowPlaying.LogoURL = clearlogo;
 
-                            if (result2["showtitle"] != null && result2["showtitle"].ToString() !="" )
+                            if (result2["showtitle"] != null && result2["showtitle"].ToString() != "")
                             {
                                 var Title = ReplaceSquare(result2["showtitle"].ToString());
                                 _nowPlaying.Title = Title;
                             }
-                            else if (result2["title"] !=null & result2["title"].ToString() != "")
+                            else if (result2["title"] != null & result2["title"].ToString() != "")
                             {
                                 var Title = ReplaceSquare(result2["title"].ToString());
-                                _nowPlaying.Title = Title;                         
+                                _nowPlaying.Title = Title;
                             }
                             else
                             {
@@ -314,10 +331,11 @@ namespace Remote.XBMC.Matrix.Api
                                 _nowPlaying.Title = Title;
                             }
 
-                            
-
                             _nowPlaying.IsPaused = Convert.ToInt32("0" + result1["speed"].ToString().Replace("-", "")) == 0;
                             _nowPlaying.IsPlaying = !_nowPlaying.IsPaused;
+
+                            _parent.Log("KODI-Remote:nowPlaying PVR.2 isPaused:" + _nowPlaying.IsPaused.ToString() + " and isPlaying:" + _nowPlaying.IsPlaying.ToString());
+
                             var pvrtime = (JsonObject)result1["time"];
                             var pvrtotal = (JsonObject)result1["totaltime"];
                             _nowPlaying.Time = new TimeSpan(0, Convert.ToInt32("0" + pvrtime["hours"]), Convert.ToInt32("0" + pvrtime["minutes"]), Convert.ToInt32("0" + pvrtime["seconds"]));

@@ -1,5 +1,25 @@
 ﻿Changelog:
 
+1.340
+Fix for PVR artwork changes in Kodi Matrix and Nexus
+
+1.335
+Update Libraries
+Update .Net Version to 4.8
+Add Kodi 20 Remote Control (currently same as 19)
+
+Plug: For DDC Control - added sometime ago...
+
+This is a low level Hardware control of the Screens Contrast and Brightness levels.
+Frontview - dims to black its screen, if selected when playback starts, but this can still leave a bright backlight screen
+If you enable DDC Control (in Amp/DDC settings) it will dim as usual, but once dim is completed will then drop brightness and contrast
+of screen to 0.  Turning off the backlight - exactly the same as if you had turned down the brightness and contrast screen settings.
+If Paused, or playback stops - screen will return to normal and display dims up.
+
+(Unfortunately this isn't supported by all screens/graphics cards it would seem - exactly the issue is hard to track down.  Hence the test button in the Settings Screen)
+
+
+
 1.330
 Kodi Matrix:
 Updates to Remotes to fix fanart images and logos sometimes not appearing.
