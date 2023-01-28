@@ -323,13 +323,13 @@ namespace Remote.Plex.Api
                             // Open the stream using a StreamReader.
                             System.IO.StreamReader reader = new System.IO.StreamReader(dataStream);
 
-                        
-                                                                                 
+
+                           // var copyreader = reader;                                                     
 
                             XmlSerializer serializer = new XmlSerializer(typeof(MediaContainer));
                             MediaContainer deserialized = (MediaContainer)serializer.Deserialize(reader);
 
-                            _parent.Log("status/sessions: " + reader.ReadToEnd().ToString()); 
+                            _parent.Log("status/sessions: " + reader.ToString()); 
                            
                             var length = Convert.ToInt32(deserialized.size);
                             _parent.Log("Number of playing Videos: " + length);
@@ -358,7 +358,8 @@ namespace Remote.Plex.Api
                                 _parent.Log("Checking against Local Playback only Client IP: " + _parent.ClientIPAddress);
                                 _parent.Log("IP Address Playing now are:" + server.Player.address);
 
-                                if (server.Player.address.Contains(_parent.ClientIPAddress))
+                                if (server.Player.address.Contains(_parent.ClientIPAddress) || server.Player.address.Contains("127.0.0.1") )  //## add for local IP playback
+
                                 {
 
                                     _parent.Log("Plex: Found Local Playback");

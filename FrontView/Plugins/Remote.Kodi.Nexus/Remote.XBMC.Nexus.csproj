@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{520FC54E-95C7-4661-B222-AD0E11308B2F}</ProjectGuid>
+    <ProjectGuid>{0A248322-BF90-4DE9-9BA7-0407CC7A4500}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Remote.XBMC.Leia</RootNamespace>
-    <AssemblyName>Remote.XBMC.Leia</AssemblyName>
+    <RootNamespace>Remote.XBMC.Nexus</RootNamespace>
+    <AssemblyName>Remote.XBMC.Nexus</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -117,7 +117,7 @@
   <ItemGroup>
     <Compile Include="Api\StreamDetails Classes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Remote.XBMC.Leia.cs" />
+    <Compile Include="Remote.XBMC.Nexus.cs" />
     <Compile Include="Api\JsonRpcClient.cs">
       <SubType>Component</SubType>
     </Compile>
