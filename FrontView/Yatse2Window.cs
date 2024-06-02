@@ -913,6 +913,9 @@ namespace FrontView
                     _yatse2Properties.Skin_Extra_Logo = _config.Skin_Extra_Logo;
                     _yatse2Properties.UseLogo = _config.UseLogo;
                     _yatse2Properties.UseNowPlayingMediaIcons = _config.UseNowPlayingMediaIcons;
+                    _yatse2Properties.useNowPlayingRemainingTime = _config.useNowPlayingRemainingTime;
+                    _yatse2Properties.useNowPlayingEndTime = _config.useNowPlayingEndTime;
+                    _yatse2Properties.NoHomeScreenClock = _config.NoHomeScreenClock;
                     _yatse2Properties.Weather = new Yatse2Weather();
                     _yatse2Properties.Currently = new Yatse2Currently
                     {

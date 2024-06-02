@@ -304,6 +304,25 @@ namespace FrontView.Classes
             set { SetValue(DurationProperty, value); }
         }
 
+        public static readonly DependencyProperty RemainingTimeProperty =
+    DependencyProperty.Register("RemainingTime", typeof(string), typeof(Yatse2Currently));
+
+        public string RemainingTime
+        {
+            get { return (string)GetValue(RemainingTimeProperty); }
+            set { SetValue(RemainingTimeProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty FinishTimeProperty =
+    DependencyProperty.Register("FinishTime", typeof(string), typeof(Yatse2Currently));
+
+        public string FinishTime
+        {
+            get { return (string)GetValue(FinishTimeProperty); }
+            set { SetValue(FinishTimeProperty, value); }
+        }
+
         public static readonly DependencyProperty ProgressProperty =
             DependencyProperty.Register("Progress", typeof(long), typeof(Yatse2Currently));
 

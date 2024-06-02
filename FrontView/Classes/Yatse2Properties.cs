@@ -185,6 +185,33 @@ DependencyProperty.Register("UseNowPlayingMediaIcons", typeof(bool), typeof(Yats
             set { SetValue(UseNowPlayingMediaIconsProperty, value); }
         }
 
+        public static readonly DependencyProperty useNowPlayingRemainingTimeProperty =
+DependencyProperty.Register("useNowPlayingRemainingTime", typeof(bool), typeof(Yatse2Properties));
+
+        public bool useNowPlayingRemainingTime
+        {
+            get { return (bool)GetValue(useNowPlayingRemainingTimeProperty); }
+            set { SetValue(useNowPlayingRemainingTimeProperty, value); }
+        }
+
+        public static readonly DependencyProperty useNowPlayingEndTimeProperty =
+DependencyProperty.Register("useNowPlayingEndTime", typeof(bool), typeof(Yatse2Properties));
+
+        public bool useNowPlayingEndTime
+        {
+            get { return (bool)GetValue(useNowPlayingEndTimeProperty); }
+            set { SetValue(useNowPlayingEndTimeProperty, value); }
+        }
+
+        public static readonly DependencyProperty NoHomeScreenClockProperty =
+            DependencyProperty.Register("NoHomeScreenClock", typeof(bool), typeof(Yatse2Properties));
+
+        public bool NoHomeScreenClock
+        {
+            get { return (bool)GetValue(NoHomeScreenClockProperty); }
+            set { SetValue(NoHomeScreenClockProperty, value); }
+        }
+
         public static readonly DependencyProperty Skin_Extra_LogoProperty =
 DependencyProperty.Register("Skin_Extra_Logo", typeof(string), typeof(Yatse2Properties));
 

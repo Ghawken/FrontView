@@ -653,6 +653,13 @@ namespace FrontView
                 _yatse2Properties.Currently.Progress = nowPlaying.Progress;            
                 _yatse2Properties.Currently.Time = nowPlaying.Time.ToString();
                 _yatse2Properties.Currently.Duration = nowPlaying.Duration.ToString();
+
+                _yatse2Properties.Currently.RemainingTime = (nowPlaying.Duration - nowPlaying.Time).ToString();
+                TimeSpan remainingTime = nowPlaying.Duration - nowPlaying.Time;
+                DateTime currentTime = DateTime.Now;
+                DateTime finishTime = currentTime + remainingTime;
+                _yatse2Properties.Currently.FinishTime = finishTime.ToString("h:mm tt");
+
                 _yatse2Properties.Currently.IsPlaying = nowPlaying.IsPlaying;
                 _yatse2Properties.Currently.IsPaused = nowPlaying.IsPaused;
                 if (_config.UseReceiverIPforVolume == false)

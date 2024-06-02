@@ -93,6 +93,8 @@ namespace FrontView
             chk_Settings_UseLogo.IsChecked = _config.UseLogo;
 
             chk_Settings_UseNowPlayingMediaIcons.IsChecked = _config.UseNowPlayingMediaIcons;
+            chk_Settings_useNowPlayingRemainingTime.IsChecked = _config.useNowPlayingRemainingTime;
+            chk_Settings_useNowPlayingEndTime.IsChecked = _config.useNowPlayingEndTime;
 
             chk_Settings_UseBanner.IsChecked = _config.UseBanner;
             chk_Settings_ShowOverlay.IsChecked = _config.ShowOverlay;
@@ -173,6 +175,7 @@ namespace FrontView
             chk_Settings_TurnOffDDCControl.IsChecked = _config.TurnOffDDCControl;
             chk_Settings_DisableRemoteCheck.IsChecked = _config.DisableRemoteCheck;
             chk_Settings_NoHomeScreenFanart.IsChecked = _config.NoHomeScreenFanart;
+            chk_Settings_NoHomeScreenClock.IsChecked = _config.NoHomeScreenClock;
             chk_Settings_TVOrderbyNewEpisodes.IsChecked = _config.TVOrderbyNewEpsiodes;
 
             LoadSettingsResolutions();
@@ -373,6 +376,8 @@ namespace FrontView
                 _config.Currently = (bool)chk_Settings_Currently.IsChecked;
                 _config.CurrentlyMovie = (bool)chk_Settings_CurrentlyMovie.IsChecked;
                 _config.UseNowPlayingMediaIcons = (bool)chk_Settings_UseNowPlayingMediaIcons.IsChecked;
+                _config.useNowPlayingRemainingTime = (bool)chk_Settings_useNowPlayingRemainingTime.IsChecked;
+                _config.useNowPlayingEndTime = (bool)chk_Settings_useNowPlayingEndTime.IsChecked;
                 _config.HideCursor = (bool)chk_Settings_HideCursor.IsChecked;
                 _config.UseLogo = (bool)chk_Settings_UseLogo.IsChecked;
                 _config.UseBanner = (bool)chk_Settings_UseBanner.IsChecked;
@@ -407,6 +412,7 @@ namespace FrontView
                 _config.TurnOffDDCControl = (bool)chk_Settings_TurnOffDDCControl.IsChecked;
                 _config.DisableRemoteCheck = (bool)chk_Settings_DisableRemoteCheck.IsChecked;
                 _config.NoHomeScreenFanart = (bool)chk_Settings_NoHomeScreenFanart.IsChecked;
+                _config.NoHomeScreenClock = (bool)chk_Settings_NoHomeScreenClock.IsChecked;
                 _config.HttpUseDigest = (bool)chk_Settings_HttpUseDigest.IsChecked;
                 // ReSharper restore PossibleInvalidOperationException
                 _config.TVOrderbyNewEpsiodes = (bool)chk_Settings_TVOrderbyNewEpisodes.IsChecked;
@@ -525,6 +531,9 @@ namespace FrontView
             _yatse2Properties.Skin_Extra_Text = _config.Skin_Extra_Text;
             _yatse2Properties.Skin_Extra_Logo = _config.Skin_Extra_Logo;
             _yatse2Properties.UseNowPlayingMediaIcons = _config.UseNowPlayingMediaIcons;
+            _yatse2Properties.useNowPlayingRemainingTime = _config.useNowPlayingRemainingTime;
+            _yatse2Properties.useNowPlayingEndTime = _config.useNowPlayingEndTime;
+            _yatse2Properties.NoHomeScreenClock = _config.NoHomeScreenClock;
             _yatse2Properties.UseLogo = _config.UseLogo;
             RefreshDictionaries();
 

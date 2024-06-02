@@ -327,6 +327,7 @@ namespace Plugin
         public int Volume { get; set; }
         public TimeSpan Time { get; set; }
         public TimeSpan Duration { get; set; }
+        public TimeSpan RemainingTime { get; set; }
         public bool IsPlaying { get; set; }
         public bool IsPaused { get; set; }
         public string MediaType { get; set; }

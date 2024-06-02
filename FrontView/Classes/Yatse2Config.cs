@@ -87,6 +87,9 @@ namespace FrontView.Classes
         public bool HideCursor { get; set; }
         public bool UseLogo { get; set; }
         public bool UseNowPlayingMediaIcons { get; set; }
+        public bool useNowPlayingRemainingTime { get; set; }
+
+        public bool useNowPlayingEndTime { get; set; }
         public bool UseBanner { get; set; }
         public bool ShowOverlay { get; set; } // TODO : Use this
         public bool ShowEmptyMusicGenre { get; set; }
@@ -156,6 +159,8 @@ namespace FrontView.Classes
         public bool TurnOffDDCControl { get; set; }
         public bool DisableRemoteCheck { get; set; }
         public bool NoHomeScreenFanart { get; set; }
+
+        public bool NoHomeScreenClock { get; set; }
         public string ReceiverIP { get; set; }
 
         public int ReceiverPort { get; set; }
@@ -191,6 +196,8 @@ namespace FrontView.Classes
             HideCursor = false;
             UseLogo = true;
             UseNowPlayingMediaIcons = true;
+            useNowPlayingRemainingTime = false;
+            useNowPlayingEndTime = false;
             UseBanner = false;
             ShowOverlay = true;
             ShowEmptyMusicGenre = false;
@@ -269,6 +276,7 @@ namespace FrontView.Classes
             TurnOffDDCControl = false;
             DisableRemoteCheck = false;
             NoHomeScreenFanart = false;
+            NoHomeScreenClock = false;
            // Skin_Extra_Text = ;
            // Skin_Extra_Logo = ;
         }
@@ -345,6 +353,8 @@ namespace FrontView.Classes
             CurrentlyMovie = config.CurrentlyMovie;
             HideCursor = config.HideCursor;
             UseNowPlayingMediaIcons = config.UseNowPlayingMediaIcons;
+            useNowPlayingRemainingTime = config.useNowPlayingRemainingTime;
+            useNowPlayingEndTime = config.useNowPlayingEndTime;
             UseLogo = config.UseLogo;
             UseBanner = config.UseBanner;
             ShowOverlay = config.ShowOverlay;
@@ -411,6 +421,7 @@ namespace FrontView.Classes
             TurnOffDDCControl = config.TurnOffDDCControl;
             DisableRemoteCheck = config.DisableRemoteCheck;
             NoHomeScreenFanart = config.NoHomeScreenFanart;
+            NoHomeScreenClock = config.NoHomeScreenClock;
             DefaultPlayMode = config.DefaultPlayMode;
             LongKeyPress = config.LongKeyPress;
             DiaporamaMode = config.DiaporamaMode;
